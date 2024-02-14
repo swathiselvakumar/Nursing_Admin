@@ -66,7 +66,7 @@ function CheckboxValidation({ selectBox }) {
             onChange={() => handleCheckboxChange("checkbox4")}
             disabled={isCheckboxDisabled && !checkboxes.checkbox4}
           />
-          Java
+          JavaScript
         </label>
         <br />
       </form>
