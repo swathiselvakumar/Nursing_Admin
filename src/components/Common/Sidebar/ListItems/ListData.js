@@ -23,11 +23,11 @@ export const TopListData = [
     title: "Questions",
     // path: PATH.TESTS,
   },
-  {
-    icon:  NotificationsNoneIcon,
-    title: "Notification",
-    path: PATH.PURCHASE,
-  },
+  // {
+  //   icon:  NotificationsNoneIcon,
+  //   title: "Notification",
+  //   path: PATH.PURCHASE,
+  // },
   {
     icon: ForumRoundedIcon,
     title: "Discussion Forum",
