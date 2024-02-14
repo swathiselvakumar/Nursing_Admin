@@ -1,0 +1,90 @@
+import styled from "@emotion/styled";
+
+export const LearningboardCardStyle = styled("div")(({ theme }) => ({
+  ".card-container": {
+    backgroundColor: theme.background.lightblue,
+    filter: `drop-shadow(0px 3px 3px rgba(${0},${0},${0},${0.42}))`,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px 10px",
+    borderRadius: "13px",
+  },
+  ".MuiCardContent-root": {
+    padding: "0px",
+  },
+  ".course-title": {
+    display: "flex",
+    justifyContent: "center",
+    margin: "8px 0px",
+    ".MuiTypography-body2": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      fontSize: "9px",
+      fontWeight: "bold",
+      color: theme.font.tertiary,
+      backgroundColor: theme.background.whitePrimary,
+      width: "33px",
+      height: "20px",
+      borderRadius: "11px",
+      padding: "2px",
+      textTransform: "uppercase",
+    },
+  },
+  ".dept-title": {
+    display: "flex",
+    justifyContent: "center",
+    width: "99%",
+    marginBottom: "8px",
+    ".MuiTypography-body2": {
+      textAlign: "center",
+      fontSize: "9px",
+      fontWeight: "bold",
+      color: theme.font.primary,
+    },
+  },
+  ".count-title": {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "8px",
+    ".MuiTypography-body2": {
+      textAlign: "center",
+      fontSize: "9px",
+      fontWeight: 500,
+      color: theme.font.tertiary,
+    },
+  },
+  ".badge-container": {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "8px",
+    ".medal": {
+      height: 27,
+      width: 27,
+    },
+    ".MuiTypography-body2": {
+      textAlign: "center",
+      marginTop: "8px",
+      fontWeight: 600,
+      color: theme.font.tertiary,
+      fontSize: "6px",
+    },
+  },
+  ".action-container": {
+    display: "flex",
+    justifyContent: "center",
+    ".MuiButton-root": {
+      backgroundColor: theme.background.primary,
+      color: theme.font.whiteSecondary,
+      padding: "6px 20px",
+      borderRadius: "21px",
+      textTransform: "capitalize",
+      fontSize: "8px",
+      fontWeight: 500,
+      filter: `drop-shadow(0px 3px 3px rgba(${0},${88},${219},${0.37}))`,
+    },
+  },
+}));
