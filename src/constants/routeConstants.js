@@ -1,4 +1,6 @@
 export const PATH = {
   DASHBOARD: "/",
-  REPORT:"/report"
+  REPORT:"/report",
+  YEARMCQ:"/yearmcq",
+  SUBJECTMCQ:"/subjectmcq"
 };
