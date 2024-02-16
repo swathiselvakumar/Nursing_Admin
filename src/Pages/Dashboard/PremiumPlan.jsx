@@ -1,9 +1,10 @@
-import React from 'react'
+// import React from 'react'
 import { DashboardStyles } from './styles'
 import { Button, Typography } from '@mui/material'
 import Crown from '../../assets/images/crown.png'
-import { Container,  Col, Row } from "react-bootstrap";
-import { Card } from "@mui/material";
+// import Container from '@mui/material';
+import {Container, Row ,Col} from 'react-bootstrap';
+// import { Card } from "@mui/material";
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default function PremiumPlan() {
     
