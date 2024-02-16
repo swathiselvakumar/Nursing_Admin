@@ -1,4 +1,3 @@
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -24,68 +23,69 @@ const rows = [
 export default function TableViewOrg() {
   return (
     <>
-    <div
-      style={{
-        padding: "10px",
-        backgroundColor: "#f1f1f1",
-        borderRadius: "10px",
-      }}
-    >
       <div
-        className="table-head"
         style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          paddingBottom: "10px",
+          padding: "10px",
+          backgroundColor: "#f1f1f1",
+          borderRadius: "10px",
         }}
       >
-        <div className="d1" style={{ flex: "1" }}>
-          <h3>Students Reports</h3>
-        </div>
         <div
-          className="menu-wrapper"
+          className="table-head"
           style={{
-            justifyContent: "flex-end",
-            alignItems: "center",
-            // padding: "10px",
-            backgroundColor: "#e1eede",
-            borderRadius: "10px",
+            display: "flex",
+            justifyContent: "flex-start",
+            paddingBottom: "10px",
           }}
         >
-          <FilterListIcon />
-          <DropDown />
+          <div className="d1" style={{ flex: "1" }}>
+            <h3>Students Reports</h3>
+          </div>
+          <div
+            className="menu-wrapper"
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              padding: "5px",
+              backgroundColor: "#e1eede",
+              borderRadius: "10px",
+            }}
+          >
+            <FilterListIcon name="Students" />
+            <DropDown />
+          </div>
         </div>
-      </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow style={{ backgroundColor: "#E1EEDE" }}>
-              <TableCell>Sno</TableCell>
-              <TableCell align="right">Sname</TableCell>
-              <TableCell align="right">Email Id</TableCell>
-              <TableCell align="right">Joining Date</TableCell>
-              <TableCell align="right">Category</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow style={{ backgroundColor: "#E1EEDE" }}>
+                <TableCell>Sno</TableCell>
+                <TableCell align="right">Sname</TableCell>
+                <TableCell align="right">Email Id</TableCell>
+                <TableCell align="right">Joining Date</TableCell>
+                <TableCell align="right">Category</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.calories}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="right">{row.carbs}</TableCell>
+                  <TableCell align="right">{row.protein}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </>
   );
 }

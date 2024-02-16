@@ -1,39 +1,16 @@
+import { DropDownWrapper } from "./style.js";
 
-
-function TableButton() {
+function TableButton({ name, name2 }) {
   return (
     <div>
-      <div className="btn-wrapper" style={{padding:'20px'}}>
-        <div
-          className="btn-1"
-          style={{ display: "flex", justifyContent: "space-around" }}
-        >
-          <button
-            style={{
-              padding: "15px 230px 15px 230px",
-              fontWeight: "600",
-              border: "none",
-              color: "white",
-              fontSize: "18px",
-              backgroundColor: "#f0a04b",
-            }}
-          >
-            Student
-          </button>
-          <button
-            style={{
-              padding: "15px 230px 15px 230px",
-              fontWeight: "600",
-              border: "none",
-              color: "black",
-              fontSize: "18px",
-              backgroundColor: "white",
-            }}
-          >
-            Test
-          </button>
+      <DropDownWrapper>
+        <div className="btn-wrapper">
+          <div className="btn-1">
+            <button className="lg-btn">{name}</button>
+            <button className="lg-btn-2">{name2}</button>
+          </div>
         </div>
-      </div>
+      </DropDownWrapper>
     </div>
   );
 }
