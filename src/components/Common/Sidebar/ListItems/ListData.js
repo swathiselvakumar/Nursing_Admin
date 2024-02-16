@@ -24,11 +24,6 @@ export const TopListData = [
     // path: PATH.TESTS,
   },
   {
-    icon:  NotificationsNoneIcon,
-    title: "Notification",
-    path: PATH.PURCHASE,
-  },
-  {
     icon: ForumRoundedIcon,
     title: "Discussion Forum",
     // path: PATH.PURCHASE,
@@ -43,38 +38,38 @@ export const TopListData = [
 export const SubListData = [
   {
     title: "Standard",
-    // path: PATH.TESTS,
+    path: PATH.STANDARD,
   },
   {
     title: "Premium",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.PREMIUM,
   },
   {
     title: "Premium Plans ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.PREMIUMPLANS,
   },
 ];
 
 export const SubListData1 = [
   {
     title: "Previous Year MCQ",
-    // path: PATH.TESTS,
+    path: PATH.YEARMCQ,
   },
   {
     title: "Subject Wise MCQ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.SUBJECTMCQ,
   },
   {
     title: "Non Nursing MCQ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.NONNURSING,
   },
   {
     title: "Model mock test",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.MODELMOCK,
   },
   {
     title: "Hybrid Test",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.HYBRID,
   },
 ];
 
