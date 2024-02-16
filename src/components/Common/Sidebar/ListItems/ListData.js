@@ -23,11 +23,6 @@ export const TopListData = [
     title: "Questions",
     // path: PATH.TESTS,
   },
-  // {
-  //   icon:  NotificationsNoneIcon,
-  //   title: "Notification",
-  //   path: PATH.PURCHASE,
-  // },
   {
     icon: ForumRoundedIcon,
     title: "Discussion Forum",
@@ -58,11 +53,11 @@ export const SubListData = [
 export const SubListData1 = [
   {
     title: "Previous Year MCQ",
-    // path: PATH.TESTS,
+    path: PATH.YEARMCQ,
   },
   {
     title: "Subject Wise MCQ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.SUBJECTMCQ,
   },
   {
     title: "Non Nursing MCQ",
