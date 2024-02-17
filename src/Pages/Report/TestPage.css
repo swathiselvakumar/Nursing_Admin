@@ -2,14 +2,14 @@
     border-radius: 13px;
     background-color: #ffffff;
   
-    width: 30vw;
+    /* width: 30vw; */
     padding-bottom: 30px;
   }
   .rigth-wrapper {
     border-radius: 13px;
     background-color: #ffffff;
-  
-    width: 20vw;
+    height:570px;
+    /* width: 20vw; */
   }
   .c1 {
     padding: 5px 20px 0px 40px;
@@ -69,6 +69,7 @@
     display: flex;
     justify-content: center;
     gap: 5px;
+    padding-top: 50px;
   }
   
   .r1 {

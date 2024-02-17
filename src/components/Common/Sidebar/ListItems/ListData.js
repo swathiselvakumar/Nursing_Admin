@@ -38,15 +38,15 @@ export const TopListData = [
 export const SubListData = [
   {
     title: "Standard",
-    // path: PATH.TESTS,
+    path: PATH.STANDARD,
   },
   {
     title: "Premium",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.PREMIUM,
   },
   {
     title: "Premium Plans ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.PREMIUMPLANS,
   },
 ];
 
@@ -61,15 +61,15 @@ export const SubListData1 = [
   },
   {
     title: "Non Nursing MCQ",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.NONNURSING,
   },
   {
     title: "Model mock test",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.MODELMOCK,
   },
   {
     title: "Hybrid Test",
-    // path: PATH.RESULT_ANALYSIS,
+    path: PATH.HYBRID,
   },
 ];
 

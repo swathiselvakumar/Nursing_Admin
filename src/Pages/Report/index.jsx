@@ -6,7 +6,7 @@ import { ReportStyle } from "./style";
 import TableNav from "./Table/TableNav";
 import TableButton from "./Table/TableButton";
 
-import TableViewOrg from "./Table/TableView";
+// import TableViewOrg from "./Table/TableView";
 
 export default function Report() {
   return (
@@ -16,7 +16,7 @@ export default function Report() {
       <ReportStyle>
         <TableNav />
         <TableButton />
-        <TableViewOrg/>      
+        {/* <TableViewOrg/>       */}
         
       </ReportStyle>
     </div>

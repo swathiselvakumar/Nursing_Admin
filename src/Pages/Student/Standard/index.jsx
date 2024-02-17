@@ -1,17 +1,18 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
-import { YEARMCQStyle } from './style'
+import { StandardStyle } from './style';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
-import YearCard from './Card';
-export default function YearMCQ() {
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+export default function Standard() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "white",
+    width:"350px",
     '&:hover': {
       backgroundColor: "white",
     },
@@ -29,24 +30,22 @@ export default function YearMCQ() {
   }));
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
-    // width: '100%',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
      
     },
   }));
   return (
-    <YEARMCQStyle>
+    < StandardStyle>
     <div className='bodystyle'>
-        <div className='title'> 
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Previous Year MCQ's</Typography>
+        <div className='title'>
+        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Standard </Typography>
         </div>
-        <Container style={{marginTop:"20px"}}>
+        <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6} className='MainCol1'>
+            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
             <div className='search'>
           <Search>
             <SearchIconWrapper>
@@ -59,19 +58,18 @@ export default function YearMCQ() {
           </Search>
           </div>
             </Col>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6}  className='MainCol'>
+            <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button><UpdateIcon/>&nbsp; Update</Button>
+                <Button ><UpdateIcon/>&nbsp; Update</Button>
+              </div>&nbsp;&nbsp;
+              <div>
+                <Button style={{backgroundColor:"white",color:"black"}}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
               </div>
             </Col>
           </Row>
         </Container>
-        <div>
-          <YearCard/>
-        </div>
-     
-      
+        
     </div>
-    </YEARMCQStyle>
+    </ StandardStyle>
   )
 }

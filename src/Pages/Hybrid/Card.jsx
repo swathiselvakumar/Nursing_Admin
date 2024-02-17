@@ -1,10 +1,12 @@
 import React from 'react'
 import { Container,Row,Col } from 'react-bootstrap'
-import Book from '../../assets/images/book.png'
+import DailyTest from '../../assets/images/DailyTest.png'
+import MiniTest from '../../assets/images/minitest.webp'
+import Micro from '../../assets/images/micro.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
-export default function YearCard() {
+export default function HybridCard() {
     const Div={
         backgroundColor:"white",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
@@ -17,57 +19,23 @@ export default function YearCard() {
     }
     const datas=[
         {
-            img:Book,
-            name:"Subject 1",
+            img:DailyTest,
+            name:"DailyTest",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 2",
+            img:MiniTest,
+            name:"MiniTest",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 3",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 4",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 5",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 6",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 7",
-            path:"/testpage"
-        },{
-            img:Book,
-            name:"Subject 8",
-            path:"/testpage"
-        }
-        ,{
-            img:Book,
-            name:"Subject 9",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 10",
+            img:Micro,
+            name:"Micro Test",
             path:"/testpage"
         },
         {
             img:Plus,
-            name:"Add Subject"
+            name:"Add Category"
         }
         
     ]
