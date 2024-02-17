@@ -3,6 +3,7 @@ import { Container,Row,Col } from 'react-bootstrap'
 import Institution from '../../assets/images/vadakk.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
+import { NavLink } from 'react-router-dom'
 export default function YearCard() {
     const Div={
         backgroundColor:"white",
@@ -18,51 +19,51 @@ export default function YearCard() {
         {
             img:Institution,
             name:"Institution 1",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 2",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 3",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 4",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 5",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 6",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 7",
-            path:"/instruction"
+            path:"/testpage"
         },{
             img:Institution,
             name:"Institution 8",
-            path:"/instruction"
+            path:"/testpage"
         }
         ,{
             img:Institution,
             name:"Institution 9",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Institution,
             name:"Institution 10",
-            path:"/instruction"
+            path:"/testpage"
         },
         {
             img:Plus,
@@ -81,7 +82,7 @@ export default function YearCard() {
                         return(
                             <>
                              <Col xs={12} sm={12} md={6} lg={3} xl={3} style={{justifyContent:"center",alignItems:"center",marginBottom:"20px"}} >
-                    {/* <NavLink to={d.path} style={{color:"black",textDecoration:"none"}}> */}
+                    <NavLink to={d.path} style={{color:"black",textDecoration:"none"}}>
                     <div style={Div}>
                         <div>
                             <img src={d.img} height="70px"/>
@@ -90,7 +91,7 @@ export default function YearCard() {
                             <Typography style={{fontWeight:600}}>{d.name}</Typography>
                         </div>
                     </div>
-                    {/* </NavLink> */}
+                    </NavLink>
                 </Col> 
                             </>
                         )

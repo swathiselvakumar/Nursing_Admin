@@ -13,17 +13,12 @@ import AlertBox from "../AlertBox/AlertBox";
 
 export default function Report() {
   return (
-
+<div>
       <ReportStyle>
-        {/* <TableNav /> */}
-        {/* <TableButton /> */}
+        <TableNav />
+        <TableButton />
         {/* <TableViewOrg/>       */}
-        <Settings/>
-        {/* <Discuss/> */}
-        {/* <Notify/> */}
-        {/* <StdTb/> */}
-        {/* <AlertBox/> */}
-
+        
       </ReportStyle>
     </div>
   );

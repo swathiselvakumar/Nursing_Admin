@@ -1,16 +1,50 @@
-import { DropDownWrapper } from "./style.js";
-
-function TableButton({ name, name2 }) {
+import TableViewOrg from "./TableView";
+import { useState } from "react";
+import TestTable from "./TestTable";
+function TableButton() {
+  const[student,setstudent]=useState("");
+  const[test,settest]=useState("")
   return (
     <div>
-      <DropDownWrapper>
-        <div className="btn-wrapper">
-          <div className="btn-1">
-            <button className="lg-btn">{name}</button>
-            <button className="lg-btn-2">{name2}</button>
-          </div>
+      <div className="btn-wrapper" style={{padding:'20px'}}>
+        <div
+          className="btn-1"
+          style={{ display: "flex", justifyContent: "space-around" }}
+        >
+          <button
+            style={{
+              padding: "15px 230px 15px 230px",
+              fontWeight: "600",
+              border: "none",
+              color: "white",
+              fontSize: "18px",
+              backgroundColor: "#f0a04b",
+            }}
+            onClick={()=>setstudent("student")}
+          >
+            Student
+          </button>
+          <button
+            style={{
+              padding: "15px 230px 15px 230px",
+              fontWeight: "600",
+              border: "none",
+              color: "black",
+              fontSize: "18px",
+              backgroundColor: "white",
+            }}
+            onClick={()=>settest("test")}
+          >
+            Test
+          </button>
         </div>
-      </DropDownWrapper>
+      </div>
+      {
+        student==="student"?<TableViewOrg/>:null
+      }
+      {
+        test==="test"?<TestTable/>:null
+      }
     </div>
   );
 }

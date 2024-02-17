@@ -1,13 +1,13 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
-import { YEARMCQStyle } from './style'
+import { HybridStyle } from './style'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
-import YearCard from './Card';
-export default function YearMCQ() {
+import HybridCard from './Card'
+export default function Hybrid() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -39,10 +39,10 @@ export default function YearMCQ() {
     },
   }));
   return (
-    <YEARMCQStyle>
+    <HybridStyle>
     <div className='bodystyle'>
-        <div className='title'> 
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Previous Year MCQ's</Typography>
+        <div className='title'>
+        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Hybrid Test</Typography>
         </div>
         <Container style={{marginTop:"20px"}}>
           <Row>
@@ -67,11 +67,11 @@ export default function YearMCQ() {
           </Row>
         </Container>
         <div>
-          <YearCard/>
+          <HybridCard/>
         </div>
      
       
     </div>
-    </YEARMCQStyle>
+    </HybridStyle>
   )
 }

@@ -23,7 +23,9 @@ export const DashboardStyles = styled("div")(({ theme, sidebarState }) => ({
     color: "#fff",
     width: "100px",
  },
-  
+ ".MuiButton-root:hover":{
+  backgroundColor: "#183a1d",
+ },
   ".cardItem": {
     padding:"20px",
     backgroundColor: "white",

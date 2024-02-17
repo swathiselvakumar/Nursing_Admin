@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container,Row,Col } from 'react-bootstrap'
-import Book from '../../assets/images/book.png'
+import Model from '../../assets/images/model.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
-export default function YearCard() {
+export default function ModelMockCard() {
     const Div={
         backgroundColor:"white",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
@@ -17,57 +17,57 @@ export default function YearCard() {
     }
     const datas=[
         {
-            img:Book,
-            name:"Subject 1",
+            img:Model,
+            name:"Institution 1",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 2",
+            img:Model,
+            name:"Institution 2",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 3",
+            img:Model,
+            name:"Institution 3",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 4",
+            img:Model,
+            name:"Institution 4",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 5",
+            img:Model,
+            name:"Institution 5",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 6",
+            img:Model,
+            name:"Institution 6",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 7",
+            img:Model,
+            name:"Institution 7",
             path:"/testpage"
         },{
-            img:Book,
-            name:"Subject 8",
+            img:Model,
+            name:"Institution 8",
             path:"/testpage"
         }
         ,{
-            img:Book,
-            name:"Subject 9",
+            img:Model,
+            name:"Institution 9",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 10",
+            img:Model,
+            name:"Institution 10",
             path:"/testpage"
         },
         {
             img:Plus,
-            name:"Add Subject"
+            name:"Add Institution"
         }
         
     ]

@@ -1,10 +1,13 @@
 import React from 'react'
 import { Container,Row,Col } from 'react-bootstrap'
-import Book from '../../assets/images/book.png'
+import Aptitude from '../../assets/images/Aptitude.jpg'
+import Reasoning from '../../assets/images/reasoning.png'
+import English from '../../assets/images/english.png'
+import GK from '../../assets/images/gk.webp'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
-export default function YearCard() {
+export default function NonNursingCard() {
     const Div={
         backgroundColor:"white",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
@@ -17,57 +20,29 @@ export default function YearCard() {
     }
     const datas=[
         {
-            img:Book,
-            name:"Subject 1",
+            img:Aptitude,
+            name:"Aptitude",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 2",
+            img:Reasoning,
+            name:"Reasoning",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 3",
+            img:GK,
+            name:"GK",
             path:"/testpage"
         },
         {
-            img:Book,
-            name:"Subject 4",
+            img:English,
+            name:"English",
             path:"/testpage"
         },
-        {
-            img:Book,
-            name:"Subject 5",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 6",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 7",
-            path:"/testpage"
-        },{
-            img:Book,
-            name:"Subject 8",
-            path:"/testpage"
-        }
-        ,{
-            img:Book,
-            name:"Subject 9",
-            path:"/testpage"
-        },
-        {
-            img:Book,
-            name:"Subject 10",
-            path:"/testpage"
-        },
+       
         {
             img:Plus,
-            name:"Add Subject"
+            name:"Add Category"
         }
         
     ]
