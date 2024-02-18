@@ -1,9 +1,17 @@
 import TableViewOrg from "./TableView";
 import { useState } from "react";
 import TestTable from "./TestTable";
-function TableButton() {
-  const[student,setstudent]=useState("");
-  const[test,settest]=useState("")
+function TableButton({name,name2}) {
+  const[student,setstudent]=useState("student");
+  const[Active,setActive]=useState("active")
+  const handleClick=()=>{
+    setstudent("student");
+    setActive("active")
+  }
+  const TesthandleClick=()=>{
+    setstudent("test");
+    setActive("isactive")
+  }
   return (
     <div>
       <div className="btn-wrapper" style={{padding:'20px'}}>
@@ -20,9 +28,19 @@ function TableButton() {
               fontSize: "18px",
               backgroundColor: "#f0a04b",
             }}
-            onClick={()=>setstudent("student")}
+            sx={{
+              backgroundColor:
+              Active === "active"
+                ? "orange"
+                : "white",
+            color:
+              Active === "active"
+                ? "white"
+                : "black",
+            }}
+            onClick={handleClick}
           >
-            Student
+            {name}
           </button>
           <button
             style={{
@@ -33,18 +51,26 @@ function TableButton() {
               fontSize: "18px",
               backgroundColor: "white",
             }}
-            onClick={()=>settest("test")}
+            sx={{
+              backgroundColor:
+              Active === "isactive"
+                ? "orange"
+                : "White",
+            color:
+              Active ===  "isactive"
+                ? "white"
+                : "black",
+            }}
+            onClick={TesthandleClick}
           >
-            Test
+            {name2}
           </button>
         </div>
       </div>
       {
-        student==="student"?<TableViewOrg/>:null
+        student==="student"?<TableViewOrg/>:<TestTable/>
       }
-      {
-        test==="test"?<TestTable/>:null
-      }
+      
     </div>
   );
 }

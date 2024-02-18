@@ -20,11 +20,11 @@ function TableNav() {
             justifyContent: "space-evenly",
             flex: "1",
             textAlign: "right",
-            // backgroundColor: "red",
+            
           }}
         >
-          <h3>Stander : 100</h3>
-          <h3>Premimum : 100</h3>
+          <h5>Stander : 100</h5>
+          <h5>Premimum : 100</h5>
         </div>
       </div>
     </div>

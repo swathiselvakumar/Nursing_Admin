@@ -11,6 +11,11 @@ import PlanDetails from "../Pages/Student/PremiumPlans/PlanDetails";
 import Standard from "../Pages/Student/Standard";
 import Premium from "../Pages/Student/Premium";
 import TestPage from "../Pages/Report/TestPage";
+import AlertBox from "../Pages/AlertBox/AlertBox";
+import Discuss from "../Pages/DiscussForm/Discuss";
+import Settings from "../Pages/settings/Settings";
+import StdTb from "../Pages/StudentTable/StdTb";
+import PremiumTb from "../Pages/Student/Premium/premiumTable";
 export const routeConfig = [
  
   {
@@ -85,6 +90,36 @@ export const routeConfig = [
     title:"testpage",
     Component:TestPage,
     route:PATH.TESTPAGE
+  },
+  {
+    key:"alert",
+    title:"alert",
+    Component:AlertBox,
+    route:PATH.ALERT
+  },
+  {
+    key:"discuss",
+    title:"discuss",
+    Component:Discuss,
+    route:PATH.DISCUSS
+  },
+  {
+    key:"settings",
+    title:"settings",
+    Component:Settings,
+    route:PATH.SETTINGS
+  },
+  {
+    key:"stutb",
+    title:"stutb",
+    Component:StdTb,
+    route:PATH.STUTB
+  },
+  {
+    key:"premiumtb",
+    title:"premiumtb",
+    Component:PremiumTb,
+    route:PATH.PREMIUMTB
   }
 
 ];

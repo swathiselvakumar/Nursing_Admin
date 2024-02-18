@@ -1,3 +1,4 @@
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,7 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TableStdStyle } from "./style";
+import { PremiumStyle } from "./style";
+import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,38 +17,38 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import { Typography,Button } from "@mui/material";
-import Rong from '../../assets/icons/rong.jpg'
-import { styled } from '@mui/material/styles';
-// import { AlertStyle } from "./style";
+import Rong from '../../../assets/icons/rong.jpg'
+import { AlertStyle } from "./style";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, calories, fat, carbs, protein,icon) {
+  return { name, calories, fat, carbs, protein,icon };
 }
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    width:"400px"
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(2),
-  },
-}));
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+      width:"400px"
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(2),
+    },
+  }));
+  
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <DeleteIcon />),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon  />),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
 ];
 
-export default function StdTb() {
-  const [open, setOpen] =useState(false)
+export default function PremiumTb() {
+    const [open, setOpen] =useState(false)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,7 +72,7 @@ export default function StdTb() {
   }
   return (
     <> 
-    <TableStdStyle> 
+    <PremiumStyle> 
         <div style={{margin:"20px"}}>
         <TableContainer style={{borderRadius:"10px"}} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -80,6 +82,7 @@ export default function StdTb() {
                 <TableCell className="head" align="right">Sname</TableCell>
                 <TableCell className="head" align="right">Email Id</TableCell>
                 <TableCell className="head" align="right">Member Since</TableCell>
+                <TableCell className="head" align="right">Expire Date</TableCell>
                 <TableCell className="head" align="right">action</TableCell>
               </TableRow>
             </TableHead>
@@ -95,15 +98,18 @@ export default function StdTb() {
                   <TableCell align="right">{row.calories}</TableCell>
                   <TableCell align="right">{row.fat}</TableCell>
                   <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right" onClick={handleClickOpen}>{row.protein}</TableCell>
+                  <TableCell align="right">{row.protein}</TableCell>
+                  <TableCell align="right" onClick={handleClickOpen}>{row.icon}</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         </div>
-        </TableStdStyle>
-        <BootstrapDialog
+        </PremiumStyle>
+<AlertStyle>
+<BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -132,6 +138,10 @@ export default function StdTb() {
         </DialogContent>
         
       </BootstrapDialog>
+</AlertStyle>
+
+        
+
     </>
   );
 }

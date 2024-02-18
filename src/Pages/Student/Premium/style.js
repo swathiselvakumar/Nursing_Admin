@@ -59,7 +59,7 @@ export const PremiumStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"120vh"
+        height:"140vh"
     },
     ".title":{
         textAlign:"center",
@@ -82,5 +82,20 @@ export const PremiumStyle=styled("div")(()=>({
         borderRadius:"10px",
         padding:"20px",
         marginTop:"20px"
-    }
+    },
+    ".head": {
+      fontSize: "18px",
+      // fontWeight: "800",
+      color: "gray",
+    },
+    ".tablebox":{
+      padding:"40px"
+    },
+}))
+
+export const AlertStyle=styled("div")(()=>({
+  ".MuiButton-root":{
+    backgroundColor:"white",
+    color:"black"
+ },
 }))

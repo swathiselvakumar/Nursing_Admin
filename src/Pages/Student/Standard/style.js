@@ -59,7 +59,7 @@ export const StandardStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"120vh"
+        height:"140vh"
     },
     ".title":{
         textAlign:"center",
@@ -82,5 +82,9 @@ export const StandardStyle=styled("div")(()=>({
         borderRadius:"10px",
         padding:"20px",
         marginTop:"20px"
+    },
+    ".tablebox":{
+      backgroundColor:"white",
+      height:"400px"
     }
 }))

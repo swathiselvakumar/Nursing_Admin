@@ -26,7 +26,7 @@ export const TopListData = [
   {
     icon: ForumRoundedIcon,
     title: "Discussion Forum",
-    // path: PATH.PURCHASE,
+    path: PATH.DISCUSS,
   },
   {
     icon: ContentPasteOutlinedIcon,
@@ -77,7 +77,7 @@ export const BottomListData = [
   {
     icon: Settings,
     title: "Settings",
-    path: PATH.HELP,
+    path: PATH.SETTINGS,
   },
   {
     icon: ExitToAppOutlinedIcon,
