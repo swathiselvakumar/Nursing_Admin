@@ -16,9 +16,7 @@ export default function Report() {
 <div>
       <ReportStyle>
         <TableNav />
-        <TableButton />
-        {/* <TableViewOrg/>       */}
-        
+        <TableButton name="Student" name2="Test" />
       </ReportStyle>
     </div>
   );

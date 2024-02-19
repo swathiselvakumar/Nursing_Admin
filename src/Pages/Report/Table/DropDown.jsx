@@ -43,8 +43,7 @@ export default function DropDown() {
     <DropDownWrapper>
       <React.Fragment>
         <ButtonGroup
-          // sx={{ width: "120px", height: "50px" }}
-          // style={{ padding: "10px", border: "none" }}
+          
           variant="text"
           
           ref={anchorRef}

@@ -10,5 +10,10 @@ export const PATH = {
   PLANDETAILS:"/plandetails",
   STANDARD:"/standard",
   PREMIUM:"/premium",
-  TESTPAGE:"/testpage"
+  TESTPAGE:"/testpage",
+  ALERT:"/alert",
+  DISCUSS:"/discuss",
+  SETTINGS:"/settings",
+  STUTB:"/stutb",
+  PREMIUMTB:"/premiumtb"
 };

@@ -7,11 +7,10 @@ export default function DashboardPage() {
     <div>
       <DashboardStyles>
         <PremiumPlan/>
-        <div style={{padding:"20px"}}>
+      </DashboardStyles>
+      <div>
           <TableViewOrg/>
         </div>
-
-      </DashboardStyles>
     </div>
   )
 }

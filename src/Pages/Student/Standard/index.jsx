@@ -7,6 +7,14 @@ import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import StdTb from '../../StudentTable/StdTb';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import AlertBox from '../../AlertBox/AlertBox';
 export default function Standard() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -37,6 +45,22 @@ export default function Standard() {
      
     },
   }));
+  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     < StandardStyle>
     <div className='bodystyle'>
@@ -63,13 +87,41 @@ export default function Standard() {
                 <Button ><UpdateIcon/>&nbsp; Update</Button>
               </div>&nbsp;&nbsp;
               <div>
-                <Button style={{backgroundColor:"white",color:"black"}}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
+                <Button style={{backgroundColor:"white",color:"black"}} onClick={handleClickOpen}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
               </div>
             </Col>
           </Row>
         </Container>
+        <div>
+          <StdTb/>
+        </div> 
         
     </div>
+    <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          Add Members
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
+          <AlertBox/>
+        </DialogContent>
+       
+      </BootstrapDialog>
     </ StandardStyle>
   )
 }

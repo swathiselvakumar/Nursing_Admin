@@ -43,13 +43,13 @@ export default function TestTable() {
           <h3>Test Reports</h3>
         </div>
         <div
-          className="menu-wrapper"
+          // className="menu-wrapper"
           style={{
             justifyContent: "flex-end",
             alignItems: "center",
-            // padding: "10px",
             backgroundColor: "#e1eede",
             borderRadius: "10px",
+            display:"flex"
           }}
         >
           <FilterListIcon />

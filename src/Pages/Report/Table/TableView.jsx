@@ -52,8 +52,8 @@ export default function TableViewOrg() {
               borderRadius: "10px",
             }}
           >
-            <FilterListIcon name="Students" />
-            <DropDown />
+            <FilterListIcon  />
+            <DropDown/>
           </div>
         </div>
         <TableContainer component={Paper}>
