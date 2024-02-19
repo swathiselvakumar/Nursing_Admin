@@ -14,7 +14,7 @@ import AlertBox from "../AlertBox/AlertBox";
 export default function Report() {
   return (
 <div>
-      <ReportStyle>
+      <ReportStyle >
         <TableNav />
         <TableButton name="Student" name2="Test" />
       </ReportStyle>
