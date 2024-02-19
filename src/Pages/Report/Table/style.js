@@ -29,6 +29,7 @@ export const DropDownWrapper = styled("div")(() => ({
     backgroundColor: "white",
   },
   ".btn-wrapper":{
-    padding: "20px"
+    padding: "20px",
+    backgroundColor:'red'
   }
 }));

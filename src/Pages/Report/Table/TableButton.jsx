@@ -14,11 +14,12 @@ function TableButton({name,name2}) {
   }
   return (
     <div>
-      <div className="btn-wrapper" style={{padding:'20px'}}>
+      <div className="btn-wrapper" style={{padding:'20px'}} >
         <div
           className="btn-1"
-          style={{ display: "flex", justifyContent: "space-around" }}
+          style={{ display: "flex", justifyContent: "space-around",flexWrap:'wrap' }}
         >
+          <div className="wrap-1">
           <button
             style={{
               padding: "15px 230px 15px 230px",
@@ -27,6 +28,7 @@ function TableButton({name,name2}) {
               color: "white",
               fontSize: "18px",
               backgroundColor: "#f0a04b",
+              margin:'10px'
             }}
             sx={{
               backgroundColor:
@@ -42,6 +44,8 @@ function TableButton({name,name2}) {
           >
             {name}
           </button>
+          </div>
+          <div className="wrap-2">
           <button
             style={{
               padding: "15px 230px 15px 230px",
@@ -50,6 +54,7 @@ function TableButton({name,name2}) {
               color: "black",
               fontSize: "18px",
               backgroundColor: "white",
+              margin:'10px'
             }}
             sx={{
               backgroundColor:
@@ -65,6 +70,7 @@ function TableButton({name,name2}) {
           >
             {name2}
           </button>
+          </div>
         </div>
       </div>
       {
