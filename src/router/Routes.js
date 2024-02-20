@@ -16,6 +16,7 @@ import Discuss from "../Pages/DiscussForm/Discuss";
 import Settings from "../Pages/settings/Settings";
 import StdTb from "../Pages/StudentTable/StdTb";
 import PremiumTb from "../Pages/Student/Premium/premiumTable";
+import AddMCQ from "../Pages/YearMCQ/AddMCQ";
 export const routeConfig = [
  
   {
@@ -120,6 +121,12 @@ export const routeConfig = [
     title:"premiumtb",
     Component:PremiumTb,
     route:PATH.PREMIUMTB
+  },
+  {
+    key:"addmcq",
+    title:"addmcq",
+    Component:AddMCQ,
+    route:PATH.ADDMCQ
   }
 
 ];

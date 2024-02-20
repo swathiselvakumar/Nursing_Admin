@@ -59,7 +59,7 @@ export const PremiumStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"140vh"
+        height:"150vh"
     },
     ".title":{
         textAlign:"center",
@@ -91,6 +91,11 @@ export const PremiumStyle=styled("div")(()=>({
     ".tablebox":{
       padding:"40px"
     },
+    ".MuiPagination-root":{
+      display:"flex",
+      justifyContent:"flex-end",
+      // width:"400px"
+    }
 }))
 
 export const AlertStyle=styled("div")(()=>({

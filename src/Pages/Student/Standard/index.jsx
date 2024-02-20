@@ -15,6 +15,8 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AlertBox from '../../AlertBox/AlertBox';
+import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
+import Pagination from '@mui/material/Pagination';
 export default function Standard() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,6 +66,9 @@ export default function Standard() {
   return (
     < StandardStyle>
     <div className='bodystyle'>
+      <div>
+        <BreadcrumbsComp/>
+      </div>
         <div className='title'>
         <Typography sx={{fontWeight:600,fontSize:"24px"}}>Standard </Typography>
         </div>
@@ -95,6 +100,9 @@ export default function Standard() {
         <div>
           <StdTb/>
         </div> 
+        <div>
+        <Pagination count={10} shape="rounded" />
+        </div>
         
     </div>
     <BootstrapDialog

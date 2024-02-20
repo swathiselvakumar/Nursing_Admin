@@ -9,7 +9,6 @@ import UpdateIcon from '@mui/icons-material/Update';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { NavLink } from 'react-router-dom';
 import PremiumTb from './premiumTable';
-// import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,7 +16,8 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AlertBox from '../../AlertBox/AlertBox';
-// import Typography from '@mui/material/Typography';
+import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
+import Pagination from '@mui/material/Pagination';
 export default function Premium() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -67,6 +67,9 @@ export default function Premium() {
   return (
     < PremiumStyle>
     <div className='bodystyle'>
+      <div>
+      <BreadcrumbsComp/>
+      </div>
         <div className='title'>
         <Typography sx={{fontWeight:600,fontSize:"24px"}}>Premium </Typography>
         </div>
@@ -99,6 +102,9 @@ export default function Premium() {
         </Container>
         <div>
           <PremiumTb/>
+        </div>
+        <div>
+        <Pagination count={10} shape="rounded" />
         </div>
         
     </div>

@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Crown from '../../../assets/images/Crown.png'
 import Plus from '../../../assets/icons/plus b.png'
+import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 export default function PremiumPlans() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -45,6 +46,9 @@ export default function PremiumPlans() {
   return (
     <PremiumPlansStyle>
     <div className='bodystyle'>
+      <div>
+        <BreadcrumbsComp/>
+      </div>
         <div className='title'>
         <Typography sx={{fontWeight:600,fontSize:"24px"}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
         </div>

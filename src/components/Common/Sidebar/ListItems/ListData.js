@@ -16,12 +16,12 @@ export const TopListData = [
   {
     icon:PersonOutlineOutlinedIcon,
     title: "Students",
-    // path: PATH.TESTS,
+    // path: PATH.STANDARD,
   },
   {
     icon: HelpOutlineOutlinedIcon,
     title: "Questions",
-    // path: PATH.TESTS,
+    // path:PATH.YEARMCQ,
   },
   {
     icon: ForumRoundedIcon,
@@ -82,6 +82,6 @@ export const BottomListData = [
   {
     icon: ExitToAppOutlinedIcon,
     title: "Logout",
-    path: PATH.HOME,
+    
   },
 ];
