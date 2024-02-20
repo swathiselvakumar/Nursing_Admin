@@ -2,6 +2,7 @@
 import "./TestPage.css";
 import { Container,Row,Col } from "react-bootstrap";
 import Btn from "./Btn";
+import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 
 function TestPage() {
   return (
@@ -9,6 +10,9 @@ function TestPage() {
       style={{ backgroundColor: "#E1EEDD", height: "120vh", }}
     >
       <Container fluid>
+        <div>
+          <BreadcrumbsComp/>
+        </div>
       <div className="parentt-wrap">
         <Row>
           <Col>

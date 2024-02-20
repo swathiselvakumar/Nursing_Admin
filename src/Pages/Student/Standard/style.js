@@ -59,7 +59,7 @@ export const StandardStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"140vh"
+        height:"150vh"
     },
     ".title":{
         textAlign:"center",
@@ -86,5 +86,10 @@ export const StandardStyle=styled("div")(()=>({
     ".tablebox":{
       backgroundColor:"white",
       height:"400px"
+    },
+    ".MuiPagination-root":{
+      display:"flex",
+      justifyContent:"flex-end",
+      // width:"400px"
     }
 }))

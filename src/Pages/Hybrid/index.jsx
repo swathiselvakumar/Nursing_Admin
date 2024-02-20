@@ -7,6 +7,7 @@ import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
 import HybridCard from './Card'
+import BreadcrumbsComp from '../../components/Common/BreadCrumbs';
 export default function Hybrid() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -41,6 +42,9 @@ export default function Hybrid() {
   return (
     <HybridStyle>
     <div className='bodystyle'>
+      <div>
+        <BreadcrumbsComp/>
+      </div>
         <div className='title'>
         <Typography sx={{fontWeight:600,fontSize:"24px"}}>Hybrid Test</Typography>
         </div>

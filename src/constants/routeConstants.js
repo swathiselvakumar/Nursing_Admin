@@ -15,5 +15,6 @@ export const PATH = {
   DISCUSS:"/discuss",
   SETTINGS:"/settings",
   STUTB:"/stutb",
-  PREMIUMTB:"/premiumtb"
+  PREMIUMTB:"/premiumtb",
+  ADDMCQ:"/addmcq"
 };

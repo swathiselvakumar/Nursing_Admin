@@ -4,6 +4,7 @@ import Institution from '../../assets/images/vadakk.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
+
 export default function YearCard() {
     const Div={
         backgroundColor:"white",
@@ -67,7 +68,8 @@ export default function YearCard() {
         },
         {
             img:Plus,
-            name:"Add Institution"
+            name:"Add Institution",
+            path:"/addmcq"
         }
         
     ]

@@ -7,6 +7,8 @@ import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
 import YearCard from './Card';
+import BreadcrumbsComp from '../../components/Common/BreadCrumbs';
+
 export default function YearMCQ() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -29,7 +31,6 @@ export default function YearMCQ() {
   }));
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
-    // width: '100%',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
@@ -40,7 +41,11 @@ export default function YearMCQ() {
   }));
   return (
     <YEARMCQStyle>
+     
     <div className='bodystyle'>
+    <div>
+        <BreadcrumbsComp/>
+      </div>
         <div className='title'> 
         <Typography sx={{fontWeight:600,fontSize:"24px"}}>Previous Year MCQ's</Typography>
         </div>
