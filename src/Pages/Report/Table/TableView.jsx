@@ -23,11 +23,15 @@ const rows = [
 export default function TableViewOrg() {
   return (
     <>
+    <div className="tableWrapper" style={{padding:'0px 20px'}}>
+      
+    
       <div
         style={{
           padding: "10px",
           backgroundColor: "#f1f1f1",
           borderRadius: "10px",
+          
         }}
       >
         <div
@@ -85,6 +89,7 @@ export default function TableViewOrg() {
             </TableBody>
           </Table>
         </TableContainer>
+      </div>
       </div>
     </>
   );

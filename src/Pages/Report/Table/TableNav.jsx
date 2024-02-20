@@ -2,15 +2,18 @@
 
 function TableNav() {
   return (
-    <div>
+    <div style={{display:'flex',justifyContent:'center'}}>
       <div
         className="nav-header"
         style={{
+        
+          // backgroundColor:'red',
           display: "flex",
-          padding:'20px'
+          width:"100%",
+          padding:'20px 50px'
         }}
       >
-        <div className="col1" style={{ flex: "2" }}>
+        <div className="col1" style={{ flex: "1.2" }}>
           <h3>Report</h3>
         </div>
         <div

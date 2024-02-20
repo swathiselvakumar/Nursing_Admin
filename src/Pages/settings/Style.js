@@ -4,22 +4,29 @@ export const SettingStyle=styled("div")(()=>({
 ".wrap":{
     display: "flex", justifyContent: "center"
 },
+
 ".inside-wrapper":{
+
     marginTop: "30px",
             borderRadius: "10px",
             display: "flex",
             backgroundColor: "#e1eedd",
             justifyContent: "center",
- 
-            padding: "80px",
-            width: "76vw",
+    //   flexWrap:'wrap',
+           
+            // width: "1000px",
 },
+
+
 ".profile-card":{
+    padding: "80px 200px",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "50vw",
+    
+    // width: "800px",
+    
 
 },
 ".submit-btn":{
