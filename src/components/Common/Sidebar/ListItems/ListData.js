@@ -76,7 +76,7 @@ export const SubListData1 = [
 export const BottomListData = [
   {
     icon: Settings,
-    title: "Settings",
+    title: "Setting",
     path: PATH.SETTINGS,
   },
   {

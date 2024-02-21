@@ -2,13 +2,12 @@ import React from "react";
 import myImage from "../../assets/images/profile.svg";
 import Notify from "../Notification/Notify";
 import { SettingStyle } from "./Style";
-import TableButton from "../Report/Table/TableButton";
 function Settings() {
   const [act,setact]=React.useState("password");
   return (
     <>
       <SettingStyle>
-        <h5 style={{padding:' 10px 80px'}}>Settings</h5>
+        <h5 style={{padding:' 10px 40px'}}>Setting</h5>
         <div className="btn-wrapper" style={{padding:'20px '}}>
         <div
           className="btn-1"
@@ -26,16 +25,6 @@ function Settings() {
               textAlign:"center",
               margin:'5px'
             }}
-            // sx={{
-            //   backgroundColor:
-            //   Active === "active"
-            //     ? "orange"
-            //     : "white",
-            // color:
-            //   Active === "active"
-            //     ? "white"
-            //     : "black",
-            // }}
             onClick={()=>setact("password")}
           >
             Password Change
@@ -52,16 +41,6 @@ function Settings() {
               backgroundColor: "white",
               margin:'5px'
             }}
-            // sx={{
-            //   backgroundColor:
-            //   Active === "isactive"
-            //     ? "orange"
-            //     : "White",
-            // color:
-            //   Active ===  "isactive"
-            //     ? "white"
-            //     : "black",
-            // }}
             onClick={()=>setact("notification")}
           >
             Notification

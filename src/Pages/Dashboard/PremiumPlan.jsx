@@ -20,10 +20,10 @@ export default function PremiumPlan() {
               <Col xs={12} sm={12} md={6} lg={3} xl={3}>
                 <div  className="item">
                   <div className="innerContent">
-                    <Typography>Plan 1</Typography>
+                    <Typography style={{ fontWeight:600}}>Plan 1</Typography>
                   </div>
                   <div style={{ padding: "10px" }}>
-                    <Typography style={{marginTop:"15px"}}>1 month plan for course</Typography>
+                    <Typography style={{marginTop:"15px",fontSize:"12px",fontWeight:600}}>1 month plan for course</Typography>
                     <Typography style={{fontSize:"26px"}}>$1999</Typography>
                   </div>
                   <NavLink to="/premiumplans">
@@ -38,10 +38,10 @@ export default function PremiumPlan() {
               <Col xs={12} sm={12} md={6} lg={3} xl={3}>
                 <div  className="item">
                   <div className="innerContent">
-                    <Typography>Plan 2</Typography>
+                    <Typography style={{ fontWeight:600}}>Plan 2</Typography>
                   </div>
                   <div style={{ padding: "10px" }}>
-                    <Typography style={{marginTop:"15px"}}>1 month plan for course</Typography>
+                    <Typography style={{marginTop:"15px",fontSize:"12px",fontWeight:600}}>1 month plan for course</Typography>
                     <Typography style={{fontSize:"26px"}}>$1999</Typography>
                   </div>
                   <Button>
@@ -53,10 +53,10 @@ export default function PremiumPlan() {
               <Col xs={12} sm={12} md={6} lg={3} xl={3}>
                 <div  className="item">
                   <div className="innerContent">
-                    <Typography>Plan 3</Typography>
+                    <Typography style={{ fontWeight:600}}>Plan 3</Typography>
                   </div>
                   <div style={{ padding: "10px" }}>
-                    <Typography style={{marginTop:"15px"}}>1 month plan for course</Typography>
+                    <Typography style={{marginTop:"15px",fontSize:"12px",fontWeight:600}}>1 month plan for course</Typography>
                     <Typography style={{fontSize:"26px"}}>$1999</Typography>
                   </div>
                   <Button>
@@ -68,10 +68,10 @@ export default function PremiumPlan() {
               <Col xs={12} sm={12} md={6} lg={3} xl={3}>
                 <div  className="item">
                   <div className="innerContent">
-                    <Typography>Plan 4</Typography>
+                    <Typography style={{ fontWeight:600}}>Plan 4</Typography>
                   </div>
                   <div style={{ padding: "10px" }}>
-                    <Typography style={{marginTop:"15px"}}>1 month plan for course</Typography>
+                    <Typography style={{marginTop:"15px",fontSize:"12px",fontWeight:600}}>1 month plan for course</Typography>
                     <Typography style={{fontSize:"26px"}}>$1999</Typography>
                   </div>
                   <Button>

@@ -32,13 +32,9 @@ export default function SubListItems({
         <ListItemButton
           sx={{
             pl: 4,
-            backgroundColor:
-              path === locatePath ? theme.background.lightwhite : null,
-            color: path === locatePath ? theme.font.primary : null,
+            color: path === locatePath ? "#F0A04B" : null,
             "&:hover": {
-              backgroundColor:
-                path === locatePath ? theme.background.lightwhite : null,
-              color: path === locatePath ? theme.font.primary : null,
+              color: path === locatePath ? "#F0A04B" : null,
             },
           }}
           onClick={() => {

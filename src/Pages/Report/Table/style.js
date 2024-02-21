@@ -1,13 +1,21 @@
 import styled from "@emotion/styled";
+import "@fontsource/roboto"
 export const DropDownWrapper = styled("div")(() => ({
-  ".MuiButtonGroup-root": {
-    backgroundColor: "#e1eede",
-    // height:"200px"
-
-    color: "black",
-    width: "100px",
+ 
+  ".MuiButtonGroup-root .MuiButtonGroup-grouped:not(:last-of-type)": {
+    color:"black",
+    width: "70px",
     height: "30px",
-    // fontSize: "20px",
+    borderColor:"black",
+    borderLeft:"1px solid black",
+    borderRight:"none",
+    borderRadius:"0px",
+    textTransform:"capitalize"
+   
+  },
+ 
+  ".MuiSvgIcon-root":{
+    color:"black"
   },
   ".btn-1":{
     display: "flex", justifyContent: "space-around"
@@ -32,4 +40,42 @@ export const DropDownWrapper = styled("div")(() => ({
     padding: "20px",
     backgroundColor:'red'
   }
+
 }));
+
+export const TableStyle=styled("div")(()=>({
+ ".menu-wrapper":{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              padding: "5px",
+              backgroundColor: "#e1eede",
+              borderRadius: "10px",
+ },
+ ".table-head":{
+  display: "flex",
+  justifyContent: "flex-start",
+ },
+ ".MuiTable-root":{
+  borderSpacing:"0px 4px",
+  borderCollapse: "separate",
+  border:"none",
+  // width:""
+ },
+ ".TableDataCell":{
+  // padding: "1px",
+    fontSize: ".8rem",
+    color: "black",
+    fontWeight: 500,
+    letterSpacing: ".5px",
+    textTransform: "capitalize",
+ },
+ ".MuiTableRow-root":{
+  borderSpacing:"0px 5px",
+  borderCollapse: "separate",
+  // marginTop:"5px",
+  // boxShadow: `rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px`,
+  backgroundColor:"white",
+  // boxShadow: `rgba(0, 0, 0, 0.24) 0px 3px 8px`,
+ }
+}))

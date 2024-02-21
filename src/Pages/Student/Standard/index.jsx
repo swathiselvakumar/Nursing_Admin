@@ -66,7 +66,7 @@ export default function Standard() {
   return (
     < StandardStyle>
     <div className='bodystyle'>
-      <div>
+      <div style={{padding:"25px"}}>
         <BreadcrumbsComp/>
       </div>
         <div className='title'>
@@ -74,7 +74,7 @@ export default function Standard() {
         </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
+            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol'>
             <div className='search'>
           <Search>
             <SearchIconWrapper>
@@ -89,19 +89,19 @@ export default function Standard() {
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button ><UpdateIcon/>&nbsp; Update</Button>
-              </div>&nbsp;&nbsp;
+                <Button style={{backgroundColor:"#f0a04b",width:"150px",fontWeight:"bold"}} ><UpdateIcon/>&nbsp; Update</Button>
+              </div>&nbsp; &nbsp;
               <div>
-                <Button style={{backgroundColor:"white",color:"black"}} onClick={handleClickOpen}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
+                <Button style={{backgroundColor:"white",color:"black",fontWeight:"bold"}} onClick={handleClickOpen}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
               </div>
             </Col>
           </Row>
         </Container>
-        <div>
+        <div style={{marginTop:"25px",padding:"10px"}}>
           <StdTb/>
         </div> 
         <div>
-        <Pagination count={10} shape="rounded" />
+        <Pagination count={10} shape="rounded"  />
         </div>
         
     </div>

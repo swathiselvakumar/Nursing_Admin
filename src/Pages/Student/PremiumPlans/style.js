@@ -11,7 +11,7 @@ export const PremiumPlansStyle=styled("div")(()=>({
         justifyContent:"space-evenly",
         backgroundColor:"white",
         borderRadius:"5px",
-        height:"70vh"
+        height:"100vh"
       },
      
       ".centerText": {
@@ -22,6 +22,8 @@ export const PremiumPlansStyle=styled("div")(()=>({
         backgroundColor: "#183a1d",
         borderColor: "#183a1d",
         color: "#fff",
+        textTransform:"capitalize",
+        fontWeight:"bold"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -59,11 +61,11 @@ export const PremiumPlansStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"120vh"
+        height:"140vh"
     },
     ".title":{
         textAlign:"center",
-        paddingTop:"50px"
+        paddingTop:"10px"
     },
     ".MainCol":{
         display:"flex",
@@ -80,7 +82,7 @@ export const PremiumPlansStyle=styled("div")(()=>({
         flexDirection: "column",
         alignItems:"center",
         borderRadius:"10px",
-        padding:"20px",
-        marginTop:"20px"
+        height:"180px",
+        width:"250px",
     }
 }))
