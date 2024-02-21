@@ -12,7 +12,7 @@ import { TableStyle } from "../Report/Table/style";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-
+     
 const rows = [
   createData('12/05/2023',"Today Active"),
   createData('12/05/2023',"Expired"),
