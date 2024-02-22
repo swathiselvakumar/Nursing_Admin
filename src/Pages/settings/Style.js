@@ -6,7 +6,6 @@ export const SettingStyle = styled("div")(() => ({
     justifyContent: "center",
   },
   ".profile": {
-    fontFamily: "arial",
     display: "flex",
     flexDirection: "column",
 

@@ -73,9 +73,7 @@ function TableButton({name,name2}) {
           </div>
         </div>
       </div>
-      {
-        student==="student"?<TableViewOrg/>:<TestTable/>
-      }
+     
       
     </div>
   );

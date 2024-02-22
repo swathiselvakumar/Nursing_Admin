@@ -7,7 +7,6 @@ export const NotifyWrapper = styled("div")(() => ({
   ".full-wrap2": {
     display: "flex",
     padding: "20px",
-    fontFamily: "arial",
     fontWeight: "550",
     alignItems: "center",
     borderRadius: "10px",

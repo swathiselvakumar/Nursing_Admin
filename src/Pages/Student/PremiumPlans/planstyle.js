@@ -22,6 +22,7 @@ export const PlansStyle=styled("div")(()=>({
         backgroundColor: "#183a1d",
         borderColor: "#183a1d",
         color: "#fff",
+        fontFamily: "Roboto, sans-serif"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -88,5 +89,8 @@ export const PlansStyle=styled("div")(()=>({
         listStyleType:"none",
         paddingRight:"60px",
         paddingTop:"15px"
+    },
+    ".MuiTypography-root":{
+      fontFamily: "Roboto, sans-serif"
     }
 }))

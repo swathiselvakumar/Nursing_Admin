@@ -12,7 +12,7 @@ export default function PremiumPlan() {
   return ( 
     <DashboardStyles>
         <div className='premium'>
-        <Typography style={{fontWeight:700,}}>Premium Plans <img src={Crown} height="15px" /></Typography>
+        <Typography style={{fontWeight:700}}>Premium Plans <img src={Crown} height="15px" /></Typography>
        
         <Container  className='mainContainer'>
         <Row style={{display:"flex",justifyContent:"space-around"}}>

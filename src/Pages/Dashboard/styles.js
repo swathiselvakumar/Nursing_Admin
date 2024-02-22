@@ -7,12 +7,15 @@ export const DashboardStyles = styled("div")(({ theme, sidebarState }) => ({
     padding:"20px",
     margin:"20px",
     borderRadius:"5px",
-    fontFamily:"sans-serif"
+    
+  },
+  ".MuiTypography-root":{
+    fontFamily:"Roboto, sans-serif"
   },
   ".mainContainer": {
     display:"flex",
     justifyContent:"space-evenly",
-    fontFamily:"sans-serif"
+   fontFamily:"Roboto, sans-serif"
   },
  
   ".centerText": {
@@ -25,7 +28,6 @@ export const DashboardStyles = styled("div")(({ theme, sidebarState }) => ({
     borderColor: "#183a1d",
     color: "#fff",
     width: "100px",
-    fontFamily:"sans-serif",
     fontWeight:600,
     textTransform:"capitalize"
    

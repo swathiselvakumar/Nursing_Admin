@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 export const SubjectMCQStyle=styled("div")(()=>({
     ".title":{
         textAlign:"center",
-        paddingTop:"40px", 
+        paddingTop:"10px", 
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD"
@@ -18,6 +18,9 @@ export const SubjectMCQStyle=styled("div")(()=>({
     ".MainCol":{
         display:"flex",
         justifyContent:"flex-end"
+    },
+    ".MuiTypography-root":{
+        fontFamily: "Roboto, sans-serif"
     }
 
 }))

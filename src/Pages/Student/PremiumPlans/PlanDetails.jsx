@@ -47,7 +47,7 @@ export default function PlanDetails() {
     < PlansStyle >
     <div className='bodystyle'>
         <div className='title'>
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
+        <Typography sx={{fontWeight:600,fontSize:"24px",}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
         </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
@@ -58,6 +58,7 @@ export default function PlanDetails() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+            sx={{fontFamily: "Roboto, sans-serif"}}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -66,10 +67,10 @@ export default function PlanDetails() {
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button ><UpdateIcon/>&nbsp; Update</Button>
+                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
               </div>&nbsp;&nbsp;
               <div>
-                <Button><DeleteOutlineIcon />&nbsp; Delete</Button>
+                <Button style={{width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><DeleteOutlineIcon />&nbsp; Delete</Button>
               </div>
             </Col>
           </Row>
