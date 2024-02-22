@@ -15,7 +15,7 @@ export default function SearchBox({ width }) {
           inputProps={{ "aria-label": "search google maps" }}
         />
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search" className="iconbtn">
-          <SearchIcon style={{color:"black"}}/>
+          <SearchIcon style={{color:"white"}}/>
         </IconButton>
       </Paper>
     </SearchBoxContainer>

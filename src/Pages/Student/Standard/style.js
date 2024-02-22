@@ -59,15 +59,15 @@ export const StandardStyle=styled("div")(()=>({
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
-        height:"150vh"
+        height:"120vh"
     },
     ".title":{
         textAlign:"center",
-        paddingTop:"50px"
+        // paddingTop:"10px"
     },
     ".MainCol":{
         display:"flex",
-        justifyContent:"flex-end"
+        justifyContent:"center"
     },
     ".update":{
         backgroundColor:"#F0A04B"
@@ -88,8 +88,11 @@ export const StandardStyle=styled("div")(()=>({
       height:"400px"
     },
     ".MuiPagination-root":{
-      display:"flex",
-      justifyContent:"flex-end",
-      // width:"400px"
+      position:"relative",
+      left:"63%",
+      padding:"10px",
+      backgroundColor:"white",
+      width:"380px",
+      borderRadius:"10px"
     }
 }))

@@ -50,13 +50,9 @@ export default function MenuListItem({
             minHeight: 48,
             justifyContent: open ? "initial" : "center",
             px: 2.5,
-            backgroundColor:
-              path === locatePath ? theme.background.lightwhite : null,
-            color: path === locatePath ? theme.font.primary : null,
+            color: path === locatePath ? "#F0A04B": null,
             "&:hover": {
-              backgroundColor:
-                path === locatePath ? theme.background.lightwhite : null,
-              color: path === locatePath ? theme.font.primary : null,
+              color: path === locatePath ? "#F0A04B" : null,
             },
           }}
           onClick={() => {
@@ -105,21 +101,7 @@ export default function MenuListItem({
               )}
             </>
           ) : null}
-          {/* {title === "Student"  ? (
-            <>
-              {collapseOpen ? (
-                <ExpandLess
-                  onClick={()=>handleClick()}
-                  // sx={{ display: open ? "block" : "none" }}
-                />
-              ) : (
-                <ExpandMore
-                onClick={()=>handleClick()}
-                  // sx={{ display: open ? "block" : "none" }}
-                />
-              )}
-            </>
-          ) : null} */}
+          
           {title === "Questions" ? (
             <>
               {collapseOpen ? (

@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import { Typography,Button } from "@mui/material";
 import Rong from '../../../assets/icons/rong.jpg'
+import Delete from '../../../assets/icons/delete.jpeg'
 import { AlertStyle } from "./style";
 
 function createData(name, calories, fat, carbs, protein,icon) {
@@ -35,16 +36,16 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon  />),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <DeleteIcon />),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
+  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023","05/12/2023", <img src={Delete} height="20px"/>),
 ];
 
 export default function PremiumTb() {
@@ -73,17 +74,17 @@ export default function PremiumTb() {
   return (
     <> 
     <PremiumStyle> 
-        <div style={{margin:"20px"}}>
-        <TableContainer style={{borderRadius:"10px"}} component={Paper}>
+        <div style={{margin:"10px"}}>
+        <TableContainer style={{borderRadius:"10px",padding:"30px"}} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow className="tb-row ">
                 <TableCell className="head"  >Sno</TableCell>
-                <TableCell className="head" align="right">Sname</TableCell>
-                <TableCell className="head" align="right">Email Id</TableCell>
-                <TableCell className="head" align="right">Member Since</TableCell>
-                <TableCell className="head" align="right">Expire Date</TableCell>
-                <TableCell className="head" align="right">action</TableCell>
+                <TableCell className="head" align="left">Sname</TableCell>
+                <TableCell className="head" align="left">Email Id</TableCell>
+                <TableCell className="head" align="left">Member Since</TableCell>
+                <TableCell className="head" align="left">Expire Date</TableCell>
+                <TableCell className="head" align="left">action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -95,11 +96,11 @@ export default function PremiumTb() {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
-                  <TableCell align="right" onClick={handleClickOpen}>{row.icon}</TableCell>
+                  <TableCell align="left">{row.calories}</TableCell>
+                  <TableCell align="left">{row.fat}</TableCell>
+                  <TableCell align="left">{row.carbs}</TableCell>
+                  <TableCell align="left">{row.protein}</TableCell>
+                  <TableCell align="left" onClick={handleClickOpen}>{row.icon}</TableCell>
 
                 </TableRow>
               ))}

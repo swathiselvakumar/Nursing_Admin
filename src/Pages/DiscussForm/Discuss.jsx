@@ -4,11 +4,14 @@ import HistoryIcon from "@mui/icons-material/History";
 import email from "../../assets/images/email.jpeg";
 import whatsapp from "../../assets/images/whatsapp.svg";
 import reportImg from "../../assets/images/discussion.jpeg";
-
+import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 function Discuss() {
   return (
     <div>
-      <DisFormStyle>
+      <DisFormStyle> 
+        <div style={{padding:"25px"}}>
+          <BreadcrumbsComp/>
+        </div>
         <div className="wrapper">
           <div className="title">
             <h4>Discussion Form</h4>

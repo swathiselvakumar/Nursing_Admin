@@ -57,16 +57,6 @@ export default function AppHeader() {
               <Grid item>
                 <Stack direction="row" display="flex" alignItems="center" >
                   <SearchBox width={265} />
-                  {/* <Tooltip title="Notifications">
-                    <IconButton color="inherit" size="large">
-                      <NotificationsNoneOutlinedIcon sx={iconStyles} />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Setting" onClick={handleOpenUserMenu}>
-                    <IconButton color="inherit" size="large">
-                      <SettingsOutlinedIcon sx={iconStyles} />
-                    </IconButton>
-                  </Tooltip> */}
                   <Tooltip title="Profile">
                     <IconButton color="inherit">
                       <Avatar

@@ -67,7 +67,7 @@ export default function Premium() {
   return (
     < PremiumStyle>
     <div className='bodystyle'>
-      <div>
+      <div style={{padding:"25px"}}>
       <BreadcrumbsComp/>
       </div>
         <div className='title'>
@@ -75,7 +75,7 @@ export default function Premium() {
         </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
+            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol'>
             <div className='search'>
           <Search>
             <SearchIconWrapper>
@@ -90,7 +90,7 @@ export default function Premium() {
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button ><UpdateIcon/>&nbsp; Update</Button>
+                <Button style={{backgroundColor:"#f0a04b",width:"150px"}}><UpdateIcon/>&nbsp; Update</Button>
               </div>&nbsp;&nbsp;
               <div>
                
@@ -100,7 +100,7 @@ export default function Premium() {
             </Col>
           </Row>
         </Container>
-        <div>
+        <div style={{marginTop:"25px",padding:"10px"}}>
           <PremiumTb/>
         </div>
         <div>

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const DisFormStyle = styled("div")(() => ({
   ".wrapper": {
     padding: "10px",
+    // backgroundColor:"#"
   },
   ".title": {
     fontFamily: "arial",

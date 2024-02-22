@@ -6,9 +6,21 @@ export const TableStdStyle = styled("div")(() => ({
     fontSize: "18px",
     // fontWeight: "800",
     color: "gray",
+   
   },
   ".tablebox":{
-    padding:"40px"
+    // padding:"40px"
   },
+  ".MuiTableCell-root":{
+    border:"none",
+    padding:"6px",
+  },
+  ".MuiTableRow-root":{
+    borderSpacing:"0px 4px",
+    borderCollapse: "collapse",
+    // backgroundColor:"gray",
+    height:"20%"
+  },
+  
   
 }));
