@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { YEARMCQStyle } from './style'
 import { Button, Typography } from '@mui/material'
 export default function AddMCQ() {
+
+  const [st,setSt]=useState(0)
+
+
+ function handleChange(){
+// setSt(1)
+console.log("hi");
+}
+
   return (
     <div>
         <YEARMCQStyle>
@@ -34,8 +43,8 @@ export default function AddMCQ() {
                       <input type="text" className='box'/>
                     </div>
                     <div className='btnDiv'>
-                      <Button style={{backgroundColor:"#183A1D"}}>Submit</Button>
-                      &nbsp;&nbsp;<Button>Cancel</Button>
+                      
+                      &nbsp;&nbsp;<Button onClick={handleChange}>Next</Button>
                     </div>
                 </div>
 
