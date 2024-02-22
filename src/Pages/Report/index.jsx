@@ -1,6 +1,6 @@
 import { ReportStyle } from "./style";
 import TableNav from "./Table/TableNav";
-import TableButton from "./Table/TableButton";
+import TestTable from "./Table/TestTable";
 
 
 export default function Report() {
@@ -8,7 +8,9 @@ export default function Report() {
 <div>
       <ReportStyle >
         <TableNav />
-        <TableButton name="Student" name2="Test" />
+        <div style={{padding:'25px'}}>
+          <TestTable/>
+        </div>
       </ReportStyle>
     </div>
   );

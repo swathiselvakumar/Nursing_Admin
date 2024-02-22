@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 export const NonNursingMCQStyle=styled("div")(()=>({
     ".title":{
         textAlign:"center",
-        paddingTop:"40px", 
+        paddingTop:"10px", 
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD",
@@ -19,6 +19,9 @@ export const NonNursingMCQStyle=styled("div")(()=>({
     ".MainCol":{
         display:"flex",
         justifyContent:"flex-end"
+    },
+    ".MuiTypography-root":{
+        fontFamily: "Roboto, sans-serif"
     }
 
 }))

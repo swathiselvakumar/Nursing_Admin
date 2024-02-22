@@ -48,7 +48,7 @@ export default function SubListItems({
           )}
           <ListItemText
             primary={
-              <Typography variant="body2" sx={{ fontSize: 14 }}>
+              <Typography variant="body2" sx={{ fontSize: 14,fontFamily:"Roboto, sans-serif" }}>
                 {title}
               </Typography>
             }

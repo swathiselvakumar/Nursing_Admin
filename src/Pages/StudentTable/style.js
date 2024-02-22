@@ -14,6 +14,7 @@ export const TableStdStyle = styled("div")(() => ({
   ".MuiTableCell-root":{
     border:"none",
     padding:"6px",
+    fontFamily: "Roboto, sans-serif"
   },
   ".MuiTableRow-root":{
     borderSpacing:"0px 4px",

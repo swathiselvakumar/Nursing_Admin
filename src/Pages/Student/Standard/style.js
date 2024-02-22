@@ -22,6 +22,7 @@ export const StandardStyle=styled("div")(()=>({
         backgroundColor: "#183a1d",
         borderColor: "#183a1d",
         color: "#fff",
+        fontFamily: "Roboto, sans-serif"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -94,5 +95,8 @@ export const StandardStyle=styled("div")(()=>({
       backgroundColor:"white",
       width:"380px",
       borderRadius:"10px"
+    },
+    ".MuiTypography-root":{
+      fontFamily: "Roboto, sans-serif"
     }
 }))

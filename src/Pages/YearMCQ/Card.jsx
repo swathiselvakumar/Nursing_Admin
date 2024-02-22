@@ -14,7 +14,8 @@ export default function YearCard() {
         flexDirection: "column",
         alignItems:"center",
         borderRadius:"10px",
-        padding:"20px"
+        padding:"20px",
+        
     }
     const datas=[
         {

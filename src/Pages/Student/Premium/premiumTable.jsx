@@ -84,7 +84,7 @@ export default function PremiumTb() {
                 <TableCell className="head" align="left">Email Id</TableCell>
                 <TableCell className="head" align="left">Member Since</TableCell>
                 <TableCell className="head" align="left">Expire Date</TableCell>
-                <TableCell className="head" align="left">action</TableCell>
+                <TableCell className="head" align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -100,7 +100,7 @@ export default function PremiumTb() {
                   <TableCell align="left">{row.fat}</TableCell>
                   <TableCell align="left">{row.carbs}</TableCell>
                   <TableCell align="left">{row.protein}</TableCell>
-                  <TableCell align="left" onClick={handleClickOpen}>{row.icon}</TableCell>
+                  <TableCell align="center" onClick={handleClickOpen}>{row.icon}</TableCell>
 
                 </TableRow>
               ))}
@@ -130,7 +130,7 @@ export default function PremiumTb() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent sx={{textAlign:"center"}}>
+        <DialogContent sx={{textAlign:"center", fontFamily: "Roboto, sans-serif"}}>
             <img src={Rong} height="25px" style={{marginTop:"-30px"}}/><br/>
             Are You sure ?<br/>
             Do you realy want to delete ?<br/>

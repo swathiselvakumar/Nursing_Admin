@@ -81,7 +81,7 @@ export default function SideNavigationbar() {
 
   return (
     <SidebarStyleWrapper>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex"}}>
         <Drawer variant="permanent" open={open} className="drawer">
           <DrawerHeader>
             <List>
@@ -104,7 +104,7 @@ export default function SideNavigationbar() {
                    
                   </ListItemIcon>
                   <ListItemText
-                    primary={<Typography style={{fontFamily:"sans-serif"}}>Company Name</Typography>}
+                    primary={<Typography style={{fontFamily:"Roboto, sans-serif"}} >Company Name</Typography>}
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>

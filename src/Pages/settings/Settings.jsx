@@ -50,11 +50,11 @@ function Settings() {
                   boxShadow: "0px 0px   5px  rgba(0, 0, 0, 0.1)",
                   // fontWeight: "600",
                   width: "480px",
-                  padding: "10px 40px",
+                  padding: "10px 0px",
                   border: "none",
                   color: "#183a1d",
                   fontSize: "18px",
-                  textAlign: "left",
+                  textAlign: "center",
                   backgroundColor: "white",
                   margin: "5px",
                 }}

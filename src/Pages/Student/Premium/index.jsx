@@ -71,7 +71,7 @@ export default function Premium() {
       <BreadcrumbsComp/>
       </div>
         <div className='title'>
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Premium </Typography>
+        <Typography sx={{fontWeight:"bold",fontSize:"24px"}}>Premium </Typography>
         </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
@@ -82,6 +82,7 @@ export default function Premium() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+            sx={{ fontFamily: "Roboto, sans-serif"}}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -113,7 +114,7 @@ export default function Premium() {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+        <DialogTitle sx={{ m: 0, p: 2, fontFamily: "Roboto, sans-serif" }} id="customized-dialog-title">
           Add Members
         </DialogTitle>
         <IconButton
