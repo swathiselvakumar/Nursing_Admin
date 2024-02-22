@@ -11,7 +11,7 @@ import MenuList from "@mui/material/MenuList";
 import { DropDownWrapper } from "./style";
 // import { PageHeaderStyles2 } from "./DropDown.js";
 
-const options = ["Today", "Today", "Today"];
+const options = ["Test", "Date", ""];
 
 export default function DropDown() {
   const [open, setOpen] = React.useState(false);
