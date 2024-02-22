@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 export const YEARMCQStyle=styled("div")(()=>({
     ".title":{
         textAlign:"center",
-        paddingTop:"40px", 
+        paddingTop:"10px", 
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD"
@@ -85,6 +85,9 @@ export const YEARMCQStyle=styled("div")(()=>({
         display:"flex",
         justifyContent:"center",
         marginTop:"30px"
+    },
+    ".MuiTypography-root":{
+        fontFamily: "Roboto, sans-serif"
     }
 
 }))

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 export const ModelMockStyle=styled("div")(()=>({
     ".title":{
         textAlign:"center",
-        paddingTop:"40px", 
+        paddingTop:"10px", 
     },
     ".bodystyle":{
         backgroundColor:"#E1EEDD"
@@ -10,7 +10,8 @@ export const ModelMockStyle=styled("div")(()=>({
     ".MuiButton-root":{
         backgroundColor:"#F0A04B",
         color:"white",
-        width:"150px"
+        width:"150px",
+        fontFamily: "Roboto, sans-serif"
     },
     ".search":{
         width:"300px"
@@ -18,6 +19,9 @@ export const ModelMockStyle=styled("div")(()=>({
     ".MainCol":{
         display:"flex",
         justifyContent:"flex-end"
+    },
+    ".MuiTypography-root":{
+        fontFamily: "Roboto, sans-serif"
     }
 
 }))

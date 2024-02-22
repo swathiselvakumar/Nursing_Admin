@@ -81,7 +81,7 @@ export default function StdTb() {
                 <TableCell className="head" align="left">Sname</TableCell>
                 <TableCell className="head" align="left">Email Id</TableCell>
                 <TableCell className="head" align="left">Member Since</TableCell>
-                <TableCell className="head" align="left">action</TableCell>
+                <TableCell className="head" align="center">action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,7 +96,7 @@ export default function StdTb() {
                   <TableCell align="left">{row.calories}</TableCell>
                   <TableCell align="left">{row.fat}</TableCell>
                   <TableCell align="left">{row.carbs}</TableCell>
-                  <TableCell align="left" onClick={handleClickOpen}>{row.protein}</TableCell>
+                  <TableCell align="center" onClick={handleClickOpen}>{row.protein}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -6,8 +6,8 @@ export const AlertBoxStyle = styled("div")(() => ({
     border: "1px solid black",
     borderRadius: "5px",
     padding: "20px",
-    fontFamily: "arial",
     fontWeight: "550",
+     fontFamily: "Roboto, sans-serif"
   },
   ".form": {
     width: "100px",

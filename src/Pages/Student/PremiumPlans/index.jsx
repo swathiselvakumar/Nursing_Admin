@@ -70,7 +70,7 @@ export default function PremiumPlans() {
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/> Update</Button>
+                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
               </div>&nbsp;&nbsp;
               <div>
                 <Button style={{width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><DeleteOutlineIcon />&nbsp; Delete</Button>

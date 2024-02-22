@@ -42,7 +42,7 @@ export default function ModelMock() {
   return (
     <ModelMockStyle >
     <div className='bodystyle'>
-      <div>
+      <div style={{padding:"25px"}}>
         <BreadcrumbsComp/>
       </div>
         <div className='title'>
@@ -57,6 +57,7 @@ export default function ModelMock() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+            sx={{fontFamily: "Roboto, sans-serif"}}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -65,7 +66,7 @@ export default function ModelMock() {
             </Col>
             <Col xs={12} sm={12} md={6} lg={6} xl={6}  className='MainCol'>
               <div>
-                <Button><UpdateIcon/>&nbsp; Update</Button>
+                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
               </div>
             </Col>
           </Row>

@@ -22,6 +22,7 @@ export const PremiumStyle=styled("div")(()=>({
         backgroundColor: "#183a1d",
         borderColor: "#183a1d",
         color: "#fff",
+        fontFamily: "Roboto, sans-serif"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -85,7 +86,6 @@ export const PremiumStyle=styled("div")(()=>({
     },
     ".head": {
       fontSize: "18px",
-      // fontWeight: "800",
       color: "gray",
     },
     ".tablebox":{
@@ -99,6 +99,7 @@ export const PremiumStyle=styled("div")(()=>({
     ".MuiTableCell-root":{
       border:"none",
       padding:"6px",
+      fontFamily: "Roboto, sans-serif"
     },
     ".MuiPagination-root":{
       position:"relative",
@@ -113,6 +114,7 @@ export const PremiumStyle=styled("div")(()=>({
 export const AlertStyle=styled("div")(()=>({
   ".MuiButton-root":{
     backgroundColor:"white",
-    color:"black"
+    color:"black",
+    fontFamily: "Roboto, sans-serif"
  },
 }))

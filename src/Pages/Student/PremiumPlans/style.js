@@ -23,7 +23,8 @@ export const PremiumPlansStyle=styled("div")(()=>({
         borderColor: "#183a1d",
         color: "#fff",
         textTransform:"capitalize",
-        fontWeight:"bold"
+        fontWeight:"bold",
+        fontFamily: "Roboto, sans-serif"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -84,5 +85,8 @@ export const PremiumPlansStyle=styled("div")(()=>({
         borderRadius:"10px",
         height:"180px",
         width:"250px",
+    },
+    ".MuiTypography-root":{
+      fontFamily: "Roboto, sans-serif"
     }
 }))

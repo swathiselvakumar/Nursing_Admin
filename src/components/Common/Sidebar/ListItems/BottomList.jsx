@@ -68,6 +68,7 @@ export default function BottomMenuListItem({ open }) {
                     alignItems: "center",
                     fontWeight: "normal",
                     fontSize: 16,
+                    fontFamily:"Roboto, sans-serif"
                   }}
                 >
                   {data.title}

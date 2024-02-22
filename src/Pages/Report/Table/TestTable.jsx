@@ -9,19 +9,22 @@ import Paper from "@mui/material/Paper";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DropDown from "./DropDown";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, calories, fat, carbs, protein,score) {
+  return { name, calories, fat, carbs, protein,score };
 }
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid"),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name"),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test"),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test"),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock"),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid","5"),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name","7"),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test","9"),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test","5"),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","4"),
 ];
 
 export default function TestTable() {
+  const Tbhead={
+    fontWeight:"bold"
+  }
   return (
     <>
     <div
@@ -40,7 +43,7 @@ export default function TestTable() {
         }}
       >
         <div className="d1" style={{ flex: "1" }}>
-          <h3>Test Reports</h3>
+          <h5>Students Reports</h5>
         </div>
         <div
           // className="menu-wrapper"
@@ -52,7 +55,7 @@ export default function TestTable() {
             display:"flex"
           }}
         >
-          <FilterListIcon />
+          <FilterListIcon />&nbsp;
           <DropDown />
         </div>
       </div>
@@ -60,11 +63,13 @@ export default function TestTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow style={{ backgroundColor: "#E1EEDE" }}>
-              <TableCell>Sno</TableCell>
-              <TableCell align="right">Sname</TableCell>
-              <TableCell align="right">Email Id</TableCell>
-              <TableCell align="right">Exam Date</TableCell>
-              <TableCell align="right">Exam Name</TableCell>
+              <TableCell  style={Tbhead}>Sno</TableCell>
+              <TableCell style={Tbhead} align="left">Sname</TableCell>
+              <TableCell  style={Tbhead} align="left">Email Id</TableCell>
+              <TableCell  style={Tbhead} align="left">Date</TableCell>
+              <TableCell  style={Tbhead} align="left">Test Name</TableCell>
+              <TableCell  style={Tbhead} align="left">Score</TableCell>
+
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,10 +81,12 @@ export default function TestTable() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="left">{row.calories}</TableCell>
+                <TableCell align="left">{row.fat}</TableCell>
+                <TableCell align="left">{row.carbs}</TableCell>
+                <TableCell align="left">{row.protein}</TableCell>
+                <TableCell align="left">{row.score}</TableCell>
+
               </TableRow>
             ))}
           </TableBody>

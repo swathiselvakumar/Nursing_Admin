@@ -79,6 +79,7 @@ export default function MenuListItem({
                   alignItems: "center",
                   fontWeight: "normal",
                   fontSize: 16,
+                  fontFamily:"Roboto, sans-serif"
                 }}
               >
                 {title}

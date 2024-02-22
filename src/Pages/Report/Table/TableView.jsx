@@ -28,7 +28,8 @@ export default function TableViewOrg() {
     fontWeight:"bold",
     fontSize:"17px",
     textAlign:"left",
-    backgroundColor:"#E1EEDD"
+    backgroundColor:"#E1EEDD",
+    fontFamily: "Roboto, sans-serif"
     
     
   }

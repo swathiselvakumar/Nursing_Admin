@@ -5,8 +5,9 @@ export const SidebarStyleWrapper = styled("div")(({ theme }) => ({
     backgroundColor: "#183A1D",
     color: theme.font.white,
   },
-//  ".body":{
-//   fontWeight:600,
-//   fontFamily:"Roboto"
-//  }
+ ".drawer":{ 
+  fontFamily: "Roboto, sans-serif",
+  fontWeight: 500,
+  fontStyle: "normal"
+ }
 }));

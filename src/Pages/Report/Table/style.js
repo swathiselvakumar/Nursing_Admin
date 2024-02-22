@@ -60,6 +60,9 @@ export const TableStyle=styled("div")(()=>({
   borderSpacing:"0px 4px",
   borderCollapse: "separate",
   border:"none",
+  fontFamily: "Roboto, sans-serif",
+  fontWeight: 500,
+  fontStyle: "normal"
   // width:""
  },
  ".TableDataCell":{
@@ -69,6 +72,10 @@ export const TableStyle=styled("div")(()=>({
     fontWeight: 500,
     letterSpacing: ".5px",
     textTransform: "capitalize",
+    fontFamily: "Roboto, sans-serif"
+ },
+ ".MuiTableHead":{
+  fontFamily: "Roboto, sans-serif"
  },
  ".MuiTableRow-root":{
   borderSpacing:"0px 5px",
@@ -76,6 +83,7 @@ export const TableStyle=styled("div")(()=>({
   // marginTop:"5px",
   // boxShadow: `rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px`,
   backgroundColor:"white",
+ 
   // boxShadow: `rgba(0, 0, 0, 0.24) 0px 3px 8px`,
  }
 }))

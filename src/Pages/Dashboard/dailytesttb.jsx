@@ -30,8 +30,8 @@ export default function DailyTestTable() {
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#F0A04B"}}>
-            <TableCell style={{fontWeight:600,color:"white"}}>Date</TableCell>
-            <TableCell style={{fontWeight:600,color:"white"}} align="right">Status</TableCell>
+            <TableCell style={{fontWeight:600,color:"white", fontFamily: "Roboto, sans-serif"}}>Date</TableCell>
+            <TableCell style={{fontWeight:600,color:"white", fontFamily: "Roboto, sans-serif"}} align="right">Status</TableCell>
             
           </TableRow>
         </TableHead>
