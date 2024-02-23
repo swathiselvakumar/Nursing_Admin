@@ -54,15 +54,9 @@ export default function TableViewOrg() {
          
         >
           <div className="d1" style={{ flex: "1" }}>
-            <h5 >Students Reports</h5>
+            <h5 >Recently Added Students</h5>
           </div>
-          <div
-            className="menu-wrapper"
-           
-          >
-            <b><FilterListIcon />&nbsp;</b>
-            <DropDown/>
-          </div>
+         
         </div>
         <TableContainer>
           <Table sx={{ minWidth: 650,fontFamily:"sans-serif" }} aria-label="simple table">
