@@ -6,16 +6,22 @@ export const DisFormStyle = styled("div")(() => ({
     // backgroundColor:"#"
   },
   ".title": {
+    // fontFamily: "arial",
     textAlign: "center",
     marginBottom: "40px",
   },
   ".sub-title": {
+    // fontFamily: "arial",
     flexWrap: "wrap",
     display: "flex",
     justifyContent: "space-between",
   },
+  ".sub-card p":{
+marginBottom:'30px'
+  },
   ".update-btn button": {
     display: "flex",
+    // fontFamily: "arial",
     padding: "5px 30px",
     border: "none",
     borderRadius: "10px",
@@ -28,18 +34,18 @@ export const DisFormStyle = styled("div")(() => ({
     flexWrap: "wrap",
   },
   ".sub-card": {
-    width: "270px",
+    textAlign:'center',
     padding: "20px",
-    fontSize: "14px",
-    fontWeight: "550",
+    fontSize: "12px",
+    
   },
   ".sub-card span": {
-    padding: "2px 20px",
+    
+    padding: "10px 80px",
     backgroundColor: "white",
   },
   ".img-wraped": {
     display: "flex",
-    // backgroundColor: "red",
     padding: "10px",
     justifyContent: "center",
   },
@@ -59,6 +65,7 @@ export const DisFormStyle = styled("div")(() => ({
     // justifyContent: "center",
   },
   ".card-btn p": {
+    // fontFamily: "arial",
     fontSize: "14px",
     fontWeight: "500",
     color: "gray",
@@ -67,6 +74,7 @@ export const DisFormStyle = styled("div")(() => ({
   ".card-btn button": {
     backgroundColor: "#183a1d",
     color: "white",
+    // fontFamily: "arial",
     borderRadius: "10px",
     border: "none",
     padding: "0px 25px",
