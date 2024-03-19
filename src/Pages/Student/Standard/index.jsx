@@ -9,20 +9,18 @@ import UpdateIcon from '@mui/icons-material/Update';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import StdTb from '../../StudentTable/StdTb';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import AlertBox from '../../AlertBox/AlertBox';
 import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from '@mui/material/Pagination';
+import Block from '../../../assets/icons/block.png'
+import { NavLink } from 'react-router-dom';
 export default function Standard() {
+  
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "white",
-    width:"350px",
+    boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
+    width:"250px",
     '&:hover': {
       backgroundColor: "white",
     },
@@ -30,31 +28,25 @@ export default function Standard() {
     
   }));
   const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: '100%',
+    width:"250px",
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   }));
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      padding: theme.spacing(1, 1, 1, 3),
+      paddingLeft: `calc(1em + ${theme.spacing(1)})`,
       transition: theme.transitions.create('width'),
      
     },
   }));
-  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
-    },
-  }));
+ 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -63,39 +55,52 @@ export default function Standard() {
   const handleClose = () => {
     setOpen(false);
   };
+  const Btn1={
+    backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
+  }
+  const Btn2={
+    backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"
+  }
   return (
     < StandardStyle>
     <div className='bodystyle'>
       <div style={{padding:"25px"}}>
         <BreadcrumbsComp/>
       </div>
-        <div className='title'>
-        <Typography sx={{fontWeight:"bold",fontSize:"24px"}}>Standard </Typography>
-        </div>
+        
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol'>
+            <Col xs={12} sm={12} md={12} lg={12} xl={12}  className='MainCol'>
+            <div className='title'>
+        <Typography sx={{fontWeight:"bold",fontSize:"18px"}}>Standard List </Typography>
+        </div>
             <div className='search'>
           <Search>
-            <SearchIconWrapper>
+          <SearchIconWrapper>
               <SearchIcon />
-            </SearchIconWrapper>
+            </SearchIconWrapper> 
             <StyledInputBase
              sx={{ fontFamily: "Roboto, sans-serif"}}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
+            
           </Search>
           </div>
-            </Col>
-            <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
-              <div>
-                <Button style={{backgroundColor:"#f0a04b",width:"150px",fontWeight:"bold"}} ><UpdateIcon/>&nbsp; Update</Button>
-              </div>&nbsp; &nbsp;
-              <div>
-                <Button style={{backgroundColor:"white",color:"black",fontWeight:"bold"}} onClick={handleClickOpen}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
+          
+          <div>
+                <NavLink to="/unblock">
+                <Button style={Btn1}><img src={Block} height="20px"/> &nbsp; Block List</Button>
+                </NavLink>
               </div>
+              <div>
+                <NavLink to="/stadd">
+                <Button style={Btn2} onClick={handleClickOpen}><AddCircleOutlineIcon style={{height:"20px"}} />&nbsp; Add Members</Button>
+                </NavLink>
+              </div>
+          
             </Col>
+           
           </Row>
         </Container>
         <div style={{marginTop:"25px",padding:"10px"}}>
@@ -106,7 +111,7 @@ export default function Standard() {
         </div>
         
     </div>
-    <BootstrapDialog
+    {/* <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -130,7 +135,7 @@ export default function Standard() {
           <AlertBox/>
         </DialogContent>
        
-      </BootstrapDialog>
+      </BootstrapDialog> */}
     </ StandardStyle>
   )
 }

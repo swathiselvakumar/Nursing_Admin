@@ -11,12 +11,16 @@ import PlanDetails from "../Pages/Student/PremiumPlans/PlanDetails";
 import Standard from "../Pages/Student/Standard";
 import Premium from "../Pages/Student/Premium";
 import TestPage from "../Pages/Report/TestPage";
-import AlertBox from "../Pages/AlertBox/AlertBox";
+import PreAdd from "../Pages/AddMembers/PreAdd";
 import Discuss from "../Pages/DiscussForm/Discuss";
 import Settings from "../Pages/settings/Settings";
 import StdTb from "../Pages/StudentTable/StdTb";
 import PremiumTb from "../Pages/Student/Premium/premiumTable";
 import AddMCQ from "../Pages/YearMCQ/AddMCQ";
+import UnBlockTable from "../Pages/Student/BlockTable";
+import StAdd from "../Pages/AddMembers/StAdd";
+import RecentStudentTable from "../Pages/Dashboard/RecentStudents";
+import YearInstitution from "../Pages/YearMCQ/Institution";
 export const routeConfig = [
  
   {
@@ -82,7 +86,7 @@ export const routeConfig = [
   },
   {
     key:"premium",
-    title:"premium",
+    title:"premium", 
     Component:Premium,
     route:PATH.PREMIUM
   },
@@ -92,12 +96,7 @@ export const routeConfig = [
     Component:TestPage,
     route:PATH.TESTPAGE
   },
-  {
-    key:"alert",
-    title:"alert",
-    Component:AlertBox,
-    route:PATH.ALERT
-  },
+ 
   {
     key:"discuss",
     title:"discuss",
@@ -127,7 +126,37 @@ export const routeConfig = [
     title:"addmcq",
     Component:AddMCQ,
     route:PATH.ADDMCQ
-  }
+  },
+  {
+    key:"unblock",
+    title:"unblock",
+    Component:UnBlockTable,
+    route:PATH.UNBLOCK
+  },
+  {
+    key:"stadd",
+    title:"stadd",
+    Component:StAdd,
+    route:PATH.STADD
+  },
+  {
+    key:"preadd",
+    title:"preadd",
+    Component:PreAdd,
+    route:PATH.PREADD
+  },
+  {
+    key:"recentstudent",
+    title:"recentstudent",
+    Component:RecentStudentTable,
+    route:PATH.RECENTSTUDENT
+  },
+  {
+    key:"yearinstitution",
+    title:"yearinstitution",
+    Component:YearInstitution,
+    route:PATH.YEARINSTITUTION
+  },
 
 ];
 

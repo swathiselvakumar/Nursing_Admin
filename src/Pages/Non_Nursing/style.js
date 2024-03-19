@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 export const NonNursingMCQStyle=styled("div")(()=>({
     ".title":{
-        textAlign:"center",
-        paddingTop:"10px", 
+        paddingLeft:"15px", 
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD",
-        height:"100vh"
-    },
+    // ".bodystyle":{
+    //     backgroundColor:"#E1EEDD",
+    //     height:"100vh"
+    // },
     ".MuiButton-root":{
         backgroundColor:"#F0A04B",
         color:"white",

@@ -4,17 +4,10 @@ import Book from '../../assets/images/book.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
+import '../YearMCQ/CardStyle.css'
+import Delete from '../../assets/icons/delete.jpeg'
 export default function YearCard() {
-    const Div={
-        backgroundColor:"white",
-        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-        display:"flex",
-        justifyContent:"center",
-        flexDirection: "column",
-        alignItems:"center",
-        borderRadius:"10px",
-        padding:"20px"
-    }
+    
     const datas=[
         {
             img:Book,
@@ -83,7 +76,8 @@ export default function YearCard() {
                             <>
                              <Col xs={12} sm={12} md={6} lg={3} xl={3} style={{justifyContent:"center",alignItems:"center",marginBottom:"20px"}} >
                     <NavLink to={d.path} style={{color:"black",textDecoration:"none"}}>
-                    <div style={Div}>
+                    <div className='Div'>
+                    <img src={Delete} className='del'/>
                         <div>
                             <img src={d.img} height="70px"/>
                         </div>

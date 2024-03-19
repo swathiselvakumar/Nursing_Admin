@@ -7,7 +7,7 @@ import Select from "@mui/material/Select";
 import { AlertBoxStyle } from "./style";
 // import { SelectChangeEvent } from '@mui/material';
 
-export default function BasicSelect() {
+export default function PreDropdown() {
   //   const [age, setAge] = React.useState('');
 
   //   const handleChange = (event: SelectChangeEvent) => {
@@ -29,10 +29,12 @@ export default function BasicSelect() {
             <FormControl className="form">
               <InputLabel id="demo-simple-select-label">Day</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
+                // labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 //   value={age}
                 label="Age"
+                variant="filled"
+                style={{backgroundColor:"white"}}
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -51,6 +53,8 @@ export default function BasicSelect() {
                 id="demo-simple-select"
                 //   value={age}
                 label="Age"
+                variant="filled"
+                style={{backgroundColor:"white"}}
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -68,7 +72,9 @@ export default function BasicSelect() {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 //   value={age}
+                variant="filled"
                 label="Age"
+                style={{backgroundColor:"white"}}
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -95,6 +101,7 @@ export default function BasicSelect() {
                 id="demo-simple-select"
                 //   value={age}
                 label="Age"
+                variant="filled"
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -113,6 +120,7 @@ export default function BasicSelect() {
                 id="demo-simple-select"
                 //   value={age}
                 label="Age"
+                variant="filled"
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -132,6 +140,7 @@ export default function BasicSelect() {
                 id="demo-simple-select"
                 //   value={age}
                 label="Age"
+                variant="filled"
                 //   onChange={handleChange}
               >
                 {DayBox.map((day) => (
@@ -141,7 +150,7 @@ export default function BasicSelect() {
                 ))}
               </Select>
             </FormControl>
-          </Box>
+          </Box> 
         </div>
       </AlertBoxStyle>
     </div>

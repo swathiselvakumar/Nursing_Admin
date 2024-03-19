@@ -26,6 +26,7 @@ function TableNav() {
             
           }}
         >
+          
           <h6>Standard : 100</h6>
           <h6>Premium : 100</h6>
         </div>

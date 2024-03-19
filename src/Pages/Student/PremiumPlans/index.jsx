@@ -12,68 +12,42 @@ import Crown from '../../../assets/images/Crown.png'
 import Plus from '../../../assets/icons/plus b.png'
 import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 export default function PremiumPlans() {
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "white",
-    width:"350px",
-    '&:hover': {
-      backgroundColor: "white",
-    },
-   
-    
-  }));
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    // width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-     
-    },
-  }));
+  const UpdateBtn={
+    backgroundColor:"#e4a45a",
+    width:"130px",
+    textTransform:"capitalize",
+    boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
+  }
+  const DeleteBtn={
+    width:"130px",
+    fontWeight:"bold",
+    textTransform:"capitalize",
+    backgroundColor:"white",
+    color:"black",
+    boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
+  }
   return (
     <PremiumPlansStyle>
     <div className='bodystyle'>
       <div style={{padding:"20px"}}>
         <BreadcrumbsComp/>
       </div>
-        <div className='title'>
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
-        </div>
+        
         <div style={{padding:"10px"}}>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
             <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
-            <div className='search'>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          </div>
+            
+            <div className='title'>
+        <Typography sx={{fontWeight:600,fontSize:"18px"}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
+        </div>
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
               <div>
-                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
+                <Button style={UpdateBtn}><UpdateIcon/>&nbsp; Update</Button>
               </div>&nbsp;&nbsp;
               <div>
-                <Button style={{width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><DeleteOutlineIcon />&nbsp; Delete</Button>
+                <Button style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
               </div>
             </Col>
           </Row>

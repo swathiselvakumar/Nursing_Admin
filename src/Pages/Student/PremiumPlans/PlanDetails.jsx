@@ -11,66 +11,31 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Crown from '../../../assets/images/Crown.png'
 import Plus from '../../../assets/icons/plus b.png'
 import Tick from '../../../assets/icons/tick.png'
+import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 export default function PlanDetails() {
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "white",
-    width:"350px",
-    '&:hover': {
-      backgroundColor: "white",
-    },
-   
-    
-  }));
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    // width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-     
-    },
-  }));
+  const DeleteBtn={
+    width:"130px",
+    fontWeight:"bold",
+    textTransform:"capitalize",
+    backgroundColor:"white",
+    color:"black",
+    boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
+  }
   return (
     < PlansStyle >
     <div className='bodystyle'>
-        <div className='title'>
-        <Typography sx={{fontWeight:600,fontSize:"24px",}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
-        </div>
+    <div style={{padding:"20px"}}>
+        <BreadcrumbsComp/>
+      </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
-            <div className='search'>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-            sx={{fontFamily: "Roboto, sans-serif"}}
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          </div>
-            </Col>
-            <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
+           
+            <Col xs={12} sm={12} md={12} lg={12} xl={12} className='MainCol'>
+                <div className='title'>
+                  <Typography sx={{fontWeight:600,fontSize:"18px",}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
+                </div>
               <div>
-                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
-              </div>&nbsp;&nbsp;
-              <div>
-                <Button style={{width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><DeleteOutlineIcon />&nbsp; Delete</Button>
+                <Button style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
               </div>
             </Col>
           </Row>
@@ -164,7 +129,7 @@ export default function PlanDetails() {
                   
                 </div>
               </Col>
-              <Col xs={3} sm={3} md={3} lg={3} xl={3}>
+              {/* <Col xs={3} sm={3} md={3} lg={3} xl={3}>
               <div className='Div'>
                         <div>
                             <img src={Plus} height="70px"/>
@@ -173,7 +138,7 @@ export default function PlanDetails() {
                             <Typography style={{fontWeight:600}}>Add</Typography>
                         </div>
                     </div>
-              </Col>
+              </Col> */}
         </Row>
     </Container>
         </div>

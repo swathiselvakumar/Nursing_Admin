@@ -18,6 +18,7 @@ import { Typography,Button } from "@mui/material";
 import Rong from '../../assets/icons/rong.jpg'
 import { styled } from '@mui/material/styles';
 import Delete from '../../assets/icons/delete.jpeg'
+import Block from '../../assets/icons/block.png'
 // import { AlertStyle } from "./style";
 
 function createData(name, calories, fat, carbs, protein) {
@@ -34,16 +35,16 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Delete} height="20px"/>),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={Block} height="20px"/>),
 ];
 
 export default function StdTb() {
@@ -73,7 +74,7 @@ export default function StdTb() {
     <> 
     <TableStdStyle> 
         <div style={{margin:"10px"}}>
-        <TableContainer style={{borderRadius:"10px",padding:"30px"}} component={Paper}>
+        <TableContainer style={{borderRadius:"10px",padding:"30px",backgroundColor:"#f6f6f6"}} component={Paper}>
           <Table sx={{ minWidth: 650,}} aria-label="simple table">
             <TableHead>
               <TableRow className="tb-row ">
@@ -81,7 +82,7 @@ export default function StdTb() {
                 <TableCell className="head" align="left">Sname</TableCell>
                 <TableCell className="head" align="left">Email Id</TableCell>
                 <TableCell className="head" align="left">Member Since</TableCell>
-                <TableCell className="head" align="center">action</TableCell>
+                <TableCell className="head" align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -127,9 +128,9 @@ export default function StdTb() {
         <DialogContent sx={{textAlign:"center"}}>
             <img src={Rong} height="25px" style={{marginTop:"-30px"}}/><br/>
             Are You sure ?<br/>
-            Do you realy want to delete ?<br/>
+            want to block this student?<br/>
             <Button onClick={handleClose} style={Btn}>Cancel</Button>
-            <Button onClick={handleClose}  style={Btn1}>Delete</Button>
+            <Button onClick={handleClose}  style={Btn1}>Block</Button>
         </DialogContent>
         
       </BootstrapDialog>

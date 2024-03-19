@@ -1,11 +1,18 @@
 import React from "react";
 import { AlertBoxStyle } from "./style";
 import BasicSelect from "./Dropdown";
+import { Typography } from "@mui/material";
+import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 
-function AlertBox() {
+function StAdd() {
   return (
-    <div>
-      <AlertBoxStyle>
+    <AlertBoxStyle>
+      <div style={{padding:"25px"}}>
+      <BreadcrumbsComp/>
+      </div>
+        
+      <Typography style={{textAlign:"center",paddingTop:"30px"}}>ADD MEMBERS</Typography>
+    <div className="TotalBox">
         <div className="alt-box">
           <div>
             <label htmlFor="name">Name </label>
@@ -21,12 +28,13 @@ function AlertBox() {
          <BasicSelect/>
  
           </div>
-          <button>Add</button>
+          <button>Submit</button>
         </div>
         
-      </AlertBoxStyle>
+      
     </div>
+    </AlertBoxStyle>
   );
 }
 
-export default AlertBox;
+export default StAdd;

@@ -15,15 +15,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import AlertBox from '../../AlertBox/AlertBox';
+import AlertBox from '../../AddMembers/StAdd';
 import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from '@mui/material/Pagination';
+import Block from '../../../assets/icons/block.png'
 export default function Premium() {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "white",
-    width:"350px",
+    boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
+    width:"250px",
     '&:hover': {
       backgroundColor: "white",
     },
@@ -31,19 +33,20 @@ export default function Premium() {
     
   }));
   const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: '100%',
+    width:"250px",
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   }));
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      padding: theme.spacing(1, 1, 1, 3),
+      paddingLeft: `calc(1em + ${theme.spacing(1)})`,
       transition: theme.transitions.create('width'),
      
     },
@@ -64,41 +67,47 @@ export default function Premium() {
   const handleClose = () => {
     setOpen(false);
   };
+  const Btn1={backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"}
+  const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
   return (
     < PremiumStyle>
     <div className='bodystyle'>
       <div style={{padding:"25px"}}>
       <BreadcrumbsComp/>
       </div>
-        <div className='title'>
-        <Typography sx={{fontWeight:"bold",fontSize:"24px"}}>Premium </Typography>
-        </div>
+        
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
-            <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol'>
+            <Col xs={12} sm={12} md={12} lg={12} xl={12}  className='MainCol'>
+            <div className='title'>
+        <Typography sx={{fontWeight:"bold",fontSize:"18px"}}>Premium List </Typography>
+        </div>
             <div className='search'>
           <Search>
-            <SearchIconWrapper>
+          <SearchIconWrapper>
               <SearchIcon />
-            </SearchIconWrapper>
+            </SearchIconWrapper> 
             <StyledInputBase
-            sx={{ fontFamily: "Roboto, sans-serif"}}
+             sx={{ fontFamily: "Roboto, sans-serif"}}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
+            
           </Search>
           </div>
-            </Col>
-            <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
+          
+          <div>
+                <NavLink to="/unblock">
+                <Button style={Btn1}><img src={Block} height="20px"/> &nbsp; Block List</Button>
+                </NavLink>
+              </div>
               <div>
-                <Button style={{backgroundColor:"#f0a04b",width:"150px"}}><UpdateIcon/>&nbsp; Update</Button>
-              </div>&nbsp;&nbsp;
-              <div>
-               
-                <Button style={{backgroundColor:"white",color:"black"}} onClick={handleClickOpen}><AddCircleOutlineIcon />&nbsp; Add Members</Button>
-                
+                <NavLink to="/preadd">
+                <Button style={Btn2} onClick={handleClickOpen}><AddCircleOutlineIcon style={{height:"20px"}} />&nbsp; Add Members</Button>
+                </NavLink>
               </div>
             </Col>
+            
           </Row>
         </Container>
         <div style={{marginTop:"25px",padding:"10px"}}>
@@ -109,31 +118,7 @@ export default function Premium() {
         </div>
         
     </div>
-    <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2, fontFamily: "Roboto, sans-serif" }} id="customized-dialog-title">
-          Add Members
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          <AlertBox/>
-        </DialogContent>
-       
-      </BootstrapDialog>
+    
     </ PremiumStyle>
 
     

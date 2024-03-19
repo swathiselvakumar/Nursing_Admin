@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
 export const SubjectMCQStyle=styled("div")(()=>({
-    ".title":{
-        textAlign:"center",
-        paddingTop:"10px", 
-    },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD"
-    },
+    // ".title":{
+    //     paddingTop:"10px", 
+    // },
+    
     ".MuiButton-root":{
         backgroundColor:"#F0A04B",
         color:"white",

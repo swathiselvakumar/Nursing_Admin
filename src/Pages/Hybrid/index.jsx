@@ -9,68 +9,17 @@ import UpdateIcon from '@mui/icons-material/Update';
 import HybridCard from './Card'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs';
 export default function Hybrid() {
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "white",
-    '&:hover': {
-      backgroundColor: "white",
-    },
-   
-    
-  }));
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    // width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-     
-    },
-  }));
+  
   return (
     <HybridStyle>
-    <div className='bodystyle'>
+    <div style={{backgroundColor:"white",height:"90vh"}}>
       <div style={{padding:"25px"}}>
         <BreadcrumbsComp/>
       </div>
         <div className='title'>
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Hybrid Test</Typography>
+        <Typography sx={{fontWeight:600,fontSize:"18px"}}>Hybrid Test</Typography>
         </div>
-        <Container style={{marginTop:"20px"}}>
-          <Row>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6} className='MainCol1'>
-            <div className='search'>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-            sx={{fontFamily: "Roboto, sans-serif"}}
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          </div>
-            </Col>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6}  className='MainCol'>
-              <div>
-                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        
         <div>
           <HybridCard/>
         </div>

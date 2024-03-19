@@ -1,12 +1,19 @@
 import styled from "@emotion/styled";
 export const YEARMCQStyle=styled("div")(()=>({
     ".title":{
-        textAlign:"center",
-        paddingTop:"10px", 
+        paddingLeft:"15px", 
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD"
-    },
+    // "Div":{
+    //     backgroundColor: "white",
+    //     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+    //     display:"flex",
+    //     justifyContent:"center",
+    //     flexDirection: "column",
+    //     alignItems:"center",
+    //     borderRadius:"10px",
+    //     padding:"20px",
+    // },
+    
     ".MuiButton-root":{
         backgroundColor:"#F0A04B",
         color:"white",
