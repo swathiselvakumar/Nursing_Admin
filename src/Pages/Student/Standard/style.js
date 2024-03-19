@@ -58,17 +58,12 @@ export const StandardStyle=styled("div")(()=>({
         color: "#333",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD",
-        height:"120vh"
-    },
-    ".title":{
-        textAlign:"center",
-        // paddingTop:"10px"
-    },
+    
     ".MainCol":{
         display:"flex",
-        justifyContent:"center"
+        justifyContent:"space-around",
+        // width:"40vw"
+        
     },
     ".update":{
         backgroundColor:"#F0A04B"
@@ -90,9 +85,9 @@ export const StandardStyle=styled("div")(()=>({
     },
     ".MuiPagination-root":{
       position:"relative",
-      left:"63%",
-      padding:"10px",
-      backgroundColor:"white",
+      left:"60%",
+      padding:"5px",
+      backgroundColor:"#e7f6f2",
       width:"380px",
       borderRadius:"10px"
     },

@@ -9,9 +9,10 @@ export const PremiumPlansStyle=styled("div")(()=>({
       ".mainContainer": {
         display:"flex",
         justifyContent:"space-evenly",
-        backgroundColor:"white",
+        backgroundColor:"#f6f6f6",
         borderRadius:"5px",
-        height:"100vh"
+        height:"100vh",
+        padding:"20px"
       },
      
       ".centerText": {
@@ -24,7 +25,8 @@ export const PremiumPlansStyle=styled("div")(()=>({
         color: "#fff",
         textTransform:"capitalize",
         fontWeight:"bold",
-        fontFamily: "Roboto, sans-serif"
+        fontFamily: "Roboto, sans-serif",
+        width:"100px"
      },
      ".MuiButton-root:hover":{
       backgroundColor: "#183a1d",
@@ -40,7 +42,7 @@ export const PremiumPlansStyle=styled("div")(()=>({
       ".innerContent": {
         position:"absolute",
         padding: "10px",
-        backgroundColor: "#f0a04b",
+        backgroundColor: "#e4a45a",
         width: "150px",
         color:"white",
         borderRadius:"7px",
@@ -60,14 +62,14 @@ export const PremiumPlansStyle=styled("div")(()=>({
         color: "#333",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD",
-        height:"140vh"
-    },
-    ".title":{
-        textAlign:"center",
-        paddingTop:"10px"
-    },
+    // ".bodystyle":{
+    //     backgroundColor:"#E1EEDD",
+    //     height:"140vh"
+    // },
+    // ".title":{
+    //     textAlign:"center",
+    //     // paddingTop:"10px"
+    // },
     ".MainCol":{
         display:"flex",
         justifyContent:"flex-end"

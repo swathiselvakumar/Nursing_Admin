@@ -1,0 +1,28 @@
+.Div{
+    background-color: white;
+  
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+    align-items:center;
+    border-radius:10px;
+    padding:20px;
+    position: relative;
+}
+.Div:hover .del{
+  display: block;
+}
+.Div:hover{
+    background-color:#fefbe9;
+}
+ .del{
+padding: 10px;
+display: none;
+position: absolute;
+right:0;
+top:0
+}
+.title{
+  display:flex;
+}

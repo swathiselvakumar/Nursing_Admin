@@ -14,24 +14,24 @@ function createData(name, calories, fat, carbs, protein) {
 }
      
 const rows = [
-  createData('Daily Test',10),
-  createData('Mini Test',13),
-  createData('Micro Test',24),
-  createData('English',18),
-  createData('Aptitude',8),
+  createData('Divya',"Premium"),
+  createData('Monica',"Premium"),
+  createData('Suba',"Standard"),
+  createData('hema',"Standard"),
+  createData('Raji',"Standard"),
 ];
 
-export default function DailyTestTable() {
+export default function RecentStudentTable() {
    
   return (
     <TableStyle >
     <TableContainer style={{padding:"20px",backgroundColor:"#f6f6f6",borderRadius:"5px"}} >
-        <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recent Test</Typography>
+        <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recently Added Students</Typography>
       <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#e7f6f2"}}>
-            <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Test Name</TableCell>
-            <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}} align="right">Total Test</TableCell>
+            <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Sname</TableCell>
+            <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}} align="right">Category</TableCell>
             
           </TableRow>
         </TableHead>

@@ -47,31 +47,9 @@ export default function YearMCQ() {
         <BreadcrumbsComp/>
       </div>
         <div className='title'> 
-        <Typography sx={{fontWeight:600,fontSize:"24px"}}>Previous Year MCQ's</Typography>
+        <Typography sx={{fontWeight:600,fontSize:"18px"}}>Previous Year MCQ's</Typography>
         </div>
-        <Container style={{marginTop:"20px"}}>
-          <Row>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6} className='MainCol1'>
-            <div className='search'>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-            sx={{fontFamily: "Roboto, sans-serif"}}
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          </div>
-            </Col>
-            <Col xs={12} sm={12} md={6} lg={6} xl={6}  className='MainCol'>
-              <div>
-                <Button style={{backgroundColor:"#F0A04b",width:"130px",fontWeight:"bold",textTransform:"capitalize"}}><UpdateIcon/>&nbsp; Update</Button>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        
         <div>
           <YearCard/>
         </div>

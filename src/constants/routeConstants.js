@@ -16,5 +16,10 @@ export const PATH = {
   SETTINGS:"/settings",
   STUTB:"/stutb",
   PREMIUMTB:"/premiumtb",
-  ADDMCQ:"/addmcq"
+  ADDMCQ:"/addmcq",
+  UNBLOCK:"/unblock",
+  STADD:"/stadd",
+  PREADD:"/preadd",
+  RECENTSTUDENT:"/recentstudent",
+  YEARINSTITUTION:"/yearinstitution"
 };

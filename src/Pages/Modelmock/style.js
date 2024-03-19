@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
 export const ModelMockStyle=styled("div")(()=>({
     ".title":{
-        textAlign:"center",
-        paddingTop:"10px", 
+        paddingLeft:"15px", 
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD"
-    },
+    
     ".MuiButton-root":{
         backgroundColor:"#F0A04B",
         color:"white",

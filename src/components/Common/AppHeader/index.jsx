@@ -56,7 +56,7 @@ export default function AppHeader() {
 
               <Grid item>
                 <Stack direction="row" display="flex" alignItems="center" >
-                  <SearchBox width={265} />
+                  {/* <SearchBox width={265} /> */}
                   <Tooltip title="Profile">
                     <IconButton color="inherit">
                       <Avatar

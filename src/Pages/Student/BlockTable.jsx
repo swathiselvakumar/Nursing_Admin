@@ -5,8 +5,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { TableStdStyle } from "../../StudentTable/style";
+// import DeleteIcon from "@mui/icons-material/Delete";
+import { TableStdStyle } from "../StudentTable/style";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,14 +15,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import { Typography,Button } from "@mui/material";
-import Rong from '../../../assets/icons/rong.jpg'
 import { styled } from '@mui/material/styles';
-// import Delete from '../../assets/icons/delete.jpeg'
-import Block from '../../../assets/icons/block.png'
-// import { AlertStyle } from "./style";
+import Pagination from '@mui/material/Pagination';
+import UnBlock from '../../assets/icons/unlock.png'
+import BreadcrumbsComp from '../../components/Common/BreadCrumbs/index'
+import { NavLink } from "react-router-dom";
 
-function createData(name, calories, fat, carbs,date, protein) {
-  return { name, calories, fat, carbs,date, protein };
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -35,19 +35,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
+  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
 ];
 
-export default function PremiumTb() {
+export default function UnBlockTable() {
   const [open, setOpen] =useState(false)
 
   const handleClickOpen = () => {
@@ -61,19 +61,26 @@ export default function PremiumTb() {
     color:"black",
     border:"1px solid black",
     width:"100px",
-    marginTop:"20px"
+    marginTop:"20px",
+    textTransform:"capitalize"
   }
   const Btn1={
-    backgroundColor:"red",
+    backgroundColor:"#1b4242",
     color:"white",
     marginLeft:"10px",
     width:"100px",
-    marginTop:"20px"
+    marginTop:"20px",
+    textTransform:"capitalize"
   }
   return (
     <> 
     <TableStdStyle> 
         <div style={{margin:"10px"}}>
+        <div style={{padding:"25px"}}>
+        <BreadcrumbsComp/>
+      </div>
+      <Typography sx={{fontWeight:"bold",fontSize:"18px",paddingBottom:"30px"}}>Block List </Typography>
+
         <TableContainer style={{borderRadius:"10px",padding:"30px",backgroundColor:"#f6f6f6"}} component={Paper}>
           <Table sx={{ minWidth: 650,}} aria-label="simple table">
             <TableHead>
@@ -82,7 +89,6 @@ export default function PremiumTb() {
                 <TableCell className="head" align="left">Sname</TableCell>
                 <TableCell className="head" align="left">Email Id</TableCell>
                 <TableCell className="head" align="left">Member Since</TableCell>
-                <TableCell className="head" align="left">Expired Date</TableCell>
                 <TableCell className="head" align="center">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -98,13 +104,15 @@ export default function PremiumTb() {
                   <TableCell align="left">{row.calories}</TableCell>
                   <TableCell align="left">{row.fat}</TableCell>
                   <TableCell align="left">{row.carbs}</TableCell>
-                  <TableCell align="left">{row.date}</TableCell>
                   <TableCell align="center" onClick={handleClickOpen}>{row.protein}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        </div>
+        <div>
+        <Pagination count={10} shape="rounded"  />
         </div>
         </TableStdStyle>
         <BootstrapDialog
@@ -128,11 +136,13 @@ export default function PremiumTb() {
           <CloseIcon />
         </IconButton>
         <DialogContent sx={{textAlign:"center"}}>
-            <img src={Rong} height="25px" style={{marginTop:"-30px"}}/><br/>
+            <img src={UnBlock} height="25px" style={{marginTop:"-30px"}}/><br/>
             Are You sure ?<br/>
-            want to block this student?<br/>
+            want to Unblock this student?<br/>
             <Button onClick={handleClose} style={Btn}>Cancel</Button>
-            <Button onClick={handleClose}  style={Btn1}>Block</Button>
+            <NavLink to="/standard">
+            <Button  style={Btn1}>UnBlock</Button>
+            </NavLink>
         </DialogContent>
         
       </BootstrapDialog>
