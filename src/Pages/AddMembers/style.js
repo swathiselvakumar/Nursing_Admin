@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const AlertBoxStyle = styled("div")(() => ({
+  body:{
+backgroundColor:"white",
+  },
   ".alt-box": {
-    width: "35vw",
+    // width: "35vw",
     borderRadius: "5px",
-    padding: "16px", 
+    padding: "18px", 
      fontFamily: "Roboto, sans-serif",
      backgroundColor:"#e7f6f2",
      boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
@@ -16,7 +19,8 @@ export const AlertBoxStyle = styled("div")(() => ({
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
-    height:"65vh"
+    backgroundColor:"white",
+    height:"50vh"
   },
   ".form": {
     width: "120px",
@@ -36,15 +40,6 @@ export const AlertBoxStyle = styled("div")(() => ({
     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
     borderRadius:"5px"
   },
-  input: {
-    width: "400px",
-    padding: "10px",
-    marginBottom: "20px",
-    border:"none",
-    outline:"none",
-    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-    borderRadius:"5px"
-  },
   button: {
     padding: "10px 20px",
     backgroundColor: "#f0a04b",
@@ -55,4 +50,17 @@ export const AlertBoxStyle = styled("div")(() => ({
     fontWeight:'550',
     marginBottom:"10px"
   },
+  '.textB':{
+    width: "32vw",
+    padding: "10px",
+    marginBottom: "20px",
+    border:"none",
+    outline:"none",
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+    borderRadius:"5px"
+  },
+  ".radioBtn":{
+    display:"flex",
+    justifyContent:"space-around"
+  }
 }));

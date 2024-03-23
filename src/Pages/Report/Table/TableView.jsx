@@ -56,6 +56,9 @@ export default function TableViewOrg() {
           <div className="d1" style={{ flex: "1" }}>
             <h5 >Students Report</h5>
           </div>
+          <div>
+            <DropDown/>
+          </div>
          
         </div>
         <TableContainer>

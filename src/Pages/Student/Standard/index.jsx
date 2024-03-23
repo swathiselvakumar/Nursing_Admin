@@ -13,8 +13,16 @@ import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from '@mui/material/Pagination';
 import Block from '../../../assets/icons/block.png'
 import { NavLink } from 'react-router-dom';
+import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
+import { getLocalStorage } from '../../../utils/helperFunc';
+import { PATH } from '../../../constants/routeConstants';
 export default function Standard() {
-  
+  const languageName = getLocalStorage("languageName");
+
+  const BreadcrumbItems = [
+    { label: "Dashboard", path: PATH.DASHBOARD },
+    { label: "Standard List", path: PATH.STANDARD },
+  ];
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -65,7 +73,7 @@ export default function Standard() {
     < StandardStyle>
     <div className='bodystyle'>
       <div style={{padding:"25px"}}>
-        <BreadcrumbsComp/>
+      <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
         
         <Container fluid style={{marginTop:"20px"}}>

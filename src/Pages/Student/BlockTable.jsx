@@ -5,7 +5,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import DeleteIcon from "@mui/icons-material/Delete";
 import { TableStdStyle } from "../StudentTable/style";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -20,6 +19,9 @@ import Pagination from '@mui/material/Pagination';
 import UnBlock from '../../assets/icons/unlock.png'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs/index'
 import { NavLink } from "react-router-dom";
+import { PATH } from "../../constants/routeConstants";
+import { getLocalStorage } from "../../utils/helperFunc";
+import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -48,6 +50,14 @@ const rows = [
 ];
 
 export default function UnBlockTable() {
+  const languageName = getLocalStorage("languageName");
+
+  const BreadcrumbItems = [
+    { label: "Dashboard", path: PATH.DASHBOARD },
+    
+    { label: "Premium List", path: PATH.PREMIUM },
+    { label: "Block List", path: PATH.UNBLOCK },
+  ];
   const [open, setOpen] =useState(false)
 
   const handleClickOpen = () => {
@@ -77,7 +87,7 @@ export default function UnBlockTable() {
     <TableStdStyle> 
         <div style={{margin:"10px"}}>
         <div style={{padding:"25px"}}>
-        <BreadcrumbsComp/>
+        <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
       <Typography sx={{fontWeight:"bold",fontSize:"18px",paddingBottom:"30px"}}>Block List </Typography>
 

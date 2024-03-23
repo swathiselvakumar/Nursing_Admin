@@ -10,16 +10,20 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { NavLink } from 'react-router-dom';
 import PremiumTb from './premiumTable';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import AlertBox from '../../AddMembers/StAdd';
 import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from '@mui/material/Pagination';
 import Block from '../../../assets/icons/block.png'
+import { PATH } from '../../../constants/routeConstants';
+import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
+import { getLocalStorage } from '../../../utils/helperFunc';
 export default function Premium() {
+  const languageName = getLocalStorage("languageName");
+
+  const BreadcrumbItems = [
+    { label: "Dashboard", path: PATH.DASHBOARD },
+    
+    { label: "Premium List", path: PATH.PREMIUM },
+  ];
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -51,14 +55,7 @@ export default function Premium() {
      
     },
   }));
-  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
-    },
-  }));
+ 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -73,7 +70,7 @@ export default function Premium() {
     < PremiumStyle>
     <div className='bodystyle'>
       <div style={{padding:"25px"}}>
-      <BreadcrumbsComp/>
+      <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
         
         <Container fluid style={{marginTop:"20px"}}>

@@ -21,5 +21,11 @@ export const PATH = {
   STADD:"/stadd",
   PREADD:"/preadd",
   RECENTSTUDENT:"/recentstudent",
-  YEARINSTITUTION:"/yearinstitution"
+  YEARINSTITUTION:"/yearinstitution",
+  SUBINSTITUTION:"/subinstitution",
+  ADDSUB:"/addsub",
+  NONINSTITUTION:"/noninstitution",
+  MODELINSTITUTION:"/modelinstitution",
+  COURSE:"/course",
+  UPDATEPLAN:"/updateplan"
 };
