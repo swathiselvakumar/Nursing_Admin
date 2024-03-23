@@ -8,7 +8,7 @@ export const DisFormStyle = styled("div")(() => ({
   ".title": {
     // fontFamily: "arial",
     textAlign: "center",
-    marginBottom: "40px",
+    // marginBottom: "40px",
   },
   ".sub-title": {
     // fontFamily: "arial",
@@ -39,14 +39,14 @@ marginBottom:'30px'
     fontSize: "12px",
     
   },
-  ".sub-card span": {
+  // ".sub-card span": {
     
-    padding: "10px 80px",
-    backgroundColor: "white",
-  },
+  //   padding: "10px 80px",
+  //   backgroundColor: "white",
+  // },
   ".img-wraped": {
     display: "flex",
-    padding: "10px",
+    // padding: "10px",
     justifyContent: "center",
   },
   ".card-desc": {
@@ -83,4 +83,5 @@ marginBottom:'30px'
     // marginLeft: "50px",
     fontWeight: "550",
   },
+  
 }));

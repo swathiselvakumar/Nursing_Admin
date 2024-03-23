@@ -21,6 +21,12 @@ import UnBlockTable from "../Pages/Student/BlockTable";
 import StAdd from "../Pages/AddMembers/StAdd";
 import RecentStudentTable from "../Pages/Dashboard/RecentStudents";
 import YearInstitution from "../Pages/YearMCQ/Institution";
+import SubInstitution from "../Pages/SubjectMcq/Institution";
+import AddSub from "../Pages/SubjectMcq/AddSub";
+import NonInstitution from "../Pages/Non_Nursing/Institution";
+import ModelInstitution from "../Pages/Modelmock/Institution";
+import Course from "../Pages/Course";
+import UpdatePlan from "../Pages/Student/PremiumPlans/UpdatePlan";
 export const routeConfig = [
  
   {
@@ -157,6 +163,41 @@ export const routeConfig = [
     Component:YearInstitution,
     route:PATH.YEARINSTITUTION
   },
-
+  {
+    key:"subinstitution",
+    title:"subinstitution",
+    Component:SubInstitution,
+    route:PATH.SUBINSTITUTION
+  },
+  {
+    key:"addsub",
+    title:"addsub",
+    Component:AddSub,
+    route:PATH.ADDSUB
+  },
+  {
+    key:"noninstitution",
+    title:"noninstitution",
+    Component:NonInstitution,
+    route:PATH.NONINSTITUTION
+  },
+  {
+    key:"modelinstitution",
+    title:"modelinstitution",
+    Component:ModelInstitution,
+    route:PATH.MODELINSTITUTION
+  },
+  {
+    key:"course",
+    title:"course",
+    Component:Course,
+    route:PATH.COURSE
+  },
+  {
+    key:"updateplan",
+    title:"updateplan",
+    Component:UpdatePlan,
+    route:PATH.UPDATEPLAN
+  },
 ];
 

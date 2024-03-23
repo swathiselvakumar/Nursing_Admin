@@ -1,0 +1,41 @@
+.edit{
+  padding: 10px 80px;
+  background-color: white;
+    cursor:pointer;
+  }
+  .hh{
+    background-color: white;
+    /* display: flex; */
+  }
+  .hh:hover .iconA { 
+    display: block;
+    transition: 5s;
+  }
+  .hh:hover .done { 
+    display: block;
+    transition: 5s;
+  }
+  .hh:hover .edit { 
+    background-color: #e4a45a;
+    color:white;
+    transition: 1s;
+  }
+  .iconA{
+    display:none;
+  }
+  .done{
+    border:none;
+    outline: none;
+    background-color:white;
+    width:100px;
+    border-radius:5px;
+    box-shadow:rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height:30px;
+    margin-top:20px;
+    display:none;
+    text-align: center;
+  }
+  
+  
+  
+  

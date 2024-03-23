@@ -1,3 +1,6 @@
+*{
+  font-family: "Roboto", sans-serif;
+}
 .Div{
     background-color: white;
   
@@ -23,6 +26,116 @@ position: absolute;
 right:0;
 top:0
 }
-.title{
+.title1{
   display:flex;
+  background-color: #e7f6f2;
+  padding:10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+.delete{
+  padding: 10px;
+  display: none;
+  position: absolute;
+  right:0;
+  top:8px
+}
+.box{
+  background-color: white;
+  width:300px;
+  text-align: center;
+  height: 50px;
+  padding-top: 10px;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+}
+.box:hover .delete{
+  display: block;
+ 
+}
+
+.MainBox{
+  
+  /* height:300px; */
+  /* display: flex; */
+  justify-content: center;
+  padding: 40px;
+  /* margin:20px */
+}
+.Col1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px
+}
+.TotalBox{
+  background-color:#f6f6f6;
+  /* width:600px */
+}
+.BtnBox{
+  display: flex;
+  justify-content: center;
+}
+.Btn{
+  border:none;
+  background-color: #e4a45a;
+  color:white;
+  height: 40px;
+  width: 250px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.Submit{
+  border:none;
+  background-color:#1b4242;
+  color:white;
+  height: 40px;
+  width: 300px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+}
+.Submit1{
+  border:none;
+  background-color:#1b4242;
+  color:white;
+  height: 40px;
+  width: 200px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  margin:40px;
+}
+.textbox{
+  border:none;
+  background-color: #DEE2DF;
+  width:340px;
+  height: 30px;
+  outline: none;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.textarea{
+  border:none;
+  background-color: #DEE2DF;
+  width:340px;
+  outline: none;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.subjectBtn{
+  border:none;
+  background-color: #1b4242;
+  width:340px;
+  outline: none;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
 }

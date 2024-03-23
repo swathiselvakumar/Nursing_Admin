@@ -12,7 +12,19 @@ import Crown from '../../../assets/images/Crown.png'
 import Plus from '../../../assets/icons/plus b.png'
 import Tick from '../../../assets/icons/tick.png'
 import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
+import { PATH } from '../../../constants/routeConstants';
+import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
+import { getLocalStorage } from '../../../utils/helperFunc';
 export default function PlanDetails() {
+  const languageName = getLocalStorage("languageName");
+
+  const BreadcrumbItems = [
+    { label: "Dashboard", path: PATH.DASHBOARD },
+    
+    { label: "Premium Plans", path: PATH.PREMIUMPLANS },
+    { label: "Plans", path: PATH.PLANDETAILS },
+
+  ];
   const DeleteBtn={
     width:"130px",
     fontWeight:"bold",
@@ -25,7 +37,7 @@ export default function PlanDetails() {
     < PlansStyle >
     <div className='bodystyle'>
     <div style={{padding:"20px"}}>
-        <BreadcrumbsComp/>
+    <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
         <Container fluid style={{marginTop:"20px"}}>
           <Row>
@@ -129,16 +141,7 @@ export default function PlanDetails() {
                   
                 </div>
               </Col>
-              {/* <Col xs={3} sm={3} md={3} lg={3} xl={3}>
-              <div className='Div'>
-                        <div>
-                            <img src={Plus} height="70px"/>
-                        </div>
-                        <div style={{paddingTop:"10px"}}>
-                            <Typography style={{fontWeight:600}}>Add</Typography>
-                        </div>
-                    </div>
-              </Col> */}
+             
         </Row>
     </Container>
         </div>
