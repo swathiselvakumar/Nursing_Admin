@@ -57,7 +57,7 @@ export default function TableViewOrg() {
             <h5 >Students Report</h5>
           </div>
           <div>
-            <DropDown/>
+          
           </div>
          
         </div>

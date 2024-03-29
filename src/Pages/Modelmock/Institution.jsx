@@ -42,7 +42,7 @@ export default function ModelInstitution() {
         <div style={{padding:"25px"}}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
-    <Container fluid>
+    <Container fluid style={{paddingLeft:"27px",paddingRight:"27px"}}>
         <Row>
             <Col xs={12} sm={12} md={12} lg={12} xl={12} className='title1'>
                 <div>
@@ -75,7 +75,7 @@ export default function ModelInstitution() {
       <Row style={{marginTop:"-100px"}}>
         <Col className='Col1'>
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -83,7 +83,7 @@ export default function ModelInstitution() {
         </Col>
         <Col className='Col1'> 
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -95,7 +95,7 @@ export default function ModelInstitution() {
     <Row style={{marginTop:"-100px"}}>
         <Col className='Col1'>
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -103,7 +103,7 @@ export default function ModelInstitution() {
         </Col>
         <Col className='Col1'> 
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -116,7 +116,7 @@ export default function ModelInstitution() {
     <Row style={{marginTop:"-100px"}}>
         <Col className='Col1'>
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -124,7 +124,7 @@ export default function ModelInstitution() {
         </Col>
         <Col className='Col1'> 
         <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
+        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
           <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
@@ -137,7 +137,7 @@ export default function ModelInstitution() {
       <button className='Btn' onClick={handleClickOpen} >Add Stage</button> 
     </div>
     <div className='BtnBox'>
-      <NavLink to="/addsub">
+      <NavLink to="/addmock">
       <button className='Btn' >Upload Questions</button>
       </NavLink>
     </div>

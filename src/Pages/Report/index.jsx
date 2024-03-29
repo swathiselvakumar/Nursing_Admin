@@ -15,11 +15,11 @@ export default function Report() {
   return (
 <div>
       <ReportStyle >
-      <div style={{padding:"25px"}}>
+      <div style={{padding:"10px"}}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
         <TableNav />
-        <div style={{padding:'25px'}}>
+        <div style={{padding:'20px'}}>
           <TestTable/>
         </div>
       </ReportStyle>

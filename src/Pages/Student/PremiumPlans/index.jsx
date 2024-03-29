@@ -83,8 +83,8 @@ export default function PremiumPlans() {
       <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
         
-        <div style={{padding:"10px"}}>
-        <Container fluid style={{marginTop:"20px"}}>
+        <div >
+        <Container fluid >
           <Row>
             <Col xs={12} sm={12} md={5} lg={6} xl={6}  className='MainCol1'>
             
@@ -105,7 +105,7 @@ export default function PremiumPlans() {
           </Row>
         </Container>
         </div>
-        <div style={{padding:"20px",marginTop:"30px"}}>
+        <div style={{padding:"20px",}}>
         <Container  className='mainContainer'>
         <Row style={{display:"flex",justifyContent:"space-around"}}>
        
@@ -179,14 +179,16 @@ export default function PremiumPlans() {
                 </div>
               </Col>
               <Col xs={3} sm={3} md={3} lg={3} xl={3}>
+              <NavLink to="/addpremiumplan">
               <div className='Div'>
                         <div>
                             <img src={Plus} height="70px"/>
                         </div>
                         <div style={{paddingTop:"10px"}}>
-                            <Typography style={{fontWeight:600}}>Add</Typography>
+                            <Typography style={{fontWeight:600,textDecoration:"none",color:"black"}}>Add</Typography>
                         </div>
                     </div>
+              </NavLink>
               </Col>
         </Row>
     </Container>
@@ -215,7 +217,7 @@ export default function PremiumPlans() {
         <DialogContent sx={{textAlign:"center"}}>
             <img src={Rong} height="25px" style={{marginTop:"-30px"}}/><br/>
             Are You sure ?<br/>
-            you want to delete this student?<br/>
+            you want to delete this Plan?<br/>
             <Button onClick={handleClose} style={Btn}>Cancel</Button>
             <Button onClick={handleClose}  style={Btn1}>Delete</Button>
         </DialogContent>

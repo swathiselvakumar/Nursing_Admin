@@ -4,13 +4,14 @@ import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
+import Tick from '../../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
-export default function UpdatePlan() {
+export default function PremiumPlanDetails() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
         { label: "Premium Plans", path: PATH.PREMIUMPLANS },
-        { label: "Update Plans", path: PATH.UPDATEPLAN },
+        { label: "Add Premium Plan", path: PATH.ADDPREMIUMPLAN },
 
       ];
       const MainBox={
@@ -57,7 +58,8 @@ export default function UpdatePlan() {
     outline:"none",
     paddingLeft:"10px",
     height:"30px",
-    width:"230px",fontSize:"12px"
+    width:"230px",
+    fontSize:"12px"
   }
   const btn1={
     border:"none",
@@ -90,11 +92,15 @@ export default function UpdatePlan() {
               <div style={div1}>
                         <div className='circle'>
                           <div className='inner-circle'>
-
+                            <img src={Tick} style={{margin:"6px"}}/>
                           </div>
                         </div>
                         <div className='line'></div>
-                        <div style={second}></div>
+                        <div  className='circle'>
+                        <div className='inner-circle'>
+
+                        </div>      
+                        </div>
               </div>
               <div style={{display:'flex',justifyContent:"center"}}>
               <div style={step}>
@@ -111,11 +117,6 @@ export default function UpdatePlan() {
 
               <div style={MainText}>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan No</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
-              </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Plan Duration</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div><input type='number' style={TextB}/></div>
@@ -125,19 +126,24 @@ export default function UpdatePlan() {
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div><input type='number' value="1999" style={TextB}/></div>
               </div>
+              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
+                <div><label>Category Access</label></div>
+                {/* <div><img src={AlertIcon}/></div> */}
+                <div><input type='number' placeholder='Add Category' style={TextB}/></div>
+              </div>
               
               
             </div>
             <div>
               <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/updatedetails">
-               <button style={btn1}>NEXT</button>
-               </NavLink>
+                <NavLink to="/premiumplans">
+                <button style={btn1}>SUBMIT</button>
+                </NavLink>
               </div>
             </div>
             <div>
               <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-                <NavLink to="/premiumplans">
+              <NavLink to="/premiumplans">
                 <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>

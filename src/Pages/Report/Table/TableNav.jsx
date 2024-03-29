@@ -10,7 +10,8 @@ function TableNav() {
           // backgroundColor:'red',
           display: "flex",
           width:"100%",
-          padding:'20px 50px'
+          paddingLeft:"30px"
+          // padding:'20px 20px 0px 0px'
         }}
       >
         <div className="col1" style={{ flex: "1.2" }}>

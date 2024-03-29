@@ -1,10 +1,10 @@
 import React from 'react'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import { Container,Row,Col } from 'react-bootstrap'
-import institution from '../../assets/images/vadakk.png'
+import Daily from '../../assets/images/DailyTest.png'
 import {Typography } from '@mui/material'
 import Delete from '../../assets/icons/delete.jpeg'
-import './CardStyle.css'
+import '../YearMCQ/CardStyle.css'
 import { NavLink } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -21,12 +21,12 @@ import Select from '@mui/material/Select';
 import { PATH } from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 
-export default function YearInstitution() {
+export default function DailyInstitution() {
   const BreadcrumbItems = [
-    { label: "Dashboard", path: PATH.DASHBOARD },
+    // { label: "Dashboard", path: PATH.DASHBOARD },
     
-    { label: "YearMCQ", path: PATH.YEARMCQ },
-    { label: "Institution", path: PATH.YEARINSTITUTION },
+    { label: "Hybrid", path: PATH.HYBRID },
+    { label: "Daily Test", path: PATH.YEARINSTITUTION },
   ];
   const [age, setAge] = React.useState('');
 
@@ -60,10 +60,10 @@ export default function YearInstitution() {
         <Row>
             <Col xs={12} sm={12} md={12} lg={12} xl={12} className='title1'>
                 <div>
-                    <img src={institution} height="40px"/>
+                    <img src={Daily} height="40px"/>
                 </div>&nbsp;&nbsp;
                 <div>
-                    <Typography  style={{fontWeight:700,paddingTop:"10px"}}>Institution 1</Typography>
+                    <Typography  style={{fontWeight:700,paddingTop:"10px"}}>Daily Test</Typography>
                 </div>
             </Col>
         </Row>
@@ -73,92 +73,24 @@ export default function YearInstitution() {
       <Row>
         <Col className='Col1'>
         <div className='box'>
-          <NavLink to="/uploadtest" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
+          <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
+          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>Test Name 1</button>&nbsp;&nbsp;&nbsp;&nbsp;
           <img src={Delete} className='delete'/>
           </NavLink>
         </div>
         </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
+        
       </Row>
       
     </Container>
-    <Container  className='MainBox'>
-      <Row style={{marginTop:"-50px"}}>
-        <Col className='Col1'>
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-      </Row>
-    </Container>
-    <Container className='MainBox'>
-    <Row style={{marginTop:"-50px"}}>
-        <Col className='Col1'>
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/testpage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 October Question Paper</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-      </Row>
-    </Container>
+    
     <div className='BtnBox'>
-      <button className='Btn' onClick={handleClickOpen}>Upload Questions</button>
+      <NavLink to="/addquestion">
+      <button className='Btn'>Upload Questions</button>
+      </NavLink>
     </div>
     </div>
-    <Dialog
+    {/* <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -228,7 +160,7 @@ export default function YearInstitution() {
             </div>
         </DialogContent>
         
-      </Dialog>
+      </Dialog> */}
 
       <Dialog
         onClose={handleClose}

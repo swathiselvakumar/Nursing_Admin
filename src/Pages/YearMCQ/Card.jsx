@@ -117,7 +117,7 @@ export default function YearCard() {
                     <Col xs={12} sm={12} md={6} lg={3} xl={3} style={{justifyContent:"center",alignItems:"center",marginBottom:"20px"}} >
                     <NavLink to={d.path} style={{color:"black",textDecoration:"none"}}>
                     <div className='Div' >
-                        <button onClick={handleClickOpen}><img src={Delete}  className='del'/></button>
+                        <img src={Delete}  className='del'/>
                         <div>
                             <img src={d.img} height="70px"/>
                         </div>

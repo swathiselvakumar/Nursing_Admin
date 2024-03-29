@@ -1,16 +1,32 @@
 import React, { useState } from 'react'
-import { YEARMCQStyle } from '../../YearMCQ/style'
+import { YEARMCQStyle } from '../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
-import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
-import { PATH } from '../../../constants/routeConstants'
-import AlertIcon from '../../../assets/icons/alert.png'
+import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
+import { PATH } from '../../constants/routeConstants'
+import AlertIcon from '../../assets/icons/alert.png'
+import Tick from '../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
-export default function UpdatePlan() {
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+export default function AddMock1() {
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
-        { label: "Premium Plans", path: PATH.PREMIUMPLANS },
-        { label: "Update Plans", path: PATH.UPDATEPLAN },
+        { label: "Model Mock", path: PATH.MODELMOCK },
+        { label: "Institution", path: PATH.MODELINSTITUTION },
+        { label: "Add Question", path: PATH.ADDMOCK },
+
 
       ];
       const MainBox={
@@ -57,7 +73,8 @@ export default function UpdatePlan() {
     outline:"none",
     paddingLeft:"10px",
     height:"30px",
-    width:"230px",fontSize:"12px"
+    width:"230px",
+    fontSize:"12px"
   }
   const btn1={
     border:"none",
@@ -85,16 +102,20 @@ export default function UpdatePlan() {
             <div style={bodystyle}>
             
             <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Update Premium Plans</Typography>
+              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Question</Typography>
               <hr style={{border:"1px solid black"}}/>
               <div style={div1}>
                         <div className='circle'>
                           <div className='inner-circle'>
-
+                            <img src={Tick} style={{margin:"6px"}}/>
                           </div>
                         </div>
                         <div className='line'></div>
-                        <div style={second}></div>
+                        <div  className='circle'>
+                        <div className='inner-circle'>
+
+                        </div>      
+                        </div>
               </div>
               <div style={{display:'flex',justifyContent:"center"}}>
               <div style={step}>
@@ -111,33 +132,38 @@ export default function UpdatePlan() {
 
               <div style={MainText}>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan No</label></div>
+                <div><label>Date</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div><input type='date' style={TextB}/></div>
               </div>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan Duration</label></div>
+                <div><label>Duration</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div><input type='number'  style={TextB}/></div>
               </div>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Price</label></div>
+                <div><label>Start Time</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' value="1999" style={TextB}/></div>
+                <div><input type='time' placeholder='Add Category' style={TextB}/></div>
+              </div>
+              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
+                <div><label>End Time</label></div>
+                {/* <div><img src={AlertIcon}/></div> */}
+                <div><input type='time' placeholder='Add Category' style={TextB}/></div>
               </div>
               
               
             </div>
             <div>
               <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/updatedetails">
-               <button style={btn1}>NEXT</button>
-               </NavLink>
+               
+                <button onClick={handleClickOpen} style={btn1}>SUBMIT</button>
+                
               </div>
             </div>
             <div>
               <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-                <NavLink to="/premiumplans">
+              <NavLink to="/addmock">
                 <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>
@@ -146,6 +172,31 @@ export default function UpdatePlan() {
             
                 
             </div>
+            <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers style={{display:"flex",justifyContent:"space-between"}}>
+          <button className='Submit1'>Download Template</button>
+          <NavLink to="/testpage">
+          <button className='Submit1'>Upload Questions</button>
+          </NavLink>
+        </DialogContent>
+      </Dialog>
         </YEARMCQStyle>
     </div>
   )

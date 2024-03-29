@@ -7,25 +7,25 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import DropDown from "./DropDown";
+// import DropDown from ;
 
-function createData(name, calories, fat, carbs, protein,score) {
-  return { name, calories, fat, carbs, protein,score };
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid","80"),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name","70"),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test","50"),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test","50"),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","49"),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
+  createData(1, "Divya", "100", "80", "1 / 05 /2023-8.00am"),
+  createData(2, "Divya", "100", "70", "1 / 05 /2023-8.00am"),
+  createData(3, "Divya", "100","50", "1 / 05 /2023-8.00am"),
+  createData(4, "Divya", "100", "50", "1 / 05 /2023-8.00am"),
+  createData(5, "Divya", "100","49", "1 / 05 /2023-8.00am"),
+  createData(6, "Divya", "100","30", "1 / 05 /2023-8.00am"),
+  createData(7, "Divya", "100", "30", "1 / 05 /2023-8.00am"),
+  createData(8, "Divya", "100", "30", "1 / 05 /2023-8.00am"),
 
 ];
 
-export default function TestTable() {
+export default function McqTable() {
   const Tbhead={
     fontWeight:"bold"
   }
@@ -33,7 +33,7 @@ export default function TestTable() {
     <>
     <div
       style={{
-        padding: "10px",
+        padding: "15px",
         backgroundColor: "#f1f1f1",
         borderRadius: "10px",
       }}
@@ -46,22 +46,7 @@ export default function TestTable() {
           paddingBottom: "10px",
         }}
       >
-        <div className="d1" style={{ flex: "1" }}>
-          <h5>Students Reports</h5>
-        </div>
-        <div
-          // className="menu-wrapper"
-          style={{
-            justifyContent: "flex-end",
-            alignItems: "center",
-            backgroundColor: "#e1eede",
-            borderRadius: "5px",
-            display:"flex"
-          }}
-        >
-          <FilterListIcon />&nbsp;
-          <DropDown />
-        </div>
+        
       </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -69,10 +54,10 @@ export default function TestTable() {
             <TableRow style={{ backgroundColor: "#E1EEDE" }}>
               <TableCell  style={Tbhead}>Sno</TableCell>
               <TableCell style={Tbhead} align="left">Sname</TableCell>
-              <TableCell  style={Tbhead} align="left">Email Id</TableCell>
-              <TableCell  style={Tbhead} align="left">Date</TableCell>
-              {/* <TableCell  style={Tbhead} align="left">Test Name</TableCell> */}
+              <TableCell  style={Tbhead} align="left">Total Score</TableCell>
               <TableCell  style={Tbhead} align="left">Score</TableCell>
+              {/* <TableCell  style={Tbhead} align="left">Test Name</TableCell> */}
+              <TableCell  style={Tbhead} align="left">Date-Time</TableCell>
 
             </TableRow>
           </TableHead>
@@ -88,8 +73,8 @@ export default function TestTable() {
                 <TableCell align="left">{row.calories}</TableCell>
                 <TableCell align="left">{row.fat}</TableCell>
                 <TableCell align="left">{row.carbs}</TableCell>
-                {/* <TableCell align="left">{row.protein}</TableCell> */}
-                <TableCell align="left">{row.score}</TableCell>
+                <TableCell align="left">{row.protein}</TableCell>
+                {/* <TableCell align="left">{row.score}</TableCell> */}
 
               </TableRow>
             ))}

@@ -62,14 +62,7 @@ export const PremiumPlansStyle=styled("div")(()=>({
         color: "#333",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
     },
-    // ".bodystyle":{
-    //     backgroundColor:"#E1EEDD",
-    //     height:"140vh"
-    // },
-    // ".title":{
-    //     textAlign:"center",
-    //     // paddingTop:"10px"
-    // },
+   
     ".MainCol":{
         display:"flex",
         justifyContent:"flex-end"

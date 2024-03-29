@@ -16,57 +16,57 @@ export default function Course() {
   const datas=[
     {
         img:Medical,
-        name:"Institution 1",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 2",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 3",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 4",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 5",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 6",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 7",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },{
         img:Medical,
-        name:"Institution 8",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     }
     ,{
         img:Medical,
-        name:"Institution 9",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Medical,
-        name:"Institution 10",
-        path:"/yearinstitution"
+        name:"Course Name",
+        path:"/viewcourse"
     },
     {
         img:Plus,
-        name:"Add Institution",
-        path:"/addmcq"
+        name:"Add Course",
+        path:"/addcourse"
     }
     
 ]
@@ -75,6 +75,7 @@ export default function Course() {
     { label: "Dashboard", path: PATH.DASHBOARD },
    
     { label: "Courses", path: PATH.COURSE },
+    
   ];
   return (
     <div>

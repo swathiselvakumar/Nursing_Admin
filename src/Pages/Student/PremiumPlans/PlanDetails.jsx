@@ -1,11 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
 import { PlansStyle } from './planstyle';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled} from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
-import UpdateIcon from '@mui/icons-material/Update';
 import { NavLink } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Crown from '../../../assets/images/Crown.png'
@@ -15,7 +11,23 @@ import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import { PATH } from '../../../constants/routeConstants';
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
 import { getLocalStorage } from '../../../utils/helperFunc';
+import { useState } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Rong from '../../../assets/icons/rong.jpg'
 export default function PlanDetails() {
+  const [open, setOpen] =useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const languageName = getLocalStorage("languageName");
 
   const BreadcrumbItems = [
@@ -33,6 +45,20 @@ export default function PlanDetails() {
     color:"black",
     boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
   }
+  const Btn={
+    backgroundColor:"white",
+    color:"black",
+    border:"1px solid black",
+    width:"100px",
+    marginTop:"20px"
+  }
+  const Btn1={
+    backgroundColor:"red",
+    color:"white",
+    marginLeft:"10px",
+    width:"100px",
+    marginTop:"20px"
+  }
   return (
     < PlansStyle >
     <div className='bodystyle'>
@@ -47,7 +73,7 @@ export default function PlanDetails() {
                   <Typography sx={{fontWeight:600,fontSize:"18px",}}>Premium Plans &nbsp;<img src={Crown} height="20px"/></Typography>
                 </div>
               <div>
-                <Button style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
+                <Button onClick={handleClickOpen} style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
               </div>
             </Col>
           </Row>
@@ -144,6 +170,35 @@ export default function PlanDetails() {
              
         </Row>
     </Container>
+    <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent sx={{textAlign:"center"}}>
+            <img src={Rong} height="25px" style={{marginTop:"-30px"}}/><br/>
+            Are You sure ?<br/>
+            you want to delete this Plan?<br/>
+            <Button onClick={handleClose} style={Btn}>Cancel</Button>
+            <Button onClick={handleClose}  style={Btn1}>Delete</Button>
+        </DialogContent>
+        
+      </Dialog>
         </div>
     </div>
     </ PlansStyle >

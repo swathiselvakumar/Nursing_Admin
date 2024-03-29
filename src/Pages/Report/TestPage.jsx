@@ -57,14 +57,14 @@ function TestPage() {
           </Col>
           <Col>
           <div className="rigth-wrapper">
-          <div className="sm-nav2">
+          {/* <div className="sm-nav2">
             <div className="boxGreen"></div>
             <span style={{ fontSize: "12px", fontWeight: "500" }}>Active</span>
             <div className="boxGreen" style={{backgroundColor:'yellow'}}></div>
             <span style={{ fontSize: "12px", fontWeight: "500" }}>Edit</span>
             <div className="boxGreen" style={{backgroundColor:'red'}}></div>
             <span style={{ fontSize: "12px", fontWeight: "500" }}>Remove</span>
-          </div>
+          </div> */}
           <div className="select-num">
             <div className="r1">
               <Btn num1="1" num2="2" num3="3" num4="4" num5="5"/>

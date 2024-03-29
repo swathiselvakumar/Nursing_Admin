@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { YEARMCQStyle } from '../../YearMCQ/style'
+import { YEARMCQStyle } from '../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
-import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
-import { PATH } from '../../../constants/routeConstants'
-import AlertIcon from '../../../assets/icons/alert.png'
+import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
+import { PATH } from '../../constants/routeConstants'
+import AlertIcon from '../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
-export default function UpdatePlan() {
+export default function AddMock() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
-        { label: "Premium Plans", path: PATH.PREMIUMPLANS },
-        { label: "Update Plans", path: PATH.UPDATEPLAN },
+        { label: "Model Mock", path: PATH.MODELMOCK },
+        { label: "Institution", path: PATH.MODELINSTITUTION },
+        { label: "Add Question", path: PATH.ADDMOCK },
+
 
       ];
       const MainBox={
@@ -82,10 +84,9 @@ export default function UpdatePlan() {
         <div style={{padding:"20px"}}>
               <CustomBreadCrumbs items={BreadcrumbItems} />
             </div>
-            <div style={bodystyle}>
-            
+            <div style={bodystyle}>    
             <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Update Premium Plans</Typography>
+              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Question</Typography>
               <hr style={{border:"1px solid black"}}/>
               <div style={div1}>
                         <div className='circle'>
@@ -111,33 +112,29 @@ export default function UpdatePlan() {
 
               <div style={MainText}>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan No</label></div>
+                <div><label>Choose Stages</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div><input type='number' style={TextB}/></div>
               </div>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan Duration</label></div>
+                <div><label>Model MCQ</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div><input type='number' style={TextB}/></div>
               </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Price</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' value="1999" style={TextB}/></div>
-              </div>
+             
               
               
             </div>
             <div>
               <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/updatedetails">
+               <NavLink to="/addmock1">
                <button style={btn1}>NEXT</button>
                </NavLink>
               </div>
             </div>
             <div>
               <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-                <NavLink to="/premiumplans">
+                <NavLink to="/modelinstitution">
                 <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>
