@@ -43,5 +43,6 @@ export const PATH = {
   ADDMCQ1:"/addmcq1",
   MCQTABLE:"/mcqtable",
   MCQTABLEPAGE:"/mcqtablepage",
-  UPLOADTEST:"/uploadtest"
+  UPLOADTEST:"/uploadtest",
+  ACHIEVEMENT:"/achievement"
 };

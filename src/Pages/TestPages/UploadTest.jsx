@@ -15,9 +15,16 @@ export default function UploadTest() {
       ];
       const ColStyle={
         backgroundColor:"#f6f6f6",
-        // height:"500px",
+        height:"750px",
         width:"auto",
         borderRadius:"15px"
+      }
+      const ColStyle1={
+        backgroundColor:"#f6f6f6",
+        height:"665px",
+        width:"auto",
+        borderRadius:"15px",
+        overflow:"auto"
       }
       const title={
         display:"flex",
@@ -53,14 +60,26 @@ export default function UploadTest() {
         fontSize:"12px",
         borderRadius:"5px"
       }
+      const final={
+        width:"500px",
+        border:"none",
+        backgroundColor:"#1b4242",
+        color:"white",
+        fontSize:"20px",
+        borderRadius:"5px",
+        height:"50px",
+        marginLeft:"60px",
+        marginTop:"20px",
+        marginBottom:"20px"
+      }
   return (
     <div>
         <div style={{padding:"25px"}}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
-      <Container>
+      <Container style={{paddingLeft:"30px",paddingRight:"30px",paddingBottom:"30px"}}>
         <Row>
-            <Col>
+            <Col xs={12} sm={12} md={12} lg={6} xl={6}>
                 <div style={ColStyle}>
                     <div style={title}>
                     <Typography style={{fontWeight:700}}>Upload Test Questions</Typography>
@@ -113,9 +132,23 @@ export default function UploadTest() {
                     </div>
                 </div>
             </Col>
-            <Col>
-            <div style={ColStyle}>
-              <Btn/>
+            <Col xs={12} sm={12} md={12} lg={6} xl={6}>
+            <div style={ColStyle1}>
+              <div>
+              <Btn v1={1} v2={2} v3={3} v4={4} v5={5} />
+              <Btn v1={6} v2={7} v3={8} v4={9} v5={10} />
+              <Btn v1={11} v2={12} v3={13} v4={14} v5={15} />
+              <Btn v1={16} v2={17} v3={18} v4={19} v5={20} />
+              <Btn v1={21} v2={22} v3={23} v4={24} v5={25} />
+              <Btn v1={26} v2={27} v3={28} v4={29} v5={30} />
+              <Btn v1={31} v2={32} v3={33} v4={34} v5={35} />
+              <Btn v1={36} v2={37} v3={38} v4={39} v5={40} />
+              <Btn v1={41} v2={42} v3={43} v4={44} v5={45} />
+              <Btn v1={46} v2={47} v3={48} v4={49} v5={50} />
+              </div>
+            </div>
+            <div style={{width:"400px"}}>
+            <button style={final}>Finish </button>
             </div>
             </Col>
         </Row>

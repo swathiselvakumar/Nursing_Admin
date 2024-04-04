@@ -43,6 +43,7 @@ import AddMCQ1 from "../Pages/YearMCQ/AddMCQ1";
 import McqTable from "../Pages/SubjectMcq/McqTable";
 import McqTablePage from "../Pages/SubjectMcq/McqTablePage";
 import UploadTest from "../Pages/TestPages/UploadTest";
+import Achievement from "../Pages/Achievement";
 export const routeConfig = [
  
   {
@@ -310,6 +311,12 @@ export const routeConfig = [
     title:"uploadtest",
     Component:UploadTest,
     route:PATH.UPLOADTEST
+  },
+  {
+    key:"achievement",
+    title:"achievement",
+    Component:Achievement,
+    route:PATH.ACHIEVEMENT
   },
 ];
 
