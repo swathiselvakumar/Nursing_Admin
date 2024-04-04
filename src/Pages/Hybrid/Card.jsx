@@ -14,22 +14,19 @@ export default function HybridCard() {
         {
             img:DailyTest,
             name:"DailyTest",
-            path:"/testpage"
+            path:"/dailyinstitution"
         },
         {
             img:MiniTest,
             name:"MiniTest",
-            path:"/testpage"
+            path:"/dailyinstitution"
         },
         {
             img:Micro,
             name:"Micro Test",
-            path:"/testpage"
+            path:"/dailyinstitution"
         },
-        {
-            img:Plus,
-            name:"Add Category"
-        }
+       
         
     ]
   return (

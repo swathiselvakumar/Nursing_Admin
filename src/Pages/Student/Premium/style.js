@@ -62,6 +62,7 @@ export const PremiumStyle=styled("div")(()=>({
 ".MainCol":{
     display:"flex",
     justifyContent:"space-around",
+    
     // width:"40vw"
     
 },

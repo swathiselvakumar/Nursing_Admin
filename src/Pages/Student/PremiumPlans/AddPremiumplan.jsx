@@ -5,12 +5,12 @@ import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
-export default function UpdatePlan() {
+export default function AddPremiumplan() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
         { label: "Premium Plans", path: PATH.PREMIUMPLANS },
-        { label: "Update Plans", path: PATH.UPDATEPLAN },
+        { label: "Add Premium Plan", path: PATH.ADDPREMIUMPLAN },
 
       ];
       const MainBox={
@@ -82,10 +82,9 @@ export default function UpdatePlan() {
         <div style={{padding:"20px"}}>
               <CustomBreadCrumbs items={BreadcrumbItems} />
             </div>
-            <div style={bodystyle}>
-            
+            <div style={bodystyle}>    
             <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Update Premium Plans</Typography>
+              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Premium Plans</Typography>
               <hr style={{border:"1px solid black"}}/>
               <div style={div1}>
                         <div className='circle'>
@@ -130,7 +129,7 @@ export default function UpdatePlan() {
             </div>
             <div>
               <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/updatedetails">
+               <NavLink to="/premiumplandetails">
                <button style={btn1}>NEXT</button>
                </NavLink>
               </div>

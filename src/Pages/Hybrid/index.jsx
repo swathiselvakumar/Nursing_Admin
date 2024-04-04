@@ -12,7 +12,7 @@ import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 export default function Hybrid() {
   const BreadcrumbItems = [
-    { label: "Dashboard", path: PATH.DASHBOARD },
+    // { label: "Dashboard", path: PATH.DASHBOARD },
     
     { label: "Hybrid", path: PATH.HYBRID },
     

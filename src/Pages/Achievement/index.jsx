@@ -4,7 +4,7 @@ import {getLocalStorage} from '../../utils/helperFunc'
 import {PATH} from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { Container,Row,Col } from 'react-bootstrap'
-import Medical from '../../assets/icons/medical.png'
+import Awards from '../../assets/images/awards.png'
 import { Typography } from '@mui/material'
 import Plus from '../../assets/icons/plus b.png'
 import { NavLink } from 'react-router-dom'
@@ -15,57 +15,57 @@ export default function Course() {
   const languageName = getLocalStorage("languageName");
   const datas=[
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name1",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name2",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name3",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name4",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name5",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name6",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name7",
         path:"/viewcourse"
     },{
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name8",
         path:"/viewcourse"
     }
     ,{
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name9",
         path:"/viewcourse"
     },
     {
-        img:Medical,
-        name:"Course Name",
+        img:Awards,
+        name:"Name10",
         path:"/viewcourse"
     },
     {
         img:Plus,
-        name:"Add Course",
+        name:"Add Awards",
         path:"/addcourse"
     }
     
@@ -74,16 +74,29 @@ export default function Course() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
    
-    { label: "Courses", path: PATH.COURSE },
+    { label: "Achievement", path: PATH.ACHIEVEMENT },
     
   ];
+  const UpdateBtn={
+    backgroundColor:"#e4a45a",
+    width:"130px",
+    textTransform:"capitalize",
+    boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
+    border:"none",
+    color:"white",
+    borderRadius:"5px",
+    height:"30px"
+  }
   return (
     <div>
       <div style={{padding:"20px"}}>
       <CustomBreadCrumbs items={BreadcrumbItems} />
     </div>
     <Container fluid  >
-        <Typography style={{fontWeight:600,fontSize:"20px"}}>Our Course</Typography>
+   <div style={{display:"flex",justifyContent:"space-between"}}>
+   <Typography style={{fontWeight:600,fontSize:"20px"}}>Achievement and Awards</Typography>
+   <button style={UpdateBtn}><UpdateIcon/> Update</button>
+   </div>
             <Row style={{marginTop:"20px",justifyContent:"center"}}>
             
                 {

@@ -62,5 +62,21 @@ backgroundColor:"white",
   ".radioBtn":{
     display:"flex",
     justifyContent:"space-around"
+  },
+  '.dialogbox':{
+    height:"200px",width:"600px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"
+  },
+  '.firstbox':{
+    width:"300px",boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",borderRadius:"5px"
+  },
+  '.pro':{
+    display:"flex",justifyContent:"space-between",alignItems:"center"
+  },
+  '.procontent':{
+    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",height:"30px",padding:"5px",fontSize:"14px",borderRadius:"5px",width:"80px",textAlign:"center",alignSelf:"flex-start",margin:"20px"
+  },
+  '.MuiDialogTitle-root':{
+    backgroundColor:"red",
+    width:"900px"
   }
 }));

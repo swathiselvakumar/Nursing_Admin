@@ -27,5 +27,22 @@ export const PATH = {
   NONINSTITUTION:"/noninstitution",
   MODELINSTITUTION:"/modelinstitution",
   COURSE:"/course",
-  UPDATEPLAN:"/updateplan"
+  UPDATEPLAN:"/updateplan",
+  UPDATEDETAILS:"/updatedetails",
+  ADDPREMIUMPLAN:"/addpremiumplan",
+  PREMIUMPLANDETAILS:"/premiumplandetails",
+  PASSWORDCHANGE:"/passwordchange",
+  NOTIFICATION:"/notification",
+  VIEWCOURSE:"/viewcourse",
+  ADDCOURSE:"/addcourse",
+  DAILYINSTITUTION:"/dailyinstitution",
+  ADDQUESTION:"/addquestion",
+  ADDNONNURSING:"/addnonnursing",
+  ADDMOCK:"/addmock",
+  ADDMOCK1:"/addmock1",
+  ADDMCQ1:"/addmcq1",
+  MCQTABLE:"/mcqtable",
+  MCQTABLEPAGE:"/mcqtablepage",
+  UPLOADTEST:"/uploadtest",
+  ACHIEVEMENT:"/achievement"
 };
