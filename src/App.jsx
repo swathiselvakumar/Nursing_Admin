@@ -6,6 +6,7 @@ import "@fontsource-variable/open-sans";
 import NavContextProvider from "./context/navContext";
 // import '@fontsource/roboto'
 // import './index.css'
+
 function App() {
   return (
     <ThemeProvider theme={appTheme}>

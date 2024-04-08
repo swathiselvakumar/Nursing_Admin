@@ -14,11 +14,15 @@ function createData(name, calories, fat, carbs, protein,score) {
 }
 
 const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid","5"),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name","7"),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test","9"),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test","5"),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","4"),
+  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid","80"),
+  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name","70"),
+  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test","50"),
+  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test","50"),
+  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","49"),
+  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
+  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
+  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
+
 ];
 
 export default function TestTable() {
@@ -51,12 +55,12 @@ export default function TestTable() {
             justifyContent: "flex-end",
             alignItems: "center",
             backgroundColor: "#e1eede",
-            borderRadius: "10px",
+            borderRadius: "5px",
             display:"flex"
           }}
         >
-          {/* <FilterListIcon />&nbsp;
-          <DropDown /> */}
+          <FilterListIcon />&nbsp;
+          <DropDown />
         </div>
       </div>
       <TableContainer component={Paper}>
@@ -67,7 +71,7 @@ export default function TestTable() {
               <TableCell style={Tbhead} align="left">Sname</TableCell>
               <TableCell  style={Tbhead} align="left">Email Id</TableCell>
               <TableCell  style={Tbhead} align="left">Date</TableCell>
-              <TableCell  style={Tbhead} align="left">Test Name</TableCell>
+              {/* <TableCell  style={Tbhead} align="left">Test Name</TableCell> */}
               <TableCell  style={Tbhead} align="left">Score</TableCell>
 
             </TableRow>
@@ -84,7 +88,7 @@ export default function TestTable() {
                 <TableCell align="left">{row.calories}</TableCell>
                 <TableCell align="left">{row.fat}</TableCell>
                 <TableCell align="left">{row.carbs}</TableCell>
-                <TableCell align="left">{row.protein}</TableCell>
+                {/* <TableCell align="left">{row.protein}</TableCell> */}
                 <TableCell align="left">{row.score}</TableCell>
 
               </TableRow>

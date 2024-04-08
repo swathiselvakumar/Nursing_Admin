@@ -28,7 +28,7 @@ export default function TableViewOrg() {
     fontWeight:"bold",
     fontSize:"17px",
     textAlign:"left",
-    backgroundColor:"#E1EEDD",
+    backgroundColor:"#E7f6f2",
     fontFamily: "Roboto, sans-serif"
     
     
@@ -42,8 +42,8 @@ export default function TableViewOrg() {
       <TableStyle>
       <div
         style={{
-          padding: "10px",
-          backgroundColor: "#f1f1f1",
+          padding: "20px",
+          backgroundColor: "#f6f6f6",
           borderRadius: "10px",
           
           
@@ -54,7 +54,10 @@ export default function TableViewOrg() {
          
         >
           <div className="d1" style={{ flex: "1" }}>
-            <h5 >Recently Added Students</h5>
+            <h5 >Students Report</h5>
+          </div>
+          <div>
+          
           </div>
          
         </div>

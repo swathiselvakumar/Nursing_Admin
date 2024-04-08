@@ -7,6 +7,8 @@ import { Settings } from "@mui/icons-material";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import SchoolIcon from '@mui/icons-material/School';
 export const TopListData = [
   {
     icon: DashboardOutlinedIcon,
@@ -33,6 +35,16 @@ export const TopListData = [
     title: "Report",
     path: PATH.REPORT,
   },
+  {
+    icon:MenuBookOutlinedIcon,
+    title:"Course",
+    path:PATH.COURSE
+  },
+  {
+    icon:SchoolIcon,
+    title:"Achievement",
+    path:PATH.ACHIEVEMENT
+  }
 ];
 
 export const SubListData = [

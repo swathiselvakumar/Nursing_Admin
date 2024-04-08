@@ -30,7 +30,7 @@ export default function BreadcrumbsComp() {
               key="3"
               sx={{ color: theme.font.primary, textTransform: "capitalize" }}
               onClick={() => navigate(routTo)}
-            >
+            > 
               {name.replaceAll("-", " ")}
             </Typography>
           );

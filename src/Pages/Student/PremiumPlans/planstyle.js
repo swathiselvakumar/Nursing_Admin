@@ -1,17 +1,11 @@
 import styled from "@emotion/styled";
 export const PlansStyle=styled("div")(()=>({
-    ".premium":{
-        backgroundColor:"#E1EEDD",
-        padding:"20px",
-        margin:"20px",
-        borderRadius:"5px",
-      },
       ".mainContainer": {
         display:"flex",
         justifyContent:"space-evenly",
-        backgroundColor:"white",
+        backgroundColor:"#f6f6f6",
         borderRadius:"5px",
-        height:"85vh"
+        padding:"20px"
       },
      
       ".centerText": {
@@ -38,13 +32,14 @@ export const PlansStyle=styled("div")(()=>({
       ".innerContent": {
         position:"absolute",
         padding: "10px",
-        backgroundColor: "#f0a04b",
-        width: "200px",
+        backgroundColor: "#e4a45a",
+        // width: "180px",
         color:"white",
         borderRadius:"7px",
         marginTop:"-30px",
         boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-        textAlign:"center"
+        textAlign:"center",
+        fontWeight:800
     },
       ".item":{
         padding:"10px",
@@ -58,21 +53,13 @@ export const PlansStyle=styled("div")(()=>({
         color: "#333",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
     },
-    ".bodystyle":{
-        backgroundColor:"#E1EEDD",
-        height:"120vh"
-    },
-    ".title":{
-        textAlign:"center",
-        paddingTop:"50px"
-    },
+    
+    
     ".MainCol":{
         display:"flex",
-        justifyContent:"flex-end"
+        justifyContent:"space-between"
     },
-    ".update":{
-        backgroundColor:"#F0A04B"
-    },
+    
     ".Div":{
         backgroundColor:"white",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
@@ -87,8 +74,9 @@ export const PlansStyle=styled("div")(()=>({
     ".ulstyle":{
         fontSize:"17px",
         listStyleType:"none",
-        paddingRight:"60px",
-        paddingTop:"15px"
+        paddingLeft:"3px",
+        paddingTop:"15px",
+        textAlign:"left"
     },
     ".MuiTypography-root":{
       fontFamily: "Roboto, sans-serif"
