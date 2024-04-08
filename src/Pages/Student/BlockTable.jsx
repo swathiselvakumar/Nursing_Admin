@@ -22,6 +22,8 @@ import { NavLink } from "react-router-dom";
 import { PATH } from "../../constants/routeConstants";
 import { getLocalStorage } from "../../utils/helperFunc";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { useNavigate } from "react-router-dom";
+// import BModal from "./Standard/Modal";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -49,8 +51,9 @@ const rows = [
   createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
 ];
 
-export default function UnBlockTable() {
+ function UnBlockTable({rows}) {
   const languageName = getLocalStorage("languageName");
+  const Navigate=useNavigate();
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -58,6 +61,13 @@ export default function UnBlockTable() {
     { label: "Premium List", path: PATH.PREMIUM },
     { label: "Block List", path: PATH.UNBLOCK },
   ];
+
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  const handleClick = (row) => {
+    setSelectedRow(row);
+    console.log(setSelectedRow);
+  };
   const [open, setOpen] =useState(false)
 
   const handleClickOpen = () => {
@@ -66,6 +76,9 @@ export default function UnBlockTable() {
   const handleClose = () => {
     setOpen(false);
   };
+  const click = ()=>{
+    Navigate(PATH)
+  }
   const Btn={
     backgroundColor:"white",
     color:"black",
@@ -83,61 +96,92 @@ export default function UnBlockTable() {
     textTransform:"capitalize"
   }
   return (
-    <> 
-    <TableStdStyle> 
-        <div style={{margin:"10px"}}>
-        <div style={{padding:"25px"}}>
-        <CustomBreadCrumbs items={BreadcrumbItems} />
-      </div>
-      <Typography sx={{fontWeight:"bold",fontSize:"18px",paddingBottom:"30px"}}>Block List </Typography>
+    <>
+      <TableStdStyle>
+        <div style={{ margin: "10px" }}>
+          <div style={{ padding: "25px" }}>
+            <CustomBreadCrumbs items={BreadcrumbItems} />
+          </div>
+          <Typography
+            sx={{ fontWeight: "bold", fontSize: "18px", paddingBottom: "30px" }}
+          >
+            Block List{" "}
+          </Typography>
 
-        <TableContainer style={{borderRadius:"10px",padding:"30px",backgroundColor:"#f6f6f6"}} component={Paper}>
-          <Table sx={{ minWidth: 650,}} aria-label="simple table">
-            <TableHead>
-              <TableRow className="tb-row ">
-                <TableCell className="head"  >Sno</TableCell>
-                <TableCell className="head" align="left">Sname</TableCell>
-                <TableCell className="head" align="left">Email Id</TableCell>
-                <TableCell className="head" align="left">Member Since</TableCell>
-                <TableCell className="head" align="center">Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow className="tb-row"
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
+          <TableContainer
+            style={{
+              borderRadius: "10px",
+              padding: "30px",
+              backgroundColor: "#f6f6f6",
+            }}
+            component={Paper}
+          >
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow className="tb-row ">
+                  <TableCell className="head">Sno</TableCell>
+                  <TableCell className="head" align="left">
+                    Sname
                   </TableCell>
-                  <TableCell align="left">{row.calories}</TableCell>
-                  <TableCell align="left">{row.fat}</TableCell>
-                  <TableCell align="left">{row.carbs}</TableCell>
-                  <TableCell align="center" onClick={handleClickOpen}>{row.protein}</TableCell>
+                  <TableCell className="head" align="left">
+                    Email Id
+                  </TableCell>
+                  <TableCell className="head" align="left">
+                    Member Since
+                  </TableCell>
+                  <TableCell className="head" align="center">
+                    Action
+                  </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  
+                  <TableRow
+                    className="tb-row"
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row" 
+                    >
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="left">{row.calories}</TableCell>
+                    <TableCell align="left">{row.fat}</TableCell>
+                    <TableCell align="left">{row.carbs}</TableCell>
+                    <TableCell align="center" onClick={handleClickOpen}>
+                      {row.protein}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {selectedRow && (
+                  <BModal
+                    row={selectedRow}
+                    onClose={() => setSelectedRow(null)}
+                  />
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
         <div>
-        <Pagination count={10} shape="rounded"  />
+          <Pagination count={10} shape="rounded" />
         </div>
-        </TableStdStyle>
-        <BootstrapDialog
+      </TableStdStyle>
+      <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          
-        </DialogTitle>
+        <DialogTitle
+          sx={{ m: 0, p: 2 }}
+          id="customized-dialog-title"
+        ></DialogTitle>
         <IconButton
           aria-label="close"
           onClick={handleClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -145,17 +189,21 @@ export default function UnBlockTable() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent sx={{textAlign:"center"}}>
-            <img src={UnBlock} height="25px" style={{marginTop:"-30px"}}/><br/>
-            Are You sure ?<br/>
-            want to Unblock this student?<br/>
-            <Button onClick={handleClose} style={Btn}>Cancel</Button>
-            <NavLink to="/standard">
-            <Button  style={Btn1}>UnBlock</Button>
-            </NavLink>
+        <DialogContent sx={{ textAlign: "center" }}>
+          <img src={UnBlock} height="25px" style={{ marginTop: "-30px" }} />
+          <br />
+          Are You sure ?<br />
+          want to Unblock this student?
+          <br />
+          <Button onClick={handleClose} style={Btn}>
+            Cancel
+          </Button>
+          <NavLink to="/standard">
+            <Button style={Btn1}>UnBlock</Button>
+          </NavLink>
         </DialogContent>
-        
       </BootstrapDialog>
     </>
   );
 }
+export default UnBlockTable;

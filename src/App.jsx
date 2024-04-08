@@ -4,6 +4,8 @@ import { BrowserRouter as ParentRouter } from "react-router-dom";
 import { appTheme } from "./theme/appTheme";
 import "@fontsource-variable/open-sans";
 import NavContextProvider from "./context/navContext";
+// import Modals from "./Pages/Student/Standard/Modal";
+// import Profile from "./Pages/Profile";
 // import '@fontsource/roboto'
 // import './index.css'
 

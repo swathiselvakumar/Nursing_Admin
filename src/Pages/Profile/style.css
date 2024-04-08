@@ -1,0 +1,9 @@
+::-webkit-scrollbar {
+    width: 20px; /* <-- This sets the thickness of the VERTICAL scrollbar */
+    height: 20px; /* <-- This sets the thickness of the HORIZONTAL scrollbar */
+  }
+  :host ::ng-deep .mat-menu-panel {
+    min-width: 112px;
+    max-width: 400px;
+    overflow: auto;
+ }
