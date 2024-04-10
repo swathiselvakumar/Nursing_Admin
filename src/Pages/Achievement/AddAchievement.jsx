@@ -3,7 +3,6 @@ import { YEARMCQStyle } from "../YearMCQ/style";
 import { Button, Typography } from "@mui/material";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
-// import AlertIcon from '../../../assets/icons/alert.png'
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,108 +10,73 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
+
 export default function ADDACHIEVEMENT() {
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [achievementDescription, setAchievementDescription] = useState("");
+  const [open, setOpen] = useState(false);
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  // const [dynamicData, setDynamicData] = useState(null); // State to hold dynamic data
+
+  const handleChange = (e) => {
+    setAchievementDescription(e.target.value);
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const handleSubmit = () => {
+    const data = {
+      achievementDescription: achievementDescription,
+      // dynamicData: dynamicData, // Include dynamic data in the submission
+    };
+
+    // Send data to the backend
+    console.log("Sending data to the backend:", data);
+
+    // Set state to open success dialog
+    setSuccessDialogOpen(true);
   };
+
+  const handleSuccessDialogClose = () => {
+    setSuccessDialogOpen(false);
+  };
+
+  // Assume dynamic data is fetched from the backend and set to state
+  // useEffect(() => {
+  //   // Fetch dynamic data from the backend and set to state
+  //   fetchDynamicData();
+  // }, []);
+
+  // Function to fetch dynamic data from the backend
+  // const fetchDynamicData = async () => {
+  //   try {
+  //     const response = await fetch("backend/api/dynamicData");
+  //     const data = await response.json();
+  //     setDynamicData(data);
+  //   } catch (error) {
+  //     console.error("Error fetching dynamic data:", error);
+  //   }
+  // };
+
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-
-    { label: "achievement", path: PATH.ACHIEVEMENT },
+    { label: "Achievement", path: PATH.ACHIEVEMENT },
     { label: "Add Achievement", path: PATH.ADDACHIEVEMENT },
   ];
-  const MainBox = {
-    backgroundColor: "#f6f6f6",
-    width: "50vw",
-    height: "90vh",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    margin: "30px",
-  };
-  const bodystyle = {
-    display: "flex",
-    justifyContent: "center",
-  };
-  const second = {
-    backgroundColor: "#707070",
-    height: "50px",
-    width: "50px",
-    borderRadius: "50%",
-    marginLeft: "10px",
-  };
-  const div1 = {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "30px",
-  };
-  const step = {
-    paddingTop: "3px",
-    width: "210px",
-    display: "flex",
-    justifyContent: "space-between",
-  };
-  const MainText = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    paddingTop: "50px",
-  };
-  const TextB = {
-    backgroundColor: "#DEE2DF",
-    border: "none",
-    borderRadius: "5px",
-    outline: "none",
-    paddingLeft: "10px",
-    height: "30px",
-    width: "230px",
-    fontSize: "12px",
-  };
-  const TextA = {
-    backgroundColor: "#DEE2DF",
-    border: "none",
-    borderRadius: "5px",
-    outline: "none",
-    paddingLeft: "10px",
-    // height:"30px",
-    width: "230px",
-    fontSize: "12px",
-  };
-  const btn1 = {
-    border: "none",
-    backgroundColor: "#1B4242",
-    color: "white",
-    height: "35px",
-    width: "230px",
-    borderRadius: "5px",
-  };
-  const btn2 = {
-    border: "none",
-    backgroundColor: "white",
-    color: "black",
-    height: "35px",
-    width: "230px",
-    borderRadius: "5px",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-  };
-  const Btn = {
-    border: "none",
-    height: "40px",
-    width: "80px",
-    backgroundColor: "#1b4242",
-    color: "white",
-  };
+
   return (
     <div>
       <YEARMCQStyle>
         <div style={{ padding: "20px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
-        <div style={bodystyle}>
-          <div style={MainBox}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              backgroundColor: "#f6f6f6",
+              width: "50vw",
+              height: "90vh",
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+              margin: "30px",
+            }}
+          >
             <Typography
               style={{
                 fontWeight: 700,
@@ -123,24 +87,15 @@ export default function ADDACHIEVEMENT() {
               Add Achievement
             </Typography>
             <hr style={{ border: "1px solid black" }} />
-
-            <div style={MainText}>
-              <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                {/* <div>
-                  <label>Course Name</label>
-                </div> */}
-                {/* <div><img src={AlertIcon}/></div> */}
-                {/* <div>
-                  <input type="number" style={TextB} />
-                </div> */}
-              </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                paddingTop: "50px",
+              }}
+            >
               <div
                 style={{
                   marginTop: "15px",
@@ -152,27 +107,24 @@ export default function ADDACHIEVEMENT() {
                 <div>
                   <label>Achievement Description</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
-                  <textarea cols={20} rows={5} style={TextA}></textarea>
+                  <textarea
+                    cols={20}
+                    rows={5}
+                    style={{
+                      backgroundColor: "#DEE2DF",
+                      border: "none",
+                      borderRadius: "5px",
+                      outline: "none",
+                      paddingLeft: "10px",
+                      width: "230px",
+                      fontSize: "12px",
+                    }}
+                    value={achievementDescription}
+                    onChange={handleChange}
+                  ></textarea>
                 </div>
               </div>
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              > */}
-                {/* <div>
-                  <label>Course About</label>
-                </div> */}
-                {/* <div><img src={AlertIcon}/></div> */}
-                {/* <div>
-                  <textarea cols={20} rows={5} style={TextA}></textarea>
-                </div>
-              </div> */}
             </div>
             <div>
               <div
@@ -183,9 +135,19 @@ export default function ADDACHIEVEMENT() {
                   width: "530px",
                 }}
               >
-                <button onClick={handleClickOpen} style={btn1}>
+                <Button
+                  onClick={handleSubmit}
+                  style={{
+                    border: "none",
+                    backgroundColor: "#1B4242",
+                    color: "white",
+                    height: "35px",
+                    width: "230px",
+                    borderRadius: "5px",
+                  }}
+                >
                   SUBMIT
-                </button>
+                </Button>
               </div>
             </div>
             <div>
@@ -197,22 +159,34 @@ export default function ADDACHIEVEMENT() {
                   width: "530px",
                 }}
               >
-                <NavLink to="/course">
-                  <button style={btn2}>CANCEL</button>
+                <NavLink to="/achievement">
+                  <Button
+                    style={{
+                      border: "none",
+                      backgroundColor: "white",
+                      color: "black",
+                      height: "35px",
+                      width: "230px",
+                      borderRadius: "5px",
+                      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                    }}
+                  >
+                    CANCEL
+                  </Button>
                 </NavLink>
               </div>
             </div>
           </div>
         </div>
         <Dialog
-          onClose={handleClose}
+          onClose={handleSuccessDialogClose}
           aria-labelledby="customized-dialog-title"
-          open={open}
+          open={successDialogOpen}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <IconButton
             aria-label="close"
-            onClick={handleClose}
+            onClick={handleSuccessDialogClose}
             sx={{
               position: "absolute",
               right: 8,
@@ -236,8 +210,18 @@ export default function ADDACHIEVEMENT() {
             <Typography style={{ paddingBottom: "20px" }}>
               Successfully Completed
             </Typography>
-            <NavLink to="/course">
-              <button style={Btn}>Done</button>
+            <NavLink to="/achievement">
+              <Button
+                style={{
+                  border: "none",
+                  height: "40px",
+                  width: "80px",
+                  backgroundColor: "#1b4242",
+                  color: "white",
+                }}
+              >
+                Done
+              </Button>
             </NavLink>
           </DialogContent>
         </Dialog>

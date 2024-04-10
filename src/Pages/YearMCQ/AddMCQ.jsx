@@ -12,9 +12,9 @@ export default function AddMCQ() {
         { label: "YearMCQ", path: PATH.YEARMCQ },
         // { label: "Institution", path: PATH.YEARINSTITUTION },
         { label: "Add Institution", path: PATH.ADDMCQ },
-
-
       ];
+
+      
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
