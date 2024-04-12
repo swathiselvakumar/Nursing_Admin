@@ -14,12 +14,30 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 export default function AddMCQ1() {
     const [open, setOpen] = React.useState(false);
+    const [description, setDescription] = useState();
+    const [instruction, setInstruction] = useState();
     const handleClickOpen = () => {
+      const planDetails = { description, instruction };
+      console.log("Plan Details:", planDetails);
         setOpen(true);
       };
       const handleClose = () => {
         setOpen(false);
       };
+       const handlechangedescription = (event) => {
+         setDescription(event.target.value);
+       };
+
+       const handleChangeinstruction = (event) => {
+         setInstruction(event.target.value);
+       };
+
+      
+      //  const handleNextClick = () => {
+      //    const planDetails = { description,instruction};
+      //    console.log("Plan Details:", planDetails);
+      //    setSuccessDialogOpen(true);
+      //  };
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -95,100 +113,150 @@ export default function AddMCQ1() {
   }
   return (
     <div>
-        <YEARMCQStyle>
-        <div style={{padding:"20px"}}>
-              <CustomBreadCrumbs items={BreadcrumbItems} />
+      <YEARMCQStyle>
+        <div style={{ padding: "20px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
+        </div>
+        <div style={bodystyle}>
+          <div style={MainBox}>
+            <Typography
+              style={{
+                fontWeight: 700,
+                paddingTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Question
+            </Typography>
+            <hr style={{ border: "1px solid black" }} />
+            <div style={div1}>
+              <div className="circle">
+                <div className="inner-circle">
+                  <img src={Tick} style={{ margin: "6px" }} />
+                </div>
+              </div>
+              <div className="line"></div>
+              <div className="circle">
+                <div className="inner-circle"></div>
+              </div>
             </div>
-            <div style={bodystyle}>
-            
-            <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Question</Typography>
-              <hr style={{border:"1px solid black"}}/>
-              <div style={div1}>
-                        <div className='circle'>
-                          <div className='inner-circle'>
-                            <img src={Tick} style={{margin:"6px"}}/>
-                          </div>
-                        </div>
-                        <div className='line'></div>
-                        <div  className='circle'>
-                        <div className='inner-circle'>
-
-                        </div>      
-                        </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>Step 1</Typography>
-              <Typography style={{fontSize:"12px"}}>Step 2</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 1</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 2</Typography>
               </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>In Progress</Typography>
-              <Typography style={{fontSize:"12px"}}>Pending</Typography>
+                <Typography style={{ fontSize: "12px" }}>
+                  In Progress
+                </Typography>
+                <Typography style={{ fontSize: "12px" }}>Pending</Typography>
               </div>
-              </div>
+            </div>
 
-              <div style={MainText}>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Institution Description</label></div>
+            <div style={MainText}>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Institution Description</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <textarea rows={4} cols={30}  style={TextB} placeholder='Add Description'></textarea>
+                <textarea
+                  rows={4}
+                  cols={30}
+                  style={TextB}
+                  placeholder="Add Description"
+                  onChange={handlechangedescription}
+                  value={description}
+                ></textarea>
               </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Instruction</label></div>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Instruction</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <textarea rows={4} cols={30}  style={TextB} placeholder='Add Instruction'></textarea>
+                <textarea
+                  rows={4}
+                  cols={30}
+                  style={TextB}
+                  placeholder="Add Instruction"
+                  onChange={handleChangeinstruction}
+                  value={instruction}
+                ></textarea>
               </div>
-              
-              
-              
             </div>
             <div>
-              <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               
-                <button onClick={handleClickOpen} style={btn1}>SUBMIT</button>
-                
+              <div
+                style={{
+                  marginTop: "30px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <button onClick={handleClickOpen} style={btn1}>
+                  SUBMIT
+                </button>
               </div>
             </div>
             <div>
-              <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-              <NavLink to="/addmock">
-                <button style={btn2}>CANCEL</button>
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/addmock">
+                  <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>
             </div>
-            </div>
-            
-                
-            </div>
-            <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+          </div>
+        </div>
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
         >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers style={{display:"flex",justifyContent:"space-between"}}>
-          <button className='Submit1'>Download Template</button>
-          <NavLink to="/testpage">
-          <button className='Submit1'>Upload Questions</button>
-          </NavLink>
-        </DialogContent>
-      </Dialog>
-        </YEARMCQStyle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent
+            dividers
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <button className="Submit1">Download Template</button>
+            <NavLink to="/testpage">
+              <button className="Submit1">Upload Questions</button>
+            </NavLink>
+          </DialogContent>
+        </Dialog>
+      </YEARMCQStyle>
     </div>
-  )
+  );
 }

@@ -13,10 +13,18 @@ import CloseIcon from "@mui/icons-material/Close";
 import { NavLink, useNavigate } from "react-router-dom";
 export default function Update() {
   const [open, setOpen] = React.useState(false);
+  const [description,setDescription]=useState();
+
+  const handleChangedescription=(event)=>
+  {
+     setDescription(event.target.value)
+  }
   const Navigate = useNavigate();
 
   const handleClickOpen = () => {
     // setOpen(true);
+     const planDetails = { description };
+     console.log("Plan Details:", planDetails);
     Navigate(PATH.ACHIEVEMENT);
 
   };
@@ -158,7 +166,7 @@ export default function Update() {
                 </div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
-                  <textarea cols={20} rows={5} style={TextA}></textarea>
+                  <textarea cols={20} rows={5} style={TextA} onChange={handleChangedescription} value={description}></textarea>
                 </div>
               </div>
               {/* <div

@@ -6,6 +6,8 @@ import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
 export default function AddMCQ() {
+  const [name, setName] = useState();
+  
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -14,7 +16,16 @@ export default function AddMCQ() {
         { label: "Add Institution", path: PATH.ADDMCQ },
       ];
 
-      
+       const handlechange = (event) => {
+         setName(event.target.value);
+       };
+
+
+       const handleNextClick = () => {
+         const planDetails = { name };
+         console.log("Plan Details:", planDetails);
+         setSuccessDialogOpen(true);
+       };
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
@@ -80,66 +91,100 @@ export default function AddMCQ() {
   }
   return (
     <div>
-        <YEARMCQStyle>
-        <div style={{padding:"20px"}}>
-              <CustomBreadCrumbs items={BreadcrumbItems} />
+      <YEARMCQStyle>
+        <div style={{ padding: "20px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
+        </div>
+        <div style={bodystyle}>
+          <div style={MainBox}>
+            <Typography
+              style={{
+                fontWeight: 700,
+                paddingTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Institution
+            </Typography>
+            <hr style={{ border: "1px solid black" }} />
+            <div style={div1}>
+              <div className="circle">
+                <div className="inner-circle"></div>
+              </div>
+              <div className="line"></div>
+              <div style={second}></div>
             </div>
-            <div style={bodystyle}>    
-            <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Institution</Typography>
-              <hr style={{border:"1px solid black"}}/>
-              <div style={div1}>
-                        <div className='circle'>
-                          <div className='inner-circle'>
-
-                          </div>
-                        </div>
-                        <div className='line'></div>
-                        <div style={second}></div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>Step 1</Typography>
-              <Typography style={{fontSize:"12px"}}>Step 2</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 1</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 2</Typography>
               </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>In Progress</Typography>
-              <Typography style={{fontSize:"12px"}}>Pending</Typography>
+                <Typography style={{ fontSize: "12px" }}>
+                  In Progress
+                </Typography>
+                <Typography style={{ fontSize: "12px" }}>Pending</Typography>
               </div>
-              </div>
+            </div>
 
-              <div style={MainText}>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Institution Name</label></div>
+            <div style={MainText}>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Institution Name</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
-              </div>
-             
-             
-              
-              
-            </div>
-            <div>
-              <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/addmcq1">
-               <button style={btn1}>NEXT</button>
-               </NavLink>
+                <div>
+                  <input
+                    type="number"
+                    style={TextB}
+                    onChange={handlechange}
+                    value={name}
+                  />
+                </div>
               </div>
             </div>
             <div>
-              <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-                <NavLink to="/yearmcq">
-                <button style={btn2}>CANCEL</button>
+              <div
+                style={{
+                  marginTop: "30px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/addmcq1">
+                  <button style={btn1} onClick={handleNextClick}>
+                    NEXT
+                  </button>
                 </NavLink>
               </div>
             </div>
+            <div>
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/yearmcq">
+                  <button style={btn2}>CANCEL</button>
+                </NavLink>
+              </div>
             </div>
-            
-                
-            </div>
-        </YEARMCQStyle>
+          </div>
+        </div>
+      </YEARMCQStyle>
     </div>
-  )
+  );
 }

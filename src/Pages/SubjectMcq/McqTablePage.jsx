@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { PremiumStyle } from '../Student/Premium/style';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled} from '@mui/material/styles';
@@ -17,6 +17,7 @@ import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import { getLocalStorage } from '../../utils/helperFunc';
 import McqTable from './McqTable';
+import SearchAppBar from '../../components/Common/Searchinput/Search';
 export default function McqTablePage() {
   const languageName = getLocalStorage("languageName");
 
@@ -67,6 +68,7 @@ export default function McqTablePage() {
 }
  
   const [open, setOpen] = React.useState(false);
+  const [search, setSearch] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,51 +76,47 @@ export default function McqTablePage() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSearch(value);
+    console.log("Search input:", value); // Log the search input value
+  };
   const Btn1={backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"}
   const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
   return (
-    < PremiumStyle>
-    <div className='bodystyle'>
-      <div style={{padding:"25px"}}>
-      <CustomBreadCrumbs items={BreadcrumbItems} />
-      </div>
-        
-        <Container fluid >
-          <Row>
-            <Col xs={12} sm={12} md={12} lg={12} xl={12}  style={MainCol}>
-            <div className='title'>
-        <Typography sx={{fontWeight:"bold",fontSize:"18px",paddingTop:"20px"}}>2022 Model MCQ</Typography>
+    <PremiumStyle>
+      <div className="bodystyle">
+        <div style={{ padding: "25px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
-            <div className='search'>
-          <Search >
-          <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper> 
-            <StyledInputBase
-             sx={{ fontFamily: "Roboto, sans-serif"}}
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-            
-          </Search>
-          </div>
-          
-          
+
+        <Container fluid>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12} xl={12} style={MainCol}>
+              <div className="title">
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "18px",
+                    paddingTop: "20px",
+                  }}
+                >
+                  2022 Model MCQ
+                </Typography>
+              </div>
+              <div className="search">
+                <SearchAppBar value={search} onChange={handleChange} />
+              </div>
             </Col>
-            
           </Row>
         </Container>
-        <div style={{marginTop:"20px",padding:"10px"}}>
-          <McqTable/>
+        <div style={{ marginTop: "20px", padding: "10px" }}>
+          <McqTable />
         </div>
         <div>
-        <Pagination count={10} shape="rounded" />
+          <Pagination count={10} shape="rounded" />
         </div>
-        
-    </div>
-    
-    </ PremiumStyle>
-
-    
-  )
+      </div>
+    </PremiumStyle>
+  );
 }

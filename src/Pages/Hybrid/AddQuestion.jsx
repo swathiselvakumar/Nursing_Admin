@@ -13,7 +13,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from 'react-router-dom'
 export default function AddQuestion() {
     const [open, setOpen] = React.useState(false);
+const [name, setName] = useState();
+ const handlechangename = (event) => {
+   setName(event.target.value);
+ };
   const handleClickOpen = () => {
+     const planDetails = { name };
+     console.log("Plan Details:", planDetails);
     setOpen(true);
   };
   const handleClose = () => {
@@ -122,7 +128,7 @@ export default function AddQuestion() {
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Question Name</label></div>
                 <div><img src={AlertIcon}/></div>
-                <div><input type='number' style={TextB}/></div>
+                <div><input type='number' style={TextB} onChange={handlechangename} value={name}/></div>
               </div>
               
               

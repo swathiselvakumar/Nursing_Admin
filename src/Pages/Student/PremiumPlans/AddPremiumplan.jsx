@@ -6,6 +6,10 @@ import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
 export default function AddPremiumplan() {
+  const [plan, setPlan] = useState();
+  const [price, setPrice] = useState(1999);
+  const [duration, setDuration] = useState();
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -13,6 +17,27 @@ export default function AddPremiumplan() {
         { label: "Add Premium Plan", path: PATH.ADDPREMIUMPLAN },
 
       ];
+      const handlechange = (event) => {
+        setPlan(event.target.value);
+      };
+
+      const handleChangeprice = (event) => {
+        setPrice(event.target.value);
+      };
+
+      const handleChangeduration = (event) => {
+        setDuration(event.target.value);
+      };
+
+      const handleNextClick = () => {
+        const planDetails = { plan, price, duration };
+        console.log("Plan Details:", planDetails);
+        setSuccessDialogOpen(true);
+      };
+
+      const handleSuccessDialogClose = () => {
+        setSuccessDialogOpen(false);
+      };
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
@@ -78,74 +103,143 @@ export default function AddPremiumplan() {
   }
   return (
     <div>
-        <YEARMCQStyle>
-        <div style={{padding:"20px"}}>
-              <CustomBreadCrumbs items={BreadcrumbItems} />
+      <YEARMCQStyle>
+        <div style={{ padding: "20px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
+        </div>
+        <div style={bodystyle}>
+          <div style={MainBox}>
+            <Typography
+              style={{
+                fontWeight: 700,
+                paddingTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Premium Plans
+            </Typography>
+            <hr style={{ border: "1px solid black" }} />
+            <div style={div1}>
+              <div className="circle">
+                <div className="inner-circle"></div>
+              </div>
+              <div className="line"></div>
+              <div style={second}></div>
             </div>
-            <div style={bodystyle}>    
-            <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Premium Plans</Typography>
-              <hr style={{border:"1px solid black"}}/>
-              <div style={div1}>
-                        <div className='circle'>
-                          <div className='inner-circle'>
-
-                          </div>
-                        </div>
-                        <div className='line'></div>
-                        <div style={second}></div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>Step 1</Typography>
-              <Typography style={{fontSize:"12px"}}>Step 2</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 1</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 2</Typography>
               </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>In Progress</Typography>
-              <Typography style={{fontSize:"12px"}}>Pending</Typography>
+                <Typography style={{ fontSize: "12px" }}>
+                  In Progress
+                </Typography>
+                <Typography style={{ fontSize: "12px" }}>Pending</Typography>
               </div>
-              </div>
+            </div>
 
-              <div style={MainText}>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan No</label></div>
+            <div style={MainText}>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Plan No</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div>
+                  <input
+                    type="number"
+                    style={TextB}
+                    onChange={handlechange}
+                    value={plan}
+                  />
+                </div>
               </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Plan Duration</label></div>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Plan Duration</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div>
+                  <input
+                    type="number"
+                    style={TextB}
+                    onChange={handleChangeduration}
+                    value={duration}
+                  />
+                </div>
               </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Price</label></div>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Price</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' value="1999" style={TextB}/></div>
+                <div>
+                  <input
+                    type="number"
+                    // value="1999"
+                    style={TextB}
+                    onChange={handleChangeprice}
+                    value={price}
+                  />
+                </div>
               </div>
-              
-              
             </div>
             <div>
-              <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/premiumplandetails">
-               <button style={btn1}>NEXT</button>
-               </NavLink>
-              </div>
-            </div>
-            <div>
-              <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-                <NavLink to="/premiumplans">
-                <button style={btn2}>CANCEL</button>
+              <div
+                style={{
+                  marginTop: "30px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/premiumplandetails">
+                  <button style={btn1} onClick={handleNextClick}>
+                    NEXT
+                  </button>
                 </NavLink>
               </div>
             </div>
+            <div>
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/premiumplans">
+                  <button style={btn2}>CANCEL</button>
+                </NavLink>
+              </div>
             </div>
-            
-                
-            </div>
-        </YEARMCQStyle>
+          </div>
+        </div>
+      </YEARMCQStyle>
     </div>
-  )
+  );
 }

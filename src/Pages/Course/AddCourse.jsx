@@ -13,12 +13,29 @@ import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from 'react-router-dom'
 export default function AddCourse() {
     const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    const [name, setName] = useState();
+    const [description, setDescription] = useState();
+    const [about, setAbout] = useState();
+  
   const handleClose = () => {
     setOpen(false);
   };
+   const handlechangename = (event) => {
+     setName(event.target.value);
+   };
+
+   const handleChangedescription = (event) => {
+     setDescription(event.target.value);
+   };
+
+   const handleChangeabout = (event) => {
+     setAbout(event.target.value);
+   };
+   const handleClickOpen = () => {
+     const planDetails = { name, description, about };
+     console.log("Plan Details:", planDetails);
+     setOpen(true);
+   };
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -107,86 +124,158 @@ export default function AddCourse() {
   }
   return (
     <div>
-        <YEARMCQStyle>
-        <div style={{padding:"20px"}}>
-              <CustomBreadCrumbs items={BreadcrumbItems} />
-            </div>
-            <div style={bodystyle}>    
-            <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Course</Typography>
-              <hr style={{border:"1px solid black"}}/>
-              
+      <YEARMCQStyle>
+        <div style={{ padding: "20px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
+        </div>
+        <div style={bodystyle}>
+          <div style={MainBox}>
+            <Typography
+              style={{
+                fontWeight: 700,
+                paddingTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Course
+            </Typography>
+            <hr style={{ border: "1px solid black" }} />
 
-              <div style={MainText}>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Course Name</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
-              </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Course Description</label></div>
+            <div style={MainText}>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Course Name</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
-                    <textarea  cols={20} rows={5} style={TextA}>
-
-                    </textarea>
+                  <input
+                    type="number"
+                    style={TextB}
+                    onChange={handlechangename}
+                    value={name}
+                  />
                 </div>
               </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Course About</label></div>
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Course Description</label>
+                </div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
-                <textarea  cols={20} rows={5} style={TextA}>
-
-</textarea>
-                    </div>
+                  <textarea
+                    cols={20}
+                    rows={5}
+                    style={TextA}
+                    onChange={handleChangedescription}
+                    value={description}
+                  ></textarea>
+                </div>
               </div>
-              
-              
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Course About</label>
+                </div>
+                {/* <div><img src={AlertIcon}/></div> */}
+                <div>
+                  <textarea
+                    cols={20}
+                    rows={5}
+                    style={TextA}
+                    onChange={handleChangeabout}
+                    value={about}
+                  ></textarea>
+                </div>
+              </div>
             </div>
             <div>
-              <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <button onClick={handleClickOpen} style={btn1}>SUBMIT</button>
+              <div
+                style={{
+                  marginTop: "30px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <button onClick={handleClickOpen} style={btn1}>
+                  SUBMIT
+                </button>
               </div>
             </div>
             <div>
-              <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
                 <NavLink to="/course">
-                <button style={btn2}>CANCEL</button>
+                  <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>
             </div>
-            </div>
-            
-                
-            </div>
-            <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-        style={{display:"flex",justifyContent:"center"}}
-      >
-        
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+          </div>
+        </div>
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers style={{height:"200px",width:"400px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}} >
-          <Typography style={{paddingBottom:"20px"}}>Successfully Completed</Typography>
-          <NavLink to="/course">
-          <button style={Btn}>Done</button>
-          </NavLink>
-        </DialogContent>
-      </Dialog>
-        </YEARMCQStyle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent
+            dividers
+            style={{
+              height: "200px",
+              width: "400px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Typography style={{ paddingBottom: "20px" }}>
+              Successfully Completed
+            </Typography>
+            <NavLink to="/course">
+              <button style={Btn}>Done</button>
+            </NavLink>
+          </DialogContent>
+        </Dialog>
+      </YEARMCQStyle>
     </div>
-  )
+  );
 }
