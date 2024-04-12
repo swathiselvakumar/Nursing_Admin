@@ -44,279 +44,292 @@ import McqTable from "../Pages/SubjectMcq/McqTable";
 import McqTablePage from "../Pages/SubjectMcq/McqTablePage";
 import UploadTest from "../Pages/TestPages/UploadTest";
 import Achievement from "../Pages/Achievement";
+import Update from "../Pages/Achievement/Update";
+import ADDACHIEVEMENT from "../Pages/Achievement/AddAchievement";
 export const routeConfig = [
- 
   {
     key: "dashboard",
     title: "Dashboard",
     Component: DashboardPage,
     route: PATH.DASHBOARD,
-    // isPublic:false, 
+    // isPublic:false,
   },
   {
-    key:"report",
-    title:"report",
-    Component:Report,
-    route:PATH.REPORT
+    key: "report",
+    title: "report",
+    Component: Report,
+    route: PATH.REPORT,
   },
   {
-    key:"yearmcq",
-    title:"yearmcq",
-    Component:YearMCQ,
-    route:PATH.YEARMCQ
+    key: "yearmcq",
+    title: "yearmcq",
+    Component: YearMCQ,
+    route: PATH.YEARMCQ,
   },
   {
-    key:"subjectmcq",
-    title:"subjectmcq",
-    Component:SubjectMCQ,
-    route:PATH.SUBJECTMCQ
+    key: "subjectmcq",
+    title: "subjectmcq",
+    Component: SubjectMCQ,
+    route: PATH.SUBJECTMCQ,
   },
   {
-    key:"nonnursing",
-    title:"nonnursing",
-    Component:NonNursingMCQ,
-    route:PATH.NONNURSING
+    key: "nonnursing",
+    title: "nonnursing",
+    Component: NonNursingMCQ,
+    route: PATH.NONNURSING,
   },
   {
-    key:"modelmock",
-    title:"modelmock",
-    Component:ModelMock,
-    route:PATH.MODELMOCK
+    key: "modelmock",
+    title: "modelmock",
+    Component: ModelMock,
+    route: PATH.MODELMOCK,
   },
   {
-    key:"hybrid",
-    title:"hybrid",
-    Component:Hybrid,
-    route:PATH.HYBRID
+    key: "hybrid",
+    title: "hybrid",
+    Component: Hybrid,
+    route: PATH.HYBRID,
   },
   {
-    key:"premiumplans",
-    title:"premiumplans",
-    Component:PremiumPlans,
-    route:PATH.PREMIUMPLANS
+    key: "premiumplans",
+    title: "premiumplans",
+    Component: PremiumPlans,
+    route: PATH.PREMIUMPLANS,
   },
   {
-    key:"plandetails",
-    title:"plandetails",
-    Component:PlanDetails,
-    route:PATH.PLANDETAILS
+    key: "plandetails",
+    title: "plandetails",
+    Component: PlanDetails,
+    route: PATH.PLANDETAILS,
   },
   {
-    key:"standard",
-    title:"standard",
-    Component:Standard,
-    route:PATH.STANDARD
+    key: "standard",
+    title: "standard",
+    Component: Standard,
+    route: PATH.STANDARD,
   },
   {
-    key:"premium",
-    title:"premium", 
-    Component:Premium,
-    route:PATH.PREMIUM
+    key: "premium",
+    title: "premium",
+    Component: Premium,
+    route: PATH.PREMIUM,
   },
   {
-    key:"testpage",
-    title:"testpage",
-    Component:TestPage,
-    route:PATH.TESTPAGE
+    key: "testpage",
+    title: "testpage",
+    Component: TestPage,
+    route: PATH.TESTPAGE,
   },
- 
+
   {
-    key:"discuss",
-    title:"discuss",
-    Component:Discuss,
-    route:PATH.DISCUSS
-  },
-  {
-    key:"settings",
-    title:"settings",
-    Component:Settings,
-    route:PATH.SETTINGS
+    key: "discuss",
+    title: "discuss",
+    Component: Discuss,
+    route: PATH.DISCUSS,
   },
   {
-    key:"stutb",
-    title:"stutb",
-    Component:StdTb,
-    route:PATH.STUTB
+    key: "settings",
+    title: "settings",
+    Component: Settings,
+    route: PATH.SETTINGS,
   },
   {
-    key:"premiumtb",
-    title:"premiumtb",
-    Component:PremiumTb,
-    route:PATH.PREMIUMTB
+    key: "stutb",
+    title: "stutb",
+    Component: StdTb,
+    route: PATH.STUTB,
   },
   {
-    key:"addmcq",
-    title:"addmcq",
-    Component:AddMCQ,
-    route:PATH.ADDMCQ
+    key: "premiumtb",
+    title: "premiumtb",
+    Component: PremiumTb,
+    route: PATH.PREMIUMTB,
   },
   {
-    key:"unblock",
-    title:"unblock",
-    Component:UnBlockTable,
-    route:PATH.UNBLOCK
+    key: "addmcq",
+    title: "addmcq",
+    Component: AddMCQ,
+    route: PATH.ADDMCQ,
   },
   {
-    key:"stadd",
-    title:"stadd",
-    Component:StAdd,
-    route:PATH.STADD
+    key: "unblock",
+    title: "unblock",
+    Component: UnBlockTable,
+    route: PATH.UNBLOCK,
   },
   {
-    key:"preadd",
-    title:"preadd",
-    Component:PreAdd,
-    route:PATH.PREADD
+    key: "stadd",
+    title: "stadd",
+    Component: StAdd,
+    route: PATH.STADD,
   },
   {
-    key:"recentstudent",
-    title:"recentstudent",
-    Component:RecentStudentTable,
-    route:PATH.RECENTSTUDENT
+    key: "preadd",
+    title: "preadd",
+    Component: PreAdd,
+    route: PATH.PREADD,
   },
   {
-    key:"yearinstitution",
-    title:"yearinstitution",
-    Component:YearInstitution,
-    route:PATH.YEARINSTITUTION
+    key: "recentstudent",
+    title: "recentstudent",
+    Component: RecentStudentTable,
+    route: PATH.RECENTSTUDENT,
   },
   {
-    key:"subinstitution",
-    title:"subinstitution",
-    Component:SubInstitution,
-    route:PATH.SUBINSTITUTION
+    key: "yearinstitution",
+    title: "yearinstitution",
+    Component: YearInstitution,
+    route: PATH.YEARINSTITUTION,
   },
   {
-    key:"addsub",
-    title:"addsub",
-    Component:AddSub,
-    route:PATH.ADDSUB
+    key: "subinstitution",
+    title: "subinstitution",
+    Component: SubInstitution,
+    route: PATH.SUBINSTITUTION,
   },
   {
-    key:"noninstitution",
-    title:"noninstitution",
-    Component:NonInstitution,
-    route:PATH.NONINSTITUTION
+    key: "addsub",
+    title: "addsub",
+    Component: AddSub,
+    route: PATH.ADDSUB,
   },
   {
-    key:"modelinstitution",
-    title:"modelinstitution",
-    Component:ModelInstitution,
-    route:PATH.MODELINSTITUTION
+    key: "noninstitution",
+    title: "noninstitution",
+    Component: NonInstitution,
+    route: PATH.NONINSTITUTION,
   },
   {
-    key:"course",
-    title:"course",
-    Component:Course,
-    route:PATH.COURSE
+    key: "modelinstitution",
+    title: "modelinstitution",
+    Component: ModelInstitution,
+    route: PATH.MODELINSTITUTION,
   },
   {
-    key:"updateplan",
-    title:"updateplan",
-    Component:UpdatePlan,
-    route:PATH.UPDATEPLAN
+    key: "course",
+    title: "course",
+    Component: Course,
+    route: PATH.COURSE,
   },
   {
-    key:"updatedetails",
-    title:"updatedetails",
-    Component:UpdateDetails,
-    route:PATH.UPDATEDETAILS
+    key: "updateplan",
+    title: "updateplan",
+    Component: UpdatePlan,
+    route: PATH.UPDATEPLAN,
   },
   {
-    key:"addpremium",
-    title:"addpremium",
-    Component:AddPremiumplan,
-    route:PATH.ADDPREMIUMPLAN
+    key: "updatedetails",
+    title: "updatedetails",
+    Component: UpdateDetails,
+    route: PATH.UPDATEDETAILS,
   },
   {
-    key:"premiumplandetails",
-    title:"premiumplandetails",
-    Component:PremiumPlanDetails,
-    route:PATH.PREMIUMPLANDETAILS
+    key: "addpremium",
+    title: "addpremium",
+    Component: AddPremiumplan,
+    route: PATH.ADDPREMIUMPLAN,
   },
   {
-    key:"passwordchange",
-    title:"passwordchange",
-    Component:PasswordChange,
-    route:PATH.PASSWORDCHANGE
+    key: "premiumplandetails",
+    title: "premiumplandetails",
+    Component: PremiumPlanDetails,
+    route: PATH.PREMIUMPLANDETAILS,
   },
   {
-    key:"notification",
-    title:"notification",
-    Component:Notification,
-    route:PATH.NOTIFICATION
+    key: "passwordchange",
+    title: "passwordchange",
+    Component: PasswordChange,
+    route: PATH.PASSWORDCHANGE,
   },
   {
-    key:"viewcourse",
-    title:"viewcourse",
-    Component:ViewCourse,
-    route:PATH.VIEWCOURSE
+    key: "notification",
+    title: "notification",
+    Component: Notification,
+    route: PATH.NOTIFICATION,
   },
   {
-    key:"addcourse",
-    title:"addcourse",
-    Component:AddCourse,
-    route:PATH.ADDCOURSE
+    key: "viewcourse",
+    title: "viewcourse",
+    Component: ViewCourse,
+    route: PATH.VIEWCOURSE,
   },
   {
-    key:"dailyinstitution",
-    title:"dailyinstitution",
-    Component:DailyInstitution,
-    route:PATH.DAILYINSTITUTION
+    key: "addcourse",
+    title: "addcourse",
+    Component: AddCourse,
+    route: PATH.ADDCOURSE,
   },
   {
-    key:"addquestion",
-    title:"addquestion",
-    Component:AddQuestion,
-    route:PATH.ADDQUESTION
+    key: "dailyinstitution",
+    title: "dailyinstitution",
+    Component: DailyInstitution,
+    route: PATH.DAILYINSTITUTION,
   },
   {
-    key:"addnonnursing",
-    title:"addnonnursing",
-    Component:AddNonNursing,
-    route:PATH.ADDNONNURSING
+    key: "addquestion",
+    title: "addquestion",
+    Component: AddQuestion,
+    route: PATH.ADDQUESTION,
   },
   {
-    key:"addmock",
-    title:"addmock",
-    Component:AddMock,
-    route:PATH.ADDMOCK
+    key: "addnonnursing",
+    title: "addnonnursing",
+    Component: AddNonNursing,
+    route: PATH.ADDNONNURSING,
   },
   {
-    key:"addmock1",
-    title:"addmock1",
-    Component:AddMock1,
-    route:PATH.ADDMOCK1
+    key: "addmock",
+    title: "addmock",
+    Component: AddMock,
+    route: PATH.ADDMOCK,
   },
   {
-    key:"addmcq1",
-    title:"addmcq1",
-    Component:AddMCQ1,
-    route:PATH.ADDMCQ1
+    key: "addmock1",
+    title: "addmock1",
+    Component: AddMock1,
+    route: PATH.ADDMOCK1,
   },
   {
-    key:"mcqtable",
-    title:"mcqtable",
-    Component:McqTable,
-    route:PATH.MCQTABLE
+    key: "addmcq1",
+    title: "addmcq1",
+    Component: AddMCQ1,
+    route: PATH.ADDMCQ1,
   },
   {
-    key:"mcqtablepage",
-    title:"mcqtablepage",
-    Component:McqTablePage,
-    route:PATH.MCQTABLEPAGE
+    key: "mcqtable",
+    title: "mcqtable",
+    Component: McqTable,
+    route: PATH.MCQTABLE,
   },
   {
-    key:"uploadtest",
-    title:"uploadtest",
-    Component:UploadTest,
-    route:PATH.UPLOADTEST
+    key: "mcqtablepage",
+    title: "mcqtablepage",
+    Component: McqTablePage,
+    route: PATH.MCQTABLEPAGE,
   },
   {
-    key:"achievement",
-    title:"achievement",
-    Component:Achievement,
-    route:PATH.ACHIEVEMENT
+    key: "uploadtest",
+    title: "uploadtest",
+    Component: UploadTest,
+    route: PATH.UPLOADTEST,
+  },
+  {
+    key: "achievement",
+    title: "achievement",
+    Component: Achievement,
+    route: PATH.ACHIEVEMENT,
+  },
+  {
+    key: "update",
+    title: "update",
+    Component: Update,
+    route: PATH.UPDATE,
+  },
+  {
+    key: "addachievement",
+    title: "addachievement",
+    Component: ADDACHIEVEMENT,
+    route: PATH.ADDACHIEVEMENT,
   },
 ];
 

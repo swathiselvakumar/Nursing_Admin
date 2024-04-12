@@ -21,6 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Rong from '../../../assets/icons/rong.jpg'
 export default function PlanDetails() {
   const [open, setOpen] =useState(false)
+ 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,6 +29,7 @@ export default function PlanDetails() {
   const handleClose = () => {
     setOpen(false);
   };
+  
   const languageName = getLocalStorage("languageName");
 
   const BreadcrumbItems = [
