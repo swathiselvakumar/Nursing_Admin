@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 export default function ADDACHIEVEMENT() {
   const [achievementDescription, setAchievementDescription] = useState("");
@@ -21,18 +22,18 @@ export default function ADDACHIEVEMENT() {
     setAchievementDescription(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const data = {
-      achievementDescription: achievementDescription,
-      // dynamicData: dynamicData, // Include dynamic data in the submission
-    };
+  // const handleSubmit = () => {
+  //   const data = {
+  //     achievementDescription: achievementDescription,
+  //     // dynamicData: dynamicData, // Include dynamic data in the submission
+  //   };
 
-    // Send data to the backend
-    console.log("Sending data to the backend:", data);
+  //   // Send data to the backend
+  //   console.log("Sending data to the backend:", data);
 
-    // Set state to open success dialog
-    setSuccessDialogOpen(true);
-  };
+  //   // Set state to open success dialog
+  //   setSuccessDialogOpen(true);
+  // };
 
   const handleSuccessDialogClose = () => {
     setSuccessDialogOpen(false);
@@ -54,7 +55,28 @@ export default function ADDACHIEVEMENT() {
   //     console.error("Error fetching dynamic data:", error);
   //   }
   // };
+  const handleSubmit = async () => {
+    // Retrieve the adminId from local storage
+    // const adminId = ;
+    setOpen(true);
 
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertAchievement.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+          content: achievementDescription
+          // You can include additional data here as needed
+        }
+      );
+      console.log("New item added:", response.data);
+      setAchievementDescription("");
+      // setDescription("");
+      // setAbout(""); // Clear input fields
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Achievement", path: PATH.ACHIEVEMENT },

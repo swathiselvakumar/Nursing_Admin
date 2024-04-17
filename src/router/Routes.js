@@ -22,7 +22,7 @@ import StAdd from "../Pages/AddMembers/StAdd";
 import RecentStudentTable from "../Pages/Dashboard/RecentStudents";
 import YearInstitution from "../Pages/YearMCQ/Institution";
 import SubInstitution from "../Pages/SubjectMcq/Institution";
-import AddSub from "../Pages/SubjectMcq/AddSub";
+// import AddSub from "../Pages/SubjectMcq/AddSub";
 import NonInstitution from "../Pages/Non_Nursing/Institution";
 import ModelInstitution from "../Pages/Modelmock/Institution";
 import Course from "../Pages/Course";
@@ -46,6 +46,8 @@ import UploadTest from "../Pages/TestPages/UploadTest";
 import Achievement from "../Pages/Achievement";
 import Update from "../Pages/Achievement/Update";
 import ADDACHIEVEMENT from "../Pages/Achievement/AddAchievement";
+import Updatecourse from "../Pages/Course/Updatecourse";
+// import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -187,12 +189,12 @@ export const routeConfig = [
     Component: SubInstitution,
     route: PATH.SUBINSTITUTION,
   },
-  {
-    key: "addsub",
-    title: "addsub",
-    Component: AddSub,
-    route: PATH.ADDSUB,
-  },
+  // {
+  //   key: "addsub",
+  //   title: "addsub",
+  //   Component: AddSub,
+  //   route: PATH.ADDSUB,
+  // },
   {
     key: "noninstitution",
     title: "noninstitution",
@@ -331,5 +333,17 @@ export const routeConfig = [
     Component: ADDACHIEVEMENT,
     route: PATH.ADDACHIEVEMENT,
   },
+  {
+    key: "updatecourse",
+    title: "updatecourse",
+    Component: Updatecourse,
+    route: PATH.UPDATECOURSE,
+  },
+  // {
+  //   key: "addsubmcq1",
+  //   title: "addsubmcq1",
+  //   Component: Addsubmcq1,
+  //   route: PATH.ADDSUBMCQ1,
+  // },
 ];
 

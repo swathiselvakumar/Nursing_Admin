@@ -5,21 +5,55 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import Tick from '../../assets/icons/tick1.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+// import { useLocation } from "react-router-dom";
+import { useContext } from 'react'
+import { navContext } from '../../context/navContext'
+// import { zhTW } from '@mui/material/locale'
+import axios from 'axios'
 export default function AddMCQ1() {
     const [open, setOpen] = React.useState(false);
     const [description, setDescription] = useState();
     const [instruction, setInstruction] = useState();
-    const handleClickOpen = () => {
-      const planDetails = { description, instruction };
-      console.log("Plan Details:", planDetails);
+    const { name, setName } = useContext(navContext);
+      // const location = useLocation();
+  //  const location = useLocation();
+  // const location = useLocation();
+// const {name} = useParams();
+// console.log(name);
+      // console.log("Received prop:", location.state.stateProp);
+// console.log(name);
+    const handleClickOpen = async() => {
+      // const planDetails = { description, instruction };
+      // console.log("Plan Details:", planDetails);
         setOpen(true);
+          try {
+         const response = await axios.post(
+           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqInstitution.php",
+           {
+             adminId: "nandinivebbox@gmail.com",
+             name: name,
+             instruction: instruction,
+             desc: description,
+             // You can include additional data here as needed
+           }
+         );
+      console.log("New item added:", response.data);
+      //  setName("");
+       setDescription("");
+       setInstruction(""); 
+       // Clear input fields
+      console.log(name);
+
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
       };
       const handleClose = () => {
         setOpen(false);
@@ -249,11 +283,9 @@ export default function AddMCQ1() {
           <DialogContent
             dividers
             style={{ display: "flex", justifyContent: "space-between" }}
+            onClick={handleClose}
           >
-            <button className="Submit1">Download Template</button>
-            <NavLink to="/testpage">
-              <button className="Submit1">Upload Questions</button>
-            </NavLink>
+            <button className="Submit1">ok</button>
           </DialogContent>
         </Dialog>
       </YEARMCQStyle>

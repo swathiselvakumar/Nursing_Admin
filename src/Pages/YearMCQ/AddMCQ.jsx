@@ -5,8 +5,12 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { useContext } from 'react'
+import { navContext } from '../../context/navContext'
 export default function AddMCQ() {
-  const [name, setName] = useState();
+  const [name, setName] = useState('');
+  const { setName: setNavName } = useContext(navContext);
   
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
@@ -17,14 +21,36 @@ export default function AddMCQ() {
       ];
 
        const handlechange = (event) => {
-         setName(event.target.value);
+        setNavName(event.target.value);
+          setName(event.target.value)
+         
        };
 
+        //  console.log("Name prop:", name);
+       const handleNextClick = async () => {
+        //  const planDetails = { name };
+        //  console.log("Plan Details:", planDetails);
+        //  setSuccessDialogOpen(true);
+    //      try {
+    //      const response = await axios.post(
+    //        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqInstitution.php",
+    //        {
+    //          adminId: "nandinivebbox@gmail.com",
+    //          name: name,
+    //         //  about: about,
+    //         //  description: description,
+    //          // You can include additional data here as needed
+    //        }
+    //      );
+    //   console.log("New item added:", response.data);
+    //    setName("");
+    //    console.log(name);
 
-       const handleNextClick = () => {
-         const planDetails = { name };
-         console.log("Plan Details:", planDetails);
-         setSuccessDialogOpen(true);
+    //   //  setDescription("");
+    //   //  setAbout(""); // Clear input fields
+    // } catch (error) {
+    //   console.error("Error adding new item:", error);
+    // }
        };
       const MainBox={
         backgroundColor:"#f6f6f6",
@@ -144,7 +170,7 @@ export default function AddMCQ() {
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
-                    type="number"
+                    type="text"
                     style={TextB}
                     onChange={handlechange}
                     value={name}
@@ -161,7 +187,10 @@ export default function AddMCQ() {
                   width: "530px",
                 }}
               >
-                <NavLink to="/addmcq1">
+                
+                <NavLink
+                  to={ '/addmcq1' }
+                >
                   <button style={btn1} onClick={handleNextClick}>
                     NEXT
                   </button>

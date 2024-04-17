@@ -5,10 +5,12 @@ import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
 export default function AddPremiumplan() {
   const [plan, setPlan] = useState();
   const [price, setPrice] = useState(1999);
   const [duration, setDuration] = useState();
+   
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
@@ -29,10 +31,31 @@ export default function AddPremiumplan() {
         setDuration(event.target.value);
       };
 
-      const handleNextClick = () => {
-        const planDetails = { plan, price, duration };
-        console.log("Plan Details:", planDetails);
+      const handleNextClick = async() => {
+        // const planDetails = { plan, price, duration };
+        // console.log("Plan Details:", planDetails);
         setSuccessDialogOpen(true);
+          try {
+         const response = await axios.post(
+           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
+           {
+            //  adminId: "nandinivebbox@gmail.com",
+             name: name,
+             instruction: instruction,
+             desc: description,
+             // You can include additional data here as needed
+           }
+         );
+      console.log("New item added:", response.data);
+       setPlan("");
+       setPrice("");
+       setDuration(""); 
+       // Clear input fields
+      console.log(name);
+
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
       };
 
       const handleSuccessDialogClose = () => {

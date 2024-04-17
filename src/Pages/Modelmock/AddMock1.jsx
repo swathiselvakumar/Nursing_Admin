@@ -5,21 +5,66 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import Tick from '../../assets/icons/tick1.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios'
+import { useContext } from 'react'
+import { navContext } from '../../context/navContext'
 export default function AddMock1() {
+  
     const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
+    const [duration, setDuration] = React.useState('');
+    const [time, setTime] = React.useState('');
+    const { stage, setStage } = useContext(navContext);
+    const { mcq, setMcq } = useContext(navContext);
+
+// const {sno} =useParams();
+
+    const handleClickOpen =async () => {
         setOpen(true);
+
+        
+          try{
+             const currentDate = new Date().toISOString().split("T")[0];
+            const res = await axios.post(
+              "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockMeta.php",
+              {
+                adminId: "nandinivebbox@gmail.com",
+                institutionId: '1',
+                stageId: mcq,
+                mcqName: stage,
+                date: currentDate,
+                duration:'3',
+              }
+            );
+             console.log("New item added:", response.data);
+
+                setDuration("");
+                setTime('');
+          }
+          catch (error) {
+      console.error("Error fetching data:", error);
+        }
       };
       const handleClose = () => {
         setOpen(false);
       };
+       const durationchange = (event) => {
+        //  setTime(event.target.value);
+         setDuration(event.target.value);
+
+       };
+       const timechange = (event) => {
+         setTime(event.target.value);
+        //  setDuration(event.target.value);
+       };
+
+       
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -95,109 +140,172 @@ export default function AddMock1() {
   }
   return (
     <div>
-        <YEARMCQStyle>
-        <div style={{padding:"20px"}}>
-              <CustomBreadCrumbs items={BreadcrumbItems} />
+      <YEARMCQStyle>
+        <div style={{ padding: "20px" }}>
+          <CustomBreadCrumbs items={BreadcrumbItems} />
+        </div>
+        <div style={bodystyle}>
+          <div style={MainBox}>
+            <Typography
+              style={{
+                fontWeight: 700,
+                paddingTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Question
+            </Typography>
+            <hr style={{ border: "1px solid black" }} />
+            <div style={div1}>
+              <div className="circle">
+                <div className="inner-circle">
+                  <img src={Tick} style={{ margin: "6px" }} />
+                </div>
+              </div>
+              <div className="line"></div>
+              <div className="circle">
+                <div className="inner-circle"></div>
+              </div>
             </div>
-            <div style={bodystyle}>
-            
-            <div style={MainBox}>
-              <Typography style={{fontWeight:700,paddingTop:"10px",textAlign:"center"}}>Add Question</Typography>
-              <hr style={{border:"1px solid black"}}/>
-              <div style={div1}>
-                        <div className='circle'>
-                          <div className='inner-circle'>
-                            <img src={Tick} style={{margin:"6px"}}/>
-                          </div>
-                        </div>
-                        <div className='line'></div>
-                        <div  className='circle'>
-                        <div className='inner-circle'>
-
-                        </div>      
-                        </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>Step 1</Typography>
-              <Typography style={{fontSize:"12px"}}>Step 2</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 1</Typography>
+                <Typography style={{ fontSize: "12px" }}>Step 2</Typography>
               </div>
-              </div>
-              <div style={{display:'flex',justifyContent:"center"}}>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <div style={step}>
-              <Typography style={{fontSize:"12px"}}>In Progress</Typography>
-              <Typography style={{fontSize:"12px"}}>Pending</Typography>
+                <Typography style={{ fontSize: "12px" }}>
+                  In Progress
+                </Typography>
+                <Typography style={{ fontSize: "12px" }}>Pending</Typography>
               </div>
+            </div>
+
+            <div style={MainText}>
+              {/* <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}> */}
+              {/* <div><label>Date</label></div> */}
+              {/* <div><img src={AlertIcon}/></div> */}
+              {/* <div><input type='date' style={TextB}/></div> */}
+              {/* </div> */}
+              {/* <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              > */}
+                {/* <div>
+                  <label>Duration</label>
+                </div> */}
+                {/* <div><img src={AlertIcon}/></div> */}
+                {/* <div>
+                  <input
+                    type="number"
+                    style={TextB}
+                    value={duration}
+                    onChange={durationchange}
+                  />
+                </div>
+              </div> */}
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "380px",
+                }}
+              >
+                <div>
+                  <label>Duration</label>
+                </div>
+                <div>
+                  <select
+                    style={TextB}
+                    value={time}
+                    onChange={timechange}
+                  >
+                    <option value="">Select Time</option>
+                    {[
+                      { label: "1 hour", value: "60" },
+                      { label: "1/2 hour", value: "30" },
+                      { label: "2 hour", value: "120" },
+                      { label: "2 1/2 hour", value: "150" },
+                      { label: "3 hour", value: "180" },
+                    ].map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div style={MainText}>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Date</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='date' style={TextB}/></div>
-              </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Duration</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number'  style={TextB}/></div>
-              </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>Start Time</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='time' placeholder='Add Category' style={TextB}/></div>
-              </div>
-              <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>End Time</label></div>
-                {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='time' placeholder='Add Category' style={TextB}/></div>
-              </div>
-              
-              
+              {/* <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
+                <div><label>End Time</label></div> */}
+              {/* <div><img src={AlertIcon}/></div> */}
+              {/* <div><input type='time' placeholder='Add Category' style={TextB}/></div>
+              </div> */}
             </div>
             <div>
-              <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               
-                <button onClick={handleClickOpen} style={btn1}>SUBMIT</button>
-                
+              <div
+                style={{
+                  marginTop: "30px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <button onClick={handleClickOpen} style={btn1}>
+                  SUBMIT
+                </button>
               </div>
             </div>
             <div>
-              <div style={{marginTop:"10px",display:"flex",justifyContent:"end",width:"530px"}}>
-              <NavLink to="/addmock">
-                <button style={btn2}>CANCEL</button>
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "530px",
+                }}
+              >
+                <NavLink to="/addmock">
+                  <button style={btn2}>CANCEL</button>
                 </NavLink>
               </div>
             </div>
-            </div>
-            
-                
-            </div>
-            <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+          </div>
+        </div>
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
         >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers style={{display:"flex",justifyContent:"space-between"}}>
-          <button className='Submit1'>Download Template</button>
-          <NavLink to="/testpage">
-          <button className='Submit1'>Upload Questions</button>
-          </NavLink>
-        </DialogContent>
-      </Dialog>
-        </YEARMCQStyle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent
+            dividers
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <button className="Submit1">Download Template</button>
+            <NavLink to="/testpage">
+              <button className="Submit1">Upload Questions</button>
+            </NavLink>
+          </DialogContent>
+        </Dialog>
+      </YEARMCQStyle>
     </div>
-  )
+  );
 }

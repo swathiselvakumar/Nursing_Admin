@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom'
 import { PATH } from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 
+
 export default function SubInstitution() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },

@@ -84,11 +84,11 @@ export default function DailyInstitution() {
       
     </Container>
     
-    <div className='BtnBox'>
+    {/* <div className='BtnBox'>
       <NavLink to="/addquestion">
       <button className='Btn'>Upload Questions</button>
       </NavLink>
-    </div>
+    </div> */}
     </div>
     {/* <Dialog
         onClose={handleClose}
