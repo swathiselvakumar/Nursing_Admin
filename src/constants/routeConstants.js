@@ -48,5 +48,7 @@ export const PATH = {
   UPDATE: "/Update",
   ADDACHIEVEMENT: "/addachievement",
   UPDATECOURSE: "/updatecourse",
+  NOTIFICATIONHISTORY:"/history",
+  UPDATEADS:"/updateads"
   // ADDSUBMCQ1: "/addsubmcq1",
 };

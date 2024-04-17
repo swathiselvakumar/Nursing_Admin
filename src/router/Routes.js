@@ -48,6 +48,8 @@ import Update from "../Pages/Achievement/Update";
 import ADDACHIEVEMENT from "../Pages/Achievement/AddAchievement";
 import Updatecourse from "../Pages/Course/Updatecourse";
 // import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
+import NotificationHistory from "../Pages/Notification/NotificationHistory";
+import UpdateAds from "../Pages/Notification/UpdateAds";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -339,11 +341,17 @@ export const routeConfig = [
     Component: Updatecourse,
     route: PATH.UPDATECOURSE,
   },
-  // {
-  //   key: "addsubmcq1",
-  //   title: "addsubmcq1",
-  //   Component: Addsubmcq1,
-  //   route: PATH.ADDSUBMCQ1,
-  // },
+  {
+    key: "history",
+    title: "history",
+    Component: NotificationHistory,
+    route: PATH.NOTIFICATIONHISTORY,
+  },
+  {
+    key: "updateads",
+    title: "updateads",
+    Component: UpdateAds,
+    route: PATH.UPDATEADS,
+  },
 ];
 
