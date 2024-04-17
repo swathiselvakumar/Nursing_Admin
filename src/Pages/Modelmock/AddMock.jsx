@@ -5,7 +5,16 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
+
 export default function AddMock() {
+  const[mcq,setMcq]=useState('')
+  const [stage, setStage] = useState("");
+  const { setMcq: setNavMcq } = useContext(navContext);
+  const { setStage: setNavStage } = useContext(navContext);
+
+
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -15,6 +24,23 @@ export default function AddMock() {
 
 
       ];
+
+      const handlechange =(event)=>
+      {
+setStage(event.target.value);
+        setNavMcq(event.target.value);
+
+
+
+
+
+      }
+      const handlechanged = (event) => {
+      
+
+        setMcq(event.target.value);
+        setNavStage(event.target.value);
+      };
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
@@ -114,12 +140,12 @@ export default function AddMock() {
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Choose Stages</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div><input type='number' style={TextB} value={stage} onChange={handlechange}/></div>
               </div>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Model MCQ</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB}/></div>
+                <div><input type='number' style={TextB} value={mcq} onChange={handlechanged}/></div>
               </div>
              
               

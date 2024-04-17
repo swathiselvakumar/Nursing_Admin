@@ -1,106 +1,86 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { TableStdStyle } from "../StudentTable/style";
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import { useState } from "react";
-import { Typography,Button } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import Pagination from '@mui/material/Pagination';
-import UnBlock from '../../assets/icons/unlock.png'
-import BreadcrumbsComp from '../../components/Common/BreadCrumbs/index'
+import React, { useEffect, useState } from "react";
+import { Typography, Button } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Pagination from "@mui/material/Pagination";
 import { NavLink } from "react-router-dom";
 import { PATH } from "../../constants/routeConstants";
-import { getLocalStorage } from "../../utils/helperFunc";
-import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import CustomBreadcrumbs from "../../components/Common/CustomBreadcrumbs";
 import { useNavigate } from "react-router-dom";
-// import BModal from "./Standard/Modal";
+import UnBlockIcon from "../../assets/icons/unlock.png";
+import { TableStdStyle } from "../StudentTable/style";
+import axios from "axios";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(sno, sname, email, memberSince) {
+  return { sno, sname, email, memberSince };
 }
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    width:"400px"
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(2),
-  },
-}));
 
-const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", <img src={UnBlock} height="20px"/>),
-];
-
- function UnBlockTable({rows}) {
-  const languageName = getLocalStorage("languageName");
-  const Navigate=useNavigate();
+function UnBlockTable() {
+  const Navigate = useNavigate();
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    
     { label: "Premium List", path: PATH.PREMIUM },
     { label: "Block List", path: PATH.UNBLOCK },
   ];
 
   const [selectedRow, setSelectedRow] = useState(null);
-
-  const handleClick = (row) => {
-    setSelectedRow(row);
-    console.log(setSelectedRow);
-  };
-  const [open, setOpen] =useState(false)
+  const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
-  const click = ()=>{
-    Navigate(PATH)
-  }
-  const Btn={
-    backgroundColor:"white",
-    color:"black",
-    border:"1px solid black",
-    width:"100px",
-    marginTop:"20px",
-    textTransform:"capitalize"
-  }
-  const Btn1={
-    backgroundColor:"#1b4242",
-    color:"white",
-    marginLeft:"10px",
-    width:"100px",
-    marginTop:"20px",
-    textTransform:"capitalize"
-  }
+
+  useEffect(() => {
+    table();
+  }, []);
+
+  const table = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewBlockSt.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+        }
+      );
+
+      const newData = response.data.map((item) => ({
+        sno: item.sno,
+        sname: item.username,
+        email: item.email,
+        memberSince: item.plan_join_date,
+      }));
+
+      setRows(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <>
       <TableStdStyle>
         <div style={{ margin: "10px" }}>
           <div style={{ padding: "25px" }}>
-            <CustomBreadCrumbs items={BreadcrumbItems} />
+            <CustomBreadcrumbs items={BreadcrumbItems} />
           </div>
           <Typography
             sx={{ fontWeight: "bold", fontSize: "18px", paddingBottom: "30px" }}
@@ -136,30 +116,22 @@ const rows = [
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  
                   <TableRow
                     className="tb-row"
-                    key={row.name}
+                    key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row" 
-                    >
-                      {row.name}
+                    <TableCell component="th" scope="row">
+                      {row.sno}
                     </TableCell>
-                    <TableCell align="left">{row.calories}</TableCell>
-                    <TableCell align="left">{row.fat}</TableCell>
-                    <TableCell align="left">{row.carbs}</TableCell>
+                    <TableCell align="left">{row.sname}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.memberSince}</TableCell>
                     <TableCell align="center" onClick={handleClickOpen}>
-                      {row.protein}
+                      <img src={UnBlockIcon} alt="unblock" height="20px" />
                     </TableCell>
                   </TableRow>
                 ))}
-                {selectedRow && (
-                  <BModal
-                    row={selectedRow}
-                    onClose={() => setSelectedRow(null)}
-                  />
-                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -168,7 +140,7 @@ const rows = [
           <Pagination count={10} shape="rounded" />
         </div>
       </TableStdStyle>
-      <BootstrapDialog
+      <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -190,20 +162,48 @@ const rows = [
           <CloseIcon />
         </IconButton>
         <DialogContent sx={{ textAlign: "center" }}>
-          <img src={UnBlock} height="25px" style={{ marginTop: "-30px" }} />
+          <img
+            src={UnBlockIcon}
+            height="25px"
+            style={{ marginTop: "-30px" }}
+            alt="unblock"
+          />
           <br />
-          Are You sure ?<br />
-          want to Unblock this student?
+          Are You sure?
           <br />
-          <Button onClick={handleClose} style={Btn}>
+          Want to Unblock this student?
+          <br />
+          <Button
+            onClick={handleClose}
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              border: "1px solid black",
+              width: "100px",
+              marginTop: "20px",
+              textTransform: "capitalize",
+            }}
+          >
             Cancel
           </Button>
           <NavLink to="/standard">
-            <Button style={Btn1}>UnBlock</Button>
+            <Button
+              style={{
+                backgroundColor: "#1b4242",
+                color: "white",
+                marginLeft: "10px",
+                width: "100px",
+                marginTop: "20px",
+                textTransform: "capitalize",
+              }}
+            >
+              UnBlock
+            </Button>
           </NavLink>
         </DialogContent>
-      </BootstrapDialog>
+      </Dialog>
     </>
   );
 }
+
 export default UnBlockTable;

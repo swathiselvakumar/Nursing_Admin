@@ -112,7 +112,7 @@ export default function PremiumPlanDetails() {
                 textAlign: "center",
               }}
             >
-              Update Premium Plans
+              Add Premium Plans
             </Typography>
             <hr style={{ border: "1px solid black" }} />
             <div style={div1}>

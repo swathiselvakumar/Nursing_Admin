@@ -4,7 +4,6 @@ import { BrowserRouter as ParentRouter } from "react-router-dom";
 import { appTheme } from "./theme/appTheme";
 import "@fontsource-variable/open-sans";
 import NavContextProvider from "./context/navContext";
-import Example from "./components/Example";
 // import Modals from "./Pages/Student/Standard/Modal";
 // import Profile from "./Pages/Profile";
 // import '@fontsource/roboto'
@@ -19,7 +18,6 @@ function App() {
         </NavContextProvider>
       </ParentRouter>
     </ThemeProvider>
-    // <Example/>
   );
 }
 

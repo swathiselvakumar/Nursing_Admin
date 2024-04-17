@@ -11,6 +11,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Update() {
   const [open, setOpen] = React.useState(false);
   const [description,setDescription]=useState();
@@ -21,13 +22,25 @@ export default function Update() {
   }
   const Navigate = useNavigate();
 
-  const handleClickOpen = () => {
-    // setOpen(true);
-     const planDetails = { description };
-     console.log("Plan Details:", planDetails);
-    Navigate(PATH.ACHIEVEMENT);
+ const handleClickOpen = async (id) => {
+   setOpen(true);
+   try {
+     const response = await axios.post(
+       `https://vebbox.in/Nursing/controllers/api/admin/put/A_updateAchievement.php/${id}`,
+       {
+         adminId: "nandinivebbox@gmail.com",
+         id: id, // Assuming id is already defined
+         content: description, // Pass description as value, not as a function
+       }
+     );
+     console.log("Achievement updated:", response.data);
+     setDescription(""); // Clear input field after update
+     // You may want to add further handling here if needed
+   } catch (error) {
+     console.error("Error updating achievement:", error);
+   }
+ };
 
-  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -248,7 +261,7 @@ export default function Update() {
             <Typography style={{ paddingBottom: "20px" }}>
               Successfully Completed
             </Typography>
-            <NavLink to="/course">
+            <NavLink to="/achievement">
               <button style={Btn}>Done</button>
             </NavLink>
           </DialogContent>

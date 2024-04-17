@@ -176,7 +176,7 @@
 //     </div>
 //   );
 // }
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLocalStorage } from '../../utils/helperFunc';
 import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
@@ -189,69 +189,42 @@ import Delete from '../../assets/icons/delete.jpeg';
 import UpdateIcon from '@mui/icons-material/Update';
 import Update from './Update'; // Import Update component
 import { useNavigate } from 'react-router-dom';
+import  Axios  from 'axios';
 
 export default function Course() {
-  const [datas, setDatas] = useState([{
-      img: Awards,
-      name: "Name1",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name2",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name3",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name4",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name5",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name6",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name7",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name8",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name9",
-      path: "/viewcourse",
-    },
-    {
-      img: Awards,
-      name: "Name10",
-      path: "/viewcourse",
-    },
-    {
-      img: Plus,
-      name: "Add Awards",
-      path: "/addachievement",
-    },]); // Initialize datas state with initial data
+  const [courseData,setCourseData]=useState([]);
+       // Initialize datas state with initial data
   const languageName = getLocalStorage("languageName");
   const Navigate = useNavigate();
-
-  const updateData = (updatedData) => {
-    setDatas(updatedData); // Update datas state with the updated data
+  const getCourses = async () => {
+    try {
+      const res = await Axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAchievement.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+        }
+      );
+      const obj = res.data.map((item) => ({
+        img: Awards,
+        name: item.content,
+        // path: "/viewcourse",
+      }));
+      obj.push({
+        img: Plus,
+        name: "Add Achievement",
+        path: "/addachievement",
+      });
+      setCourseData(obj);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
   };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
+
+ 
 
   const click = () =>{
     Navigate(PATH.UPDATE);
@@ -272,10 +245,12 @@ export default function Course() {
   return (
     <div>
       <div style={{ padding: "20px" }}>
-        <CustomBreadCrumbs items={[
-          { label: "Dashboard", path: PATH.DASHBOARD },
-          { label: "Achievement", path: PATH.ACHIEVEMENT }
-        ]} />
+        <CustomBreadCrumbs
+          items={[
+            { label: "Dashboard", path: PATH.DASHBOARD },
+            { label: "Achievement", path: PATH.ACHIEVEMENT },
+          ]}
+        />
       </div>
       <Container fluid>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -287,42 +262,48 @@ export default function Course() {
           </button>
         </div>
         <Row style={{ marginTop: "20px", justifyContent: "center" }}>
-          {datas.map((d, index) => (
-            <Col
-              key={index}
-              xs={12}
-              sm={12}
-              md={6}
-              lg={3}
-              xl={3}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "20px",
-              }}
-            >
-              <NavLink
-                to={d.path}
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                <div className="Div">
-                  <div className="del">
-                    <UpdateIcon />
-                    &nbsp;
-                    <img src={Delete} alt="Delete" />
-                  </div>
-                  <div>
-                    <img src={d.img} height="70px" alt="Awards" />
-                  </div>
-                  <div style={{ paddingTop: "10px" }}>
-                    <Typography style={{ fontWeight: 600 }}>
-                      {d.name}
-                    </Typography>
-                  </div>
-                </div>
-              </NavLink>
-            </Col>
-          ))}
+          <Row style={{ marginTop: "20px", justifyContent: "center" }}>
+            {courseData ? (
+              courseData.map((d, index) => (
+                <Col
+                  key={index}
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={3}
+                  xl={3}
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <NavLink
+                    to={d.path}
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
+                    <div className="Div">
+                      <div className="del">
+                        <UpdateIcon />
+                        &nbsp;
+                        <img src={Delete} alt="Delete" />
+                      </div>
+                      <div>
+                        <img src={d.img} height="70px" alt="Awards" />
+                      </div>
+                      <div style={{ paddingTop: "10px" }}>
+                        <Typography style={{ fontWeight: 600 }}>
+                          {d.name}
+                        </Typography>
+                      </div>
+                    </div>
+                  </NavLink>
+                </Col>
+              ))
+            ) : (
+              <p>Loading...</p>
+            )}
+          </Row>
         </Row>
       </Container>
     </div>

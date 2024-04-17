@@ -21,7 +21,7 @@ export const PATH = {
   STADD: "/stadd",
   PREADD: "/preadd",
   RECENTSTUDENT: "/recentstudent",
-  YEARINSTITUTION: "/yearinstitution",
+  YEARINSTITUTION: "/yearinstitution/:sno",
   SUBINSTITUTION: "/subinstitution",
   ADDSUB: "/addsub",
   NONINSTITUTION: "/noninstitution",
@@ -38,7 +38,7 @@ export const PATH = {
   DAILYINSTITUTION: "/dailyinstitution",
   ADDQUESTION: "/addquestion",
   ADDNONNURSING: "/addnonnursing",
-  ADDMOCK: "/addmock",
+  ADDMOCK: "/addmock/:sno",
   ADDMOCK1: "/addmock1",
   ADDMCQ1: "/addmcq1",
   MCQTABLE: "/mcqtable",
@@ -46,5 +46,7 @@ export const PATH = {
   UPLOADTEST: "/uploadtest",
   ACHIEVEMENT: "/achievement",
   UPDATE: "/Update",
-  ADDACHIEVEMENT:"/addachievement"
+  ADDACHIEVEMENT: "/addachievement",
+  UPDATECOURSE: "/updatecourse",
+  // ADDSUBMCQ1: "/addsubmcq1",
 };

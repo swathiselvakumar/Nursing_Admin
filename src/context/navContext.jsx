@@ -11,6 +11,16 @@ export const navContext = createContext({
 function NavContextProvider({ children }) {
   const [navTitleText, setTitle] = useState("Dashboard");
   const [open, setOpen] = useState(true);
+  const [name, setName] = useState();
+  const [year, setYear] = useState();
+  const [month, setMonth] = useState();
+  const [input, setInput] = useState();
+  const [stage, setStage] = useState();
+  const [mcq, setMcq] = useState();
+
+
+
+
 
   const updateNavText = (data) => {
     setTitle(data);
@@ -22,7 +32,25 @@ function NavContextProvider({ children }) {
 
   return (
     <navContext.Provider
-      value={{ navTitleText, updateNavText, open, setOpen, DrawerHandler }}
+      value={{
+        navTitleText,
+        updateNavText,
+        open,
+        setOpen,
+        DrawerHandler,
+        name,
+        setName,
+        year,
+        setYear,
+        month,
+        setMonth,
+        input,
+        setInput,
+        stage,
+        setStage,
+        mcq,
+        setMcq
+      }}
     >
       {children}
     </navContext.Provider>

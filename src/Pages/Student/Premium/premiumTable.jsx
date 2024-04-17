@@ -1,97 +1,82 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Modal,
+  Box,
+  Button,
+} from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 import { TableStdStyle } from "../../StudentTable/style";
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import { useState } from "react";
-import { Typography,Button } from "@mui/material";
-import Rong from '../../../assets/icons/rong.jpg'
-import { styled } from '@mui/material/styles';
-// import Delete from '../../assets/icons/delete.jpeg'
-import Block from '../../../assets/icons/block.png'
-// import { AlertStyle } from "./style";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Profile from "../../Profile";
+import BlockIcon from "../../../assets/icons/block.png";
 
-function createData(name, calories, fat, carbs,date, protein) {
-  return { name, calories, fat, carbs,date, protein };
+function createData(sno, sname, email, memberSince, date) {
+  return { sno, sname, email, memberSince, date };
 }
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    width:"400px"
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(2),
-  },
-}));
-
-const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(9, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-  createData(10, "Divya", "divya@gmail.com", "1 / 05 /2023", "1 / 05 /2023", <img src={Block} height="20px"/>),
-];
 
 export default function PremiumTb() {
-  const [open, setOpen] =useState(false)
-  const [modal,setModal]=useState(false)
-const handleClickOpens = () => {
-  setModal(true);
-};
- const handleClosed = () => {
-   setModal(false);
- };
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [rows, setRows] = useState([]);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
-  const Btn={
-    backgroundColor:"white",
-    color:"black",
-    border:"1px solid black",
-    width:"100px",
-    marginTop:"20px"
-  }
-  const Btn1={
-    backgroundColor:"red",
-    color:"white",
-    marginLeft:"10px",
-    width:"100px",
-    marginTop:"20px"
-  }
-  const style = {
-    position: "absolute",
-    // top: '50%',
-    // left: '50%',
-    transform: "translate(5%, 5%)",
-    // width: 400,
-    bgcolor: "background.paper",
-    // border: '2px solid #000',
-    // boxShadow: 24,
-    p: 4,
-    width: "90%",
-    // height:'92%'
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPremiumSt.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+        }
+      );
+
+      const newData = response.data.map((item) =>
+        createData(
+          item.sno,
+          item.username,
+          item.email,
+          item.plan_join_date,
+          item.expired_date
+        )
+      );
+
+      setRows(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <>
       <TableStdStyle>
@@ -129,30 +114,22 @@ const handleClickOpens = () => {
                 {rows.map((row) => (
                   <TableRow
                     className="tb-row"
-                    key={row.name}
+                    key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      onClick={handleClickOpens}
-                    >
-                      {row.name}
+                    <TableCell component="th" scope="row">
+                      {row.sno}
                     </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.calories}
-                    </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.fat}
-                    </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.carbs}
-                    </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.date}
-                    </TableCell>
-                    <TableCell align="center" onClick={handleClickOpen}>
-                      {row.protein}
+                    <TableCell align="left">{row.sname}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.memberSince}</TableCell>
+                    <TableCell align="left">{row.date}</TableCell>
+                    <TableCell align="center">
+                      <img
+                        src={BlockIcon}
+                        height="20px"
+                        onClick={handleOpenDialog}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -161,50 +138,39 @@ const handleClickOpens = () => {
           </TableContainer>
         </div>
       </TableStdStyle>
-      <BootstrapDialog
-        onClose={handleClose}
+      <Dialog
+        onClose={handleCloseDialog}
+        open={openDialog}
         aria-labelledby="customized-dialog-title"
-        open={open}
       >
-        <DialogTitle
-          sx={{ m: 0, p: 2 }}
-          id="customized-dialog-title"
-        ></DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent sx={{ textAlign: "center" }}>
-          <img src={Rong} height="25px" style={{ marginTop: "-30px" }} />
-          <br />
-          Are You sure ?<br />
-          want to block this student?
-          <br />
-          <Button onClick={handleClose} style={Btn}>
-            Cancel
-          </Button>
-          <Button onClick={handleClose} style={Btn1}>
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          Are you sure?
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleCloseDialog} color="error">
             Block
           </Button>
-        </DialogContent>
-      </BootstrapDialog>
+        </DialogActions>
+      </Dialog>
       <Modal
-        open={modal}
-        // onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        style={{ height: "10%" }}
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
       >
-        <Box sx={style}>
-          <Profile onClose={handleClosed} />
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            p: 4,
+            width: "90%",
+          }}
+        >
+          <Profile student={selectedStudent} />
         </Box>
       </Modal>
     </>
