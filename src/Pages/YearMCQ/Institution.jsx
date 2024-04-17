@@ -406,7 +406,7 @@ export default function YearInstitution() {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <button className="Submit1">Download Template</button>
-          <NavLink to="/testpage">
+          <NavLink to="/uploadtest">
             <button className="Submit1">Upload Questions</button>
           </NavLink>
         </DialogContent>

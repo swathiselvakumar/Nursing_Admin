@@ -24,116 +24,197 @@ export default function SubInstitution() {
 
   
   return (
-    <div style={{backgroundColor:"white",padding:"10px"}}>
-        <div style={{padding:"25px"}}>
+    <div style={{ backgroundColor: "white", padding: "10px" }}>
+      <div style={{ padding: "25px" }}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
-    <Container fluid style={{paddingLeft:"27px",paddingRight:"27px"}}>
+      <Container fluid style={{ paddingLeft: "27px", paddingRight: "27px" }}>
         <Row>
-            <Col xs={12} sm={12} md={12} lg={12} xl={12} className='title1'>
-                <div>
-                    <img src={Book} height="40px"/>
-                </div>&nbsp;&nbsp;
-                <div>
-                    <Typography  style={{fontWeight:700,paddingTop:"10px"}}>Subject Name </Typography>
-                </div>
-            </Col>
+          <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
+            <div>
+              <img src={Book} height="40px" />
+            </div>
+            &nbsp;&nbsp;
+            <div>
+              <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
+                Subject Name{" "}
+              </Typography>
+            </div>
+          </Col>
         </Row>
-    </Container>
-    <div className='TotalBox'>
-    <Container  className='MainBox'>
-      <Row>
-        <Col className='Col1'>
-        <div className='box'>
-          <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
+      </Container>
+      <div className="TotalBox">
+        <Container className="MainBox">
+          <Row>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="MainBox">
+          <Row style={{ marginTop: "-50px" }}>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="MainBox">
+          <Row style={{ marginTop: "-50px" }}>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <div className="BtnBox">
+          <NavLink to="/uploadtest">
+            <button className="Btn">Upload Questions</button>
           </NavLink>
         </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-      </Row>
-      
-    </Container>
-    <Container  className='MainBox'>
-      <Row style={{marginTop:"-50px"}}>
-        <Col className='Col1'>
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-      </Row>
-    </Container>
-    <Container className='MainBox'>
-    <Row style={{marginTop:"-50px"}}>
-        <Col className='Col1'>
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-        <Col className='Col1'> 
-        <div className='box'>
-        <NavLink to="/mcqtablepage" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>2022 Model MCQ</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
-          </NavLink>
-        </div>
-        </Col>
-      </Row>
-    </Container>
-    <div className='BtnBox'>
-      <NavLink to="/addsub">
-      <button className='Btn' >Upload Questions</button>
-      </NavLink>
+      </div>
     </div>
-    </div>
-    
-    </div>
-    
-  )
+  );
 }

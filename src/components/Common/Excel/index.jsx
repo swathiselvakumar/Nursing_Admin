@@ -1,103 +1,214 @@
-import { useState } from "react";
-import * as XLSX from "xlsx";
+import { Button, Grid, Typography } from "@mui/material";
+import { GlobalStyleContainer } from "../../components/Global Styles/global.styles";
+import { UploadQuestionLandingStyles } from "./styles";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../constants/routeConstants";
+import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { testBreadcrumbItems } from "./data";
+// import { saveAs } from "file-saver";
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
+// import { errorToaster } from "../../utils/tosterMsg";
+import InfoIcon from "@mui/icons-material/Info";
+import ExcelJS from "exceljs";
 
-function App() {
-  // onchange states
-  const [excelFile, setExcelFile] = useState(null);
-  const [typeError, setTypeError] = useState(null);
+export default function TestPage() {
+  const { updateTestDetails } = useContext(navContext);
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
+  const { updateQuestionData } = useContext(navContext);
 
-  // submit state
-  const [excelData, setExcelData] = useState(null);
+  const handleClick = () => {
+    inputRef.current.click();
+  };
 
-  // onchange event
-  const handleFile = (e) => {
-    let fileTypes = [
-      "application/vnd.ms-excel",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "text/csv",
-    ];
-    let selectedFile = e.target.files[0];
-    if (selectedFile) {
-      if (selectedFile && fileTypes.includes(selectedFile.type)) {
-        setTypeError(null);
-        let reader = new FileReader();
-        reader.readAsArrayBuffer(selectedFile);
-        reader.onload = (e) => {
-          setExcelFile(e.target.result);
-        };
+  const readExcelFile = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(file);
+
+      // Assuming there's only one sheet
+      const worksheet = workbook.getWorksheet(1);
+
+      // Convert sheet to array of objects
+      const data = [];
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber !== 1) {
+          // Skip header row
+          const rowData = {};
+          row.eachCell((cell, colNumber) => {
+            // Assuming column names are in the first row
+            const columnName = worksheet.getRow(1).getCell(colNumber).value;
+            rowData[columnName] = cell.value;
+          });
+          data.push(rowData);
+        }
+      });
+
+      const newData = data.map((item) => ({
+        ...item,
+        status: "default",
+      }));
+
+      const queDataStatus = newData.every((item) => item.question);
+
+      if (newData.length > 0) {
+        if (queDataStatus) {
+          updateQuestionData(newData);
+          updateTestDetails({});
+          navigate(PATH.QUESTIONS_UPLOAD);
+        } else {
+          errorToaster({ msg: "Invalid template format" });
+        }
       } else {
-        setTypeError("Please select only excel file types");
-        setExcelFile(null);
+        errorToaster({ msg: "Do not accept empty file" });
+        updateQuestionData([]);
       }
-    } else {
-      console.log("Please select your file");
     }
   };
 
-  // submit event
-  const handleFileSubmit = (e) => {
-    e.preventDefault();
-    if (excelFile !== null) {
-      const workbook = XLSX.read(excelFile, { type: "buffer" });
-      const worksheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[worksheetName];
-      const data = XLSX.utils.sheet_to_json(worksheet);
-      setExcelData(data.slice(0, 10));
-    }
+  const downloadTemplate = async () => {
+    let downloadRowData = [];
+    let downloadHeadingData = [
+      "sno",
+      "question",
+      "option1",
+      "option2",
+      "option3",
+      "option4",
+      "answer",
+    ];
+    let manuallyAddedHeading = [];
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Sheet1");
+
+    // Add headings to the worksheet
+    const manuallyAddedHead = manuallyAddedHeading;
+    worksheet.addRow([...downloadHeadingData, ...manuallyAddedHead]);
+
+    // Add data rows to the worksheet
+    downloadRowData.forEach((row) => {
+      worksheet.addRow(row);
+    });
+
+    // Generate a blob containing the Excel file
+    const blob = await workbook.xlsx.writeBuffer();
+
+    // Create a URL for the blob and trigger a download
+    const url = window.URL.createObjectURL(new Blob([blob]));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "questions data.xlsx";
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
+
+  // const downloadTemplate = async () => {
+  //   const filePath = "../../../public/questions-xl.xlsx";
+
+  //   try {
+  //     const response = await fetch(filePath);
+  //     const blob = await response.blob();
+
+  //     saveAs(blob, "question-data.xlsx");
+  //   } catch (error) {
+  //     console.error("Error downloading the file:", error);
+  //   }
+  // };
 
   return (
-    <div className="wrapper">
-      <h3>Upload & View Excel Sheets</h3>
-
-      {/* form */}
-      <form className="form-group custom-form" onSubmit={handleFileSubmit}>
-        <input
-          type="file"
-          className="form-control"
-          required
-          onChange={handleFile}
-        />
-        <button type="submit" className="btn btn-success btn-md">
-          UPLOAD
-        </button>
-        {typeError && (
-          <div className="alert alert-danger" role="alert">
-            {typeError}
-          </div>
-        )}
-      </form>
-
-      {/* view data */}
-      <div className="viewer">
-        {excelData ? (
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  {Object.keys(excelData[0]).map((key) => (
-                    <th key={key}>{key}</th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {excelData.map((individualExcelData, index) => (
-                  <tr key={index}>
-                    {Object.keys(individualExcelData).map((key) => (
-                      <td key={key}>{individualExcelData[key]}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div>No File is uploaded yet!</div>
-        )}
-      </div>
-    </div>
+    <>
+      <GlobalStyleContainer>
+        <CustomBreadCrumbs items={testBreadcrumbItems} />
+        <UploadQuestionLandingStyles>
+          <Grid container className="landing-main-container">
+            <Grid item xs={12} className="upload-button-container">
+              <Button
+                variant="contained"
+                onClick={downloadTemplate}
+                disableElevation
+              >
+                Download excel template
+              </Button>
+              <input
+                style={{ display: "none" }}
+                ref={inputRef}
+                type="file"
+                onChange={readExcelFile}
+                accept=".xlsx"
+              />
+              <Button
+                variant="contained"
+                onClick={handleClick}
+                disableElevation
+              >
+                Upload questions in excel
+              </Button>
+              <Grid item xs={12} className="description-container">
+                <Typography
+                  variant="h6"
+                  component="div"
+                  display="flex"
+                  alignItems="center"
+                  gutterBottom
+                >
+                  <InfoIcon sx={{ mr: 0.5 }} />
+                  Instructions :
+                </Typography>
+                <div className="descriptions">
+                  <Typography variant="body2" component="div" gutterBottom>
+                    1. Do not refresh untill submit the test.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    2. Download the template by clicking on Download Excel
+                    button above.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    3. The template has six columns. Use the first column for
+                    serial numbers (SL No.), the second column for the question,
+                    and the next four columns for options (A, B, C, and D). The
+                    last column should be for the correct answer.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    4. Each question can have a maximum of four options. Leave
+                    the remaining option cells blank if you have fewer options
+                    for any question.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    5. In the last column of the template, indicate the correct
+                    answer for each question (e.g., A, B, C, or D).
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    6. After entering all the questions and answers, save the
+                    Excel file on your computer in a location you can easily
+                    access.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    7. Upload the MCQ question excel file by clicking on Upload
+                    Excel button above.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    8. You can review and edit the uploaded questions in the
+                    modify section to ensure accuracy and completeness.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    9. Once the questions are verified provide the details for
+                    the test such as test name, duration, number of questions
+                    and other mandatory fields.
+                  </Typography>
+                  <Typography variant="body2" component="div" gutterBottom>
+                    10. Test must be scheduled atleast 15 minutes from the
+                    current time.
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
+          </Grid>
+        </UploadQuestionLandingStyles>
+      </GlobalStyleContainer>
+    </>
   );
 }
-
-export default App;
