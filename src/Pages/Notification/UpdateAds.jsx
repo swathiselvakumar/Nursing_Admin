@@ -11,6 +11,11 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SendIcon from '@mui/icons-material/Send';
 import RestorePageIcon from '@mui/icons-material/RestorePage';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useState } from "react";
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -23,14 +28,18 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function Notification() {
+function UpdateAds() {
+    const [age, setAge] = useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   const [act, setact] = React.useState("password");
   const BreadcrumbItems = [
     // { label: "Dashboard", path: PATH.DASHBOARD },
     
     { label: "Settings", path: PATH.SETTINGS },
-    { label: "Notification", path: PATH.NOTIFICATION },
-    // { label: "Password Change", path: PATH.PASSWORDCHANGE },
+    { label: "Update Ads", path: PATH.UPDATEADS },
   ];
   return (
     <>
@@ -101,43 +110,30 @@ function Notification() {
             <div className="inside-wrapper">
             <div style={{padding:"10px",display:"flex",justifyContent:"space-between"}}>
                 <CustomBreadCrumbs items={BreadcrumbItems} />
-                <div>
-                <NavLink to="/updateads">
-               <button className="notify"><AdsClickIcon style={{fontSize:"19px"}}/>&nbsp;Update Ads</button>
-               </NavLink>&nbsp;&nbsp;&nbsp;
-               <NavLink to="/history">
-               <button className="notify"><RestorePageIcon style={{fontSize:"19px"}}/>&nbsp;Notification Hisory</button>
-               </NavLink>
-                </div>
+            
               </div>
               <div >
               <div className="form1">
                     <div>
-                      <label htmlFor="headline" className="pass-lab">
-                        Headline :
-                      </label>
-                      <br />
-                      <input
-                        type="text"
-                        id="Old Password"
-                        name="Old Password"
-                        className="Old-Password"
-                      />
+                      <FormControl style={{width:"340px",marginBottom:"20px"}}>
+        <InputLabel id="demo-simple-select-label">Choose Place</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Choose Place"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Home</MenuItem>
+          <MenuItem value={20}>YearMCQ</MenuItem>
+          {/* <MenuItem value={30}>Thirty</MenuItem> */}
+        </Select>
+      </FormControl>
                     </div>
-                    <div style={{ marginTop: "20px" }}>
-                      <label htmlFor="description" className="pass-lab">
-                        Description:{" "}
-                      </label>
-                      <br />
-                      <textarea rows={4} cols={28} className="Old-Password">
-
-                      </textarea>
-                     {/* <p style={{fontSize:"12px",fontWeight:300,paddingTop:"10px"}}>Minimun 6 letters</p> */}
                     
-                    </div>
                     <div>
                     <label htmlFor="description" className="pass-lab">
-                        Attachments:{" "}
+                        Image:{" "}
                       </label>
                       <br/>
                     <Button
@@ -159,10 +155,11 @@ function Notification() {
       Upload file
       <VisuallyHiddenInput type="file" />
     </Button>
+    
                     </div>
                     <div className="btnbox">
                     <NavLink to="/settings">
-                    <button className="submit-btn">Send&nbsp;&nbsp;<SendIcon style={{fontSize:"20px"}}/></button>
+                    <button className="submit-btn">Upload&nbsp;&nbsp;<SendIcon style={{fontSize:"20px"}}/></button>
                     </NavLink>
                     </div>
                   </div>
@@ -175,4 +172,4 @@ function Notification() {
   );
 }
 
-export default Notification;
+export default UpdateAds;

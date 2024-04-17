@@ -7,45 +7,43 @@ export const NotificationStyle = styled("div")(() => ({
     marginLeft:"60px",
     marginRight:"60px"
   },
-  // ".profile": {
-  //   display: "flex",
-  //   flexDirection: "column",
-
-  //   marginRight: "100px",
-  //   textAlign: "center",
-  // },
+  ".form1":{
+    marginTop:"30px"
+  },
   ".inside-wrapper": {
     marginTop: "10px",
     borderRadius: "10px",
     display: "flex",
     backgroundColor: "#f6f6f6",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
+    paddingLeft:"40px",
     marginBottom: "10px",
-
-    // width: "1000px",
+    width: "70vw",
+    height:"80vh",
+    flexDirection:"column"
   },
 
   ".profile-card": {
     padding: "80px 30px 75px 30px",
     display: "flex",
     // flexWrap: "wrap",
-    justifyContent: "center",
+    // justifyContent: "center",
     
   },
   ".profile-card img": {
     marginTop: "-20px",
   },
   ".submit-btn": {
-    backgroundColor: "#1B4242",
-    padding: "10px 100px 10px 100px",
+    backgroundColor: "#e4a45a",
+    padding: "10px 20px 10px 20px",
     border: "none",
     marginTop: "20px",
     color: "white",
+    borderRadius:"5px",
+
   },
   ".Old-Password": {
     border: "none",
-    width: "245px",
+    width: "345px",
     borderRadius: "5px",
     boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
     padding: "5px",
@@ -57,8 +55,29 @@ export const NotificationStyle = styled("div")(() => ({
     marginBottom: "5px",
     outline:"none"
   },
-  ".email": {
-    fontWeight: "550",
+  ".notify": {
+    fontWeight: "500",
+    width:"200px",
+    border:"none",
+    boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
+    backgroundColor:"white",
+    borderRadius:"5px",
+    height:"40px"
   },
-  ".char-err": {},
+  ".btnbox": {
+    width:"340px",
+    // backgroundColor:"green",
+    display:"flex",
+    justifyContent:"center"
+  },
+  ".details":{
+    display:"flex",
+    justifyContent:"space-between",
+    width:"60vw",
+    backgroundColor:"white",
+    padding:"10px",
+    height:"44px",
+    borderRadius:"5px",
+    margin:"20px"
+  }
 }));
