@@ -1,5 +1,5 @@
 export const PATH = {
-  DASHBOARD: "/",
+  DASHBOARD: "/dashboard",
   REPORT: "/report",
   YEARMCQ: "/yearmcq",
   SUBJECTMCQ: "/subjectmcq",
@@ -25,6 +25,7 @@ export const PATH = {
   SUBINSTITUTION: "/subinstitution/:sno",
   ADDSUB: "/addsub",
   NONINSTITUTION: "/noninstitution/:sno",
+
   MODELINSTITUTION: "/modelinstitution/:sno",
   COURSE: "/course",
   UPDATEPLAN: "/updateplan",

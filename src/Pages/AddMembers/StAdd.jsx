@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AlertBoxStyle } from "./style";
 // import BasicSelect from "./Dropdown";
 import { Typography } from "@mui/material";
@@ -22,12 +22,23 @@ function StAdd() {
     {label:"Add Members",path:PATH.STADD}
   ];
   const [open, setOpen] = React.useState(false);
+  const [name,setName]=useState('');
+  const[email,setEmail]=useState('');
   const handleClickOpen = () => {
     setOpen(true);
+    
   };
   const handleClose = () => {
     setOpen(false);
   };
+  const handlechange =(event)=>
+  {
+     setName(event.target.value)
+  }
+  const handlechanged = (event) => {
+    setEmail(event.target.value);
+  };
+
   const Btn={
     border:"none",
     height:"40px",
@@ -37,32 +48,40 @@ function StAdd() {
   }
   return (
     <AlertBoxStyle>
-      <div style={{padding:"25px"}}>
-      <CustomBreadCrumbs items={BreadcrumbItems} />
+      <div style={{ padding: "25px" }}>
+        <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
-         
-      <Typography style={{textAlign:"center",}}>ADD MEMBERS</Typography>
+
+      <Typography style={{ textAlign: "center" }}>ADD MEMBERS</Typography>
       <Container>
         <Row>
           <Col>
-          <div className="TotalBox">
-        <div className="alt-box">
-          <div>
-            <label htmlFor="name">Name </label>
-            <br />
-            <input type="text" className="textB"/>
-          </div>
-          <div>
-          <label htmlFor="email">Email </label>
-          <br />
-          <input type="email" className="textB"/>
-        </div>
-          
-          <button onClick={handleClickOpen}>Submit</button>
-        </div>
-        
-      
-    </div>      
+            <div className="TotalBox">
+              <div className="alt-box">
+                <div>
+                  <label htmlFor="name">Name </label>
+                  <br />
+                  <input
+                    type="text"
+                    className="textB"
+                    value={name}
+                    onChange={handlechange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email">Email </label>
+                  <br />
+                  <input
+                    type="email"
+                    className="textB"
+                    value={ename}
+                    onChange={handlechanged}
+                  />
+                </div>
+
+                <button onClick={handleClickOpen}>Submit</button>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
@@ -70,14 +89,13 @@ function StAdd() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        style={{display:"flex",justifyContent:"center"}}
+        style={{ display: "flex", justifyContent: "center" }}
       >
-        
         <IconButton
           aria-label="close"
           onClick={handleClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -85,14 +103,25 @@ function StAdd() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers style={{height:"200px",width:"400px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}} >
-          <Typography style={{paddingBottom:"20px"}}>Successfully Completed</Typography>
+        <DialogContent
+          dividers
+          style={{
+            height: "200px",
+            width: "400px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography style={{ paddingBottom: "20px" }}>
+            Successfully Completed
+          </Typography>
           <NavLink to="/standard">
-          <button style={Btn}>Done</button>
+            <button style={Btn}>Done</button>
           </NavLink>
         </DialogContent>
       </Dialog>
-    
     </AlertBoxStyle>
   );
 }
