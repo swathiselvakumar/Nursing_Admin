@@ -43,6 +43,7 @@ import {
   
   
 export default function Signin() {
+  const Navigate=useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [email,setemail]=useState("");
     const [pass,setPass]=useState("");
@@ -71,6 +72,7 @@ export default function Signin() {
       } catch (error) {
         console.error("Error check email or password:", error);
       }
+      Navigate('/otp');
     };
   return (
     <>

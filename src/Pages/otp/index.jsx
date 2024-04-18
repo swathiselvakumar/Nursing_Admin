@@ -62,7 +62,7 @@ export default function Otp() {
           <form style={{ width: "100%", marginTop: "8px", padding: "10px" }}>
            
             <Typography style={{ color: "#183A1D",fontWeight:600 }}>
-              Email <EmailIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"20px" }} />
+              Email <EmailIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"1px" }} />
             </Typography>
             <TextField variant="outlined" fullWidth
               id="email"
