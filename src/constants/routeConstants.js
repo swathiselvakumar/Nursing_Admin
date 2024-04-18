@@ -1,5 +1,5 @@
 export const PATH = {
-  DASHBOARD: "/",
+  DASHBOARD: "/dashboard",
   REPORT: "/report",
   YEARMCQ: "/yearmcq",
   SUBJECTMCQ: "/subjectmcq",
@@ -49,6 +49,8 @@ export const PATH = {
   ADDACHIEVEMENT: "/addachievement",
   UPDATECOURSE: "/updatecourse",
   NOTIFICATIONHISTORY:"/history",
-  UPDATEADS:"/updateads"
-  // ADDSUBMCQ1: "/addsubmcq1",
+  UPDATEADS:"/updateads",
+  SIGNIN:"/",
+  OTP:"/otp",
+  FORGET:"/forget"
 };
