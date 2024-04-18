@@ -116,11 +116,11 @@ function UpdateAds() {
               <div className="form1">
                     <div>
                       <FormControl style={{width:"340px",marginBottom:"20px"}}>
-        <InputLabel id="demo-simple-select-label">Choose Place</InputLabel>
+        <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={category}
           label="Choose Place"
           onChange={handleChange}
         >
