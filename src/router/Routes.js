@@ -50,6 +50,9 @@ import Updatecourse from "../Pages/Course/Updatecourse";
 // import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
 import NotificationHistory from "../Pages/Notification/NotificationHistory";
 import UpdateAds from "../Pages/Notification/UpdateAds";
+import Signin from "../Pages/signin";
+import Otp from "../Pages/otp";
+import Forget from "../Pages/forget";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -191,12 +194,6 @@ export const routeConfig = [
     Component: SubInstitution,
     route: PATH.SUBINSTITUTION,
   },
-  // {
-  //   key: "addsub",
-  //   title: "addsub",
-  //   Component: AddSub,
-  //   route: PATH.ADDSUB,
-  // },
   {
     key: "noninstitution",
     title: "noninstitution",
@@ -352,6 +349,28 @@ export const routeConfig = [
     title: "updateads",
     Component: UpdateAds,
     route: PATH.UPDATEADS,
+  },
+  {
+    key: "signin",
+    title: "signin",
+    Component: Signin,
+    route: PATH.SIGNIN,
+    isPublic:false,
+    type:1
+  },
+  {
+    key: "otp",
+    title: "otp",
+    Component: Otp,
+    route: PATH.OTP,
+    type:1
+  },
+  {
+    key: "forget",
+    title: "forget",
+    Component: Forget,
+    route: PATH.FORGET,
+    type:1
   },
 ];
 
