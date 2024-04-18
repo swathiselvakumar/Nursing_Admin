@@ -50,9 +50,9 @@ import Updatecourse from "../Pages/Course/Updatecourse";
 // import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
 import NotificationHistory from "../Pages/Notification/NotificationHistory";
 import UpdateAds from "../Pages/Notification/UpdateAds";
-import Signin from "../Pages/signin";
-import Otp from "../Pages/otp";
-import Forget from "../Pages/forget";
+import AddSub from "../Pages/SubjectMcq/AddSub";
+import UploadTestsub from "../Pages/SubjectMcq/Uploadtest";
+import UploadTestmodel from "../Pages/Modelmock/Updatetestmodel";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -193,6 +193,12 @@ export const routeConfig = [
     title: "subinstitution",
     Component: SubInstitution,
     route: PATH.SUBINSTITUTION,
+  },
+  {
+    key: "addsub",
+    title: "addsub",
+    Component: AddSub,
+    route: PATH.ADDSUB,
   },
   {
     key: "noninstitution",
@@ -351,26 +357,16 @@ export const routeConfig = [
     route: PATH.UPDATEADS,
   },
   {
-    key: "signin",
-    title: "signin",
-    Component: Signin,
-    route: PATH.SIGNIN,
-    isPublic:false,
-    type:1
+    key: "uploadtestsub",
+    title: "uploadtestsub",
+    Component: UploadTestsub,
+    route: PATH.UPLOADTESTSUB,
   },
   {
-    key: "otp",
-    title: "otp",
-    Component: Otp,
-    route: PATH.OTP,
-    type:1
-  },
-  {
-    key: "forget",
-    title: "forget",
-    Component: Forget,
-    route: PATH.FORGET,
-    type:1
+    key: "uploadtestmodel",
+    title: "uploadtestmodel",
+    Component: UploadTestmodel,
+    route: PATH.UPLOADTESTMODEL,
   },
 ];
 

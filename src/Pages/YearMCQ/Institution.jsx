@@ -23,70 +23,121 @@ import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { useContext } from "react";
 import { navContext } from "../../context/navContext";
 import axios from "axios";
+import * as XLSX from "xlsx";
+
 export default function YearInstitution() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-
     { label: "YearMCQ", path: PATH.YEARMCQ },
     { label: "Institution", path: PATH.YEARINSTITUTION },
   ];
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
+  const [openFirstDialog, setOpenFirstDialog] = useState(false);
+  const [openSecondDialog, setOpenSecondDialog] = useState(false);
   const [open, setOpen] = useState(false);
-  const [openBtn, setOpenBtn] = useState(false);
-  const { setYear: setNavYear } = useContext(navContext);
-  const { setMonth: setNavMonth } = useContext(navContext);
-  const {sno} =useParams();
+  const { sno } = useParams();
+
   const handleChange = (event) => {
     setYear(event.target.value);
-    setNavYear(event.target.value);
+  };
+
+  const handleChanged = (event) => {
     setMonth(event.target.value);
-    setNavMonth(event.target.value);
   };
 
-  const handleClickOpenBtn = () => {
-    setOpenBtn(true);
+  const handleCloseFirstDialog = () => {
+    setOpenFirstDialog(false);
   };
 
-  const handleCloseBtn = () => {
-    setOpenBtn(false);
+  const handleCloseSecondDialog = () => {
+    setOpenSecondDialog(false);
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleOpenSecondDialog = () => {
+    setOpenFirstDialog(false);
+    setOpenSecondDialog(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpenFirstDialog = () => {
+    setOpenFirstDialog(true);
   };
+
+  const [Data, setData] = useState(() => {
+    const storedData = localStorage.getItem("selectedFileData");
+    return {
+      adminId: "nandinivebbox@gmail.com",
+      institutionId: "",
+      year: "",
+      month: "",
+      questions: storedData ? JSON.parse(storedData) : [],
+    };
+  });
+
+  function handleFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const excelData = XLSX.utils.sheet_to_json(sheet);
+
+      setData({
+        ...Data,
+        institutionId: sno,
+        year: year,
+        month: month,
+        questions: excelData,
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
 
   useEffect(() => {
-    viewpaper();
-  }, []);
-  const viewpaper = async () => {
+    if (Data.questions.length > 0) {
+      SendApi();
+    }
+    response()
+  }, [Data.questions]);
+
+  const SendApi = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqPaper.php",
-        {
-          adminId: "nandinivebbox@gmail.com",
-          id: sno,
-
-          //  desc: description,
-          // You can include additional data here as needed
-        }
-        // const obj= response.data.sno;
+        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqQuestion.php",
+        Data
       );
-      //  console.log("Options:", options);
-      console.log("New item added:", response.data);
-      // setQuestion("");
-      // setOptions("");
-      // setAnswer("");
-      // Clear input fields
-      // console.log(name);
+      setMonth("");
+      setYear("");
+      window.location.href = "/uploadtest";
     } catch (error) {
-      console.error("Error adding new item:", error);
+      console.error("Error posting questions:", error);
     }
   };
+
+ const response =async()=>
+ {
+  try 
+  {
+    const res = await axios.post(
+      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqPaper.php",
+      {
+        adminId: "nandinivebbox@gmail.com",
+        id: sno,
+      }
+      
+    );
+      
+  }
+  catch(error)
+  {
+      console.error("Error adding new item:", error);
+  }
+ }
+
 
   return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
@@ -111,179 +162,38 @@ export default function YearInstitution() {
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/uploadtest" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-50px" }}>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-50px" }}>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/testpage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 October Question Paper
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-              </div>
-            </Col>
+            {[...Array(12)].map((_, index) => (
+              <Col key={index} className="Col1">
+                <div className="box">
+                  <NavLink to="/testpage" style={{ textDecoration: "none" }}>
+                    <button
+                      style={{
+                        backgroundColor: "white",
+                        border: "none",
+                        paddingTop: "5px",
+                      }}
+                    >
+                      2022 October Question Paper
+                    </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src={Delete} className="delete" alt="delete" />
+                  </NavLink>
+                </div>
+              </Col>
+            ))}
           </Row>
         </Container>
         <div className="BtnBox">
-          <button className="Btn" onClick={handleClickOpen}>
+          <button className="Btn" onClick={handleOpenFirstDialog}>
             Upload Questions
           </button>
         </div>
       </div>
       <Dialog
-        onClose={handleClose}
+        // onClose={handleCloseFirstDialog}
+        open={openFirstDialog}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        // open={open}
         style={{}}
       >
         <DialogTitle
@@ -299,7 +209,7 @@ export default function YearInstitution() {
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={handleCloseFirstDialog}
           sx={{
             position: "absolute",
             right: 8,
@@ -350,7 +260,7 @@ export default function YearInstitution() {
                 id="demo-select-small"
                 value={month}
                 label="Age"
-                onChange={handleChange}
+                onChange={handleChanged}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -361,12 +271,12 @@ export default function YearInstitution() {
                 <MenuItem value={4}>april</MenuItem>
                 <MenuItem value={5}>may</MenuItem>
                 <MenuItem value={6}>june</MenuItem>
-                <MenuItem value={1}>july</MenuItem>
-                <MenuItem value={2}>august</MenuItem>
-                <MenuItem value={3}>september</MenuItem>
-                <MenuItem value={4}>october</MenuItem>
-                <MenuItem value={5}>november</MenuItem>
-                <MenuItem value={6}>december</MenuItem>
+                <MenuItem value={7}>july</MenuItem>
+                <MenuItem value={8}>august</MenuItem>
+                <MenuItem value={9}>september</MenuItem>
+                <MenuItem value={10}>october</MenuItem>
+                <MenuItem value={11}>november</MenuItem>
+                <MenuItem value={12}>december</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -377,7 +287,11 @@ export default function YearInstitution() {
               marginTop: "20px",
             }}
           >
-            <button className="Submit" autoFocus onClick={handleClickOpenBtn}>
+            <button
+              className="Submit"
+              autoFocus
+              onClick={handleOpenSecondDialog}
+            >
               Submit
             </button>
           </div>
@@ -385,13 +299,14 @@ export default function YearInstitution() {
       </Dialog>
 
       <Dialog
-        onClose={handleClose}
+        // onClose={handleCloseSecondDialog}
+        open={openSecondDialog}
         aria-labelledby="customized-dialog-title"
-        open={openBtn}
+        // open={openBtn}
       >
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={handleCloseSecondDialog}
           sx={{
             position: "absolute",
             right: 8,
@@ -406,9 +321,42 @@ export default function YearInstitution() {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <button className="Submit1">Download Template</button>
-          <NavLink to="/uploadtest">
-            <button className="Submit1">Upload Questions</button>
-          </NavLink>
+          {/* <NavLink to="/uploadtest"> */}
+          {/* <button type="file" onChange={handleFile}>Upload Questions</button>
+          <input type="file"  onChange={handleFile} /> */}
+          <label
+            htmlFor="fileInput"
+            style={{
+              border: "none",
+              backgroundColor: "#1b4242",
+              color: "white",
+              height: "40px",
+              width: "200px",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              fontFamily: "Roboto, sans-serif",
+              margin: "40px",
+              textAlign: "center",
+              // justifyContent:'center',
+              // alignItems:'center',
+              alignContent: "center",
+            }}
+          >
+            Upload Questions
+          </label>
+          {/* This hidden input is used to select the file */}
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFile}
+            style={{
+              display: "none",
+            }}
+            // className="submit1"
+          />
+          {/* <button className="Submit1">Download Template</button> */}
+
+          {/* </NavLink> */}
         </DialogContent>
       </Dialog>
     </div>
