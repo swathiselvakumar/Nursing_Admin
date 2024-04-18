@@ -22,10 +22,10 @@ export const PATH = {
   PREADD: "/preadd",
   RECENTSTUDENT: "/recentstudent",
   YEARINSTITUTION: "/yearinstitution/:sno",
-  SUBINSTITUTION: "/subinstitution",
+  SUBINSTITUTION: "/subinstitution/:sno",
   ADDSUB: "/addsub",
-  NONINSTITUTION: "/noninstitution",
-  MODELINSTITUTION: "/modelinstitution",
+  NONINSTITUTION: "/noninstitution/:sno",
+  MODELINSTITUTION: "/modelinstitution/:sno",
   COURSE: "/course",
   UPDATEPLAN: "/updateplan",
   UPDATEDETAILS: "/updatedetails",
@@ -49,6 +49,9 @@ export const PATH = {
   ADDACHIEVEMENT: "/addachievement",
   UPDATECOURSE: "/updatecourse",
   NOTIFICATIONHISTORY:"/history",
-  UPDATEADS:"/updateads"
+  UPDATEADS:"/updateads",
+  UPLOADTESTSUB:'/uploadtestsub',
+  UPLOADTESTMODEL:'/uploadtestmodel'
+
   // ADDSUBMCQ1: "/addsubmcq1",
 };

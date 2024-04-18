@@ -50,6 +50,9 @@ import Updatecourse from "../Pages/Course/Updatecourse";
 // import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
 import NotificationHistory from "../Pages/Notification/NotificationHistory";
 import UpdateAds from "../Pages/Notification/UpdateAds";
+import AddSub from "../Pages/SubjectMcq/AddSub";
+import UploadTestsub from "../Pages/SubjectMcq/Uploadtest";
+import UploadTestmodel from "../Pages/Modelmock/Updatetestmodel";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -191,12 +194,12 @@ export const routeConfig = [
     Component: SubInstitution,
     route: PATH.SUBINSTITUTION,
   },
-  // {
-  //   key: "addsub",
-  //   title: "addsub",
-  //   Component: AddSub,
-  //   route: PATH.ADDSUB,
-  // },
+  {
+    key: "addsub",
+    title: "addsub",
+    Component: AddSub,
+    route: PATH.ADDSUB,
+  },
   {
     key: "noninstitution",
     title: "noninstitution",
@@ -352,6 +355,18 @@ export const routeConfig = [
     title: "updateads",
     Component: UpdateAds,
     route: PATH.UPDATEADS,
+  },
+  {
+    key: "uploadtestsub",
+    title: "uploadtestsub",
+    Component: UploadTestsub,
+    route: PATH.UPLOADTESTSUB,
+  },
+  {
+    key: "uploadtestmodel",
+    title: "uploadtestmodel",
+    Component: UploadTestmodel,
+    route: PATH.UPLOADTESTMODEL,
   },
 ];
 

@@ -3,7 +3,7 @@ import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import { Container,Row,Col } from 'react-bootstrap'
 import {Typography } from '@mui/material'
 import Delete from '../../assets/icons/delete.jpeg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import Model from '../../assets/images/model.png'
 import '../YearMCQ/CardStyle.css'
 import Dialog from '@mui/material/Dialog';
@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
+
 export default function ModelInstitution() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -23,7 +24,7 @@ export default function ModelInstitution() {
     
   ];
   const [open, setOpen] = React.useState(false);
-
+  const {sno}=useParams()
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -137,7 +138,7 @@ export default function ModelInstitution() {
       <button className='Btn' onClick={handleClickOpen} >Add Stage</button> 
     </div>
     <div className='BtnBox'>
-      <NavLink to="/addmock">
+      <NavLink to={`/addmock/${sno}`}>
       <button className='Btn' >Upload Questions</button>
       </NavLink>
     </div>
