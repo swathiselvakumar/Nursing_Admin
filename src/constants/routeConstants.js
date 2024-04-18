@@ -52,7 +52,10 @@ export const PATH = {
   NOTIFICATIONHISTORY:"/history",
   UPDATEADS:"/updateads",
   UPLOADTESTSUB:'/uploadtestsub',
-  UPLOADTESTMODEL:'/uploadtestmodel'
+  UPLOADTESTMODEL:'/uploadtestmodel',
+  SIGNIN:"/",
+  OTP:"/otp",
+  FORGET:"/forget"
 
   // ADDSUBMCQ1: "/addsubmcq1",
 };

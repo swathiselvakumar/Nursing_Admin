@@ -53,6 +53,9 @@ import UpdateAds from "../Pages/Notification/UpdateAds";
 import AddSub from "../Pages/SubjectMcq/AddSub";
 import UploadTestsub from "../Pages/SubjectMcq/Uploadtest";
 import UploadTestmodel from "../Pages/Modelmock/Updatetestmodel";
+import Signin from "../Pages/signin";
+import Otp from "../Pages/otp";
+import Forget from "../Pages/forget";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -367,6 +370,27 @@ export const routeConfig = [
     title: "uploadtestmodel",
     Component: UploadTestmodel,
     route: PATH.UPLOADTESTMODEL,
+  },
+  {
+    key: "signin",
+    title: "signin",
+    Component: Signin,
+    route: PATH.SIGNIN,
+    type:1
+  },
+  {
+    key: "otp",
+    title: "otp",
+    Component: Otp,
+    route: PATH.OTP,
+    type:1
+  },
+  {
+    key: "forget",
+    title: "forget",
+    Component: Forget,
+    route: PATH.FORGET,
+    type:1
   },
 ];
 
