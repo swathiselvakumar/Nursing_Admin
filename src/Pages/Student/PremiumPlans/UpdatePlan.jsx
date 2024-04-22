@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { YEARMCQStyle } from '../../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
+import { navContext } from '../../../context/navContext'
+// import { navContext } from '../../../context/navContext'
 export default function UpdatePlan() {
-  const [plan, setPlan] = useState();
-  const [price, setPrice] = useState(1999);
-  const [duration, setDuration] = useState();
+   const [plan, setPlan] = useState();
+   const [price, setPrice] = useState(1999);
+   const [durationname, setDurationname] = useState();
+   const { setPlan: setPlanName } = useContext(navContext);
+   const { setPrice: setPriceName } = useContext(navContext);
+   const { setDurationname: setDurationName } = useContext(navContext);
+
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -18,20 +24,23 @@ export default function UpdatePlan() {
       ];
        const handlechange = (event) => {
          setPlan(event.target.value);
+         setPlanName(event.target.value);
        };
 
        const handleChangeprice = (event) => {
          setPrice(event.target.value);
+         setPriceName(event.target.value);
        };
 
        const handleChangeduration = (event) => {
-         setDuration(event.target.value);
+         setDurationname(event.target.value);
+         setDurationName(event.target.name);
        };
 
        const handleNextClick = () => {
-         const planDetails = { plan, price, duration };
+         const planDetails = { plan, price, durationname};
          console.log("Plan Details:", planDetails);
-         setSuccessDialogOpen(true);
+        //  setSuccessDialogOpen(true);
        };
 
       const MainBox={
@@ -175,8 +184,8 @@ export default function UpdatePlan() {
                   <input
                     type="number"
                     style={TextB}
-                    onChange={handleChangeprice}
-                    value={price}
+                    onChange={handleChangeduration}
+                    value={durationname}
                   />
                 </div>
               </div>
@@ -197,8 +206,8 @@ export default function UpdatePlan() {
                     type="number"
                     // value="1999"
                     style={TextB}
-                    onChange={handleChangeduration}
-                    value={duration}
+                    onChange={handleChangeprice}
+                    value={price}
                   />
                 </div>
               </div>

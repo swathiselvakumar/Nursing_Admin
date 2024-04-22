@@ -19,12 +19,12 @@ export default function HybridCard() {
         {
             img:MiniTest,
             name:"MiniTest",
-            path:"/dailyinstitution"
+            path:"/miniinstitution"
         },
         {
             img:Micro,
             name:"Micro Test",
-            path:"/dailyinstitution"
+            path:"/microinstitution"
         },
        
         

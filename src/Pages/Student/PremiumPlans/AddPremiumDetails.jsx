@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { YEARMCQStyle } from '../../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
@@ -6,6 +6,8 @@ import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import Tick from '../../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { navContext } from '../../../context/navContext'
 export default function PremiumPlanDetails() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
@@ -14,24 +16,57 @@ export default function PremiumPlanDetails() {
         { label: "Add Premium Plan", path: PATH.ADDPREMIUMPLAN },
 
       ];
- const [duration, setDuration] = useState();
- const [price, setPrice] = useState(1999);
+//  const [durationname, setDurationname] = useState();
+ const [pricename, setPricename] = useState(1999);
  const [category, setCategory] = useState();
-      const handleChangeduration = (event) => {
-        setDuration(event.target.value);
-      };
+  const { plan, setPlan } = useContext(navContext);
+  const { price, setPrice } = useContext(navContext);
+   const { durationname, setDurationname } = useContext(navContext);
+
+
+// console.log(":",duration);
+// console.log(":", price);
+
+const handleChangeduration = (event) => {
+  setDurationname(event.target.value);
+};
+
+      // const handleChangeduration = (event) => {
+      //   setDurationname(event.target.value);
+      //   // setDuration(event.target.value)
+      // };
 
       const handleChangeprice = (event) => {
-        setPrice(event.target.value);
+        setPricename(event.target.value);
+        // set
       };
 
       const handleChangecategory = (event) => {
         setCategory(event.target.value);
       };
-      const handleNextClick = () => {
-        const planDetails = { category, price, duration };
+      const handleNextClick = async() => {
+        const planDetails = { plan,category, price, durationname };
         console.log("Plan Details:", planDetails);
-        // setSuccessDialogOpen(true);
+         try {
+         const response = await axios.post(
+           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
+           {
+             //  id: 1,
+             title: plan,
+             amount: price,
+             duration: 2,
+             description: category,
+             // You can include additional data here as needed
+           }
+         );
+      console.log("New item added:", response.data);
+     
+
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+    // console.log(duration);
+        
       };
       const MainBox={
         backgroundColor:"#f6f6f6",
@@ -142,7 +177,7 @@ export default function PremiumPlanDetails() {
             </div>
 
             <div style={MainText}>
-              <div
+              {/* <div
                 style={{
                   marginTop: "15px",
                   display: "flex",
@@ -152,9 +187,9 @@ export default function PremiumPlanDetails() {
               >
                 <div>
                   <label>Plan Duration</label>
-                </div>
+                </div> */}
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div>
+                {/* <div>
                   <input
                     type="number"
                     style={TextB}
@@ -162,8 +197,8 @@ export default function PremiumPlanDetails() {
                     onChange={handleChangeduration}
                   />
                 </div>
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 style={{
                   marginTop: "15px",
                   display: "flex",
@@ -173,18 +208,18 @@ export default function PremiumPlanDetails() {
               >
                 <div>
                   <label>Price</label>
-                </div>
+                </div> */}
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div>
+                {/* <div>
                   <input
                     type="number"
                     // value="1999"
                     style={TextB}
-                    value={price}
+                    value={pricename}
                     onChange={handleChangeprice}
                   />
                 </div>
-              </div>
+              </div> */}
               <div
                 style={{
                   marginTop: "15px",
@@ -199,7 +234,7 @@ export default function PremiumPlanDetails() {
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="Add Category"
                     style={TextB}
                     value={category}

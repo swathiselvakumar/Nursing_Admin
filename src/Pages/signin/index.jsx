@@ -68,11 +68,20 @@ export default function Signin() {
         );
         
         console.log("Success:", response.data);
+
+        if (response.data.message === "success") {
+          // Only navigate if the response is successful
+          Navigate("/dashboard");
+        } else {
+          // Handle the case where the response is not successful
+          console.error("Error in response:", response.data);
+          // Optionally, display an error message to the user
+        }
        
       } catch (error) {
         console.error("Error check email or password:", error);
       }
-      Navigate('/otp');
+      // Navigate('/otp');
     };
   return (
     <>

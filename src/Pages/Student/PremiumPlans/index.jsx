@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PremiumPlansStyle } from './style';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled} from '@mui/material/styles'; 
@@ -22,6 +22,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import Rong from '../../../assets/icons/rong.jpg'
+import axios from 'axios';
 
 export default function PremiumPlans() {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -34,6 +35,33 @@ export default function PremiumPlans() {
     },
   }));
   const [open, setOpen] =useState(false)
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+useEffect(() => {
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.get(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      );
+      setPlans(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  fetchPlans();
+}, []);
+
+if (loading) {
+  return <div>Loading...</div>;
+}
+
+if (error) {
+  return <div>Error: {error.message}</div>;
+}
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -107,90 +135,36 @@ export default function PremiumPlans() {
         </div>
         <div style={{padding:"20px",}}>
         <Container  className='mainContainer'>
-        <Row style={{display:"flex",justifyContent:"space-around"}}>
-       
-              <Col xs={12} sm={12} md={6} lg={3} xl={3}>
-                <div  className="item">
+        <Row style={{ display: "flex", justifyContent: "space-around" }}>
+            {plans.map((plan, index) => (
+              <Col key={index} xs={12} sm={12} md={6} lg={3} xl={3}>
+                <div className="item">
                   <div className="innerContent">
-                    <Typography style={{fontWeight:"bold"}}>Plan 1</Typography>
+                    <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
                   </div>
                   <div style={{ padding: "10px" }}>
-                    <Typography style={{paddingTop:"15px",paddingBottom:"15px"}}>1 month plan for course</Typography>
-                    <Typography style={{fontSize:"26px",paddingBottom:"10px"}}>$1999</Typography>
+                    <Typography style={{ paddingTop: "15px", paddingBottom: "15px" }}>{plan.description}</Typography>
+                    <Typography style={{ fontSize: "26px", paddingBottom: "10px" }}>${plan.amount}</Typography>
                   </div>
                   <NavLink to="/plandetails">
-                  <Button>
-                    View
-                  </Button>
+                    <Button>View</Button>
                   </NavLink>
-                  
                 </div>
               </Col>
-              
-              <Col xs={12} sm={12} md={6} lg={3} xl={3}>
-              <div  className="item">
-                  <div className="innerContent">
-                    <Typography style={{fontWeight:"bold"}}>Plan 1</Typography>
-                  </div>
-                  <div style={{ padding: "10px" }}>
-                    <Typography style={{paddingTop:"15px",paddingBottom:"15px"}}>1 month plan for course</Typography>
-                    <Typography style={{fontSize:"26px",paddingBottom:"10px"}}>$1999</Typography>
-                  </div>
-                  <NavLink to="/plandetails">
-                  <Button>
-                    View
-                  </Button>
-                  </NavLink>
-                  
-                </div>
-              </Col>
-              <Col xs={12} sm={12} md={6} lg={3} xl={3}>
-              <div  className="item">
-                  <div className="innerContent">
-                    <Typography style={{fontWeight:"bold"}}>Plan 1</Typography>
-                  </div>
-                  <div style={{ padding: "10px" }}>
-                    <Typography style={{paddingTop:"15px",paddingBottom:"15px"}}>1 month plan for course</Typography>
-                    <Typography style={{fontSize:"26px",paddingBottom:"10px"}}>$1999</Typography>
-                  </div>
-                  <NavLink to="/plandetails">
-                  <Button>
-                    View
-                  </Button>
-                  </NavLink>
-                  
-                </div>
-              </Col>
-              <Col xs={12} sm={12} md={6} lg={3} xl={3}>
-              <div  className="item">
-                  <div className="innerContent">
-                    <Typography style={{fontWeight:"bold"}}>Plan 1</Typography>
-                  </div>
-                  <div style={{ padding: "10px" }}>
-                    <Typography style={{paddingTop:"15px",paddingBottom:"15px"}}>1 month plan for course</Typography>
-                    <Typography style={{fontSize:"26px",paddingBottom:"10px"}}>$1999</Typography>
-                  </div>
-                  <NavLink to="/plandetails">
-                  <Button>
-                    View
-                  </Button>
-                  </NavLink>
-                  
-                </div>
-              </Col>
-              <Col xs={3} sm={3} md={3} lg={3} xl={3}>
+            ))}
+            <Col xs={3} sm={3} md={3} lg={3} xl={3}>
               <NavLink to="/addpremiumplan">
-              <div className='Div'>
-                        <div>
-                            <img src={Plus} height="70px"/>
-                        </div>
-                        <div style={{paddingTop:"10px"}}>
-                            <Typography style={{fontWeight:600,textDecoration:"none",color:"black"}}>Add</Typography>
-                        </div>
-                    </div>
+                <div className='Div'>
+                  <div>
+                    <img src={Plus} height="70px" alt="Add icon" />
+                  </div>
+                  <div style={{ paddingTop: "10px" }}>
+                    <Typography style={{ fontWeight: 600, textDecoration: "none", color: "black" }}>Add</Typography>
+                  </div>
+                </div>
               </NavLink>
-              </Col>
-        </Row>
+            </Col>
+          </Row>
     </Container>
         </div>
     </div>

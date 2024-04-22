@@ -9,7 +9,10 @@ export default function DashboardPage() {
   return ( 
     <div>
       <div style={{padding:"20px"}}>
+          {/* <Col xs={6} sm={6} md={12} lg={12} xl={12}> */}
+
         <Card/>
+        {/* </Col> */}
       </div>
       <Container fluid style={{padding:"20px"}}>
         <Row>
