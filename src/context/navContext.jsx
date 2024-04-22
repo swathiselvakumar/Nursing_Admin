@@ -17,8 +17,10 @@ function NavContextProvider({ children }) {
   const [input, setInput] = useState();
   const [stage, setStage] = useState();
   const [mcq, setMcq] = useState();
-
-
+ const [plan, setPlan] = useState();
+ const [price, setPrice] = useState(1999);
+  //  const [durationname, setDurationname] = useState();
+   const [durationname, setDurationname] = useState();
 
 
 
@@ -49,7 +51,13 @@ function NavContextProvider({ children }) {
         stage,
         setStage,
         mcq,
-        setMcq
+        setMcq,
+        plan,
+        setPlan,
+        price,
+        setPrice,
+        durationname,
+        setDurationname
       }}
     >
       {children}

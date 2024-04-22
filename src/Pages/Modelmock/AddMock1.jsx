@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { YEARMCQStyle } from '../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
@@ -13,17 +13,87 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios'
+import * as XLSX from "xlsx";
+
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
+// const { sno } = useParams();
   
     const [open, setOpen] = React.useState(false);
     const [duration, setDuration] = React.useState('');
     const [time, setTime] = React.useState('');
     const { stage, setStage } = useContext(navContext);
     const { mcq, setMcq } = useContext(navContext);
+    const [openFirstDialog, setOpenFirstDialog] = useState(false);
+    const [openSecondDialog, setOpenSecondDialog] = useState(false);
+    // const {sno}=useParams()
+  const handleCloseFirstDialog = () => {
+    setOpenFirstDialog(false);
+  };
 
-// const {sno} =useParams();
+  const handleCloseSecondDialog = () => {
+    setOpenSecondDialog(false);
+  };
+
+  const handleOpenSecondDialog = () => {
+    setOpenFirstDialog(false);
+    setOpenSecondDialog(true);
+  };
+
+  const handleOpenFirstDialog = () => {
+    setOpenFirstDialog(true);
+  };
+const [Data, setData] = useState(() => {
+  const storedData = localStorage.getItem("selectedFileData");
+  return {
+    adminId: "nandinivebbox@gmail.com",
+    institutionId: "1",
+    stageId: "1",
+    mcqId: "2",
+    questions: storedData ? JSON.parse(storedData) : [],
+  };
+});
+  function handleFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const excelData = XLSX.utils.sheet_to_json(sheet);
+
+      setData({
+        ...Data,
+        questions: excelData,
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
+  useEffect(() => {
+    if (Data.questions.length > 0) {
+      SendApi();
+    }
+   
+  }, [Data.questions]);
+
+  const SendApi = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockQuestion.php",
+        Data
+      );
+      // setMonth("");
+      // setYear("");
+      window.location.href = "/uploadtestmodel";
+    } catch (error) {
+      console.error("Error posting questions:", error);
+    }
+  };
 
     const handleClickOpen =async () => {
         setOpen(true);
@@ -42,7 +112,7 @@ export default function AddMock1() {
                 duration:'3',
               }
             );
-             console.log("New item added:", response.data);
+             console.log("New item added:", res.data);
 
                 setDuration("");
                 setTime('');
@@ -196,11 +266,11 @@ export default function AddMock1() {
                   width: "380px",
                 }}
               > */}
-                {/* <div>
+              {/* <div>
                   <label>Duration</label>
                 </div> */}
-                {/* <div><img src={AlertIcon}/></div> */}
-                {/* <div>
+              {/* <div><img src={AlertIcon}/></div> */}
+              {/* <div>
                   <input
                     type="number"
                     style={TextB}
@@ -221,11 +291,7 @@ export default function AddMock1() {
                   <label>Duration</label>
                 </div>
                 <div>
-                  <select
-                    style={TextB}
-                    value={time}
-                    onChange={timechange}
-                  >
+                  <select style={TextB} value={time} onChange={timechange}>
                     <option value="">Select Time</option>
                     {[
                       { label: "1 hour", value: "60" },
@@ -257,7 +323,7 @@ export default function AddMock1() {
                   width: "530px",
                 }}
               >
-                <button onClick={handleClickOpen} style={btn1}>
+                <button onClick={handleOpenSecondDialog} style={btn1}>
                   SUBMIT
                 </button>
               </div>
@@ -279,13 +345,14 @@ export default function AddMock1() {
           </div>
         </div>
         <Dialog
-          onClose={handleClose}
+          // onClose={handleCloseSecondDialog}
+          open={openSecondDialog}
           aria-labelledby="customized-dialog-title"
-          open={open}
+          // open={openBtn}
         >
           <IconButton
             aria-label="close"
-            onClick={handleClose}
+            onClick={handleCloseSecondDialog}
             sx={{
               position: "absolute",
               right: 8,
@@ -300,9 +367,42 @@ export default function AddMock1() {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <button className="Submit1">Download Template</button>
-            <NavLink to="/testpage">
-              <button className="Submit1">Upload Questions</button>
-            </NavLink>
+            {/* <NavLink to="/uploadtest"> */}
+            {/* <button type="file" onChange={handleFile}>Upload Questions</button>
+          <input type="file"  onChange={handleFile} /> */}
+            <label
+              htmlFor="fileInput"
+              style={{
+                border: "none",
+                backgroundColor: "#1b4242",
+                color: "white",
+                height: "40px",
+                width: "200px",
+                fontWeight: "500",
+                textTransform: "uppercase",
+                fontFamily: "Roboto, sans-serif",
+                margin: "40px",
+                textAlign: "center",
+                // justifyContent:'center',
+                // alignItems:'center',
+                alignContent: "center",
+              }}
+            >
+              Upload Questions
+            </label>
+            {/* This hidden input is used to select the file */}
+            <input
+              type="file"
+              id="fileInput"
+              onChange={handleFile}
+              style={{
+                display: "none",
+              }}
+              // className="submit1"
+            />
+            {/* <button className="Submit1">Download Template</button> */}
+
+            {/* </NavLink> */}
           </DialogContent>
         </Dialog>
       </YEARMCQStyle>

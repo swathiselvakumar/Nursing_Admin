@@ -1,121 +1,134 @@
-import React, { useEffect, useState } from 'react'
-import { Container,Row,Col } from 'react-bootstrap'
-import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
-import { PATH } from '../../constants/routeConstants'
-import { Typography } from '@mui/material';
-import Btn from './Btn';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-export default function UploadTest() {
-const {sno}=useParams();
-  
-    const BreadcrumbItems = [
-        { label: "Dashboard", path: PATH.DASHBOARD },
-        
-        { label: "YearMCQ", path: PATH.YEARMCQ },
-        { label: "Institution", path: PATH.YEARINSTITUTION },
-        { label: "View Test", path: PATH.UPLOADTEST },
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { PATH } from "../../constants/routeConstants";
+import { Typography } from "@mui/material";
+import Btn from "./Btn";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+export default function UploadTestmodel() {
+  const { sno } = useParams();
 
-      ];
-      const [editMode, setEditMode] = useState(false);
-      const [questions, setQuestions] = useState([
-        { id: 1, text: "What are the benefits of using Python language?" },
-        // Add more questions as needed
-      ]);
-      const [options, setOptions] = useState([
-        { id: 1, text: "Object-Oriented Language" },
-        { id: 2, text: "High-Level Language" },
-        { id: 3, text: "Portable and Interactive" },
-        { id: 4, text: "Extensive support Libraries" },
+  const BreadcrumbItems = [
+    { label: "Dashboard", path: PATH.DASHBOARD },
 
-        // Add more options as needed
-      ]);
-      const [answer, setAnswer] = useState("a) Object-Oriented Language");
+    { label: "MockMCQ", path: PATH.ADDMOCK },
+    { label: "Institution", path: PATH.MODELINSTITUTION },
+    { label: "View Test", path: PATH.UPLOADTESTMODEL },
+  ];
+  const [editMode, setEditMode] = useState(false);
+  const [questions, setQuestions] = useState([
+    { id: 1, text: "What are the benefits of using Python language?" },
+    // Add more questions as needed
+  ]);
+  const [options, setOptions] = useState([
+    { id: 1, text: "Object-Oriented Language" },
+    { id: 2, text: "High-Level Language" },
+    { id: 3, text: "Portable and Interactive" },
+    { id: 4, text: "Extensive support Libraries" },
 
-      const handleEdit = () => {
-        setEditMode(!editMode); // Toggle edit mode
-      };
+    // Add more options as needed
+  ]);
+  const [answer, setAnswer] = useState("a) Object-Oriented Language");
 
-   useEffect(()=>
-  {
+  const handleEdit = () => {
+    setEditMode(!editMode); // Toggle edit mode
+  };
+
+  useEffect(() => {
     response();
-  },[])   
-const response = async () => {
-  try {
-    const res = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
-      {
-        adminId: "nandinivebbox@gmail.com",
-        institutionId: sno,
-        paperId: "7",
-        questionId: "5",
-      }
-      
-    );
-  } catch (error) {
-    console.error("Error adding new item:", error);
-  }
-};
+    // Send()
+  }, []);
+  const response = async () => {
+    try {
+      const res = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockQuestions.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+          institutionId: "1",
+          stageId: "1",
+          mcqId: "3",
+          questionId: "2",
+        }
+      );
+     const responseData = res.data;
+     const formattedQuestions = responseData.map((item) => ({
+       id: item.id,
+       text: item.questions,
+     }));
+     const formattedOptions = responseData.map((item) => ({
+       id: item.id,
+       text: [item.option1, item.option2, item.option3, item.option4],
+     }));
+     const formattedAnswer = responseData.map((item) => item.answer);
+     setQuestions(formattedQuestions);
+     setOptions(formattedOptions);
+     setAnswer(formattedAnswer);
+    //   setOptions(res.data.option[{}])
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
 
-      const ColStyle={
-        backgroundColor:"#f6f6f6",
-        height:"750px",
-        width:"auto",
-        borderRadius:"15px"
-      }
-      const ColStyle1={
-        backgroundColor:"#f6f6f6",
-        height:"665px",
-        width:"auto",
-        borderRadius:"15px",
-        overflow:"auto"
-      }
-      const title={
-        display:"flex",
-        justifyContent:"space-between",
-        paddingLeft:"15px",
-        paddingRight:"15px",
-        paddingTop:"15px"
-      }
-      const btn={
-        padding:"5px",
-        width:"60px",
-        // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-        border:"1px solid black"
-      }
-      const finish={
-        width:"100px",
-        border:"none",
-        backgroundColor:"#1b4242",
-        color:"white",
-        fontSize:"12px",
-        borderRadius:"5px",
-        height:"30px"
-      }
-      const save={
-        width:"100px",
-        border:"1px solid black",
-        fontSize:"12px",
-        borderRadius:"5px"
-      }
-      const remove={
-        width:"100px",
-        border:"1px solid black",
-        fontSize:"12px",
-        borderRadius:"5px"
-      }
-      const final={
-        width:"500px",
-        border:"none",
-        backgroundColor:"#1b4242",
-        color:"white",
-        fontSize:"20px",
-        borderRadius:"5px",
-        height:"50px",
-        marginLeft:"60px",
-        marginTop:"20px",
-        marginBottom:"20px"
-      }
+  const ColStyle = {
+    backgroundColor: "#f6f6f6",
+    height: "750px",
+    width: "auto",
+    borderRadius: "15px",
+  };
+  const ColStyle1 = {
+    backgroundColor: "#f6f6f6",
+    height: "665px",
+    width: "auto",
+    borderRadius: "15px",
+    overflow: "auto",
+  };
+  const title = {
+    display: "flex",
+    justifyContent: "space-between",
+    paddingLeft: "15px",
+    paddingRight: "15px",
+    paddingTop: "15px",
+  };
+  const btn = {
+    padding: "5px",
+    width: "60px",
+    // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+    border: "1px solid black",
+  };
+  const finish = {
+    width: "100px",
+    border: "none",
+    backgroundColor: "#1b4242",
+    color: "white",
+    fontSize: "12px",
+    borderRadius: "5px",
+    height: "30px",
+  };
+  const save = {
+    width: "100px",
+    border: "1px solid black",
+    fontSize: "12px",
+    borderRadius: "5px",
+  };
+  const remove = {
+    width: "100px",
+    border: "1px solid black",
+    fontSize: "12px",
+    borderRadius: "5px",
+  };
+  const final = {
+    width: "500px",
+    border: "none",
+    backgroundColor: "#1b4242",
+    color: "white",
+    fontSize: "20px",
+    borderRadius: "5px",
+    height: "50px",
+    marginLeft: "60px",
+    marginTop: "20px",
+    marginBottom: "20px",
+  };
   return (
     <div>
       <div style={{ padding: "25px" }}>
@@ -173,10 +186,15 @@ const response = async () => {
                       fontSize: "12px",
                       width: "200px",
                       height: "50px",
+                    //   display:'flex',
+                    //   flexDirection:"row"
                     }}
                   >
-                    <p style={{ fontWeight: 400 }}>{option.text}</p>
+                    <p style={{ fontWeight: 400 }}>
+                      {option.text}
+                    </p>
                   </div>
+                  
                 ))}
               </div>
               <div>

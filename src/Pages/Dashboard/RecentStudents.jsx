@@ -6,28 +6,65 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { TableStyle } from "../Report/Table/style";
+import axios from 'axios';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
      
-const rows = [
-  createData('Divya',"Premium"),
-  createData('Monica',"Premium"),
-  createData('Suba',"Standard"),
-  createData('hema',"Standard"),
-  createData('Raji',"Standard"),
-];
+// const rows = [
+//   createData('Divya',"Premium"),
+//   createData('Monica',"Premium"),
+//   createData('Suba',"Standard"),
+//   createData('hema',"Standard"),
+//   createData('Raji',"Standard"),
+// ];
+
+
 
 export default function RecentStudentTable() {
-   
+const [rows, setRows] = React.useState([]);
+
+    React.useEffect(() => {
+      table();
+    }, []);
+
+    const table = async () => {
+      try {
+        const response = await axios.post(
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewRecentStudents.php"
+          //  {
+          //    adminId: "nandinivebbox@gmail.com",
+          //  }
+        );
+
+        const newData = response.data.map((item) => ({
+          name: item.username,
+          calories: item.plan_category,
+
+        }));
+        //  "id": 26,
+        // "username": "moni",
+        // "plan_category": "",
+        // "email": "pathi@gmail.com",
+        // "plan_join_date": "0000-00-00"
+
+        setRows(newData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
   return (
-    <TableStyle >
+    //  <Grid item display={"flex"} justifyContent={"flex-end"} sm={12} xs={12} md={6} lg={6} xl={6}>
+
+    //   </Grid>
+     <Grid item display={"flex"}  sm={12} xs={12} md={6} lg={6} xl={6}>
+  <TableStyle >
     <TableContainer style={{padding:"20px",backgroundColor:"#f6f6f6",borderRadius:"5px"}} >
         <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recently Added Students</Typography>
-      <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 550 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#e7f6f2"}}>
             <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Sname</TableCell>
@@ -51,5 +88,7 @@ export default function RecentStudentTable() {
       </Table>
     </TableContainer>
     </TableStyle>
+      </Grid>
+  
   );
 }

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import './style.css'
 import { Typography } from '@mui/material'
 import { Container,Row,Col } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,9 +14,14 @@ import { PATH } from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
+import axios from 'axios'
+import * as XLSX from "xlsx";
+
 export default function AddSub() {
   const[input,setInput]=useState('');
-  // const { setInput: setNavInput } = useContext(navContext);
+ const {sno}=useParams()
+
+  const { setInput: setNavInput } = useContext(navContext);
   //  const { input, setInput } = useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -32,6 +37,70 @@ export default function AddSub() {
     setOpenBtn(true);
     console.log(input);
   };
+   const handleClickcloseBtn = () => {
+     setOpenBtn(false);
+     console.log(input);
+   };
+  const handlechange =(event)=>
+  {
+setInput(event.target.value)
+setNavInput(event.target.value)
+  }
+  function handleFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const excelData = XLSX.utils.sheet_to_json(sheet);
+
+      setData({
+        ...Data,
+        subjectId: "1",
+        paperName: "eng3",
+        // month: month,
+        questions: excelData,
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
+  
+const [Data, setData] = useState(() => {
+  const storedData = localStorage.getItem("selectedFileData");
+  return {
+    adminId: "nandinivebbox@gmail.com",
+    subjectId: "",
+    paperName: "",
+    // month: "",
+    questions: storedData ? JSON.parse(storedData) : [],
+  };
+});
+ 
+  const SendApi = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseQuestion.php",
+        Data
+      );
+      setInput("");
+      // setYear("");
+      window.location.href = "/uploadtestsub";
+    } catch (error) {
+      console.error("Error posting questions:", error);
+    }
+  };
+  useEffect(() => {
+    if (Data.questions.length > 0) {
+      SendApi();
+    }
+    // Send();
+    // response();
+  }, [Data.questions]);
   // const inputs =(event)=>
   // {
   //   setInput(event.target.value)
@@ -42,27 +111,55 @@ export default function AddSub() {
   //   setOpenBtn(false);
   // };
   return (
-    <div style={{backgroundColor:"white",height:"90vh"}}>
-      <div style={{padding:"25px"}}>
-      <CustomBreadCrumbs items={BreadcrumbItems} />
+    <div style={{ backgroundColor: "white", height: "90vh" }}>
+      <div style={{ padding: "25px" }}>
+        <CustomBreadCrumbs items={BreadcrumbItems} />
       </div>
-      <Container className='Main'>
+      <Container className="Main">
         <Row>
           <Col>
-          <div className='Sub'>
-          <Typography style={{fontWeight:600,textAlign:"center",paddingTop:"10px"}}>Add Questions</Typography>
-          <hr style={{border:"1px solid black"}}/>
-          <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100px"}}>
-            <Typography>Model MCQ</Typography>
-            <input type='number' className='Number' onChange={inputs} value={input}/>
-          </div>
-          <div style={{display:"flex",flexDirection:"column",marginLeft:"200px"}}>
-            <button className='SubBtn' onClick={handleClickOpenBtn}>SUBMIT</button>
-            <NavLink to="/subinstitution">
-            <button className='SubBtn1'>CANCEL</button>
-            </NavLink>
-          </div>
-        </div>
+            <div className="Sub">
+              <Typography
+                style={{
+                  fontWeight: 600,
+                  textAlign: "center",
+                  paddingTop: "10px",
+                }}
+              >
+                Add Questions
+              </Typography>
+              <hr style={{ border: "1px solid black" }} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100px",
+                }}
+              >
+                <Typography>Model MCQ</Typography>
+                <input
+                  type="number"
+                  className="Number"
+                  onChange={handlechange}
+                  value={input}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "200px",
+                }}
+              >
+                <button className="SubBtn" onClick={handleClickOpenBtn}>
+                  SUBMIT
+                </button>
+                <NavLink to={`/subinstitution/${input}`}>
+                  <button className="SubBtn1">CANCEL</button>
+                </NavLink>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
@@ -71,12 +168,11 @@ export default function AddSub() {
         aria-labelledby="customized-dialog-title"
         open={openBtn}
       >
-        
         <IconButton
           aria-label="close"
-          // onClick={handleCloseBtn}
+          onClick={handleClickcloseBtn}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -84,13 +180,45 @@ export default function AddSub() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers style={{display:"flex",justifyContent:"space-between"}}>
-          <button className='Submit1'>Download Template</button>
-          <NavLink to="/testpage">
-          <button className='Submit1'>Upload Questions</button>
-          </NavLink>
+        <DialogContent
+          dividers
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <button className="Submit1">Download Template</button>
+          {/* <NavLink to="/uploadtestsub"> */}
+          <label
+            htmlFor="fileInput"
+            style={{
+              border: "none",
+              backgroundColor: "#1b4242",
+              color: "white",
+              height: "40px",
+              width: "200px",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              fontFamily: "Roboto, sans-serif",
+              margin: "40px",
+              textAlign: "center",
+              // justifyContent:'center',
+              // alignItems:'center',
+              alignContent: "center",
+            }}
+          >
+            Upload Questions
+          </label>
+          {/* This hidden input is used to select the file */}
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFile}
+            style={{
+              display: "none",
+            }}
+            // className="submit1"
+          />
+          {/* </NavLink> */}
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

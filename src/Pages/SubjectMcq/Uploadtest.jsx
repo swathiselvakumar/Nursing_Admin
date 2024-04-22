@@ -6,15 +6,15 @@ import { Typography } from '@mui/material';
 import Btn from './Btn';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-export default function UploadTest() {
+export default function UploadTestsub() {
 const {sno}=useParams();
   
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
-        { label: "YearMCQ", path: PATH.YEARMCQ },
-        { label: "Institution", path: PATH.YEARINSTITUTION },
-        { label: "View Test", path: PATH.UPLOADTEST },
+        { label: "SubMCQ", path: PATH.SUBJECTMCQ },
+        { label: "Institution", path: PATH.SUBINSTITUTION },
+        { label: "View Test", path: PATH.UPLOADTESTSUB },
 
       ];
       const [editMode, setEditMode] = useState(false);
@@ -39,23 +39,24 @@ const {sno}=useParams();
    useEffect(()=>
   {
     response();
+    // Send()
   },[])   
 const response = async () => {
   try {
     const res = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
       {
         adminId: "nandinivebbox@gmail.com",
-        institutionId: sno,
-        paperId: "7",
-        questionId: "5",
+        subjectId: "1",
+        paperId: "3",
+        questionId: "4",
       }
-      
     );
   } catch (error) {
     console.error("Error adding new item:", error);
   }
 };
+
 
       const ColStyle={
         backgroundColor:"#f6f6f6",

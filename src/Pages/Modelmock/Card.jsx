@@ -73,7 +73,7 @@ export default function ModelMockCard() {
       const fetchedData = res.data.map((item) => ({
         img: Model,
         name: item.institution_name,
-        path: `/addmock/${item.sno}`,
+        path: `/modelinstitution/${item.sno}`,
       }));
       fetchedData.push({
         img: Plus,
