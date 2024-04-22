@@ -69,14 +69,16 @@ export default function NonNursingCard() {
       );
       const data = res.data;
       const newData = data.map((item) => ({
-        img:
-          item.subject_name === "Aptitude"
-            ? Aptitude
-            : item.subject_name === "Reasoning"
-            ? Reasoning
-            : item.subject_name === "GK"
-            ? GK
-            : English,
+        img:Aptitude,Reasoning,English,
+          // item.subject_name === "Aptitude"
+          //   ? Aptitude
+          //   : item.subject_name === "Reasoning"
+          //   ? Reasoning
+          //   : item.subject_name === "GK"
+          //   ? GK
+          //   : item.subject_name === "English"
+          //   ? English
+          //   : null,
         name: item.category_name,
         path: `/noninstitution/${item.sno}`,
       }));

@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Book from "../../assets/images/book.png";
 import { Typography } from "@mui/material";
 import Delete from "../../assets/icons/delete.jpeg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
@@ -17,35 +17,29 @@ export default function SubInstitution() {
   ];
 
   // Define state for storing MCQ data
-  const [mcqs, setMcqs] = useState([
+   const [mcqs, setMcqs] = useState([]);
    
-  ]);
-const Send = async () => {
-  try {
-    const response = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
-      {
-        adminId: "nandinivebbox@gmail.com",
-        id: "1",
-      }
-    );
-    setMcqs(response.data);
-    // setMonth("");
-    // setYear("");
-  //  const obj = response.data.map((item) => ({
-  //    paper_name: item.mcqs, // Assuming mcqs is a property of each item in response.data
-  //  }));
-  //  setMcqs(obj)
-    //  window.location.href = "/uploadtestsub";
-  } catch (error) {
-    console.error("Error posting questions:", error);
-  }
-};
+  // const { sno } = useParams();
 
-useEffect(()=>
-{
-  Send()
-},[])
+  const Send = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+          id: 1,
+        }
+      );
+      setMcqs(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    Send();
+  }, []);
+
   const handleDelete = (id) => {
     // Implement deletion logic here
     console.log("Delete MCQ with ID:", id);
@@ -72,67 +66,46 @@ useEffect(()=>
         </Row>
       </Container>
       <div className="TotalBox">
-        {mcqs.map(
-          (mcq, index) =>
-            index % 2 === 0 && (
-              <Container key={mcq.id} className="MainBox">
-                <Row>
-                  <Col className="Col1">
-                    <div className="box">
-                      <NavLink
-                        to="/mcqtablepage"
-                        style={{ textDecoration: "none" }}
+       {Array.isArray(mcqs) && mcqs.map((mcq, index) => (
+  // <Container key={mcq.sno} className="MainBox">
+            <Container key={mcq.sno} className="MainBox">
+              <Row>
+                <Col className="Col1">
+                  <div className="box">
+                    <NavLink
+                      to="/mcqnursingtable"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <button
+                        style={{
+                          backgroundColor: "white",
+                          border: "none",
+                          paddingTop: "5px",
+                        }}
                       >
-                        <button
-                          style={{
-                            backgroundColor: "white",
-                            border: "none",
-                            paddingTop: "5px",
-                          }}
-                        >
-                          {mcq.paper_name}
-                        </button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <img
-                          src={Delete}
-                          className="delete"
-                          alt="Delete icon"
-                          onClick={() => handleDelete(mcq.id)}
-                        />
-                      </NavLink>
-                    </div>
-                  </Col>
-                  {mcqs[index + 1] && (
-                    <Col className="Col1">
-                      <div className="box">
-                        <NavLink
-                          to="/mcqtablepage"
-                          style={{ textDecoration: "none" }}
-                        >
-                          <button
-                            style={{
-                              backgroundColor: "white",
-                              border: "none",
-                              paddingTop: "5px",
-                            }}
-                          >
-                            {mcqs[index + 1].name}
-                          </button>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <img
-                            src={Delete}
-                            className="delete"
-                            alt="Delete icon"
-                            onClick={() => handleDelete(mcqs[index + 1].id)}
-                          />
-                        </NavLink>
-                      </div>
-                    </Col>
-                  )}
-                </Row>
-              </Container>
-            )
-        )}
+                        {mcq.paper_name}
+                      </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <img
+                        src={Delete}
+                        className="delete"
+                        alt="Delete icon"
+                        onClick={() => handleDelete(mcq.id)}
+                      />
+                    </NavLink>
+                  </div>
+                </Col>
+                <NavLink
+                  to="/uploadtest" // Replace `/mcq/${mcq.id}` with the actual path you want to navigate to
+                  style={{ textDecoration: "none" }}
+                >
+                  <div style={{ display: "flex", marginLeft: 620 }}>
+                    View Questions
+                  </div>
+                </NavLink>
+              </Row>
+            </Container>
+          ))}
         <div className="BtnBox">
           <NavLink to="/addsub">
             <button className="Btn">Upload Questions</button>

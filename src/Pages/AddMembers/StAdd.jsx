@@ -14,6 +14,7 @@ import {PATH} from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 // import getLocalStorage from '../../utils/helperFunc'
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 function StAdd() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -24,10 +25,29 @@ function StAdd() {
   const [open, setOpen] = React.useState(false);
   const [name,setName]=useState('');
   const[email,setEmail]=useState('');
-  const handleClickOpen = () => {
+  const handleClickOpen = async() => {
     setOpen(true);
+     try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertStudentSt.php",
+        {
+          username: name,
+          email: email,
+        }
+      );
+
+      console.log("Success:", response.data);
+
+      setOpen(true);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error here if needed
+    }
     
   };
+
+
+  
   const handleClose = () => {
     setOpen(false);
   };
@@ -38,6 +58,8 @@ function StAdd() {
   const handlechanged = (event) => {
     setEmail(event.target.value);
   };
+
+  
 
   const Btn={
     border:"none",
@@ -74,7 +96,7 @@ function StAdd() {
                   <input
                     type="email"
                     className="textB"
-                    value={ename}
+                    value={email}
                     onChange={handlechanged}
                   />
                 </div>

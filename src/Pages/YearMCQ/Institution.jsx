@@ -165,7 +165,7 @@ export default function YearInstitution() {
             {[...Array(12)].map((_, index) => (
               <Col key={index} className="Col1">
                 <div className="box">
-                  <NavLink to="/testpage" style={{ textDecoration: "none" }}>
+                  <NavLink to="/uploadtest" style={{ textDecoration: "none" }}>
                     <button
                       style={{
                         backgroundColor: "white",

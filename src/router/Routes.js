@@ -56,6 +56,12 @@ import UploadTestmodel from "../Pages/Modelmock/Updatetestmodel";
 import Signin from "../Pages/signin";
 import Otp from "../Pages/otp";
 import Forget from "../Pages/forget";
+import UploadDailyTest from "../Pages/Hybrid/UploadDailyTest";
+import MiniInstitution from "../Pages/Hybrid/MiniInstitution";
+import MiniUpload from "../Pages/Hybrid/MiniUpload";
+import MicroInstitution from "../Pages/Hybrid/MicroInstitution";
+import MicroUpload from "../Pages/Hybrid/MicroUpload";
+import Mcqnursingtable from "../Pages/Non_Nursing/Mcqnursingtable";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -376,21 +382,57 @@ export const routeConfig = [
     title: "signin",
     Component: Signin,
     route: PATH.SIGNIN,
-    type:1
+    type: 1,
   },
   {
     key: "otp",
     title: "otp",
     Component: Otp,
     route: PATH.OTP,
-    type:1
+    type: 1,
   },
   {
     key: "forget",
     title: "forget",
     Component: Forget,
     route: PATH.FORGET,
-    type:1
+    type: 1,
+  },
+  {
+    key: "uploaddailytest",
+    title: "uploaddailytest",
+    Component: UploadDailyTest,
+    route: PATH.UPLOADDAILYTEST,
+  },
+  {
+    key: "miniinstitution",
+    title: "miniinstitution",
+    Component: MiniInstitution,
+    route: PATH.MINIINSTITUTION,
+  },
+  {
+    key: "miniupload",
+    title: "miniupload",
+    Component: MiniUpload,
+    route: PATH.MINIUPLOAD,
+  },
+  {
+    key: "microinstitution",
+    title: "microinstitution",
+    Component: MicroInstitution,
+    route: PATH.MICROINSTITUTION,
+  },
+  {
+    key: "microupload",
+    title: "microupload",
+    Component: MicroUpload,
+    route: PATH.MICROUPLOAD,
+  },
+  {
+    key: "mcqnursingtable",
+    title: "mcqnursingtable",
+    Component: Mcqnursingtable,
+    route: PATH.NONNURSINGMCQ,
   },
 ];
 

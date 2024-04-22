@@ -6,10 +6,18 @@ import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
+import { useContext } from "react";
+import { navContext } from "../../../context/navContext";
 export default function AddPremiumplan() {
+
   const [plan, setPlan] = useState();
   const [price, setPrice] = useState(1999);
-  const [duration, setDuration] = useState();
+  const [durationname, setDurationname] = useState();
+  const { setPlan: setPlanName } = useContext(navContext);
+  const { setPrice: setPriceName } = useContext(navContext);
+  const { setDuration: setDurationName } = useContext(navContext);
+
+
    
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
     const BreadcrumbItems = [
@@ -21,41 +29,50 @@ export default function AddPremiumplan() {
       ];
       const handlechange = (event) => {
         setPlan(event.target.value);
+        setPlanName(event.target.value)
+        
       };
 
       const handleChangeprice = (event) => {
         setPrice(event.target.value);
+        setPriceName(event.target.value)
       };
 
       const handleChangeduration = (event) => {
-        setDuration(event.target.value);
+        setDurationname(event.target.value);
+        setDurationName(event.target.name)
       };
 
-      const handleNextClick = async() => {
-        // const planDetails = { plan, price, duration };
-        // console.log("Plan Details:", planDetails);
-        setSuccessDialogOpen(true);
-          try {
-         const response = await axios.post(
-           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
-           {
-            //  adminId: "nandinivebbox@gmail.com",
-             name: name,
-             instruction: instruction,
-             desc: description,
-             // You can include additional data here as needed
-           }
-         );
-      console.log("New item added:", response.data);
-       setPlan("");
-       setPrice("");
-       setDuration(""); 
-       // Clear input fields
-      console.log(name);
+// console.log(duration);
+// console.log(price);
 
-    } catch (error) {
-      console.error("Error adding new item:", error);
-    }
+
+      const handleNextClick = async() => {
+        const planDetails = { plan, price, durationname };
+        console.log("Plan Details:", planDetails);
+        setSuccessDialogOpen(true);
+    //       try {
+    //      const response = await axios.post(
+    //        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
+    //        {
+    //          //  adminId: "nandinivebbox@gmail.com",
+    //          name: setPlanName,
+    //          instruction: setPriceName,
+    //          desc: setDurationName,
+             
+    //          // You can include additional data here as needed
+    //        }
+    //      );
+    //   console.log("New item added:", response.data);
+    //    setPlan("");
+    //    setPrice("");
+    //    setDuration(""); 
+    //    // Clear input fields
+    //   console.log(name);
+
+    // } catch (error) {
+    //   console.error("Error adding new item:", error);
+    // }
       };
 
       const handleSuccessDialogClose = () => {
@@ -203,7 +220,7 @@ export default function AddPremiumplan() {
                     type="number"
                     style={TextB}
                     onChange={handleChangeduration}
-                    value={duration}
+                    value={durationname}
                   />
                 </div>
               </div>
