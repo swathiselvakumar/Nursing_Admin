@@ -1,36 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AlertBoxStyle } from "./style";
 import { Typography } from "@mui/material";
-import {PATH} from '../../constants/routeConstants'
-import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { PATH } from "../../constants/routeConstants";
+import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { NavLink } from "react-router-dom";
-import ProfileImg from '../../assets/images/profile.svg'
-import Layer1 from '../../assets/icons/layer1.png'
-import Gpay from '../../assets/icons/gpay.png'
-import Paytm from '../../assets/icons/paytm.png'
-import Upi from '../../assets/icons/upi.png'
 import axios from "axios";
+
 function PreAdd() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-   
     { label: "Premium", path: PATH.PREMIUM },
-    {label:"Add Members",path:PATH.PREADD}
+    { label: "Add Members", path: PATH.PREADD },
   ];
+
   const [open, setOpen] = React.useState(false);
-  const[name,setName]=useState();
-  const [email, setEmail] = useState();
-  const [selectedPlan, setSelectedPlan] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const [plans, setPlans] = useState([]);
 
+  useEffect(() => {
+    fetchPlans();
+  }, []);
 
-  const handleClickOpen =async () => {
-     try {
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.get(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      );
+      setPlans(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+const Btn = {
+  padding: "10px 20px",
+  backgroundColor: "rgb(240, 160, 75)",
+  border: "none",
+  borderRadius: "5px",
+  marginTop: "20px",
+  color: "white",
+  fontWeight: "550",
+  marginBottom: "10px",
+  width: "510px",
+};
+  const handleClickOpen = async () => {
+    try {
       const userData = {
         username: name,
         email: email,
@@ -45,19 +60,17 @@ function PreAdd() {
       console.log("Success:", response.data);
 
       setOpen(true);
-      setEmail('')
-      setName('')
-
+      setEmail("");
+      setName("");
     } catch (error) {
       console.error("Error:", error);
-      // Handle error here if needed
     }
-    setOpen(true);
   };
-  const handlename=(event)=>
-  {
-     setName(event.target.value)
-  }
+
+  const handlename = (event) => {
+    setName(event.target.value);
+  };
+
   const handleemail = (event) => {
     setEmail(event.target.value);
   };
@@ -65,50 +78,14 @@ function PreAdd() {
   const handleClose = () => {
     setOpen(false);
   };
-  const procontent={
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",height:"30px",padding:"5px",fontSize:"14px",borderRadius:"5px",width:"80px",textAlign:"center",alignSelf:"flex-start",
-  }
-  const pro={
-    display:"flex",justifyContent:"space-between",alignItems:"center"
-  }
-  const firstbox={
-    width:"400px",boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",borderRadius:"5px",
-    padding:"20px"
-  }
-  const boxdesign={
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    height:"27px",
-    width:"60px",
-    borderRadius:"5px",
-    textAlign:"center",
-    padding:"2px"
-  }
- const Btn = {
-   padding: "10px 20px",
-   backgroundColor: "rgb(240, 160, 75)",
-   border: "none",
-   borderRadius: "5px",
-   marginTop: "20px",
-   color: "white",
-   fontWeight: "550",
-   marginBottom: "10px",
-   width:'510px'
- };
-
-  const boxdesign1={
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    height:"27px",
-    width:"85px",
-    borderRadius:"5px",
-    textAlign:"center",
-    padding:"2px"
-    
-  }
-  const dialogbox={
-  overflowX:"auto",
-    height:"700px",
-    width:"100%"
-  }
+ const chunkedPlans = plans.reduce((acc, curr, index) => {
+   const chunkIndex = Math.floor(index / 4);
+   if (!acc[chunkIndex]) {
+     acc[chunkIndex] = [];
+   }
+   acc[chunkIndex].push(curr);
+   return acc;
+ }, []);
   return (
     <AlertBoxStyle>
       <div style={{ padding: "25px" }}>
@@ -142,44 +119,27 @@ function PreAdd() {
           </div>
           <div className="radioBtn">
             <span>
-              <input
-                type="radio"
-                name="A"
-                value="1"
-                onChange={(e) => setSelectedPlan(e.target.value)}
-              />
-              &nbsp;&nbsp;Plan 1
-            </span>
-            <span>
-              <input
-                type="radio"
-                name="A"
-                value="2"
-                onChange={(e) => setSelectedPlan(e.target.value)}
-              />
-              &nbsp;&nbsp;Plan 2
-            </span>
-            <span>
-              {" "}
-              <input
-                type="radio"
-                name="A"
-                value="3"
-                onChange={(e) => setSelectedPlan(e.target.value)}
-              />
-              &nbsp;&nbsp;Plan 3
-            </span>
-            <span>
-              <input
-                type="radio"
-                name="A"
-                value="4"
-                onChange={(e) => setSelectedPlan(e.target.value)}
-              />
-              &nbsp;&nbsp;Plan 4
+              {plans.map((plan, index) => (
+                <React.Fragment key={plan.plan_id}>
+                  <input
+                    type="radio"
+                    id={plan.plan_id}
+                    name="plans"
+                    value={plan.title}
+                    onChange={(e) => setSelectedPlan(e.target.value)}
+                  />
+                  {/* {"                                                      "} */}
+                  <label htmlFor={plan.plan_id}>{plan.title}</label>
+                  {/* <br/> */}
+                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
+                  {(index + 1) % 4 === 0 && <br />}
+                  {/* {"  "} */}
+                  {/* Add line break after every 4th radio button */}
+                </React.Fragment>
+              ))}
             </span>
           </div>
-          {/* <button onClick={}>submit</button> */}
           <NavLink to="/premium">
             <button onClick={handleClickOpen} style={Btn}>
               Submit
@@ -187,110 +147,6 @@ function PreAdd() {
           </NavLink>
         </div>
       </div>
-      {/* <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle>
-          <Typography style={{ textAlign: "center" }}>Payment</Typography>
-        </DialogTitle>
-        <DialogContent dividers style={dialogbox}>
-          <div>
-            <div style={firstbox}>
-              <div style={pro}>
-                <img src={ProfileImg} height="120px" />
-                <Typography style={procontent}>
-                  <img src={Layer1} />
-                  &nbsp;22,000
-                </Typography>
-              </div>
-              <Typography
-                style={{
-                  fontSize: "12px",
-                  paddingLeft: "20px",
-                  paddingBottom: "20px",
-                }}
-              >
-                @santhosh123
-              </Typography>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography style={{ fontSize: "14px" }}>
-                  <span style={{ fontWeight: 600 }}>Paid Date :</span>{" "}
-                  10/11/2023
-                </Typography>
-                <Typography style={{ fontSize: "14px" }}>
-                  <span style={{ fontWeight: 600 }}>Expiry Date :</span>{" "}
-                  10/11/2023
-                </Typography>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "20px",
-                }}
-              >
-                <div style={boxdesign}>
-                  <img src={Gpay} />
-                </div>
-                <div style={boxdesign}>
-                  <img src={Paytm} />
-                </div>
-                <div style={boxdesign}>
-                  <img src={Upi} />
-                </div>
-                <div style={boxdesign1}>
-                  <Typography style={{ fontSize: "12px" }}>
-                    Credit/Debit
-                  </Typography>
-                </div>
-              </div>
-            </div>
-            <div>
-              {/* <div style={firstbox}>
-              <div style={pro} >
-              <img src={ProfileImg} height="120px"/>
-              <Typography style={procontent} ><img src={Layer1}/>&nbsp;22,000</Typography>
-              </div>
-              <Typography style={{fontSize:"12px",paddingLeft:"20px",paddingBottom:"20px"}}>@santhosh123</Typography>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <Typography style={{fontSize:"14px"}}><span style={{fontWeight:600}}>Paid Date :</span> 10/11/2023</Typography>
-                <Typography style={{fontSize:"14px"}}><span style={{fontWeight:600}}>Expiry Date :</span> 10/11/2023</Typography>
-
-              </div>
-              <div style={{display:"flex",justifyContent:"space-between",marginTop:"20px"}}>
-                <div style={boxdesign}>
-                <img src={Gpay}/>
-                </div>
-                <div style={boxdesign}>
-                <img src={Paytm}/>
-                </div>
-              <div style={boxdesign}>
-              <img src={Upi}/>
-              </div>
-              <div style={boxdesign1}>
-                <Typography style={{fontSize:"12px"}}>Credit/Debit</Typography>
-              </div>
-              </div>
-            </div> */}
-      {/* </div> */}
-      {/* </div> */}
-      {/* </DialogContent> */}
-      {/* </Dialog> */}
     </AlertBoxStyle>
   );
 }

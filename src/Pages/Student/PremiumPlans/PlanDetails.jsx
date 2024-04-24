@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import { PlansStyle } from "./planstyle";
 import { Container, Row, Col } from "react-bootstrap";
@@ -18,33 +18,35 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Rong from "../../../assets/icons/rong.jpg";
+import axios from "axios";
 
 export default function PlanDetails() {
   const [open, setOpen] = useState(false);
+  const [plansData, setPlansData] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
-    
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const languageName = getLocalStorage("languageName");
+  useEffect(() => {
+    // Fetch plans data when the component mounts
+    fetchPlansData();
+  }, []);
 
-  const BreadcrumbItems = [
-    { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "Premium Plans", path: PATH.PREMIUMPLANS },
-    { label: "Plans", path: PATH.PLANDETAILS },
-  ];
-
-  const plans = [
-    { duration: "1 Month", price: "$1999", tickCount: 5 },
-    { duration: "3 Months", price: "$1999", tickCount: 5 },
-    { duration: "6 Months", price: "$1999", tickCount: 5 },
-    { duration: "1 Year", price: "$1999", tickCount: 5 },
-  ];
+  const fetchPlansData = async () => {
+    try {
+      const response = await axios.get(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      );
+      setPlansData(response.data || []); // Ensure plansData is an array
+    } catch (error) {
+      console.error("Error fetching plans data:", error);
+    }
+  };
 
   const DeleteBtn = {
     width: "130px",
@@ -76,7 +78,13 @@ export default function PlanDetails() {
     <PlansStyle>
       <div className="bodystyle">
         <div style={{ padding: "20px" }}>
-          <CustomBreadCrumbs items={BreadcrumbItems} />
+          <CustomBreadCrumbs
+            items={[
+              { label: "Dashboard", path: PATH.DASHBOARD },
+              { label: "Premium Plans", path: PATH.PREMIUMPLANS },
+              { label: "Plans", path: PATH.PLANDETAILS },
+            ]}
+          />
         </div>
         <Container fluid style={{ marginTop: "20px" }}>
           <Row>
@@ -84,7 +92,7 @@ export default function PlanDetails() {
               <div className="title">
                 <Typography sx={{ fontWeight: 600, fontSize: "18px" }}>
                   Premium Plans &nbsp;
-                  <img src={Crown} height="20px" />
+                  <img src={Crown} height="20px" alt="Crown" />
                 </Typography>
               </div>
               <div>
@@ -99,12 +107,12 @@ export default function PlanDetails() {
         <div style={{ padding: "10px", marginTop: "30px" }}>
           <Container className="mainContainer">
             <Row style={{ display: "flex", justifyContent: "space-around" }}>
-              {plans.map((plan, index) => (
+              {plansData.map((plan, index) => (
                 <Col xs={12} sm={12} md={6} lg={3} xl={3} key={index}>
                   <div className="item">
                     <div className="innerContent">
                       <Typography>
-                        {plan.price}/Per {plan.duration}
+                        {plan.amount}/Per {plan.duration}
                       </Typography>
                     </div>
                     <div style={{ padding: "10px" }}>
@@ -115,7 +123,7 @@ export default function PlanDetails() {
                         <ul className="ulstyle">
                           {[...Array(plan.tickCount)].map((_, i) => (
                             <li key={i}>
-                              <img src={Tick} />
+                              <img src={Tick} alt="Tick" />
                               &nbsp;Lorem ipsum
                             </li>
                           ))}
@@ -132,10 +140,7 @@ export default function PlanDetails() {
             aria-labelledby="customized-dialog-title"
             open={open}
           >
-            <DialogTitle
-              sx={{ m: 0, p: 2 }}
-              id="customized-dialog-title"
-            ></DialogTitle>
+            <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title" />
             <IconButton
               aria-label="close"
               onClick={handleClose}
@@ -149,7 +154,12 @@ export default function PlanDetails() {
               <CloseIcon />
             </IconButton>
             <DialogContent sx={{ textAlign: "center" }}>
-              <img src={Rong} height="25px" style={{ marginTop: "-30px" }} />
+              <img
+                src={Rong}
+                height="25px"
+                alt="Rong"
+                style={{ marginTop: "-30px" }}
+              />
               <br />
               Are You sure ?<br />
               you want to delete this Plan?
