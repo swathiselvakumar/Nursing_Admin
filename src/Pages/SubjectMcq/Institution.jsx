@@ -19,7 +19,7 @@ export default function SubInstitution() {
   // Define state for storing MCQ data
    const [mcqs, setMcqs] = useState([]);
    
-  // const { sno } = useParams();
+  const { sno } = useParams();
 
   const Send = async () => {
     try {
@@ -107,7 +107,7 @@ export default function SubInstitution() {
             </Container>
           ))}
         <div className="BtnBox">
-          <NavLink to="/addsub">
+          <NavLink to={`/addsub/${sno}`}>
             <button className="Btn">Upload Questions</button>
           </NavLink>
         </div>

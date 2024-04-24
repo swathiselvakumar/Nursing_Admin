@@ -23,7 +23,7 @@ export const PATH = {
   RECENTSTUDENT: "/recentstudent",
   YEARINSTITUTION: "/yearinstitution/:sno",
   SUBINSTITUTION: "/subinstitution/:sno",
-  ADDSUB: "/addsub",
+  ADDSUB: "/addsub/:sno",
   NONINSTITUTION: "/noninstitution/:sno",
 
   MODELINSTITUTION: "/modelinstitution/:sno",
