@@ -11,7 +11,7 @@ import {
   import Image from '../../assets/images/login img.png'
   import { useState } from "react";
   import { NavLink } from 'react-router-dom';
-
+import axios from 'axios';
 
   const styles = {
     buttonContainer: {
@@ -32,6 +32,22 @@ import {
   
 export default function Otp() {
     const [email,setemail]=useState("");
+    const handleClickOpen = async () => {
+      try {
+        const response = await axios.post(
+          'https://vebbox.in/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
+          {
+            gmailId: email,
+            
+          }
+        );
+        
+        console.log("Success:", response.data);
+       
+      } catch (error) {
+        console.error("Error check email or password:", error);
+      }
+    };
 
   return (
     <Grid container component="main" style={{ height: "100vh",overflow:"hidden"}}>
@@ -74,13 +90,13 @@ export default function Otp() {
 
             
          
-            <NavLink to="/forget" style={{textDecoration:"none"}}>
+            {/* <NavLink to="/forget" style={{textDecoration:"none"}}> */}
             <div style={styles.buttonContainer}>
-              <Button variant="contained" style={styles.signInButton}>
+              <Button variant="contained" style={styles.signInButton} onClick={handleClickOpen}>
                 Get Otp
               </Button>
             </div>
-            </NavLink>
+            {/* </NavLink> */}
           </form>
           <div style={{marginTop:"30px",textAlign:"center"}}>
                 <input type="text" maxLength="1" style={{outline:"none",border:"none",width:"50px",paddingLeft:"20px",borderBottom:"1px solid #183A1D"}}/>&nbsp;&nbsp;

@@ -16,9 +16,18 @@ import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 import axios from 'axios'
 import * as XLSX from "xlsx";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 export default function AddSub() {
   const[input,setInput]=useState('');
+  const [category, setcategory] = useState('');
+
+  const handleChange = (event) => {
+    setcategory(event.target.value);
+  };
  const {sno}=useParams()
 
   const { setInput: setNavInput } = useContext(navContext);
@@ -32,10 +41,9 @@ export default function AddSub() {
 
   ];
   const [openBtn, setOpenBtn] = React.useState(false);
-  const handleClickOpenBtn = () => {
-
+  const handleClickOpenBtn =  () => {
     setOpenBtn(true);
-    console.log(input);
+    
   };
    const handleClickcloseBtn = () => {
      setOpenBtn(false);
@@ -64,6 +72,7 @@ setNavInput(event.target.value)
         // month: month,
         questions: excelData,
       });
+      console.log(excelData);
     };
 
     reader.readAsArrayBuffer(file);
@@ -73,10 +82,12 @@ setNavInput(event.target.value)
 const [Data, setData] = useState(() => {
   const storedData = localStorage.getItem("selectedFileData");
   return {
-    adminId: "nandinivebbox@gmail.com",
-    subjectId: "",
-    paperName: "",
-    // month: "",
+    
+      adminId: "nandinivebbox@gmail.com",
+      subjectId: sno,
+      paperName :input,
+      category:category,
+    
     questions: storedData ? JSON.parse(storedData) : [],
   };
 });
@@ -87,7 +98,7 @@ const [Data, setData] = useState(() => {
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseQuestion.php",
         Data
       );
-      setInput("");
+      // setInput("");
       // setYear("");
       // window.location.href = "/uploadtestsub";
     } catch (error) {
@@ -139,12 +150,33 @@ const [Data, setData] = useState(() => {
               >
                 <Typography>Model MCQ</Typography>
                 <input
-                  type="number"
+                  type="text"
                   className="Number"
                   onChange={handlechange}
                   value={input}
                 />
+                
               </div>
+              <FormControl  style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "200px",
+                  width:"220px",
+                  marginBottom:"20px"
+                }}>
+  <InputLabel id="demo-simple-select-label">Category</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={category}
+    label="Category"
+    onChange={handleChange}
+  >
+    <MenuItem value="standard">Standard</MenuItem>
+    <MenuItem value="premium">Premium</MenuItem>
+    
+  </Select>
+</FormControl>
               <div
                 style={{
                   display: "flex",
@@ -167,6 +199,7 @@ const [Data, setData] = useState(() => {
         // onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={openBtn}
+        
       >
         <IconButton
           aria-label="close"
@@ -182,18 +215,19 @@ const [Data, setData] = useState(() => {
         </IconButton>
         <DialogContent
           dividers
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}
         >
           <button className="Submit1">Download Template</button>
-          {/* <NavLink to="/uploadtestsub"> */}
+
+          
           <label
             htmlFor="fileInput"
             style={{
               border: "none",
               backgroundColor: "#1b4242",
               color: "white",
-              height: "40px",
-              width: "200px",
+              height: "60px",
+              // width: "100px",
               fontWeight: "500",
               textTransform: "uppercase",
               fontFamily: "Roboto, sans-serif",
