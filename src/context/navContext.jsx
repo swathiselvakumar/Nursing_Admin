@@ -20,7 +20,7 @@ function NavContextProvider({ children }) {
  const [plan, setPlan] = useState();
  const [price, setPrice] = useState(1999);
   //  const [durationname, setDurationname] = useState();
-   const [durationname, setDurationname] = useState();
+   const [durationtime, setDurationtime] = useState();
 
 
 
@@ -56,8 +56,8 @@ function NavContextProvider({ children }) {
         setPlan,
         price,
         setPrice,
-        durationname,
-        setDurationname
+        durationtime,
+        setDurationtime
       }}
     >
       {children}

@@ -1,71 +1,38 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Grid, Typography } from "@mui/material";
 import { TableStyle } from "../Report/Table/style";
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-     
-const rows = [
-  createData('Daily Test',10),
-  createData('Mini Test',13),
-  createData('Micro Test',24),
-  createData('English',18),
-  createData('Aptitude',8),
-];
+import axios from "axios";
 
 export default function DailyTestTable() {
-// const [rows, setRows] = React.useState([]);
+  const [testData, setTestData] = useState([]);
 
-   React.useEffect(() => {
-     table();
-   }, []);
+  useEffect(() => {
+    fetchTestData();
+  }, []);
 
-   const table = async () => {
-     try {
-       const response = await axios.post(
-         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertDailyTest.php"
-         //  {
-         //    adminId: "nandinivebbox@gmail.com",
-         //  }
-       );
+  const fetchTestData = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/User/get/U_ViewDailyTestDetails.php",
+        {
+          userId: "swathi@gmail.com",
+        }
+      );
+      setTestData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-      //  const newData = response.data.map((item) => ({
-      //    name: item.username,
-      //    calories: item.plan_category,
-      //  }));
-       //  "id": 26,
-       // "username": "moni",
-       // "plan_category": "",
-       // "email": "pathi@gmail.com",
-       // "plan_join_date": "0000-00-00"
-
-      //  setRows(newData);
-     } catch (error) {
-       console.error("Error fetching data:", error);
-     }
-   };
-   
   return (
-    <Grid
-      item
-      display={"flex"}
-      // justifyContent={"flex-end"}
-      sm={12}
-      xs={12}
-      md={6}
-      lg={6}
-      xl={6}
-    >
+    <Grid item display={"flex"} sm={12} xs={12} md={6} lg={6} xl={6}>
       <TableStyle>
         <TableContainer
           style={{
@@ -102,9 +69,9 @@ export default function DailyTestTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {testData.map((test, index) => (
                 <TableRow
-                  key={row.name}
+                  key={index}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                     marginTop: "10px",
@@ -113,17 +80,15 @@ export default function DailyTestTable() {
                   }}
                 >
                   <TableCell
-                    component="th"
-                    scope="row"
                     style={{ backgroundColor: "white", fontSize: "12px" }}
                   >
-                    {row.name}
+                    {test.test_name}
                   </TableCell>
                   <TableCell
                     align="right"
                     style={{ backgroundColor: "white", fontSize: "12px" }}
                   >
-                    {row.calories}
+                    {test.test_date}
                   </TableCell>
                 </TableRow>
               ))}

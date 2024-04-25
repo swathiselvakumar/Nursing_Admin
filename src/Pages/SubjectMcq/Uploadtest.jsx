@@ -18,27 +18,85 @@ const {sno}=useParams();
 
       ];
       const [editMode, setEditMode] = useState(false);
-      const [questions, setQuestions] = useState([
-        { id: 1, text: "What are the benefits of using Python language?" },
-        // Add more questions as needed
-      ]);
-      const [options, setOptions] = useState([
-        { id: 1, text: "Object-Oriented Language" },
-        { id: 2, text: "High-Level Language" },
-        { id: 3, text: "Portable and Interactive" },
-        { id: 4, text: "Extensive support Libraries" },
+     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
+  // const [editMode, setEditMode] = useState(false);
 
-        // Add more options as needed
-      ]);
-      const [answer, setAnswer] = useState("a) Object-Oriented Language");
-
-      const handleEdit = () => {
-        setEditMode(!editMode); // Toggle edit mode
-      };
-
+    const [questions, setQuestions] = useState([
+      // {
+      //   number: 1,
+      //   text: "What is your age?",
+      //   options: ["10-20", "21-30", "31-40", "41+"],
+      //   answer: "21-30", // Correct answer
+      // },
+      // {
+      //   number: 2,
+      //   text: "What is your name?",
+      //   options: ["John", "Alice", "Bob", "Jane"],
+      //   answer: "John", // Correct answer
+      // },
+      // {
+      //   number: 3,
+      //   text: "Javascript is an ___ language?",
+      //   options: [
+      //     "Object-Oriented",
+      //     "Object-Based",
+      //     "Assembly-language",
+      //     "High-level+",
+      //   ],
+      //   answer: "Object-Based", // Correct answer
+      // },
+      // {
+      //   number: 4,
+      //   text: "The function and  var are known as:",
+      //   options: [
+      //     "Keywords",
+      //     "Data types",
+      //     "Declaration statements",
+      //     "Prototypes",
+      //   ],
+      //   answer: "Declaration statements", // Correct answer
+      // },
+      // {
+      //   number: 5,
+      //   text: "Which one of the following is the correct way for calling the JavaScript code?",
+      //   options: ["Preprocessor", "Triggering Event", "RMI", "Function/Method"],
+      //   answer: "Function/Method", // Correct answer
+      // },
+      // {
+      //   number: 6,
+      //   text: "Which of the following type of a variable is volatile?",
+      //   options: [
+      //     "Mutable variable",
+      //     "Dynamic variable",
+      //     "Volatile variable",
+      //     "Immutable variable",
+      //   ],
+      //   answer: "Mutable variable", // Correct answer
+      // },
+      // {
+      //   number: 7,
+      //   text: "In the JavaScript, which one of the following is not considered as an error?",
+      //   options: [
+      //     "Syntax error",
+      //     "Missing of semicolons",
+      //     "Division by zero",
+      //     "Missing of Bracket",
+      //   ],
+      //   answer: "Division by zero", // Correct answer
+      // },
+      // Add more questions as needed
+    ]);
+const handleQuestionChange = (index) => {
+  console.log("Selected question index:", index);
+  setSelectedQuestionIndex(index - 1);
+};
+const handleEdit = () => {
+  setEditMode(!editMode); // Toggle edit mode
+};
    useEffect(()=>
   {
     response();
+    fetchQuestions()
     // Send()
   },[])   
 const response = async () => {
@@ -56,6 +114,37 @@ const response = async () => {
     console.error("Error adding new item:", error);
   }
 };
+ const fetchQuestions = () => {
+    axios
+      .post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+          subjectId: "16",
+          paperId: "10",
+          questionId: "14",
+        }
+      )
+      .then((response) => {
+          console.log(response.data); 
+
+        const obj=response.data.map((item)=>
+        ({
+        text: item.questions,
+        options: [
+          item.option1,
+          item.option2,
+          item.option3,
+          item.option4
+        ],
+        answer: item.answer,
+        }))
+        setQuestions(obj);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
 
       const ColStyle={
@@ -143,58 +232,26 @@ const response = async () => {
               </div>
               <hr />
               <div>
-                <Typography style={{ paddingLeft: "20px" }}>
+                {/* <Typography style={{ paddingLeft: "20px" }}>
                   Questions
-                </Typography>
-                {questions.map((question) => (
-                  <div
-                    key={question.id}
-                    style={{
-                      backgroundColor: "#CED2CF",
-                      padding: "10px",
-                      margin: "15px",
-                      borderRadius: "10px",
-                      fontSize: "12px",
-                    }}
-                  >
-                    <p style={{ fontWeight: 400 }}>{question.text}</p>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <Typography style={{ paddingLeft: "20px" }}>Options</Typography>
-                {options.map((option) => (
-                  <div
-                    key={option.id}
-                    style={{
-                      backgroundColor: "#CED2CF",
-                      padding: "10px",
-                      margin: "15px",
-                      borderRadius: "10px",
-                      fontSize: "12px",
-                      width: "200px",
-                      height: "50px",
-                    }}
-                  >
-                    <p style={{ fontWeight: 400 }}>{option.text}</p>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <Typography style={{ paddingLeft: "20px" }}>Answer</Typography>
-                <div
-                  style={{
-                    backgroundColor: "#CED2CF",
-                    padding: "10px",
-                    margin: "15px",
-                    borderRadius: "10px",
-                    fontSize: "12px",
-                    width: "200px",
-                    height: "50px",
-                  }}
-                >
-                  <p style={{ fontWeight: 400 }}>{answer}</p>
-                </div>
+                </Typography> */}
+                {selectedQuestionIndex !== null &&
+                  selectedQuestionIndex < questions.length && (
+                    <div>
+                      <p>{questions[selectedQuestionIndex].text}</p>
+                      <ol>
+                        {questions[selectedQuestionIndex].options.map(
+                          (option, index) => (
+                            <li key={index}>{option}</li>
+                          )
+                        )}
+                      </ol>
+                      <p>
+                        Correct Answer:{" "}
+                        {questions[selectedQuestionIndex].answer}
+                      </p>
+                    </div>
+                  )}
               </div>
               <div
                 style={{
@@ -210,18 +267,27 @@ const response = async () => {
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>
-            <div style={ColStyle1}>
+            <div
+              style={{
+                backgroundColor: "#f6f6f6",
+                padding: "20px",
+                borderRadius: "15px",
+                overflow: "auto",
+                height: "665px",
+              }}
+            >
               <div>
-                <Btn v1={1} v2={2} v3={3} v4={4} v5={5} />
-                <Btn v1={6} v2={7} v3={8} v4={9} v5={10} />
-                <Btn v1={11} v2={12} v3={13} v4={14} v5={15} />
-                <Btn v1={16} v2={17} v3={18} v4={19} v5={20} />
-                <Btn v1={21} v2={22} v3={23} v4={24} v5={25} />
-                <Btn v1={26} v2={27} v3={28} v4={29} v5={30} />
-                <Btn v1={31} v2={32} v3={33} v4={34} v5={35} />
-                <Btn v1={36} v2={37} v3={38} v4={39} v5={40} />
-                <Btn v1={41} v2={42} v3={43} v4={44} v5={45} />
-                <Btn v1={46} v2={47} v3={48} v4={49} v5={50} />
+                {[...Array(10)].map((_, index) => (
+                  <Btn
+                    key={index}
+                    v1={index * 5 + 1}
+                    v2={index * 5 + 2}
+                    v3={index * 5 + 3}
+                    v4={index * 5 + 4}
+                    v5={index * 5 + 5}
+                    handleQuestionChange={handleQuestionChange}
+                  />
+                ))}
               </div>
             </div>
             <div style={{ width: "400px" }}>

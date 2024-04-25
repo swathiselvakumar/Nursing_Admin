@@ -15,11 +15,8 @@ export default function SubInstitution() {
     { label: "SubjectMCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
   ];
-
-  // Define state for storing MCQ data
-   const [mcqs, setMcqs] = useState([]);
-   
-  const { sno } = useParams();
+   const {sno}=useParams();
+  const [mcqs, setMcqs] = useState([]);
 
   const Send = async () => {
     try {
@@ -41,8 +38,54 @@ export default function SubInstitution() {
   }, []);
 
   const handleDelete = (id) => {
-    // Implement deletion logic here
     console.log("Delete MCQ with ID:", id);
+    // Implement deletion logic here
+  };
+
+  const renderBoxes = () => {
+    const rows = [];
+    for (let i = 0; i < mcqs.length; i += 3) {
+      const rowItems = [];
+      for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
+        const mcq = mcqs[j];
+        rowItems.push(
+          <Col key={mcq.sno} className="MainBox">
+            <div className="box">
+              <NavLink to="/mcqnursingtable" style={{ textDecoration: "none" }}>
+                <button
+                  style={{
+                    backgroundColor: "white",
+                    border: "none",
+                    paddingTop: "5px",
+                  }}
+                >
+                  {mcq.paper_name}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img
+                  src={Delete}
+                  className="delete"
+                  alt="Delete icon"
+                  onClick={() => handleDelete(mcq.id)}
+                />
+              </NavLink>
+            </div>
+            <NavLink
+              to="/uploadtest"
+              style={{ textDecoration: "none", marginLeft: "20px" }}
+            >
+              <div style={{ display: "flex" ,marginLeft:160}}>View Questions</div>
+            </NavLink>
+          </Col>
+        );
+      }
+      rows.push(
+        <Row key={i} style={{ marginTop: "20px" }}>
+          {rowItems}
+        </Row>
+      );
+    }
+    return rows;
   };
 
   return (
@@ -65,52 +108,11 @@ export default function SubInstitution() {
           </Col>
         </Row>
       </Container>
-      <div className="TotalBox">
-       {Array.isArray(mcqs) && mcqs.map((mcq, index) => (
-  // <Container key={mcq.sno} className="MainBox">
-            <Container key={mcq.sno} className="MainBox">
-              <Row>
-                <Col className="Col1">
-                  <div className="box">
-                    <NavLink
-                      to="/mcqnursingtable"
-                      style={{ textDecoration: "none" }}
-                    >
-                      <button
-                        style={{
-                          backgroundColor: "white",
-                          border: "none",
-                          paddingTop: "5px",
-                        }}
-                      >
-                        {mcq.paper_name}
-                      </button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <img
-                        src={Delete}
-                        className="delete"
-                        alt="Delete icon"
-                        onClick={() => handleDelete(mcq.id)}
-                      />
-                    </NavLink>
-                  </div>
-                </Col>
-                <NavLink
-                  to="/uploadtest" // Replace `/mcq/${mcq.id}` with the actual path you want to navigate to
-                  style={{ textDecoration: "none" }}
-                >
-                  <div style={{ display: "flex", marginLeft: 620 }}>
-                    View Questions
-                  </div>
-                </NavLink>
-              </Row>
-            </Container>
-          ))}
-        <div className="BtnBox">
-          <NavLink to={`/addsub/${sno}`}>
-            <button className="Btn">Upload Questions</button>
-          </NavLink>
-        </div>
+      <div className="TotalBox">{renderBoxes()}</div>
+      <div className="BtnBox">
+        <NavLink to={`/addsub/${sno}`}>
+          <button className="Btn">Upload Questions</button>
+        </NavLink>
       </div>
     </div>
   );

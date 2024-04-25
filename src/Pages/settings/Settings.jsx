@@ -25,25 +25,27 @@ function Settings() {
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
   };
-  useEffect(() => {
-    // Fetch data when component mounts
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  
+  const submitchange = async () => {
     try {
-      const response = await axios.get(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStaticInfo.php", // Replace with your actual backend API endpoint
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStaticInfo.php",
         {
-          adminId: "nandinivebbox@gmail.com", // Pass any necessary parameters
+          adminId:"nandinivebbox@gmail.com",
+          mobileNo: mobileNo,
+          address: address,
         }
       );
-      // Set the fetched data to the state
-      setData(response.data);
+      setAddress('')
+      setMobileNo('')
+      // Handle success
+      console.log("Data submitted successfully:", response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error submitting data:", error);
+      // Handle error here
     }
   };
+ 
 
   return (
     <>
@@ -162,7 +164,7 @@ function Settings() {
                       onChange={handleAddressChange}
                     ></textarea>
                   </div>
-                  <button className="submit-btn">Submit</button>
+                  <button className="submit-btn" onClick={submitchange}>Submit</button>
                 </div>
               </div>
             </div>
