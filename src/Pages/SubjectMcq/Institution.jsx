@@ -15,7 +15,7 @@ export default function SubInstitution() {
     { label: "SubjectMCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
   ];
-
+   const {sno}=useParams();
   const [mcqs, setMcqs] = useState([]);
 
   const Send = async () => {
@@ -110,7 +110,7 @@ export default function SubInstitution() {
       </Container>
       <div className="TotalBox">{renderBoxes()}</div>
       <div className="BtnBox">
-        <NavLink to="/addsub">
+        <NavLink to={`/addsub/${sno}`}>
           <button className="Btn">Upload Questions</button>
         </NavLink>
       </div>

@@ -13,7 +13,7 @@ export default function Btn({ v1, v2, v3, v4, v5, handleQuestionChange }) {
     border: "none",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     marginLeft: "35px",
-    marginRight: "30px",
+    marginRight: "20px",
     marginTop: "10px",
     backgroundColor: "white",
   };

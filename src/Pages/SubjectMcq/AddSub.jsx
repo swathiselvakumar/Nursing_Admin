@@ -67,8 +67,9 @@ setNavInput(event.target.value)
 
       setData({
         ...Data,
-        subjectId: "3",
-        paperName: "eng3",
+        subjectId: sno,
+        paperName: input,
+        category:category,
         // month: month,
         questions: excelData,
       });
@@ -100,7 +101,7 @@ const [Data, setData] = useState(() => {
       );
       // setInput("");
       // setYear("");
-      // window.location.href = "/uploadtestsub";
+      window.location.href = "/uploadtestsub";
     } catch (error) {
       console.error("Error posting questions:", error);
     }
