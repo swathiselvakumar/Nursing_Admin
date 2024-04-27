@@ -25,53 +25,50 @@ export default function Card() {
 
     fetchData();
   }, []);
-  
+
   const Box = {
     backgroundColor: "#e7f6f2",
     width: "170px",
     borderRadius: "10px",
+    overflowX: "auto", // Enable horizontal scrolling
+    flexShrink: 0,
     marginRight: "20px", // Adjust spacing between cards
   };
-   
+
   const Box1 = {
     display: "flex",
     justifyContent: "space-between",
     padding: "20px",
   };
-   
+
   const containerStyle = {
-    // min-width: "100%", // Adjust width of the container
     padding: "20px 0", // Add padding to improve aesthetics
-    overflowX: "auto", // Enable horizontal scrolling
-    whiteSpace: "nowrap", // Ensure cards stay on one line
+    // overflowX: "auto", // Enable horizontal scrolling
+    // whiteSpace: "nowrap", // Ensure cards stay on one line
     display: "flex", // Ensure flex behavior
-    // backgroundColor:'red',
-    minwidth:50
+    // flexShrink: 0,
+    justifyContent: "center", // Center the cards horizontally
   };
-  
+
   return (
     <div style={containerStyle}>
-      {/* <Grid container spacing={1}> */}
-        {cards.map((data, index) => (
-          // <Grid item key={index} xs={12} sm={4} md={6} lg={2} xl={2}>
-            <div style={Box}>
-              <div style={Box1}>
-                <div>
-                  <img src={StuIcon} alt="Student Icon" />
-                </div>
-                <div>
-                  <Typography style={{ fontSize: "30px", color: "#e4a45a" }}>
-                    {data.numbercard}
-                  </Typography>
-                </div>
-              </div>
-              <div style={{ textAlign: "center", paddingBottom: "20px" }}>
-                <Typography>{data.text}</Typography>
-              </div>
+      {cards.map((data, index) => (
+        <div key={index} style={Box}>
+          <div style={Box1}>
+            <div>
+              <img src={StuIcon} alt="Student Icon" />
             </div>
-          // </Grid>
-        ))}
-      {/* </Grid> */}
+            <div>
+              <Typography style={{ fontSize: "30px", color: "#e4a45a" }}>
+                {data.numbercard}
+              </Typography>
+            </div>
+          </div>
+          <div style={{ textAlign: "center", paddingBottom: "20px" }}>
+            <Typography>{data.text}</Typography>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

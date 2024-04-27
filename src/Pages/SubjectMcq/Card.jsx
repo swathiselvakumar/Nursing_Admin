@@ -109,7 +109,9 @@ export default function YearCard() {
                 style={{ color: "black", textDecoration: "none" }}
               >
                 <div className="Div" onClick={d.onClick}>
-                  <img src={Delete} className="del" />
+                  {d.name !== "Add institution" && (
+                    <img src={Delete} className="del" />
+                  )}
                   <div>
                     <img src={d.img} height="70px" />
                   </div>
