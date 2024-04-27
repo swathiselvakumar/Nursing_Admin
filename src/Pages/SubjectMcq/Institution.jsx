@@ -24,7 +24,7 @@ export default function SubInstitution() {
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
         {
           adminId: "nandinivebbox@gmail.com",
-          id: 1,
+          id: sno,
         }
       );
       setMcqs(response.data);
@@ -48,8 +48,10 @@ export default function SubInstitution() {
       const rowItems = [];
       for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
         const mcq = mcqs[j];
+        const id = `${mcq.sno}_${j}`; // Concatenate sno with index for unique ID
+        
         rowItems.push(
-          <Col key={mcq.sno} className="MainBox">
+          <Col key={mcq.sno} id={id} className="MainBox">
             <div className="box">
               <NavLink to="/mcqnursingtable" style={{ textDecoration: "none" }}>
                 <button
@@ -74,7 +76,9 @@ export default function SubInstitution() {
               to="/uploadtest"
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
-              <div style={{ display: "flex" ,marginLeft:160}}>View Questions</div>
+              <div style={{ display: "flex", marginLeft: 160 }}>
+                View Questions
+              </div>
             </NavLink>
           </Col>
         );

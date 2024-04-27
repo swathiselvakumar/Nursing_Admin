@@ -45,61 +45,57 @@ export default function AppHeader() {
   };
 
   return (
-  
-      <CustomAppHeader>
-        <AppBar position="sticky">
-          <Toolbar>
-            <Grid container className="app-container">
-              <Grid item>
-            
-              </Grid>
+    <CustomAppHeader>
+      <AppBar position="sticky">
+        <Toolbar>
+          <Grid container className="app-container">
+            <Grid item></Grid>
 
-              <Grid item>
-                <Stack direction="row" display="flex" alignItems="center" >
-                  {/* <SearchBox width={265} /> */}
-                  <Tooltip title="Profile">
-                    <IconButton color="inherit">
-                      <Avatar
-                        alt="profile"
-                        src={profilePic}
-                        sx={{ width: 30, height: 30 }}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {menuItems.map((item) => (
-                      <MenuItem key={item} onClick={handleCloseUserMenu}>
-                        <Typography
-                          textAlign="center"
-                          variant="body2"
-                          component="h6"
-                        >
-                          {item}
-                        </Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Stack>
-              </Grid>
+            <Grid item >
+              <Stack direction="row" display="flex" alignItems="center">
+                {/* <SearchBox width={265} /> */}
+                <Tooltip title="Profile">
+                  <IconButton color="inherit">
+                    <Avatar
+                      alt="profile"
+                      src={profilePic}
+                      sx={{ width: 30, height: 30 }}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {menuItems.map((item) => (
+                    <MenuItem key={item} onClick={handleCloseUserMenu}>
+                      <Typography
+                        textAlign="center"
+                        variant="body2"
+                        component="h6"
+                      >
+                        {item}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Stack>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </CustomAppHeader>
-    
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    </CustomAppHeader>
   );
 }

@@ -95,56 +95,51 @@ const handleEdit = () => {
 };
    useEffect(()=>
   {
-    response();
+    // response();
     fetchQuestions()
     // Send()
   },[])   
-const response = async () => {
-  try {
-    const res = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
-      {
-        adminId: "nandinivebbox@gmail.com",
-        subjectId: "1",
-        paperId: "3",
-        questionId: "4",
-      }
-    );
-  } catch (error) {
-    console.error("Error adding new item:", error);
-  }
-};
- const fetchQuestions = () => {
-    axios
-      .post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
-        {
-          adminId: "nandinivebbox@gmail.com",
-          subjectId: "16",
-          paperId: "10",
-          questionId: "14",
-        }
-      )
-      .then((response) => {
-          console.log(response.data); 
+// const response = async (questionId) => {
+//   try {
+//     const res = await axios.post(
+//       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
+//       {
+//         adminId: "nandinivebbox@gmail.com",
+//         subjectId: sno,
+//         paperId: "3",
+//         questionId: questionId,
+//       }
+//     );
+//   } catch (error) {
+//     console.error("Error adding new item:", error);
+//   }
+// };
+ const fetchQuestions = (questionId) => {
+   axios
+     .post(
+       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
+       {
+         adminId: "nandinivebbox@gmail.com",
+         subjectId: sno,
+         paperId: "10",
+         questionId: questionId,
+       }
+     )
+     .then((response) => {
+       console.log(response.data);
 
-        const obj=response.data.map((item)=>
-        ({
-        text: item.questions,
-        options: [
-          item.option1,
-          item.option2,
-          item.option3,
-          item.option4
-        ],
-        answer: item.answer,
-        }))
-        setQuestions(obj);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  };
+       const obj = response.data.map((item) => ({
+         text: item.questions,
+         options: [item.option1, item.option2, item.option3, item.option4],
+         answer: item.answer,
+       }));
+       setQuestions(obj);
+     })
+     .catch((error) => {
+       setError(error.message);
+     });
+ };
+
 
 
       const ColStyle={
@@ -286,6 +281,8 @@ const response = async () => {
                     v4={index * 5 + 4}
                     v5={index * 5 + 5}
                     handleQuestionChange={handleQuestionChange}
+                    fetchQuestions={fetchQuestions}
+                    // onClick={fetchQuestions}
                   />
                 ))}
               </div>

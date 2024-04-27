@@ -25,7 +25,6 @@ export const PATH = {
   SUBINSTITUTION: "/subinstitution/:sno",
   ADDSUB: "/addsub/:sno",
   NONINSTITUTION: "/noninstitution/:sno",
-
   MODELINSTITUTION: "/modelinstitution/:sno",
   COURSE: "/course",
   UPDATEPLAN: "/updateplan",
@@ -51,7 +50,7 @@ export const PATH = {
   UPDATECOURSE: "/updatecourse",
   NOTIFICATIONHISTORY: "/history",
   UPDATEADS: "/updateads",
-  UPLOADTESTSUB: "/uploadtestsub",
+  UPLOADTESTSUB: "/uploadtestsub/:sno",
   UPLOADTESTMODEL: "/uploadtestmodel",
   SIGNIN: "/",
   OTP: "/otp",

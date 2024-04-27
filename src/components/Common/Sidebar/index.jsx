@@ -81,8 +81,15 @@ export default function SideNavigationbar() {
 
   return (
     <SidebarStyleWrapper>
-      <Box sx={{ display: "flex"}}>
-        <Drawer variant="permanent" open={open} className="drawer">
+      <Box sx={{ display: "flex" }}>
+        <Drawer
+          variant="permanent"
+          open={open}
+          className="drawer"
+        //   ModalProps={{
+        //     keepMounted: true, // Better open performance on mobile.
+        //   }}
+        >
           <DrawerHeader>
             <List>
               <ListItem disablePadding sx={{ display: "block" }}>
@@ -100,11 +107,13 @@ export default function SideNavigationbar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                     }}
-                  >
-                   
-                  </ListItemIcon>
+                  ></ListItemIcon>
                   <ListItemText
-                    primary={<Typography style={{fontFamily:"Roboto, sans-serif"}} >Company Name</Typography>}
+                    primary={
+                      <Typography style={{ fontFamily: "Roboto, sans-serif" }}>
+                        Company Name
+                      </Typography>
+                    }
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -151,9 +160,7 @@ export default function SideNavigationbar() {
                   <data.icon
                     sx={{
                       color:
-                        data.path === locatePath
-                          ? "#F0A04B"
-                          : theme.font.white,
+                        data.path === locatePath ? "#F0A04B" : theme.font.white,
                     }}
                     fontSize="medium"
                   />

@@ -49,6 +49,7 @@ export default function TableViewOrg() {
             padding: "20px",
             backgroundColor: "#f6f6f6",
             borderRadius: "10px",
+            overflowX: "auto",
           }}
         >
           <div className="table-head">
