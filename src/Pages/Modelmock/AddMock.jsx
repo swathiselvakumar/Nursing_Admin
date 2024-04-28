@@ -25,6 +25,15 @@ export default function AddMock() {
 
       ];
 
+
+
+
+
+
+
+
+
+      
       const handlechange =(event)=>
       {
 setStage(event.target.value);
@@ -145,7 +154,7 @@ setStage(event.target.value);
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Model MCQ</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB} value={mcq} onChange={handlechanged}/></div>
+                <div><input type='text' style={TextB} value={mcq} onChange={handlechanged}/></div>
               </div>
              
               

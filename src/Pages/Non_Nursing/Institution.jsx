@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Typography } from "@mui/material";
 import Delete from "../../assets/icons/delete.jpeg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
 import { PATH } from "../../constants/routeConstants";
@@ -10,14 +10,14 @@ import Aptitude from "../../assets/images/Aptitude.jpg";
 
 export default function NonInstitution() {
   const [mcqs, setMcqs] = useState([]);
-
+const {sno}=useParams();
   const Send = async () => {
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingPaper.php",
         {
           adminId: "nandinivebbox@gmail.com",
-          id: 1,
+          id: sno,
         }
       );
       setMcqs(response.data);
@@ -111,7 +111,7 @@ export default function NonInstitution() {
       </Container>
       <div className="TotalBox">{renderBoxes()}</div>
       <div className="BtnBox">
-        <NavLink to="/addnonnursing">
+        <NavLink to={`/addnonnursing/${sno}`}>
           <button className="Btn">Upload Questions</button>
         </NavLink>
       </div>

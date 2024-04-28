@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { YEARMCQStyle } from '../YearMCQ/style'
-import { Button, Typography } from '@mui/material'
+import { Button, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
@@ -14,11 +14,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios'
 import * as XLSX from "xlsx";
+import FormControl from "@mui/material/FormControl";
 
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
 // const { sno } = useParams();
+  const [category, setcategory] = useState("");
   
     const [open, setOpen] = React.useState(false);
     const [duration, setDuration] = React.useState('');
@@ -31,7 +33,9 @@ export default function AddMock1() {
   const handleCloseFirstDialog = () => {
     setOpenFirstDialog(false);
   };
-
+ const handleChange = (event) => {
+   setcategory(event.target.value);
+ };
   const handleCloseSecondDialog = () => {
     setOpenSecondDialog(false);
   };
@@ -51,6 +55,7 @@ const [Data, setData] = useState(() => {
     institutionId: "1",
     stageId: "1",
     mcqId: "2",
+    category: category,
     questions: storedData ? JSON.parse(storedData) : [],
   };
 });
@@ -67,6 +72,10 @@ const [Data, setData] = useState(() => {
 
       setData({
         ...Data,
+        institutionId: "1",
+        stageId: "1",
+        mcqId: "2",
+        category: category,
         questions: excelData,
       });
     };
@@ -89,7 +98,7 @@ const [Data, setData] = useState(() => {
       );
       // setMonth("");
       // setYear("");
-      window.location.href = "/uploadtestmodel";
+      // window.location.href = "/uploadtestmodel";
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -307,7 +316,27 @@ const [Data, setData] = useState(() => {
                   </select>
                 </div>
               </div>
-
+              <FormControl
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "146px",
+                  width: "228px",
+                  marginTop: "10px",
+                }}
+              >
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Category"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="standard">Standard</MenuItem>
+                  <MenuItem value="premium">Premium</MenuItem>
+                </Select>
+              </FormControl>
               {/* <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>End Time</label></div> */}
               {/* <div><img src={AlertIcon}/></div> */}
