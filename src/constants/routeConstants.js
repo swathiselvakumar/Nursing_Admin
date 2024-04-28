@@ -37,7 +37,7 @@ export const PATH = {
   ADDCOURSE: "/addcourse",
   DAILYINSTITUTION: "/dailyinstitution",
   ADDQUESTION: "/addquestion",
-  ADDNONNURSING: "/addnonnursing",
+  ADDNONNURSING: "/addnonnursing/:sno",
   ADDMOCK: "/addmock/:sno",
   ADDMOCK1: "/addmock1",
   ADDMCQ1: "/addmcq1",
