@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Book from "../../assets/images/book.png";
 import { Typography } from "@mui/material";
@@ -12,14 +12,15 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 export default function YearCard() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
-
-
+  // const { quetionpaperhistory,setQuestionpaperhistory } = useContext(navContext);
+  
   const [obj, setObj] = useState([]);
 
   const handleClickOpen = () => {
@@ -76,6 +77,8 @@ export default function YearCard() {
         name: "Add institution",
         onClick: handleClickOpen,
       });
+      // setQuestionpaperhistory({ ...quetionpaperhistory, paperId:obj.sno });
+      // console.log(quetionpaperhistory);
       setObj(obj);
     } catch (error) {
       console.error("Error fetching course data:", error);

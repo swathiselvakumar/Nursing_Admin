@@ -48,7 +48,7 @@ export default function AddNonNursing() {
 
      setData({
        ...Data,
-       subjectId: sno,
+      //  subjectId: sno,
        paperName: mcq,
        category: category,
        categoryId: "5",
@@ -71,7 +71,7 @@ export default function AddNonNursing() {
     const storedData = localStorage.getItem("selectedFileData");
     return {
       adminId: "nandinivebbox@gmail.com",
-      subjectId: sno,
+      // subjectId: sno,
       paperName: mcq,
       category: category,
       categoryId: "5",
@@ -87,7 +87,7 @@ export default function AddNonNursing() {
       );
       // setInput("");
       // setYear("");
-      window.location.href = `/uploadtestsub/${sno}`;
+      window.location.href = `/uploadtestnursing/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }

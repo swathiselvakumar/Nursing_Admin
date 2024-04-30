@@ -64,7 +64,7 @@ const {sno}=useParams();
               </NavLink>
             </div>
             <NavLink
-              to="/uploadtest"
+              to="/viewquestionsnursing"
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
