@@ -124,7 +124,7 @@ const handlestage = (event) => {
           <Row style={{ marginTop: "-80px" }}>
             <Col className="Col1">
               <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
                       backgroundColor: "white",
@@ -138,7 +138,7 @@ const handlestage = (event) => {
                   <img src={Delete} className="delete" />
                 </NavLink>
                 <NavLink
-                  to="/uploadtest"
+                  to="/viewquestionsmodel"
                   style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
                   <div
@@ -151,7 +151,7 @@ const handlestage = (event) => {
             </Col>
             <Col className="Col1">
               <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
                       backgroundColor: "white",
@@ -165,65 +165,7 @@ const handlestage = (event) => {
                   <img src={Delete} className="delete" />
                 </NavLink>
                 <NavLink
-                  to="/uploadtest"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-                <NavLink
-                  to="/uploadtest"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-                <NavLink
-                  to="/uploadtest"
+                  to="/viewquestionsmodel"
                   style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
                   <div
@@ -240,7 +182,7 @@ const handlestage = (event) => {
           <Row style={{ marginTop: "-80px" }}>
             <Col className="Col1">
               <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
                       backgroundColor: "white",
@@ -254,7 +196,7 @@ const handlestage = (event) => {
                   <img src={Delete} className="delete" />
                 </NavLink>
                 <NavLink
-                  to="/uploadtest"
+                  to="/viewquestionsmodel"
                   style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
                   <div
@@ -267,7 +209,7 @@ const handlestage = (event) => {
             </Col>
             <Col className="Col1">
               <div className="box">
-                <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
                       backgroundColor: "white",
@@ -281,7 +223,65 @@ const handlestage = (event) => {
                   <img src={Delete} className="delete" />
                 </NavLink>
                 <NavLink
-                  to="/uploadtest"
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
+                >
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="MainBox">
+          <Row style={{ marginTop: "-80px" }}>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
+                >
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src={Delete} className="delete" />
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
                   style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
                   <div
@@ -344,7 +344,12 @@ const handlestage = (event) => {
         >
           <div style={{ margin: "10px" }}>
             <Typography>Add Stage :</Typography>
-            <input type="text" className="textbox" value={stage} onChange={handlestage}/>
+            <input
+              type="text"
+              className="textbox"
+              value={stage}
+              onChange={handlestage}
+            />
 
             <button autoFocus onClick={handleClose} className="subjectBtn">
               Submit

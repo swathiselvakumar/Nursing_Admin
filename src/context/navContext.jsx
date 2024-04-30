@@ -21,7 +21,12 @@ function NavContextProvider({ children }) {
  const [price, setPrice] = useState(1999);
   //  const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
-
+  //  const [quetionpaperhistory, setQuestionpaperhistory] = useState([
+  //    {
+  //      paperId: "",
+  //      questionId: "",
+  //    },
+  //  ]);
 
 
   const updateNavText = (data) => {
@@ -57,7 +62,9 @@ function NavContextProvider({ children }) {
         price,
         setPrice,
         durationtime,
-        setDurationtime
+        setDurationtime,
+        // quetionpaperhistory,
+        // setQuestionpaperhistory
       }}
     >
       {children}

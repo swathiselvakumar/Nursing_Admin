@@ -44,7 +44,12 @@ export default function StdTb() {
   const [open, setOpen] = useState(false);
 
   const [rows, setRows] = useState([]);
+    const [Originaldata, setOriginaldata] = useState();
+    const [modified, setmodified] = useState();
+    const [index, setindex] = useState();
+    const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
+  console.log(index);
   const handleClickOpens = () => {
     setModal(true);
   };
@@ -55,10 +60,21 @@ export default function StdTb() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+useEffect(() => {
+  fetchData();
+}, []);
+useEffect(() => {
+  if (Originaldata && index >= 0) {
+    setmodified(Originaldata[index]);
+  }
+}, [Originaldata, index]);
+useEffect(() => {
+  // console.log("Modified changed:", modified);
+  // if (modified && modified.email) {
+    blocklist();
+  // }
+}, [True]);
+  
   const Btn = {
     backgroundColor: "white",
     color: "black",
@@ -86,22 +102,61 @@ export default function StdTb() {
     width: "90%",
     // height:'92%'
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  
+
+ 
+
+ console.log(modified);
+
+ const blocklist = async () => {
+   try {
+    const response = await axios.post(
+      "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+      {
+        adminId: "nandinivebbox@gmail.com",
+        id: modified.email,
+        status: modified.status,
+      }
+    );
+
+   } catch (error) {
+     console.error("Error fetching data:", error);
+   }
+ };
+const handleClose = () => {
+  setOpen(false);
+  const modifiedData = { ...modified, status: "block" };
+  setmodified(modifiedData);
+  setTrue(!True);
+  // console.log("hi");
+  // setOpenDialog(false);
+};
+ const handleOpenDialog = () => {
+   setOpenDialog(true);
+ };
+
+//  const handleCloseDialog = () => {
+//    const modifiedData = { ...modified, status: "block" };
+//    setmodified(modifiedData);
+//    setTrue(!True);
+//    setOpenDialog(false);
+//  };
 
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockSt.php",
         {
           adminId: "nandinivebbox@gmail.com",
         }
       );
+      // const blockedData = response.data.filter((item) => item.status === 1);
 
-      const newData = response.data.map((item) =>
-        createData(item.sno, item.username, item.email, item.plan_join_date)
-      );
+     const newData = response.data.map((item) =>
+       createData(item.sno, item.username, item.email, item.plan_join_date)
+     );
+
+      console.log(newData);
 
       setRows(newData);
     } catch (error) {
@@ -145,7 +200,9 @@ export default function StdTb() {
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    // onClick={handleClickOpens}
+                    onClick={() => {
+                      setindex(index);
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}

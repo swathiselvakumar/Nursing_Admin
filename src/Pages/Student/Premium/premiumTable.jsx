@@ -22,8 +22,8 @@ import { TableStdStyle } from "../../StudentTable/style";
 import Profile from "../../Profile";
 import BlockIcon from "../../../assets/icons/block.png";
 
-function createData(sno, sname, email, memberSince, date) {
-  return { sno, sname, email, memberSince, date };
+function createData(sno, sname, email, memberSince, expireddate) {
+  return { sno, sname, email, memberSince, expireddate };
 }
 
 export default function PremiumTb() {
@@ -31,14 +31,55 @@ export default function PremiumTb() {
   const [openModal, setOpenModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [rows, setRows] = useState([]);
+  const [Originaldata,setOriginaldata] = useState();
+  const [modified,setmodified] = useState();
+  const [index,setindex] = useState();
+  const [True,setTrue] = useState()
+
+console.log(index);
+  useEffect(() => {
+    if (Originaldata && index >= 0) {
+      setmodified(Originaldata[index]);
+    }
+  }, [Originaldata, index]);
+
+  useEffect(()=>{
+    blocklist()
+  },[True])
+
+
+  console.log(modified);
+
+
+  const blocklist = async () => {
+    try {
+      const response = await axios.put(
+        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        {
+          adminId: "nandinivebbox@gmail.com",
+          id: modified.email,
+          status: modified.status,
+        }
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    
+  };
+
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+const handleCloseDialog = () => {
+  
+  const modifiedData = { ...modified, status: "block" };
+  setmodified(modifiedData);
+  setTrue(!True)
+  setOpenDialog(false);
+};
+
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -61,21 +102,30 @@ export default function PremiumTb() {
         }
       );
 
-      const newData = response.data.map((item) =>
+      setOriginaldata(response.data);
+
+      const unblockedData = response.data.filter(
+        (item) => item.status === 1
+      );
+
+      const newData = unblockedData.map((item) =>
         createData(
-          item.sno,
+          item.id,
           item.username,
           item.email,
           item.plan_join_date,
-          item.expired_date
+          item.plan_expiry_date
         )
       );
 
       setRows(newData);
+      console.log(newData)
+      console.log(rows);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
 
   return (
     <>
@@ -111,11 +161,14 @@ export default function PremiumTb() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {rows.map((row, index) => (
                   <TableRow
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    onClick={() => {
+                    setindex(index);
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}
@@ -123,7 +176,8 @@ export default function PremiumTb() {
                     <TableCell align="left">{row.sname}</TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
-                    <TableCell align="left">{row.date}</TableCell>
+                    <TableCell align="left">{row.expireddate}</TableCell>
+                    {/* <TableCell align="left">{row.expireddate}</TableCell> */}
                     <TableCell align="center">
                       <img
                         src={BlockIcon}

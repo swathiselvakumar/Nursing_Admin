@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 import { Container, Row, Col } from "react-bootstrap";
 import Book from "../../assets/images/book.png";
@@ -8,17 +8,33 @@ import { NavLink, useParams } from "react-router-dom";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
+// import { navContext } from "../../context/navContext";
 
 export default function SubInstitution() {
+
+  const [lastId, setlastId] = useState(null)
+
+  // const [idstate]
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "SubjectMCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
   ];
-   const {sno}=useParams();
+   const {sno}=useParams();   
+  //  const {questionpaperhistory,setQuestionpaperhistory}=useContext(navContext)
   const [mcqs, setMcqs] = useState([]);
 
+  const [indexid, setindexid] = useState();
+// console.log(questionpaperhistory);
+
+// useEffect(()=>{
+//   const length=indexid.length-1;
+//   console.log(mcqs[length]);
+// },[])
+
+
   const Send = async () => {
+    // console.log("jsj");
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
@@ -28,32 +44,29 @@ export default function SubInstitution() {
         }
       );
       setMcqs(response.data);
+      setindexid(response.data)
+      // console.log(response.data);
+      const lstId = await renderBoxes1(response.data);
+      console.log(lstId);
+      setlastId(lstId);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  useEffect(() => {
-    Send();
-  }, []);
-
-  const handleDelete = (id) => {
-    console.log("Delete MCQ with ID:", id);
-    // Implement deletion logic here
-  };
-
-  const renderBoxes = () => {
+  const renderBoxes1 = (mc) => {
     const rows = [];
-    for (let i = 0; i < mcqs.length; i += 3) {
+    let rowItemLength = 0;
+    for (let i = 1; i < mc.length; i += 3) {
       const rowItems = [];
-      for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
-        const mcq = mcqs[j];
-        const id = `${mcq.sno}_${j}`; // Concatenate sno with index for unique ID
-        
+      for (let j = i; j < Math.min(i + 3, mc.length); j++) {
+        const mcq = mc[j];
+        const id = `${j}`; // Concatenate sno with index for unique ID
+        //  console.log(id);
         rowItems.push(
           <Col key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to="/mcqnursingtable" style={{ textDecoration: "none" }}>
+              <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -73,7 +86,7 @@ export default function SubInstitution() {
               </NavLink>
             </div>
             <NavLink
-              to="/uploadtest"
+              to={`/viewquestionssub/${id}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -83,12 +96,80 @@ export default function SubInstitution() {
           </Col>
         );
       }
+      // setlastId(rowItems.length+1);
+      rows.push(
+        <Row key={i} style={{ marginTop: "20px" }}>
+          {rowItems}
+        </Row>
+      );
+      // console.log(rowItems);
+      rowItemLength += rowItems.length
+    }
+    // console.log(rows);
+    // setlastId(rows.length+1)
+
+    return rowItemLength+1;
+  };
+
+  useEffect(() => {
+    Send();
+  }, []);
+
+  const handleDelete = (id) => {
+    console.log("Delete MCQ with ID:", id);
+    // Implement deletion logic here
+  };
+
+  const renderBoxes = () => {
+    const rows = [];
+    for (let i = 1; i < mcqs.length; i += 3) {
+      const rowItems = [];
+      for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
+        const mcq = mcqs[j];
+        const id = `${j}`; // Concatenate sno with index for unique ID
+      //  console.log(id); 
+        rowItems.push(
+          <Col key={mcq.sno} id={id} className="MainBox">
+            <div className="box">
+              <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+                <button
+                  style={{
+                    backgroundColor: "white",
+                    border: "none",
+                    paddingTop: "5px",
+                  }}
+                >
+                  {mcq.paper_name}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <img
+                  src={Delete}
+                  className="delete"
+                  alt="Delete icon"
+                  onClick={() => handleDelete(mcq.id)}
+                />
+              </NavLink>
+            </div>
+            <NavLink
+              to={`/viewquestionssub/${id}/${sno}`}
+              style={{ textDecoration: "none", marginLeft: "20px" }}
+            >
+              <div style={{ display: "flex", marginLeft: 160 }}>
+                View Questions
+              </div>
+            </NavLink>
+          </Col>
+        );
+      }
+      // setlastId(rowItems.length+1);
       rows.push(
         <Row key={i} style={{ marginTop: "20px" }}>
           {rowItems}
         </Row>
       );
     }
+    // setlastId(rows.length+1)
+
     return rows;
   };
 
@@ -114,7 +195,7 @@ export default function SubInstitution() {
       </Container>
       <div className="TotalBox">{renderBoxes()}</div>
       <div className="BtnBox">
-        <NavLink to={`/addsub/${sno}`}>
+        <NavLink to={`/addsub/${sno}/${lastId}`}>
           <button className="Btn">Upload Questions</button>
         </NavLink>
       </div>

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 export default function UploadTestsub() {
 const {sno}=useParams();
-  
+const {lastId}  =useParams();
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -115,13 +115,15 @@ const handleEdit = () => {
 //   }
 // };
  const fetchQuestions = (questionId) => {
+
+  
    axios
      .post(
        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
        {
          adminId: "nandinivebbox@gmail.com",
          subjectId: sno,
-         paperId: "10",
+         paperId: lastId,
          questionId: questionId,
        }
      )
@@ -136,7 +138,7 @@ const handleEdit = () => {
        setQuestions(obj);
      })
      .catch((error) => {
-       setError(error.message);
+           console.error("Error adding new item:", error);
      });
  };
 

@@ -35,6 +35,7 @@ export default function YearInstitution() {
   const [month, setMonth] = useState("");
   const [openFirstDialog, setOpenFirstDialog] = useState(false);
   const [openSecondDialog, setOpenSecondDialog] = useState(false);
+   const[paper,setPaper]=useState([]);
   const [open, setOpen] = useState(false);
   const { sno } = useParams();
 
@@ -130,7 +131,13 @@ export default function YearInstitution() {
       }
       
     );
-      
+        const obj = res.data.map((item) => ({
+          year: item.year,
+          month: item.month,
+        }));
+
+     setPaper(obj);
+     console.log(paper);
   }
   catch(error)
   {
@@ -162,25 +169,32 @@ export default function YearInstitution() {
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-            {[...Array(12)].map((_, index) => (
-              <Col key={index} className="Col1">
-                <div className="box">
-                  <NavLink to="/uploadtest" style={{ textDecoration: "none" }}>
-                    <button
-                      style={{
-                        backgroundColor: "white",
-                        border: "none",
-                        paddingTop: "5px",
-                      }}
-                    >
-                      2022 October Question Paper
-                    </button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={Delete} className="delete" alt="delete" />
-                  </NavLink>
-                </div>
-              </Col>
-            ))}
+            <Container className="MainBox">
+              <Row>
+                {paper.map((item, index) => (
+                  <Col key={index} className="Col1">
+                    <div className="box">
+                      <NavLink
+                        to="/uploadtest"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <button
+                          style={{
+                            backgroundColor: "white",
+                            border: "none",
+                            paddingTop: "5px",
+                          }}
+                        >
+                          {item.year} {item.month} Question Paper
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src={Delete} className="delete" alt="delete" />
+                      </NavLink>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </Container>
           </Row>
         </Container>
         <div className="BtnBox">
