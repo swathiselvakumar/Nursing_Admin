@@ -193,7 +193,8 @@ import  Axios  from 'axios';
 
 export default function Course() {
   const [courseData,setCourseData]=useState([]);
-       // Initialize datas state with initial data
+  const email=localStorage.getItem("userMail");
+
   const languageName = getLocalStorage("languageName");
   const Navigate = useNavigate();
   const getCourses = async () => {
@@ -201,7 +202,7 @@ export default function Course() {
       const res = await Axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAchievement.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
       const obj = res.data.map((item) => ({

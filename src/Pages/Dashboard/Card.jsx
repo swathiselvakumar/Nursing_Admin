@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import StuIcon from "../../assets/icons/student.png";
 import { Grid, Typography } from "@mui/material";
 import axios from "axios";
-import { Container,Row,Col } from "react-bootstrap";
+
 
 export default function Card() {
   const [cards, setCards] = useState([]);
+  const email=localStorage.getItem("userMail");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php"
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php",
+          {
+            adminId:email
+        }
         );
         const responseData = response.data;
         const transformedData = Object.keys(responseData).map((key) => ({

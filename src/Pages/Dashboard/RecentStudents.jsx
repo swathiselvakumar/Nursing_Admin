@@ -10,22 +10,11 @@ import { Grid, Typography } from '@mui/material';
 import { TableStyle } from "../Report/Table/style";
 import axios from 'axios';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-     
-// const rows = [
-//   createData('Divya',"Premium"),
-//   createData('Monica',"Premium"),
-//   createData('Suba',"Standard"),
-//   createData('hema',"Standard"),
-//   createData('Raji',"Standard"),
-// ];
-
-
 
 export default function RecentStudentTable() {
 const [rows, setRows] = React.useState([]);
+const email=localStorage.getItem("userMail");
+
 
     React.useEffect(() => {
       table();
@@ -34,10 +23,10 @@ const [rows, setRows] = React.useState([]);
     const table = async () => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewRecentStudents.php"
-          //  {
-          //    adminId: "nandinivebbox@gmail.com",
-          //  }
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewRecentStudents.php",
+           {
+             adminId:email,
+           }
         );
 
         const newData = response.data.map((item) => ({
@@ -64,7 +53,7 @@ const [rows, setRows] = React.useState([]);
   <TableStyle >
     <TableContainer style={{padding:"20px",backgroundColor:"#f6f6f6",borderRadius:"5px"}} >
         <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recently Added Students</Typography>
-      <Table sx={{ minWidth: 480 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#e7f6f2"}}>
             <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Sname</TableCell>

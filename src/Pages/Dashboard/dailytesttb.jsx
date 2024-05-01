@@ -10,19 +10,22 @@ import { Grid, Typography } from "@mui/material";
 import { TableStyle } from "../Report/Table/style";
 import axios from "axios";
 
+
 export default function DailyTestTable() {
   const [testData, setTestData] = useState([]);
-
+  
   useEffect(() => {
     fetchTestData();
   }, []);
-
+const email=localStorage.getItem("userMail");
+console.log(email);
   const fetchTestData = async () => {
+    
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing/controllers/api/admin/get/A_ViewDailyTestDetails.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewDailyTestDetails.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email ,
         }
       );
       setTestData(response.data);

@@ -18,6 +18,7 @@ export default function Updatecourse() {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [about, setAbout] = useState();
+  const email=localStorage.getItem("userMail");
 
   // useEffect(() => {
   //  handleClickOpen();
@@ -47,7 +48,7 @@ export default function Updatecourse() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateCourse.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           name: name,
           about: about,
           description: description,

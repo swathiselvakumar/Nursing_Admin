@@ -9,14 +9,20 @@ import Paper from "@mui/material/Paper";
 import { TableStyle } from "./style";
 import axios from "axios";
 
+
 export default function TableViewOrg() {
   const [rows, setRows] = useState([]);
+  const email=localStorage.getItem("userMail");
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php"
+        const response = await axios.post(
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreportDashboard.php",
+          {
+            adminId:email,
+          }
         );
         setRows(response.data);
       } catch (error) {
@@ -60,7 +66,7 @@ export default function TableViewOrg() {
           </div>
           <TableContainer>
             <Table
-              sx={{ minWidth: 650, fontFamily: "sans-serif" }}
+              sx={{  fontFamily: "sans-serif" }}
               aria-label="simple table"
             >
               <TableHead>

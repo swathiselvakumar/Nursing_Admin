@@ -24,7 +24,8 @@ import {
   import { useState } from "react";
   import { NavLink } from 'react-router-dom';
   import { useNavigate } from 'react-router-dom';
-
+  import { navContext } from '../../context/navContext';
+  import { useContext } from 'react';
   const styles = {
     buttonContainer: {
       display: "flex",
@@ -44,8 +45,8 @@ import {
   
 export default function Signin() {
   const Navigate=useNavigate();
+ const {email,setemail}=useContext(navContext);
     const [showPassword, setShowPassword] = useState(false);
-    const [email,setemail]=useState("");
     const [pass,setPass]=useState("");
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -55,25 +56,25 @@ export default function Signin() {
     const handleChange = (event) => {
       setPass(event.target.value);
     };
-
-
+    localStorage.setItem("userMail", email);
     const handleClickOpen = async () => {
+      
       try {
         const response = await axios.post(
-          'https://vebbox.in/Nursing/controllers/api/admin/put/A_updateOTP.php',
+          'https://vebbox.in/Nursing/controllers/api/admin/put/A_login.php',
           {
-            gmailId: email,
-            password:pass, // Pass description as value, not as a function
+            gmailId: localStorage.getItem("userMail"),
+            password:pass, 
           }
         );
         
         console.log("Success:", response.data);
 
         if (response.data.message === "success") {
-          // Only navigate if the response is successful
           Navigate("/dashboard");
         } else {
           // Handle the case where the response is not successful
+          alert("Username or password invalid");
           console.error("Error in response:", response.data);
           // Optionally, display an error message to the user
         }
@@ -120,6 +121,7 @@ export default function Signin() {
               style={{ marginBottom: "8px" }}
               onChange={(e)=>{setemail(e.target.value)}}
               value={email}
+              required
               />
            
 
@@ -134,6 +136,7 @@ export default function Signin() {
             type={showPassword ? "text" : "password"}
             onChange={handleChange}
             value={pass}
+            required
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

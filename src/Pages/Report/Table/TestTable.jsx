@@ -10,27 +10,11 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import DropDown from "./DropDown";
 import axios from "axios";
 
-function createData(name, calories, fat, carbs, protein,score) {
-  return { name, calories, fat, carbs, protein,score };
-}
-
-const rows = [
-  createData(1, "Divya", "divya@gmail.com", "1 / 05 /2023", "Hybrid","80"),
-  createData(2, "Divya", "divya@gmail.com", "1 / 05 /2023", "subject name","70"),
-  createData(3, "Divya", "divya@gmail.com", "1 / 05 /2023", "mini test","50"),
-  createData(4, "Divya", "divya@gmail.com", "1 / 05 /2023", "daily test","50"),
-  createData(5, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","49"),
-  createData(6, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
-  createData(7, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
-  createData(8, "Divya", "divya@gmail.com", "1 / 05 /2023", "model mock","30"),
-
-];
-
-
 
 export default function TestTable() {
 
   const [rows, setRows] = React.useState([]);
+  const email=localStorage.getItem("userMail");
 
   useEffect(() => {
     table();
@@ -39,10 +23,10 @@ export default function TestTable() {
   const table = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php"
-        //  {
-        //    adminId: "nandinivebbox@gmail.com",
-        //  }
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php",
+         {
+           adminId:email,
+         }
       );
 
       const newData = response.data.map((item) => ({

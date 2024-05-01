@@ -23,6 +23,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import Rong from '../../../assets/icons/rong.jpg'
 import axios from 'axios';
+import { navContext } from '../../../context/navContext';
+import { useContext } from 'react';
 
 export default function PremiumPlans() {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -38,11 +40,15 @@ export default function PremiumPlans() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {email}=useContext(navContext);
 useEffect(() => {
   const fetchPlans = async () => {
     try {
-      const response = await axios.get(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        {
+          adminId:email
+        }
       );
       setPlans(response.data);
       setLoading(false);

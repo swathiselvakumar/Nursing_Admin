@@ -16,69 +16,14 @@ import Axios from 'axios'
 export default function Course() {
   const languageName = getLocalStorage("languageName");
   const [courseData,setCourseData]=useState([]);
-  const datas=[
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },{
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    }
-    ,{
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Medical,
-        name:"Course Name",
-        path:"/viewcourse"
-    },
-    {
-        img:Plus,
-        name:"Add Course",
-        path:"/addcourse"
-    }
-    
-]
+const email=localStorage.getItem("userMail");
+  
 const getCourses=async ()=>{
     try {
       const res = await Axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseName.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
       const obj = res.data.map((item) => ({

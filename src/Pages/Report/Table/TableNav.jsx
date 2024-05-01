@@ -1,17 +1,36 @@
-// import { Container } from "react-bootstrap";
+import axios from "axios";
+import { useEffect,useState } from "react";
+
 
 function TableNav() {
+  const email=localStorage.getItem("userMail");
+  const [row,setRows]=useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStdCount.php",
+          {
+            adminId:email,
+          }
+        );
+        setRows(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    console.log(row.Standard);
+    fetchData();
+  }, []);
+
   return (
     <div style={{display:'flex',justifyContent:'center'}}>
       <div
         className="nav-header"
         style={{
-        
-          // backgroundColor:'red',
           display: "flex",
           width:"100%",
           paddingLeft:"30px"
-          // padding:'20px 20px 0px 0px'
         }}
       >
         <div className="col1" style={{ flex: "1.2" }}>
@@ -28,8 +47,8 @@ function TableNav() {
           }}
         >
           
-          <h6>Standard : 100</h6>
-          <h6>Premium : 100</h6>
+          <h6>Standard : {row.Standard}</h6>
+          <h6>Premium : {row.Premium}</h6>
         </div>
       </div>
     </div>
