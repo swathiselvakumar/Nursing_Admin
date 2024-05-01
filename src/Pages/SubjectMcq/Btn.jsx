@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Btn({ v1, v2, v3, v4, v5, handleQuestionChange }) {
-  const handleClick = (questionId) => {
-    // Call the handleQuestionChange function with the new question id
-    handleQuestionChange(questionId);
-  };
+export default function Btn({ v1, v2, v3, v4, v5, handleQuestionChange, fetchQuestions }) {
+   const handleClick = (index) => {
+     handleQuestionChange(index);
+     fetchQuestions(index); // Call fetchQuestions with the index
+   };
   const btn = {
     height: "50px",
     width: "50px",

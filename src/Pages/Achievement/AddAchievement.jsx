@@ -14,7 +14,7 @@ import axios from "axios";
 
 export default function ADDACHIEVEMENT() {
   const [achievementDescription, setAchievementDescription] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open,setOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   // const [dynamicData, setDynamicData] = useState(null); // State to hold dynamic data
 
@@ -94,7 +94,7 @@ export default function ADDACHIEVEMENT() {
             style={{
               backgroundColor: "#f6f6f6",
               width: "50vw",
-              height: "90vh",
+              height: "60vh",
               boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
               margin: "30px",
             }}

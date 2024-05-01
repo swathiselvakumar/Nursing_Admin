@@ -24,7 +24,7 @@ import Select from '@mui/material/Select';
 export default function AddSub() {
   const[input,setInput]=useState('');
   const [category, setcategory] = useState('');
-
+const [index, setIndex] = useState(0);
   const handleChange = (event) => {
     setcategory(event.target.value);
   };
@@ -53,6 +53,7 @@ export default function AddSub() {
   {
 setInput(event.target.value)
 setNavInput(event.target.value)
+  console.log(`Input ID: ${event.target.id}`);
   }
   function handleFile(e) {
     const file = e.target.files[0];
@@ -101,7 +102,7 @@ const [Data, setData] = useState(() => {
       );
       // setInput("");
       // setYear("");
-      window.location.href = "/uploadtestsub";
+      window.location.href = `/uploadtestsub/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -151,33 +152,35 @@ const [Data, setData] = useState(() => {
               >
                 <Typography>Model MCQ</Typography>
                 <input
+                  // key={index}
                   type="text"
                   className="Number"
                   onChange={handlechange}
                   value={input}
+                  // id={`input-${index}`}
                 />
-                
               </div>
-              <FormControl  style={{
+              <FormControl
+                style={{
                   display: "flex",
                   flexDirection: "column",
                   marginLeft: "200px",
-                  width:"220px",
-                  marginBottom:"20px"
-                }}>
-  <InputLabel id="demo-simple-select-label">Category</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={category}
-    label="Category"
-    onChange={handleChange}
-  >
-    <MenuItem value="standard">Standard</MenuItem>
-    <MenuItem value="premium">Premium</MenuItem>
-    
-  </Select>
-</FormControl>
+                  width: "220px",
+                  marginBottom: "20px",
+                }}
+              >
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Category"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="standard">Standard</MenuItem>
+                  <MenuItem value="premium">Premium</MenuItem>
+                </Select>
+              </FormControl>
               <div
                 style={{
                   display: "flex",
@@ -200,7 +203,6 @@ const [Data, setData] = useState(() => {
         // onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={openBtn}
-        
       >
         <IconButton
           aria-label="close"
@@ -216,11 +218,14 @@ const [Data, setData] = useState(() => {
         </IconButton>
         <DialogContent
           dividers
-          style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
           <button className="Submit1">Download Template</button>
 
-          
           <label
             htmlFor="fileInput"
             style={{
