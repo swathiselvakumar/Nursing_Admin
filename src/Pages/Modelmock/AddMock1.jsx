@@ -19,7 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
-// const { sno } = useParams();
+const { sno } = useParams();
   const [category, setcategory] = useState("");
   
     const [open, setOpen] = React.useState(false);
@@ -98,7 +98,7 @@ const [Data, setData] = useState(() => {
       );
       // setMonth("");
       // setYear("");
-      // window.location.href = "/uploadtestmodel";
+      window.location.href = `/uploadtestmodel/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -304,9 +304,9 @@ const [Data, setData] = useState(() => {
                     <option value="">Select Time</option>
                     {[
                       { label: "1 hour", value: "60" },
-                      { label: "1/2 hour", value: "30" },
+                      // { label: "1/2 hour", value: "30" },
                       { label: "2 hour", value: "120" },
-                      { label: "2 1/2 hour", value: "150" },
+                      // { label: "2 1/2 hour", value: "150" },
                       { label: "3 hour", value: "180" },
                     ].map((option) => (
                       <option key={option.value} value={option.value}>

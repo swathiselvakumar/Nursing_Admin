@@ -17,6 +17,8 @@ function PasswordChange() {
     { label: "Password Change", path: PATH.PASSWORDCHANGE },
   ];
 
+  
+
   const handlePasswordChange = async () => {
     try {
       const response = await axios.put(

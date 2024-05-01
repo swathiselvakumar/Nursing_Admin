@@ -17,23 +17,23 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Pagination from "@mui/material/Pagination";
 import { NavLink } from "react-router-dom";
-import { PATH } from "../../constants/routeConstants";
-import CustomBreadcrumbs from "../../components/Common/CustomBreadcrumbs";
+import { PATH } from "../../../constants/routeConstants";
+import CustomBreadCrumbs from "../../../components/Common/CustomBreadcrumbs";
 import { useNavigate } from "react-router-dom";
-import UnBlockIcon from "../../assets/icons/unlock.png";
-import { TableStdStyle } from "../StudentTable/style";
+import UnBlockIcon from '../../../assets/icons/unlock.png'
+import { TableStdStyle } from "../../StudentTable/style";
 import axios from "axios";
 
 function createData(sno, sname, email, memberSince) {
   return { sno, sname, email, memberSince };
 }
 
-function UnBlockTable() {
+function Blocktablepre() {
   const Navigate = useNavigate();
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "standard List", path: PATH.STANDARD },
+    { label: "premium List", path: PATH.PREMIUM },
     { label: "Block List", path: PATH.UNBLOCK },
   ];
 
@@ -53,21 +53,19 @@ function UnBlockTable() {
 
   console.log(modified);
 
-  const HandleUnblock=(()=>{
-     const modifiedData = { ...modified, status: "unblock" };
-     setmodified(modifiedData);
-     setTrue(!True);
-  })
+  const HandleUnblock = () => {
+    const modifiedData = { ...modified, status: "unblock" };
+    setmodified(modifiedData);
+    setTrue(!True);
+  };
 
+  useEffect(() => {
+    console.log("Modified changed:", modified);
+    if (modified && modified.email) {
+      unblocklist();
+    }
+  }, [True, modified]);
 
-   useEffect(() => {
-     console.log("Modified changed:", modified);
-     if (modified && modified.email) {
-       unblocklist();
-     }
-   }, [True, modified]);
-  
-  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -78,9 +76,9 @@ function UnBlockTable() {
 
   useEffect(() => {
     table();
-// unblocklist();
+    // unblocklist();
   }, []);
-  
+
   const unblocklist = async () => {
     try {
       const response = await axios.put(
@@ -96,7 +94,6 @@ function UnBlockTable() {
     }
   };
 
-
   const table = async () => {
     try {
       const response = await axios.post(
@@ -110,7 +107,7 @@ function UnBlockTable() {
 
       const blockedData = response.data.filter((item) => item.status === 0);
 
-      const newData = blockedData.map((item,index) =>
+      const newData = blockedData.map((item, index) =>
         createData(item.sno, item.username, item.email, item.plan_join_date)
       );
       console.log(newData);
@@ -120,13 +117,12 @@ function UnBlockTable() {
     }
   };
 
-
   return (
     <>
       <TableStdStyle>
         <div style={{ margin: "10px" }}>
           <div style={{ padding: "25px" }}>
-            <CustomBreadcrumbs items={BreadcrumbItems} />
+            <CustomBreadCrumbs items={BreadcrumbItems} />
           </div>
           <Typography
             sx={{ fontWeight: "bold", fontSize: "18px", paddingBottom: "30px" }}
@@ -161,14 +157,13 @@ function UnBlockTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row,index) => (
+                {rows.map((row, index) => (
                   <TableRow
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    onClick={()=>{
-                      setindex(index)
-                   
+                    onClick={() => {
+                      setindex(index);
                     }}
                   >
                     <TableCell component="th" scope="row">
@@ -236,15 +231,15 @@ function UnBlockTable() {
           >
             Cancel
           </Button>
-          <NavLink to='/standard' >
+          <NavLink to="/premium">
             <Button
-            onClick={HandleUnblock}
+              onClick={HandleUnblock}
               style={{
                 backgroundColor: "#1b4242",
                 color: "white",
                 marginLeft: "10px",
                 width: "100px",
-                marginTop: "20px", 
+                marginTop: "20px",
                 textTransform: "capitalize",
               }}
             >
@@ -257,4 +252,4 @@ function UnBlockTable() {
   );
 }
 
-export default UnBlockTable;
+export default Blocktablepre;

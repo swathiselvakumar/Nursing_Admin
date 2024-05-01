@@ -16,17 +16,20 @@ import Block from "../../assets/icons/block.png";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { getLocalStorage } from "../../utils/helperFunc";
-import Mcqnursetable from "./Mcqnursetable";
+// import Mcqnursetable from "./Mcqnursetable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
-export default function Mcqnursingtable() {
+import Mocktable from "./Mocktable";
+export default function Mocktablepage() {
   const languageName = getLocalStorage("languageName");
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
-    { label: "Non nursing", path: PATH.NONNURSING },
-    { label: "Institution", path: PATH.NONINSTITUTION },
-    { label: "2022 Model MCQ ", path: PATH.NONNURSINGMCQ },
+    { label: "Model mock", path: PATH.MODELMOCK },
+    { label: "Institution", path: PATH.MODELINSTITUTION },
+    { label: "stage1", path: PATH.MODELINSTITUTION },
+
+    { label: "2022 Model MCQ ", path: PATH.MOCKTABLEPAGE },
   ];
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -123,7 +126,7 @@ export default function Mcqnursingtable() {
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <Mcqnursetable/>
+          <Mocktable />
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

@@ -62,6 +62,12 @@ import MiniUpload from "../Pages/Hybrid/MiniUpload";
 import MicroInstitution from "../Pages/Hybrid/MicroInstitution";
 import MicroUpload from "../Pages/Hybrid/MicroUpload";
 import Mcqnursingtable from "../Pages/Non_Nursing/Mcqnursingtable";
+import Mocktablepage from "../Pages/Modelmock/Mocktablepage";
+import Viewquestions from "../Pages/SubjectMcq/Viewquetions";
+import Viewquestionsnursing from "../Pages/Non_Nursing/Viewquetionsnursing";
+import Viewquestionsmodel from "../Pages/Modelmock/Viewquestionsmodel";
+import Uploadtestnursing from "../Pages/Non_Nursing/Uploadtestnursing";
+import Blocktablepre from "../Pages/Student/Premium/Blocktablepre";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -433,6 +439,42 @@ export const routeConfig = [
     title: "mcqnursingtable",
     Component: Mcqnursingtable,
     route: PATH.NONNURSINGMCQ,
+  },
+  {
+    key: "mocktablepage",
+    title: "mocktablepage",
+    Component: Mocktablepage,
+    route: PATH.MOCKTABLEPAGE,
+  },
+  {
+    key: "viewquestionssub",
+    title: "viewquestionssub",
+    Component: Viewquestions,
+    route: PATH.VIEWQUETIONSSUB,
+  },
+  {
+    key: "viewquestionsnursing",
+    title: "viewquestionsnursing",
+    Component: Viewquestionsnursing,
+    route: PATH.VIEWQUESTIONSNURSING,
+  },
+  {
+    key: "viewquestionsmodel",
+    title: "viewquestionsmodel",
+    Component: Viewquestionsmodel,
+    route: PATH.VIEWQUESTIONSMODEL,
+  },
+  {
+    key: "uploadtestnursing",
+    title: "uploadtestnursing",
+    Component: Uploadtestnursing,
+    route: PATH.UPLOADTESTNURSING,
+  },
+  {
+    key: "blocktablepre",
+    title: "blocktablepre",
+    Component: Blocktablepre,
+    route: PATH.BLOCKTABLEPRE,
   },
 ];
 

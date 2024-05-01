@@ -3,7 +3,7 @@ import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import './style.css'
 import { Typography } from '@mui/material'
 import { Container,Row,Col } from 'react-bootstrap'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -22,13 +22,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function AddSub() {
+
+  const Navigate = useNavigate()
+
+  const {sno , lastId}=useParams();
+  console.log(lastId);
   const[input,setInput]=useState('');
   const [category, setcategory] = useState('');
 const [index, setIndex] = useState(0);
   const handleChange = (event) => {
     setcategory(event.target.value);
   };
- const {sno}=useParams()
+//  const {sno}=useParams()
 
   const { setInput: setNavInput } = useContext(navContext);
   //  const { input, setInput } = useContext(navContext);
@@ -100,9 +105,12 @@ const [Data, setData] = useState(() => {
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseQuestion.php",
         Data
       );
+
       // setInput("");
       // setYear("");
-      window.location.href = `/uploadtestsub/${sno}`;
+      console.log(lastId);
+      Navigate(`/uploadtestsub/${sno}/${lastId}`);
+      // window.location.href = `/uploadtestsub/${sno}/${lastId}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
