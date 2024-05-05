@@ -98,7 +98,7 @@ export default function MiniInstitution() {
         </Container>
 
         <div className='BtnBox'>
-      <NavLink to="/uploadtest">
+      <NavLink to="/hybridviewtest">
       <button className='Btn'>View Questions</button>
       </NavLink>
     </div>

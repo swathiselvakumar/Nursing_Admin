@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom';
 export default function UploadTestsub() {
 const {sno}=useParams();
 const {lastId}  =useParams();
+const email=localStorage.getItem("userMail");
+
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -21,71 +23,7 @@ const {lastId}  =useParams();
      const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   // const [editMode, setEditMode] = useState(false);
 
-    const [questions, setQuestions] = useState([
-      // {
-      //   number: 1,
-      //   text: "What is your age?",
-      //   options: ["10-20", "21-30", "31-40", "41+"],
-      //   answer: "21-30", // Correct answer
-      // },
-      // {
-      //   number: 2,
-      //   text: "What is your name?",
-      //   options: ["John", "Alice", "Bob", "Jane"],
-      //   answer: "John", // Correct answer
-      // },
-      // {
-      //   number: 3,
-      //   text: "Javascript is an ___ language?",
-      //   options: [
-      //     "Object-Oriented",
-      //     "Object-Based",
-      //     "Assembly-language",
-      //     "High-level+",
-      //   ],
-      //   answer: "Object-Based", // Correct answer
-      // },
-      // {
-      //   number: 4,
-      //   text: "The function and  var are known as:",
-      //   options: [
-      //     "Keywords",
-      //     "Data types",
-      //     "Declaration statements",
-      //     "Prototypes",
-      //   ],
-      //   answer: "Declaration statements", // Correct answer
-      // },
-      // {
-      //   number: 5,
-      //   text: "Which one of the following is the correct way for calling the JavaScript code?",
-      //   options: ["Preprocessor", "Triggering Event", "RMI", "Function/Method"],
-      //   answer: "Function/Method", // Correct answer
-      // },
-      // {
-      //   number: 6,
-      //   text: "Which of the following type of a variable is volatile?",
-      //   options: [
-      //     "Mutable variable",
-      //     "Dynamic variable",
-      //     "Volatile variable",
-      //     "Immutable variable",
-      //   ],
-      //   answer: "Mutable variable", // Correct answer
-      // },
-      // {
-      //   number: 7,
-      //   text: "In the JavaScript, which one of the following is not considered as an error?",
-      //   options: [
-      //     "Syntax error",
-      //     "Missing of semicolons",
-      //     "Division by zero",
-      //     "Missing of Bracket",
-      //   ],
-      //   answer: "Division by zero", // Correct answer
-      // },
-      // Add more questions as needed
-    ]);
+    const [questions, setQuestions] = useState([]);
 const handleQuestionChange = (index) => {
   console.log("Selected question index:", index);
   setSelectedQuestionIndex(index - 1);
@@ -96,7 +34,7 @@ const handleEdit = () => {
    useEffect(()=>
   {
     // response();
-    fetchQuestions()
+    fetchQuestions(1)
     // Send()
   },[])   
 // const response = async (questionId) => {
@@ -115,13 +53,11 @@ const handleEdit = () => {
 //   }
 // };
  const fetchQuestions = (questionId) => {
-
-  
    axios
      .post(
        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
        {
-         adminId: "nandinivebbox@gmail.com",
+         adminId: email,
          subjectId: sno,
          paperId: lastId,
          questionId: questionId,
@@ -257,9 +193,7 @@ const handleEdit = () => {
                   padding: "20px",
                 }}
               >
-                <button style={finish}>Finish</button>
-                <button style={save}>Save</button>
-                <button style={remove}>Remove</button>
+               
               </div>
             </div>
           </Col>

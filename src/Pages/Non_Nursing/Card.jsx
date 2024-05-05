@@ -15,6 +15,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function NonNursingCard() {
   const [open, setOpen] = useState(false);
@@ -22,6 +24,7 @@ export default function NonNursingCard() {
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
   const [datas, setDatas] = useState([]);
+  const email=localStorage.getItem("userMail");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +39,7 @@ export default function NonNursingCard() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNonNursingCategory.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           name: name,
           desc: description,
           instruction: instruction,
@@ -55,32 +58,22 @@ export default function NonNursingCard() {
     }
   };
 
-  useEffect(() => {
-    getCourses();
-  }, []);
+ 
 
   const getCourses = async () => {
     try {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingCategory.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
       const data = res.data;
       const newData = data.map((item) => ({
         img:Aptitude,Reasoning,English,
-          // item.subject_name === "Aptitude"
-          //   ? Aptitude
-          //   : item.subject_name === "Reasoning"
-          //   ? Reasoning
-          //   : item.subject_name === "GK"
-          //   ? GK
-          //   : item.subject_name === "English"
-          //   ? English
-          //   : null,
         name: item.category_name,
         path: `/noninstitution/${item.sno}`,
+        sno:item.sno
       }));
       newData.push({
         img: Plus,
@@ -92,6 +85,27 @@ export default function NonNursingCard() {
       console.error("Error fetching course data:", error);
     }
   };
+
+  const CardDelete = async (sno) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteNonNursingCategory.php",
+        {
+          data: {
+            categoryId: sno,
+          },
+        }
+      );
+      getCourses();
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <div>
@@ -111,12 +125,13 @@ export default function NonNursingCard() {
                 marginBottom: "20px",
               }}
             >
-              <NavLink
-                to={d.path}
-                style={{ color: "black", textDecoration: "none" }}
-              >
+             
                 <div className="Div" onClick={d.onClick}>
-                  <img src={Delete} className="del" />
+                {
+                    d.name!="Add Category" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
+                  }
+                  <NavLink to={d.path}
+                style={{ color: "black", textDecoration: "none" }}>
                   <div>
                     <img src={d.img} height="70px" />
                   </div>
@@ -125,8 +140,9 @@ export default function NonNursingCard() {
                       {d.name}
                     </Typography>
                   </div>
+                  </NavLink>
                 </div>
-              </NavLink>
+             
             </Col>
           ))}
         </Row>

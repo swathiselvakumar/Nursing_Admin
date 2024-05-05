@@ -28,6 +28,8 @@ export default function AddNonNursing() {
   const [openBtn, setOpenBtn] = React.useState(false);
   const [category, setcategory] = useState("");
   const [mcq,setMcq]=useState('');
+const email=localStorage.getItem("userMail");
+const {sno,lastId}=useParams();
   const modelchange=(event)=>
   {
     setMcq(event.target.value)
@@ -48,11 +50,9 @@ export default function AddNonNursing() {
 
      setData({
        ...Data,
-      //  subjectId: sno,
        paperName: mcq,
        category: category,
-       categoryId: "5",
-       // month: month,
+       categoryId: sno,
        questions: excelData,
      });
      console.log(excelData);
@@ -63,18 +63,15 @@ export default function AddNonNursing() {
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
-  // const handleCloseBtn = () => {
-  //   setOpenBtn(false);
-  // };
-  const {sno}=useParams();
+ 
+  
   const [Data, setData] = useState(() => {
     const storedData = localStorage.getItem("selectedFileData");
     return {
-      adminId: "nandinivebbox@gmail.com",
-      // subjectId: sno,
+      adminId:email,
       paperName: mcq,
       category: category,
-      categoryId: "5",
+      categoryId: sno,
       questions: storedData ? JSON.parse(storedData) : [],
     };
   });
@@ -85,9 +82,7 @@ export default function AddNonNursing() {
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNonNursingQuestion.php",
         Data
       );
-      // setInput("");
-      // setYear("");
-      window.location.href = `/uploadtestnursing/${sno}`;
+      window.location.href = `/uploadtestnursing/${sno}/${lastId}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -96,8 +91,6 @@ export default function AddNonNursing() {
     if (Data.questions.length > 0) {
       SendApi();
     }
-    // Send();
-    // response();
   }, [Data.questions]);
   return (
     <div style={{ backgroundColor: "white", height: "90vh" }}>
@@ -128,7 +121,7 @@ export default function AddNonNursing() {
               >
                 <Typography>Model MCQ</Typography>
                 <input
-                  type='text'
+                  type='text' 
                   className="Number"
                   value={mcq}
                   onChange={modelchange}
@@ -174,13 +167,13 @@ export default function AddNonNursing() {
         </Row>
       </Container>
       <Dialog
-        // onClose={handleClose}
+       
         aria-labelledby="customized-dialog-title"
         open={openBtn}
       >
         <IconButton
           aria-label="close"
-          // onClick={handleCloseBtn}
+         
           sx={{
             position: "absolute",
             right: 8,
@@ -207,20 +200,16 @@ export default function AddNonNursing() {
               backgroundColor: "#1b4242",
               color: "white",
               height: "60px",
-              // width: "100px",
               fontWeight: "500",
               textTransform: "uppercase",
               fontFamily: "Roboto, sans-serif",
               margin: "40px",
               textAlign: "center",
-              // justifyContent:'center',
-              // alignItems:'center',
               alignContent: "center",
             }}
           >
             Upload Questions
           </label>
-          {/* This hidden input is used to select the file */}
           <input
             type="file"
             id="fileInput"
@@ -228,9 +217,9 @@ export default function AddNonNursing() {
             style={{
               display: "none",
             }}
-            // className="submit1"
+            
           />
-          {/* </NavLink> */}
+          
         </DialogContent>
       </Dialog>
     </div>

@@ -8,10 +8,12 @@ import {
     Button,
     ListItemIcon,
   } from "@mui/material";
+  import { MuiOtpInput } from 'mui-one-time-password-input'
   import Image from '../../assets/images/login img.png'
   import { useState } from "react";
   import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
   const styles = {
     buttonContainer: {
@@ -26,19 +28,32 @@ import axios from 'axios';
       color: "#fff",
       marginTop: "10px",
     },
+    submitInButton: {
+      width: "40%",
+      height: "40px",
+      backgroundColor: "#183A1D",
+      color: "#fff",
+      marginTop: "30px",
+    },
     
   };
   
   
 export default function Otp() {
     const [email,setemail]=useState("");
+    const [otp, setOtp] = React.useState('');
+    const Navigate=useNavigate();
+    const handleChange = (newValue) => {
+      setOtp(newValue)
+    } 
+    localStorage.setItem("admin", email);
+    const admin=localStorage.getItem("admin");
     const handleClickOpen = async () => {
       try {
         const response = await axios.post(
-          'https://vebbox.in/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
+          'https://vebbox.in/Nursing/controllers/api/admin/put/A_updateOTP.php',
           {
-            gmailId: email,
-            
+            gmailId: admin,
           }
         );
         
@@ -48,6 +63,30 @@ export default function Otp() {
         console.error("Error check email or password:", error);
       }
     };
+
+    const handleOTP = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
+          {
+            gmailId: email,
+            otp:otp
+          }
+        );
+        
+        console.log("Success:", response.data);
+        if (response.data.message === "Success") {
+          Navigate("/forget");
+        } else {
+          alert("Username invalid");
+          console.error("Error in response:", response.data);
+        }
+       
+      } catch (error) {
+        console.error("Error check email or password:", error);
+      }
+    };
+
 
   return (
     <Grid container component="main" style={{ height: "100vh",overflow:"hidden"}}>
@@ -85,25 +124,24 @@ export default function Otp() {
               style={{ marginBottom: "8px" }}
               onChange={(e)=>{setemail(e.target.value)}}
               value={email}
+              required
               />
            
 
             
          
-            {/* <NavLink to="/forget" style={{textDecoration:"none"}}> */}
+           
             <div style={styles.buttonContainer}>
               <Button variant="contained" style={styles.signInButton} onClick={handleClickOpen}>
                 Get Otp
               </Button>
             </div>
-            {/* </NavLink> */}
+           
           </form>
-          <div style={{marginTop:"30px",textAlign:"center"}}>
-                <input type="text" maxLength="1" style={{outline:"none",border:"none",width:"50px",paddingLeft:"20px",borderBottom:"1px solid #183A1D"}}/>&nbsp;&nbsp;
-                <input type="text" maxLength="1" style={{outline:"none",border:"none",width:"50px",paddingLeft:"20px",borderBottom:"1px solid #183A1D"}}/>&nbsp;&nbsp;
-                <input type="text" maxLength="1" style={{outline:"none",border:"none",width:"50px",paddingLeft:"20px",borderBottom:"1px solid #183A1D"}}/>&nbsp;&nbsp;
-                <input type="text" maxLength="1" style={{outline:"none",border:"none",width:"50px",paddingLeft:"20px",borderBottom:"1px solid #183A1D"}}/>
-            </div>
+          <MuiOtpInput value={otp} onChange={handleChange} style={{width:"250px",marginTop:"50px"}} />
+          <Button variant="contained" style={styles.submitInButton} onClick={handleOTP}>
+                Submit
+              </Button>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={6} style={{ background: "#fefbe9" }}>

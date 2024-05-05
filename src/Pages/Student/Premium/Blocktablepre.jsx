@@ -44,6 +44,8 @@ function Blocktablepre() {
   const [index, setindex] = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
+const email=localStorage.getItem("userMail");
+
 
   useEffect(() => {
     if (Originaldata && index >= 0) {
@@ -84,7 +86,7 @@ function Blocktablepre() {
       const response = await axios.put(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           id: modified.email,
           status: modified.status,
         }
@@ -97,9 +99,9 @@ function Blocktablepre() {
   const table = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewBlockSt.php",
+        "http://localhost/Nursing/controllers/api/admin/get/A_ViewBlockPremiumStd.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
 

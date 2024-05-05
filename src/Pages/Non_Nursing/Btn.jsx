@@ -19,13 +19,13 @@ export default function Btn({
     borderRadius: "50%",
     border: "none",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    marginLeft: "35px",
+    marginLeft: "15px",
     marginRight: "20px",
     marginTop: "10px",
     backgroundColor: "white",
   };
   return (
-    <div style={{ padding: "10px" }}>
+    <div style={{ padding: "10px",marginLeft:"30px" }}>
       <div>
         <button style={btn} onClick={() => handleClick(v1)}>
           {v1}

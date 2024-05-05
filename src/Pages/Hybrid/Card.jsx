@@ -42,7 +42,7 @@ export default function HybridCard() {
                              <Col xs={12} sm={12} md={6} lg={3} xl={3} style={{justifyContent:"center",alignItems:"center",marginBottom:"20px"}} >
                     <NavLink to={d.path} style={{color:"black",textDecoration:"none"}}>
                     <div className='Div'>
-                    <img src={Delete} className='del'/>
+                    {/* <img src={Delete} className='del'/> */}
                         <div>
                             <img src={d.img} height="70px"/>
                         </div>

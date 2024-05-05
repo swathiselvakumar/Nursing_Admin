@@ -34,11 +34,7 @@ const email=localStorage.getItem("userMail");
           calories: item.plan_category,
 
         }));
-        //  "id": 26,
-        // "username": "moni",
-        // "plan_category": "",
-        // "email": "pathi@gmail.com",
-        // "plan_join_date": "0000-00-00"
+      
 
         setRows(newData);
       } catch (error) {
@@ -46,14 +42,12 @@ const email=localStorage.getItem("userMail");
       }
     };
   return (
-    //  <Grid item display={"flex"} justifyContent={"flex-end"} sm={12} xs={12} md={6} lg={6} xl={6}>
-
-    //   </Grid>
+ 
      <Grid item display={"flex"}  sm={12} xs={12} md={6} lg={6} xl={6}>
   <TableStyle >
     <TableContainer style={{padding:"20px",backgroundColor:"#f6f6f6",borderRadius:"5px"}} >
         <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recently Added Students</Typography>
-      <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 470 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#e7f6f2"}}>
             <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Sname</TableCell>

@@ -15,6 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import axios from 'axios'
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function ModelInstitution() {
 
@@ -27,20 +29,20 @@ export default function ModelInstitution() {
   ];
   const [open, setOpen] = React.useState(false);
   const[stage,setStage]=useState();
-
-  const {sno}=useParams()
+const email=localStorage.getItem("userMail");
+const {sno}=useParams();
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = async() => {
     setOpen(false);
 
-try{
+try{ 
 const response = await axios.post(
       "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockStage.php",
       {
-        adminId: "nandinivebbox@gmail.com",
-        institutionId: "1",
+        adminId:email,
+        institutionId: sno,
         stageName: stage,
       }
     );
@@ -135,7 +137,7 @@ const handlestage = (event) => {
                     2022 Model MCQ
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
                 </NavLink>
                 <NavLink
                   to="/viewquestionsmodel"
@@ -162,65 +164,7 @@ const handlestage = (event) => {
                     2022 Model MCQ
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
                 </NavLink>
                 <NavLink
                   to="/viewquestionsmodel"
@@ -251,7 +195,7 @@ const handlestage = (event) => {
                     2022 Model MCQ
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
                 </NavLink>
                 <NavLink
                   to="/viewquestionsmodel"
@@ -278,7 +222,65 @@ const handlestage = (event) => {
                     2022 Model MCQ
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
+                >
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div> 
+                </NavLink>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="MainBox">
+          <Row style={{ marginTop: "-80px" }}>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
+                >
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
+              </div>
+            </Col>
+            <Col className="Col1">
+              <div className="box">
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
                 </NavLink>
                 <NavLink
                   to="/viewquestionsmodel"

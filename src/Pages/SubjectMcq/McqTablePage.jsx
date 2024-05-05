@@ -7,7 +7,7 @@ import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 // import PremiumTb from './premiumTable';
 import Dialog from '@mui/material/Dialog';
 // import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
@@ -20,7 +20,7 @@ import McqTable from './McqTable';
 import SearchAppBar from '../../components/Common/Searchinput/Search';
 export default function McqTablePage() {
   const languageName = getLocalStorage("languageName");
-
+  const {id} =useParams()
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     

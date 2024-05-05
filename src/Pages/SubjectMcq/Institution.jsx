@@ -8,11 +8,14 @@ import { NavLink, useParams } from "react-router-dom";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 // import { navContext } from "../../context/navContext";
 
 export default function SubInstitution() {
-
+  
   const [lastId, setlastId] = useState(null)
+  const email=localStorage.getItem("userMail");
 
   // const [idstate]
   const BreadcrumbItems = [
@@ -39,15 +42,15 @@ export default function SubInstitution() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           id: sno,
         }
       );
-      setMcqs(response.data);
+      setMcqs(response.data); 
       setindexid(response.data)
       // console.log(response.data);
       const lstId = await renderBoxes1(response.data);
-      console.log(lstId);
+      // console.log(lstId);
       setlastId(lstId);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -111,27 +114,41 @@ export default function SubInstitution() {
     return rowItemLength+1;
   };
 
+  const CardDelete = async (sno) => {
+    // setclick(true);
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteSubWisePaper.php",
+        {
+          data: {
+            paperId: sno,
+          }, 
+        }
+      );
+      Send();
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+
   useEffect(() => {
     Send();
   }, []);
 
-  const handleDelete = (id) => {
-    console.log("Delete MCQ with ID:", id);
-    // Implement deletion logic here
-  };
+  
 
   const renderBoxes = () => {
     const rows = [];
-    for (let i = 1; i < mcqs.length; i += 3) {
+    for (let i = 0; i < mcqs.length; i += 3) {
       const rowItems = [];
       for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
         const mcq = mcqs[j];
-        const id = `${j}`; // Concatenate sno with index for unique ID
+        const id = `${j+1}`; // Concatenate sno with index for unique ID
       //  console.log(id); 
         rowItems.push(
-          <Col key={mcq.sno} id={id} className="MainBox">
+          <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqtablepage/${id}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -142,13 +159,9 @@ export default function SubInstitution() {
                   {mcq.paper_name}
                 </button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <img
-                  src={Delete}
-                  className="delete"
-                  alt="Delete icon"
-                  onClick={() => handleDelete(mcq.id)}
-                />
+                
               </NavLink>
+              <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
             </div>
             <NavLink
               to={`/viewquestionssub/${id}/${sno}`}

@@ -6,13 +6,6 @@ import { Button, IconButton, Typography } from "@mui/material";
 import "./style.css";
 import CircleBar from "../Profile/Circularbar";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-// import Logout from "../../asserts/icons.png";
-// import close from "../../asserts/close_FILL0_wght400_GRAD0_opsz24 (1).png";
-
-// import email from "../../asserts/email.png";
-// import phone from "../../asserts/352510_local_phone_icon.png";
-// import graduate from "../../asserts/Layer 2.png";
-// import gender from "../../asserts/8673492_ic_fluent_person_available_filled_icon.png";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Style } from "../Profile/style";
 import DialogTitle from "@mui/material/DialogTitle";

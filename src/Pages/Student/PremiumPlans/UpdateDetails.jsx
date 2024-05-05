@@ -23,14 +23,7 @@ export default function UpdateDetails() {
       const { plan, setPlan } = useContext(navContext);
       const { price, setPrice } = useContext(navContext);
       const {durationname, setDurationname } = useContext(navContext);
-  // const handleChangeduration = (event) => {
-  //   // setDurationname(event.target.value);
-  // };
-
-  // const handleChangeprice = (event) => {
-  //   setPricename(event.target.value);
-  // };
-
+ 
   const handleChangecategory = (event) => {
     setCategory(event.target.value);
   };
@@ -50,11 +43,7 @@ export default function UpdateDetails() {
         }
       );
       console.log("New item added:", response.data);
-      // setPlanname("");
-      // setPricename("");
-      // setDurationname("");
-      // Clear input fields
-      // console.log(name);
+      
     } catch (error) {
       console.error("Error adding new item:", error);
     }
@@ -169,49 +158,7 @@ export default function UpdateDetails() {
             </div>
 
             <div style={MainText}>
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Plan Duration</label>
-                </div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div>
-                  <input
-                    type="number"
-                    style={TextB}
-                    value={durationname}
-                    onChange={handleChangeduration}
-                  />
-                </div> */}
-              {/* </div>
-              <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Price</label>
-                </div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div>
-                  <input
-                    type="number"
-                    // value="1999"
-                    style={TextB}
-                    value={pricename}
-                    onChange={handleChangeprice}
-                  />
-                </div>
-              </div> */}
+              
               <div
                 style={{
                   marginTop: "15px",

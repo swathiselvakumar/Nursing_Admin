@@ -13,6 +13,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function YearCard() {
   const [open, setOpen] = useState(false);
@@ -22,6 +24,7 @@ export default function YearCard() {
   // const { quetionpaperhistory,setQuestionpaperhistory } = useContext(navContext);
   
   const [obj, setObj] = useState([]);
+const email=localStorage.getItem("userMail");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +39,7 @@ export default function YearCard() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseSubject.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId: email,
           name: name,
           desc: description,
           instruction: instruction,
@@ -64,22 +67,39 @@ export default function YearCard() {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseSubject.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
       const obj = res.data.map((item) => ({
         img: Book,
         name: item.subject_name,
         path: `/subinstitution/${item.sno}`,
+        sno:item.sno
       }));
       obj.push({
         img: Plus,
-        name: "Add institution",
+        name: "Add Subject",
         onClick: handleClickOpen,
       });
       // setQuestionpaperhistory({ ...quetionpaperhistory, paperId:obj.sno });
       // console.log(quetionpaperhistory);
       setObj(obj);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+
+  const CardDelete = async (sno) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+        {
+          data: {
+            subjectId: sno,
+          },
+        }
+      );
+      getCourses();
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
@@ -107,14 +127,13 @@ export default function YearCard() {
                 marginBottom: "20px",
               }}
             >
-              <NavLink
-                to={d.path}
-                style={{ color: "black", textDecoration: "none" }}
-              >
+             
                 <div className="Div" onClick={d.onClick}>
-                  {d.name !== "Add institution" && (
-                    <img src={Delete} className="del" />
-                  )}
+                {
+                    d.name!="Add Subject" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
+                  }
+                  <NavLink to={d.path}
+                style={{ color: "black", textDecoration: "none" }}>
                   <div>
                     <img src={d.img} height="70px" />
                   </div>
@@ -123,8 +142,9 @@ export default function YearCard() {
                       {d.name}
                     </Typography>
                   </div>
+                  </NavLink>
                 </div>
-              </NavLink>
+              
             </Col>
           ))}
         </Row>

@@ -10,6 +10,8 @@ function PasswordChange() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
+const email=localStorage.getItem("userMail");
+
 
   const BreadcrumbItems = [
     { label: "Settings", path: PATH.SETTINGS },
@@ -24,7 +26,7 @@ function PasswordChange() {
       const response = await axios.put(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateChangePassword.php",
         {
-          admin_id: "nandinivebbox@gmail.com",
+          admin_id: email,
           old_password: oldPassword,
           new_password: newPassword,
         }

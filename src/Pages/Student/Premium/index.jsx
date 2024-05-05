@@ -17,6 +17,8 @@ import { PATH } from '../../../constants/routeConstants';
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
 import { getLocalStorage } from '../../../utils/helperFunc';
 import SearchAppBar from '../../../components/Common/Searchinput/Search';
+import axios from 'axios';
+import { Value } from 'sass';
 export default function Premium() {
   const languageName = getLocalStorage("languageName");
 
@@ -25,10 +27,14 @@ export default function Premium() {
     
     { label: "Premium List", path: PATH.PREMIUM },
   ];
-
+  useEffect(() => {
+    handleClickOpenSearch();
+  }, [search]);
  
   const [open, setOpen] = React.useState(false);
  const [search, setSearch] = useState("");
+ const [searchData,setsearchdata]=useState([]);
+ const email=localStorage.getItem("userMail");
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -38,8 +44,26 @@ export default function Premium() {
    const handleChange = (event) => {
      const { value } = event.target;
      setSearch(value);
-     console.log("Search input:", value); // Log the search input value
+    
    };
+   const handleClickOpenSearch = async () => {
+      
+    try {
+      const response = await axios.post(
+        'https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php',
+        {
+          adminId:email,
+          searchData:search,
+          accountType:"premium" 
+        }
+      );
+      setsearchdata(response.data);
+      console.log(searchData);
+    } catch (error) {
+      console.error("search datas not found:", error);
+    }
+  }
+   
 
   const Btn1={backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"}
   const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
@@ -81,7 +105,7 @@ export default function Premium() {
           </Row>
         </Container>
         <div style={{ marginTop: "25px", padding: "10px" }}>
-          <PremiumTb />
+          <PremiumTb data={searchData}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

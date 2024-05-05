@@ -40,7 +40,8 @@ export default function PremiumPlans() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {email}=useContext(navContext);
+const email=localStorage.getItem("userMail");
+  
 useEffect(() => {
   const fetchPlans = async () => {
     try {
@@ -158,7 +159,7 @@ if (error) {
                 </div>
               </Col>
             ))}
-            <Col xs={3} sm={3} md={3} lg={3} xl={3}>
+            <Col xs={12} sm={12} md={6} lg={3} xl={3}>
               <NavLink to="/addpremiumplan">
                 <div className='Div'>
                   <div>

@@ -17,6 +17,8 @@ export default function UploadTestmodel() {
     { label: "View Test", path: PATH.UPLOADTESTMODEL },
   ];
   const [editMode, setEditMode] = useState(false);
+const email=localStorage.getItem("userMail");
+
   const [questions, setQuestions] = useState([
     { id: 1, text: "What are the benefits of using Python language?" },
     // Add more questions as needed
@@ -44,7 +46,7 @@ export default function UploadTestmodel() {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockQuestions.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           institutionId: "1",
           stageId: "1",
           mcqId: "3",

@@ -10,7 +10,9 @@ export default function DashboardPage() {
   return (
     <>
     <div >
-      
+      <Container fluid>
+        <Card/>
+      </Container>
     <Container fluid style={{padding:"30px"}}>
         <Row>
            <Col xs={12} sm={12} md={12} lg={6} xl={6}>

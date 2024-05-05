@@ -24,6 +24,8 @@ import { useContext } from "react";
 import { navContext } from "../../context/navContext";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function YearInstitution() {
   const BreadcrumbItems = [
@@ -37,7 +39,9 @@ export default function YearInstitution() {
   const [openSecondDialog, setOpenSecondDialog] = useState(false);
    const[paper,setPaper]=useState([]);
   const [open, setOpen] = useState(false);
-  const { sno } = useParams();
+const email=localStorage.getItem("userMail");
+
+  const { sno} = useParams();
 
   const handleChange = (event) => {
     setYear(event.target.value);
@@ -67,7 +71,7 @@ export default function YearInstitution() {
   const [Data, setData] = useState(() => {
     const storedData = localStorage.getItem("selectedFileData");
     return {
-      adminId: "nandinivebbox@gmail.com",
+      adminId: email,
       institutionId: "",
       year: "",
       month: "",
@@ -126,25 +130,38 @@ export default function YearInstitution() {
     const res = await axios.post(
       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqPaper.php",
       {
-        adminId: "nandinivebbox@gmail.com",
+        adminId:email,
         id: sno,
       }
       
     );
-        const obj = res.data.map((item) => ({
-          year: item.year,
-          month: item.month,
-        }));
-
-     setPaper(obj);
-     console.log(paper);
+     setPaper(res.data);
   }
   catch(error)
   {
       console.error("Error adding new item:", error);
   }
  }
+ const CardDelete = async (sno) => {
+  // setclick(true);
+  try {
+    const res = await axios.delete(
+      "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+      {
+        data: {
+          institutionId: sno,
+        },
+      }
+    );
+    response();
+  } catch (error) {
+    console.error("Error fetching course data:", error);
+  }
+};
 
+useEffect(() => {
+  response();
+}, []);
 
   return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
@@ -165,17 +182,17 @@ export default function YearInstitution() {
             </div>
           </Col>
         </Row>
-      </Container>
+      </Container> 
       <div className="TotalBox">
-        <Container className="MainBox">
-          <Row>
-            <Container className="MainBox">
-              <Row>
-                {paper.map((item, index) => (
-                  <Col key={index} className="Col1">
+        
+            <Container fluid className="MainBox">
+              <Row >
+                {Array.isArray(paper) && paper.map((item, index) => {
+                  return (
+                    <Col  xs={12} sm={12} md={6} lg={4} xl={4}  key={item.sno}  style={{padding:'10px'}}>
                     <div className="box">
                       <NavLink
-                        to="/uploadtest"
+                        to={`/uploadtest/${item.institution_id}/${item.sno}`}
                         style={{ textDecoration: "none" }}
                       >
                         <button
@@ -188,15 +205,15 @@ export default function YearInstitution() {
                           {item.year} {item.month} Question Paper
                         </button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <img src={Delete} className="delete" alt="delete" />
                       </NavLink>
+                      <button onClick={() => CardDelete(item.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"20px"}}><DeleteIcon/></button>
                     </div>
                   </Col>
-                ))}
+                  )
+                })}
               </Row>
             </Container>
-          </Row>
-        </Container>
+          
         <div className="BtnBox">
           <button className="Btn" onClick={handleOpenFirstDialog}>
             Upload Questions

@@ -23,6 +23,7 @@ function NotificationHistory() {
    const [todaynotifications, setTodaynotifications] = useState([]);
    const [yesterdaynotifications, setYesterdaynotifications] = useState([]);
    const [allnotifications, setAllnotifications] = useState([]);
+   const email=localStorage.getItem("userMail");
 
   const BreadcrumbItems = [
     // { label: "Dashboard", path: PATH.DASHBOARD },
@@ -43,7 +44,7 @@ function NotificationHistory() {
       try {
         const response = await axios.post(
           "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewTodayNotification.php",
-          { admin_id: "nandinivebbox@gmail.com" }
+          { admin_id: email }
         );
        
         
@@ -56,7 +57,7 @@ function NotificationHistory() {
       try {
         const response = await axios.post(
           "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewYesterdayNotification.php",
-          { admin_id: "nandinivebbox@gmail.com" }
+          { admin_id:email }
         );
        
        
@@ -69,7 +70,7 @@ function NotificationHistory() {
       try {
         const response = await axios.post(
           "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAllNotification.php",
-          { admin_id: "nandinivebbox@gmail.com" }
+          { admin_id: email }
         );
         // console.log(response.data);
         // const data = await response.json();

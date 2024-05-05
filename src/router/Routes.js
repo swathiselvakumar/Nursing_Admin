@@ -68,6 +68,7 @@ import Viewquestionsnursing from "../Pages/Non_Nursing/Viewquetionsnursing";
 import Viewquestionsmodel from "../Pages/Modelmock/Viewquestionsmodel";
 import Uploadtestnursing from "../Pages/Non_Nursing/Uploadtestnursing";
 import Blocktablepre from "../Pages/Student/Premium/Blocktablepre";
+import HybridViewTest from "../Pages/Hybrid/ViewTest";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -475,6 +476,12 @@ export const routeConfig = [
     title: "blocktablepre",
     Component: Blocktablepre,
     route: PATH.BLOCKTABLEPRE,
+  },
+  {
+    key: "hybridviewtest",
+    title: "hybridviewtest",
+    Component: HybridViewTest,
+    route: PATH.HYBRIDVIEWTEST,
   },
 ];
 

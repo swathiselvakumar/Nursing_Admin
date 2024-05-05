@@ -11,7 +11,7 @@ export default function Card() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.post(
           "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php",
           {
             adminId:email
@@ -48,16 +48,11 @@ export default function Card() {
 
   const containerStyle = {
     padding: "20px 0", // Add padding to improve aesthetics
-    // display: "flex", // Ensure flex behavior
-    // flexDirection:"row"
-    // flexShrink: 0,
-    // justifyContent: "center", // Center the cards horizontally
+    
   };
 
   return (
-    // <Container fluid >
-     
-    // <Row style={{overflow:"auto",flexDirection:"row",display:'flex',backgroundColor:'red'}}>
+    
     <div style={{maxWidth:'80vw',display:'flex',overflow:'auto'}}>
         { 
           cards.map((data,index)=>(
@@ -81,29 +76,7 @@ export default function Card() {
             </div>
           ))
         }
-        {/* <Col> */}
-        {/* <div style={containerStyle}>
-      {cards.map((data, index) => (
-        <div key={index} style={Box}>
-          <div style={Box1}>
-            <div>
-              <img src={StuIcon} alt="Student Icon" />
-            </div>
-            <div>
-              <Typography style={{ fontSize: "30px", color: "#e4a45a" }}>
-                {data.numbercard}
-              </Typography>
-            </div>
-          </div>
-          <div style={{ textAlign: "center", paddingBottom: "20px" }}>
-            <Typography>{data.text}</Typography>
-          </div>
-        </div>
-      ))}
-    </div> */}
-        {/* </Col> */}
-      {/* // </Row> */}
-    {/* // </Container> */}
+        
     </div>
 
   );

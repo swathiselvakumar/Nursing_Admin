@@ -5,19 +5,19 @@ export default function Btn({ v1, v2, v3, v4, v5, handleQuestionChange, fetchQue
      handleQuestionChange(index);
      fetchQuestions(index); // Call fetchQuestions with the index
    };
-  const btn = {
+  const btn = { 
     height: "50px",
     width: "50px",
     borderRadius: "50%",
     border: "none",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    marginLeft: "35px",
+    marginLeft: "15px",
     marginRight: "20px",
     marginTop: "10px",
     backgroundColor: "white",
   };
   return (
-    <div style={{ padding: "10px" }}>
+    <div style={{ padding: "10px",marginLeft:"30px" }}>
       <div>
         <button style={btn} onClick={() => handleClick(v1)}>
           {v1}
