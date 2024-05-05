@@ -10,7 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 // import axios from "axios";
 export default function Updatecourse() {
@@ -18,12 +18,13 @@ export default function Updatecourse() {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [about, setAbout] = useState();
+  const [update,setupdate]=useState([]);
+  const email=localStorage.getItem("userMail");
+  const {sno}=useParams();
+  useEffect(() => {
+   updateView();
+  }, []);
 
-  // useEffect(() => {
-  //  handleClickOpen();
-  // }, []);
-// const handleClickOpen = () => {
-// };
   const handleClose = () => {
     setOpen(false);
   };
@@ -38,20 +39,36 @@ export default function Updatecourse() {
   const handleChangeabout = (event) => {
     setAbout(event.target.value);
   };
+const updateView=async () =>{
+  try {
+    const response = await axios.post(
+      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
+      {
+        adminId:email,
+        id: sno,
+        // You can include additional data here as needed
+      }
+    );
+    setupdate(response.data);
+    console.log(update);
+    console.log(update.course_name);
+  } catch (error) {
+    console.error("Error adding new item:", error);
+  }
+}
+
   const handleClickOpen = async () => {
-    // Retrieve the adminId from local storage
-    // const adminId = ;
     setOpen(true);
 
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateCourse.php",
         {
-          adminId: "nandinivebbox@gmail.com",
-          name: name,
+          adminId:email,
+          name: name, 
           about: about,
           description: description,
-          id: "1",
+          id: sno,
           // You can include additional data here as needed
         }
       );
@@ -73,8 +90,6 @@ export default function Updatecourse() {
   ];
   const MainBox = {
     backgroundColor: "#f6f6f6",
-    width: "50vw",
-    height: "90vh",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     margin: "30px",
   };
@@ -82,24 +97,7 @@ export default function Updatecourse() {
     display: "flex",
     justifyContent: "center",
   };
-  const second = {
-    backgroundColor: "#707070",
-    height: "50px",
-    width: "50px",
-    borderRadius: "50%",
-    marginLeft: "10px",
-  };
-  const div1 = {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "30px",
-  };
-  const step = {
-    paddingTop: "3px",
-    width: "210px",
-    display: "flex",
-    justifyContent: "space-between",
-  };
+ 
   const MainText = {
     display: "flex",
     justifyContent: "center",
@@ -154,7 +152,10 @@ export default function Updatecourse() {
   return (
     <div>
       <YEARMCQStyle>
-        <div style={{ padding: "20px" }}>
+        {
+          update.map((r)=>(
+            <>
+            <div style={{ padding: "20px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
         <div style={bodystyle}>
@@ -182,13 +183,14 @@ export default function Updatecourse() {
                 <div>
                   <label>Course Name</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
+                
                 <div>
                   <input
                     type="text"
                     style={TextB}
                     onChange={handlechangename}
                     value={name}
+                    placeholder={r.course_name}
                   />
                 </div>
               </div>
@@ -203,7 +205,6 @@ export default function Updatecourse() {
                 <div>
                   <label>Course Description</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <textarea
                     cols={20}
@@ -211,6 +212,7 @@ export default function Updatecourse() {
                     style={TextA}
                     onChange={handleChangedescription}
                     value={description}
+                    placeholder={r.course_description}
                   ></textarea>
                 </div>
               </div>
@@ -225,7 +227,6 @@ export default function Updatecourse() {
                 <div>
                   <label>Course About</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <textarea
                     cols={20}
@@ -233,6 +234,7 @@ export default function Updatecourse() {
                     style={TextA}
                     onChange={handleChangeabout}
                     value={about}
+                    placeholder={r.course_about}
                   ></textarea>
                 </div>
               </div>
@@ -242,7 +244,7 @@ export default function Updatecourse() {
                 style={{
                   marginTop: "30px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
@@ -256,8 +258,9 @@ export default function Updatecourse() {
                 style={{
                   marginTop: "10px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
+                  marginBottom:"40px"
                 }}
               >
                 <NavLink to="/course">
@@ -267,6 +270,9 @@ export default function Updatecourse() {
             </div>
           </div>
         </div>
+            </>
+          ))
+        }
         <Dialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"

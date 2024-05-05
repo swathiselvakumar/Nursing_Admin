@@ -12,6 +12,8 @@ import Axios from 'axios';
 
 export default function ViewCourse() {
   const [courseData, setCourseData] = useState(null);
+const email=localStorage.getItem("userMail");
+
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Course", path: PATH.COURSE },
@@ -24,7 +26,7 @@ export default function ViewCourse() {
       const res = await Axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           id: id,
         }
       );

@@ -11,7 +11,6 @@ export const PremiumPlansStyle=styled("div")(()=>({
         justifyContent:"space-evenly",
         backgroundColor:"#f6f6f6",
         borderRadius:"5px",
-        height:"100vh",
         padding:"20px"
       },
      
@@ -80,6 +79,7 @@ export const PremiumPlansStyle=styled("div")(()=>({
         borderRadius:"10px",
         height:"180px",
         width:"250px",
+        marginTop:"50px",
     },
     ".MuiTypography-root":{
       fontFamily: "Roboto, sans-serif"

@@ -3,14 +3,19 @@ import StuIcon from "../../assets/icons/student.png";
 import { Grid, Typography } from "@mui/material";
 import axios from "axios";
 
+
 export default function Card() {
   const [cards, setCards] = useState([]);
+  const email=localStorage.getItem("userMail");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php"
+        const response = await axios.post(
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php",
+          {
+            adminId:email
+        }
         );
         const responseData = response.data;
         const transformedData = Object.keys(responseData).map((key) => ({
@@ -30,8 +35,8 @@ export default function Card() {
     backgroundColor: "#e7f6f2",
     width: "170px",
     borderRadius: "10px",
-    overflowX: "auto", // Enable horizontal scrolling
-    flexShrink: 0,
+    // overflowX: "auto", // Enable horizontal scrolling
+    // flexShrink: 0,
     marginRight: "20px", // Adjust spacing between cards
   };
 
@@ -43,19 +48,18 @@ export default function Card() {
 
   const containerStyle = {
     padding: "20px 0", // Add padding to improve aesthetics
-    // overflowX: "auto", // Enable horizontal scrolling
-    // whiteSpace: "nowrap", // Ensure cards stay on one line
-    display: "flex", // Ensure flex behavior
-    // flexShrink: 0,
-    justifyContent: "center", // Center the cards horizontally
+    
   };
 
   return (
-    <div style={containerStyle}>
-      {cards.map((data, index) => (
-        <div key={index} style={Box}>
-          <div style={Box1}>
-            <div>
+    
+    <div style={{maxWidth:'80vw',display:'flex',overflow:'auto'}}>
+        { 
+          cards.map((data,index)=>(
+            <div  style={containerStyle}>
+              <div key={index} style={Box}>
+              <div style={Box1}>
+              <div>
               <img src={StuIcon} alt="Student Icon" />
             </div>
             <div>
@@ -63,12 +67,17 @@ export default function Card() {
                 {data.numbercard}
               </Typography>
             </div>
-          </div>
-          <div style={{ textAlign: "center", paddingBottom: "20px" }}>
+            
+              </div>
+              <div style={{ textAlign: "center", paddingBottom: "20px" }}>
             <Typography>{data.text}</Typography>
           </div>
-        </div>
-      ))}
+              </div>
+            </div>
+          ))
+        }
+        
     </div>
+
   );
 }

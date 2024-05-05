@@ -8,6 +8,7 @@ import axios from "axios";
 
 function TestPage() {
   const { year, setYear, month, setMonth } = useContext(navContext);
+  const email=localStorage.getItem("userMail");
 
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
@@ -23,7 +24,7 @@ function TestPage() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqQuestion.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           institutionId: "2",
           year: year,
           month: month,
@@ -59,7 +60,7 @@ function TestPage() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId: email,
           institutionId: "2",
           paperId: "7",
           questionId: "5",

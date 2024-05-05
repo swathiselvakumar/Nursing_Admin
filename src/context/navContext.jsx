@@ -15,10 +15,12 @@ function NavContextProvider({ children }) {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [input, setInput] = useState();
-  const [stage, setStage] = useState();
+  const [stage, setStage] = useState(); 
   const [mcq, setMcq] = useState();
  const [plan, setPlan] = useState();
  const [price, setPrice] = useState(1999);
+ const [email,setemail]=useState("");
+
   //  const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
   //  const [quetionpaperhistory, setQuestionpaperhistory] = useState([
@@ -63,6 +65,8 @@ function NavContextProvider({ children }) {
         setPrice,
         durationtime,
         setDurationtime,
+        email,
+        setemail
         // quetionpaperhistory,
         // setQuestionpaperhistory
       }}

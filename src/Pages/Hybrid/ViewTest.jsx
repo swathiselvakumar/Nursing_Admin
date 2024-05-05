@@ -3,77 +3,59 @@ import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { Typography } from "@mui/material";
-import Btn from './Btn';
+import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function Viewquestionsnursing() {
-  const { sno } = useParams();
-  const { id } = useParams();
+export default function HybridViewTest() {
+  const { sno,id } = useParams();
+  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
 const email=localStorage.getItem("userMail");
 
-  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([]);
 
-  const finish = {
-    width: "100px",
-    border: "none",
-    backgroundColor: "#1b4242",
-    color: "white",
-    fontSize: "12px",
-    borderRadius: "5px",
-    height: "30px",
-  };
-  const save = {
-    width: "100px",
-    border: "1px solid black",
-    fontSize: "12px",
-    borderRadius: "5px",
-  };
-  const remove = {
-    width: "100px",
-    border: "1px solid black",
-    fontSize: "12px",
-    borderRadius: "5px",
-  };
-  const final = {
-    width: "500px",
-    border: "none",
-    backgroundColor: "#1b4242",
-    color: "white",
-    fontSize: "20px",
-    borderRadius: "5px",
-    height: "50px",
-    marginLeft: "60px",
-    marginTop: "20px",
-    marginBottom: "20px",
-  };
-  useEffect(() => {
-    fetchQuestions(1);
-  }, []);
+ 
+ const final = {
+   width: "500px",
+   border: "none",
+   backgroundColor: "#1b4242",
+   color: "white",
+   fontSize: "20px",
+   borderRadius: "5px",
+   height: "50px",
+   marginLeft: "60px",
+   marginTop: "20px",
+   marginBottom: "20px",
+ };
+//  useEffect(()=>
+//   {
+//     fetchQuestions(1);
+//   },[])  
 
-  const fetchQuestions = async (questionId) => {
-    try {
-      const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingQuestions.php",
-        {
-          adminId:email,
-          categoryId: sno,
-          paperId: id,
-          questionId: questionId,
-        }
-      );
-      setQuestions(res.data);
-      setSelectedQuestionIndex(0); 
-    } catch (error) {
-      console.error("Error adding new item:", error);
-    }
-  };
+//   const fetchQuestions = async (questionId) => {
+//     try {
+//       const res = await axios.post(
+//         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+//         {
+//           adminId: email,
+//           institutionId: sno,
+//           paperId: id,
+//           questionId: questionId,
+//         }
+//       )
+//         setQuestions(res.data);
+//       setSelectedQuestionIndex(0); 
+      
+//     } catch (error) {
+//       console.error("Error adding new item:", error);
+//     }
+//   };
 
   const handleQuestionChange = (index) => {
     console.log("Selected question index:", index);
-    setSelectedQuestionIndex(index - 1);
+    setSelectedQuestionIndex(index-1);
   };
+
 
   // const handleNextQuestion = () => {
   //   if (
@@ -85,14 +67,14 @@ const email=localStorage.getItem("userMail");
   //   }
   // };
 
+ 
   const BreadcrumbItems = [
-    { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "Non Nursing MCQ", path: PATH.NONNURSINGMCQ },
-    { label: "Institution", path: PATH.NONINSTITUTION },
-    { label: "View Questions", path: PATH.VIEWQUESTIONSNURSING},
+    { label: "Hybrid", path: PATH.HYBRID },
+    // { label: "Institution", path: PATH.YE },
+    { label: "View Questions", path: PATH.UPLOADTEST },
   ];
 
-  return ( 
+  return (
     <div>
       <div style={{ padding: "25px" }}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
@@ -159,7 +141,7 @@ const email=localStorage.getItem("userMail");
                   v4={index * 5 + 4}
                   v5={index * 5 + 5}
                   handleQuestionChange={handleQuestionChange}
-                  fetchQuestions={fetchQuestions}
+                //   fetchQuestions={fetchQuestions}
                 />
               ))}
             </div>

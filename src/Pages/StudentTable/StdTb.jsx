@@ -49,6 +49,8 @@ export default function StdTb() {
     const [index, setindex] = useState();
     const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
+const email=localStorage.getItem("userMail");
+
   console.log(index);
   const handleClickOpens = () => {
     setModal(true);
@@ -106,18 +108,19 @@ useEffect(() => {
 
  
 
- console.log(modified);
+//  console.log(modified);
 
  const blocklist = async () => {
    try {
     const response = await axios.post(
       "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
       {
-        adminId: "nandinivebbox@gmail.com",
+        adminId:email,
         id: modified.email,
         status: modified.status,
       }
     );
+
 
    } catch (error) {
      console.error("Error fetching data:", error);
@@ -128,26 +131,17 @@ const handleClose = () => {
   const modifiedData = { ...modified, status: "block" };
   setmodified(modifiedData);
   setTrue(!True);
-  // console.log("hi");
-  // setOpenDialog(false);
 };
  const handleOpenDialog = () => {
    setOpenDialog(true);
  };
-
-//  const handleCloseDialog = () => {
-//    const modifiedData = { ...modified, status: "block" };
-//    setmodified(modifiedData);
-//    setTrue(!True);
-//    setOpenDialog(false);
-//  };
 
   const fetchData = async () => {
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockSt.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId: email,
         }
       );
       // const blockedData = response.data.filter((item) => item.status === 1);

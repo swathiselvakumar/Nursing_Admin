@@ -95,7 +95,7 @@ export default function MicroInstitution() {
         </Container>
 
         <div className='BtnBox'>
-      <NavLink to="/uploadtest">
+      <NavLink to="/hybridviewtest">
       <button className='Btn'>View Questions</button>
       </NavLink>
     </div>

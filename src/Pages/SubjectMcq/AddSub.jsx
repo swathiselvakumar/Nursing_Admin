@@ -76,7 +76,6 @@ setNavInput(event.target.value)
         subjectId: sno,
         paperName: input,
         category:category,
-        // month: month,
         questions: excelData,
       });
       console.log(excelData);
@@ -106,7 +105,7 @@ const [Data, setData] = useState(() => {
         Data
       );
 
-      // setInput("");
+      // setInput(""); 
       // setYear("");
       console.log(lastId);
       Navigate(`/uploadtestsub/${sno}/${lastId}`);

@@ -8,95 +8,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function UploadTest() {
-  const { sno } = useParams();
+  const { sno,id } = useParams();
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
-  const [questions, setQuestions] = useState([
-    {
-      number: 1,
-      text: "What is your age?",
-      options: ["10-20", "21-30", "31-40", "41+"],
-      answer: "21-30", // Correct answer
-    },
-    {
-      number: 2,
-      text: "What is your name?",
-      options: ["John", "Alice", "Bob", "Jane"],
-      answer: "John", // Correct answer
-    },
-    {
-      number: 3,
-      text: "Javascript is an ___ language?",
-      options: [
-        "Object-Oriented",
-        "Object-Based",
-        "Assembly-language",
-        "High-level+",
-      ],
-      answer: "Object-Based", // Correct answer
-    },
-    {
-      number: 4,
-      text: "The function and  var are known as:",
-      options: [
-        "Keywords",
-        "Data types",
-        "Declaration statements",
-        "Prototypes",
-      ],
-      answer: "Declaration statements", // Correct answer
-    },
-    {
-      number: 5,
-      text: "Which one of the following is the correct way for calling the JavaScript code?",
-      options: ["Preprocessor", "Triggering Event", "RMI", "Function/Method"],
-      answer: "Function/Method", // Correct answer
-    },
-    {
-      number: 6,
-      text: "Which of the following type of a variable is volatile?",
-      options: [
-        "Mutable variable",
-        "Dynamic variable",
-        "Volatile variable",
-        "Immutable variable",
-      ],
-      answer: "Mutable variable", // Correct answer
-    },
-    {
-      number: 7,
-      text: "In the JavaScript, which one of the following is not considered as an error?",
-      options: [
-        "Syntax error",
-        "Missing of semicolons",
-        "Division by zero",
-        "Missing of Bracket",
-      ],
-      answer: "Division by zero", // Correct answer
-    },
-    // Add more questions as needed
-  ]);
+const email=localStorage.getItem("userMail");
 
- const finish = {
-   width: "100px",
-   border: "none",
-   backgroundColor: "#1b4242",
-   color: "white",
-   fontSize: "12px",
-   borderRadius: "5px",
-   height: "30px",
- };
- const save = {
-   width: "100px",
-   border: "1px solid black",
-   fontSize: "12px",
-   borderRadius: "5px",
- };
- const remove = {
-   width: "100px",
-   border: "1px solid black",
-   fontSize: "12px",
-   borderRadius: "5px",
- };
+  const [questions, setQuestions] = useState([]);
+
+ 
  const final = {
    width: "500px",
    border: "none",
@@ -109,21 +27,25 @@ export default function UploadTest() {
    marginTop: "20px",
    marginBottom: "20px",
  };
-  useEffect(() => {
-    response();
-  }, []);
+ useEffect(()=>
+  {
+    fetchQuestions(1);
+  },[])  
 
-  const response = async () => {
+  const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId: email,
           institutionId: sno,
-          paperId: "7",
-          questionId: "5",
+          paperId: id,
+          questionId: questionId,
         }
-      );
+      )
+        setQuestions(res.data);
+      setSelectedQuestionIndex(0); 
+      
     } catch (error) {
       console.error("Error adding new item:", error);
     }
@@ -135,22 +57,22 @@ export default function UploadTest() {
   };
 
 
-  const handleNextQuestion = () => {
-    if (
-      selectedQuestionIndex !== null &&
-      selectedQuestionIndex < questions.length - 1
-    ) {
-      console.log("Next question index:", selectedQuestionIndex + 1);
-      setSelectedQuestionIndex(selectedQuestionIndex + 1);
-    }
-  };
+  // const handleNextQuestion = () => {
+  //   if (
+  //     selectedQuestionIndex !== null &&
+  //     selectedQuestionIndex < questions.length - 1
+  //   ) {
+  //     console.log("Next question index:", selectedQuestionIndex + 1);
+  //     setSelectedQuestionIndex(selectedQuestionIndex + 1);
+  //   }
+  // };
 
-
+ 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "YearMCQ", path: PATH.YEARMCQ },
     { label: "Institution", path: PATH.YEARINSTITUTION },
-    { label: "View Test", path: PATH.UPLOADTEST },
+    { label: "View Questions", path: PATH.UPLOADTEST },
   ];
 
   return (
@@ -179,49 +101,25 @@ export default function UploadTest() {
                 Question Details
               </Typography>
               <hr />
-              {selectedQuestionIndex !== null &&
-                selectedQuestionIndex < questions.length && (
-                  <div>
-                    <p>{questions[selectedQuestionIndex].text}</p>
-                    <ul>
-                      {questions[selectedQuestionIndex].options.map(
-                        (option, index) => (
-                          <li key={index}>{option}</li>
-                        )
-                      )}
-                    </ul>
-                    <p>
-                      Correct Answer: {questions[selectedQuestionIndex].answer}
-                    </p>
-                  </div>
-                )}
+              {questions[selectedQuestionIndex] ? (
+                <div>
+                  <p>{questions[selectedQuestionIndex].questions}</p>
+                  <ul>
+                    {[1, 2, 3, 4].map((option) => (
+                      <li key={option}>
+                        {questions[selectedQuestionIndex][`option${option}`]}
+                      </li>
+                    ))}
+                  </ul>
+                  <p>
+                    Correct Answer: {questions[selectedQuestionIndex].answer}
+                  </p>
+                </div>
+              ) : (
+                <p>No question selected</p>
+              )}
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "20px",
-                }}
-              >
-                <button style={finish}>Finish</button>
-                <button style={save}>Save</button>
-                <button style={remove}>Remove</button>
-              </div>
-              {/* <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <button
-                  style={{
-                    width: "100px",
-                    border: "none",
-                    backgroundColor: "#1b4242",
-                    color: "white",
-                    borderRadius: "5px",
-                    height: "30px",
-                  }}
-                  // onClick={handleNextQuestion}
-                >
-                  Next
-                </button>
-              </div> */}
+              
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -244,6 +142,7 @@ export default function UploadTest() {
                   v4={index * 5 + 4}
                   v5={index * 5 + 5}
                   handleQuestionChange={handleQuestionChange}
+                  fetchQuestions={fetchQuestions}
                 />
               ))}
             </div>

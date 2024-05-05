@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 export default function Viewquestions() {
   const { sno } = useParams();
   const { id } = useParams();
+const email=localStorage.getItem("userMail");
+
 
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -48,7 +50,7 @@ export default function Viewquestions() {
     marginBottom: "20px",
   };
   useEffect(() => {
-    fetchQuestions();
+    fetchQuestions(1);
   }, []);
 
   const fetchQuestions = async (questionId) => {
@@ -56,7 +58,7 @@ export default function Viewquestions() {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           subjectId: sno,
           paperId: id,
           questionId: questionId,
@@ -64,15 +66,7 @@ export default function Viewquestions() {
       );
       setQuestions(res.data);
       setSelectedQuestionIndex(0); 
-    //   const obj=res.data.map((item)=>
-    // ({
-    //   // number:1,
-    //   text: item.questions,
-    //   options: [item.option1, item.option2, item.option3, item.option4],
-    //   answer: item.answer, // Correct answer
-    // }))
-    //   setQuestions(obj)
-    //   console.log(questions);
+   
     } catch (error) {
       console.error("Error adding new item:", error);
     }
@@ -97,7 +91,7 @@ export default function Viewquestions() {
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Subject wiseMCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
-    { label: "View Test", path: PATH.VIEWQUETIONSSUB },
+    { label: "View Questions", path: PATH.VIEWQUETIONSSUB },
   ];
 
   return (
@@ -125,7 +119,7 @@ export default function Viewquestions() {
               <Typography style={{ fontWeight: 700 }}>
                 Question Details
               </Typography>
-              <hr />
+              <hr /> 
               {questions[selectedQuestionIndex] ? (
                 <div>
                   <p>{questions[selectedQuestionIndex].questions}</p>
@@ -144,32 +138,7 @@ export default function Viewquestions() {
                 <p>No question selected</p>
               )}
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "20px",
-                }}
-              >
-                <button style={finish}>Finish</button>
-                <button style={save}>Save</button>
-                <button style={remove}>Remove</button>
-              </div>
-              {/* <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <button
-                  style={{
-                    width: "100px",
-                    border: "none",
-                    backgroundColor: "#1b4242",
-                    color: "white",
-                    borderRadius: "5px",
-                    height: "30px",
-                  }}
-                  // onClick={handleNextQuestion}
-                >
-                  Next
-                </button>
-              </div> */}
+              
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>

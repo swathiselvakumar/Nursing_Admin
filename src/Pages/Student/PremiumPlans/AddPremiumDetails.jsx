@@ -22,19 +22,12 @@ export default function PremiumPlanDetails() {
   const { plan, setPlan } = useContext(navContext);
   const { price, setPrice } = useContext(navContext);
    const { durationname, setDurationname } = useContext(navContext);
+   
 
-
-// console.log(":",duration);
-// console.log(":", price);
 
 const handleChangeduration = (event) => {
   setDurationname(event.target.value);
 };
-
-      // const handleChangeduration = (event) => {
-      //   setDurationname(event.target.value);
-      //   // setDuration(event.target.value)
-      // };
 
       const handleChangeprice = (event) => {
         setPricename(event.target.value);

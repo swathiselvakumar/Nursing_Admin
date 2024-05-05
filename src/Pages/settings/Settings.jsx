@@ -10,10 +10,15 @@ function Settings() {
   const [mobileNo, setMobileNo] = useState("");
   const [address, setAddress] = useState("");
    const [data, setData] = useState(null); 
-  // const [act, setact] = React.useState("password");
+const email=localStorage.getItem("userMail");
+const [update,setupdate]=useState([]);
+
+
+useEffect(() => {
+  updateView();
+ }, []);
+
   const BreadcrumbItems = [
-    // { label: "Dashboard", path: PATH.DASHBOARD },
-    
     { label: "Settings", path: PATH.SETTINGS },
     { label: "Profile Update", path: PATH.SETTINGS },
 
@@ -26,13 +31,29 @@ function Settings() {
     setAddress(e.target.value);
   };
   
-  const submitchange = async () => {
+  const updateView=async () =>{
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStaticInfo.php",
         {
-          adminId:"nandinivebbox@gmail.com",
-          mobileNo: mobileNo,
+          adminId:email,
+        }
+      );
+      setupdate(response.data);
+      console.log(update);
+      // console.log(update.course_name);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  }
+
+  const submitchange = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/put/A_updateStaticInfo.php",
+        {
+          adminId:email,
+          mobNo: mobileNo,
           address: address,
         }
       );
@@ -127,21 +148,17 @@ function Settings() {
                     </p>
                   </NavLink>
                 </div>
-                <div className="form">
+                {
+                  update.map((r)=>(
+                    <>
+                    <div className="form">
                   <div>
                     <label htmlFor="username" className="pass-lab">
                       Mobile No :
                     </label>
                     <br />
                     <br />
-                    {/* <input
-                      type="text"
-                      id="mobile"
-                      name="mobile"
-                      className="mobile-input"
-                      value={mobileNo}
-                      onChange={handleMobileNoChange}
-                    /> */}
+                    
                     <input
                       type="text"
                       id="Old Password"
@@ -149,6 +166,7 @@ function Settings() {
                       className="Old-Password"
                       value={mobileNo}
                       onChange={handleMobileNoChange}
+                      placeholder={r.mobibleno}
                     />
                   </div>
                   <div style={{ marginTop: "20px" }}>
@@ -162,10 +180,14 @@ function Settings() {
                       className="Old-Password"
                       value={address}
                       onChange={handleAddressChange}
+                      placeholder={r.address}
                     ></textarea>
                   </div>
                   <button className="submit-btn" onClick={submitchange}>Submit</button>
                 </div>
+                    </>
+                  ))
+                }
               </div>
             </div>
           </div>

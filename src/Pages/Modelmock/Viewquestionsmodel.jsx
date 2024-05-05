@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 
 export default function Viewquestionsmodel() {
   const { sno } = useParams();
+const email=localStorage.getItem("userMail");
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([
     {
@@ -118,7 +119,7 @@ export default function Viewquestionsmodel() {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           institutionId: sno,
           paperId: "7",
           questionId: "5",
@@ -148,7 +149,7 @@ export default function Viewquestionsmodel() {
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Model MCQ", path: PATH.MODELMOCK },
     { label: "Institution", path: PATH.MODELINSTITUTION },
-    { label: "View Test", path: PATH.VIEWQUESTIONSMODEL },
+    { label: "View Questions", path: PATH.VIEWQUESTIONSMODEL },
   ];
 
   return (
@@ -194,32 +195,7 @@ export default function Viewquestionsmodel() {
                   </div>
                 )}
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "20px",
-                }}
-              >
-                <button style={finish}>Finish</button>
-                <button style={save}>Save</button>
-                <button style={remove}>Remove</button>
-              </div>
-              {/* <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <button
-                  style={{
-                    width: "100px",
-                    border: "none",
-                    backgroundColor: "#1b4242",
-                    color: "white",
-                    borderRadius: "5px",
-                    height: "30px",
-                  }}
-                  // onClick={handleNextQuestion}
-                >
-                  Next
-                </button>
-              </div> */}
+             
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>

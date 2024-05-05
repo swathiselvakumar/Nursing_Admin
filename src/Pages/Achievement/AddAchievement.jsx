@@ -16,55 +16,29 @@ export default function ADDACHIEVEMENT() {
   const [achievementDescription, setAchievementDescription] = useState("");
   const [open,setOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  // const [dynamicData, setDynamicData] = useState(null); // State to hold dynamic data
+  const email=localStorage.getItem("userMail");
+
 
   const handleChange = (e) => {
     setAchievementDescription(e.target.value);
   };
 
-  // const handleSubmit = () => {
-  //   const data = {
-  //     achievementDescription: achievementDescription,
-  //     // dynamicData: dynamicData, // Include dynamic data in the submission
-  //   };
-
-  //   // Send data to the backend
-  //   console.log("Sending data to the backend:", data);
-
-  //   // Set state to open success dialog
-  //   setSuccessDialogOpen(true);
-  // };
+  
 
   const handleSuccessDialogClose = () => {
     setSuccessDialogOpen(false);
   };
 
-  // Assume dynamic data is fetched from the backend and set to state
-  // useEffect(() => {
-  //   // Fetch dynamic data from the backend and set to state
-  //   fetchDynamicData();
-  // }, []);
-
-  // Function to fetch dynamic data from the backend
-  // const fetchDynamicData = async () => {
-  //   try {
-  //     const response = await fetch("backend/api/dynamicData");
-  //     const data = await response.json();
-  //     setDynamicData(data);
-  //   } catch (error) {
-  //     console.error("Error fetching dynamic data:", error);
-  //   }
-  // };
+ 
   const handleSubmit = async () => {
-    // Retrieve the adminId from local storage
-    // const adminId = ;
+    
     setOpen(true);
 
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertAchievement.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           content: achievementDescription
           // You can include additional data here as needed
         }

@@ -94,6 +94,7 @@ export const BottomListData = [
   {
     icon: ExitToAppOutlinedIcon,
     title: "Logout",
+    path:PATH.SIGNIN
     
   },
 ];

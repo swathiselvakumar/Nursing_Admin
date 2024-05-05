@@ -21,41 +21,43 @@ import {
   import Image from '../../assets/images/login img.png'
   import { useState } from "react";
   import { NavLink } from 'react-router-dom';
-const PasswordInput = ({
-    label,
-    id,
-    showPassword,
-    handleClickShowPassword,
-    handleMouseDownPassword,
-  }) => (
-    <Grid item xs={12}>
-      <Typography style={{ color: "#183A1D",fontWeight:600 }}>
-        {label} <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
-      </Typography>
-      <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
-        <OutlinedInput
-          id={id}
-          type={showPassword ? "text" : "password"}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label={`toggle ${label.toLowerCase()} password visibility`}
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? (
-                  <VisibilityOff style={{ color: "#183A1D" }} />
-                ) : (
-                  <Visibility style={{ color: "#183A1D" }} />
-                )}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-    </Grid>
-  );
+  import { useNavigate } from 'react-router-dom';
+  import axios from 'axios';
+// const PasswordInput = ({
+//     label,
+//     id,
+//     showPassword,
+//     handleClickShowPassword,
+//     handleMouseDownPassword,
+//   }) => (
+//     <Grid item xs={12}>
+//       <Typography style={{ color: "#183A1D",fontWeight:600 }}>
+//         {label} <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
+//       </Typography>
+//       <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
+//         <OutlinedInput
+//           id={id}
+//           type={showPassword ? "text" : "password"}
+//           endAdornment={
+//             <InputAdornment position="end">
+//               <IconButton
+//                 aria-label={`toggle ${label.toLowerCase()} password visibility`}
+//                 onClick={handleClickShowPassword}
+//                 onMouseDown={handleMouseDownPassword}
+//                 edge="end"
+//               >
+//                 {showPassword ? (
+//                   <VisibilityOff style={{ color: "#183A1D" }} />
+//                 ) : (
+//                   <Visibility style={{ color: "#183A1D" }} />
+//                 )}
+//               </IconButton>
+//             </InputAdornment>
+//           }
+//         />
+//       </FormControl>
+//     </Grid>
+//   );
 
   const styles = {
     buttonContainer: {
@@ -76,13 +78,45 @@ const PasswordInput = ({
   
 export default function Forget() {
     const [showPassword, setShowPassword] = useState(false);
+    const [showPassword1, setShowPassword1] = useState(false);
     const [conpass,setconpass]=useState("");
     const [password,setpassword]=useState("");
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
+  const Navigate=useNavigate();
+  const admin=localStorage.getItem("admin");
+    const handlePassword = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost/_Nursing_final/controllers/api/admin/put/A_updatePassword.php',
+          {
+            admin_id: admin,
+            password:password
+          }
+        );
+        
+        console.log("Success:", response.data);
+       
+          alert("your password change successfully");
+          Navigate('/');
+       
+       
+      } catch (error) {
+        console.error("Error check email or password:", error);
+      }
+    };
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
+    const handleChange = (event) => {
+      setpassword(event.target.value);
+    };
+    const handleChange1 = (event) => {
+      setconpass(event.target.value);
+    };
+
+
   return (
     <Grid container component="main" style={{ height: "100vh",overflow:"hidden"}}>
       <Grid item xs={12} sm={6}>
@@ -111,40 +145,75 @@ export default function Forget() {
           </Typography>
           <form style={{ width: "100%", marginTop: "8px", padding: "10px" }}>
            
-          <PasswordInput
-              fullWidth
-                label="Password"
-                id="outlined-adornment-password"
-                showPassword={showPassword}
-                handleClickShowPassword={handleClickShowPassword}
-                handleMouseDownPassword={handleMouseDownPassword}
-                onChange={(e)=>{setpassword(e.target.value)}}
-                value={password}
-              />
+          <Grid item xs={12}>
+        <Typography style={{ color: "#183A1D",fontWeight:600 }}>
+          Password <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
+        </Typography>
+        <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            onChange={handleChange}
+            value={password}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? (
+                    <VisibilityOff style={{ color: "#183A1D" }} />
+                  ) : (
+                    <Visibility style={{ color: "#183A1D" }} />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </Grid>
            
 
-            <Grid container spacing={2}>
-              
-              <PasswordInput
-              fullWidth
-                label="Confirm Password"
-                id="outlined-adornment-password"
-                showPassword={showPassword}
-                handleClickShowPassword={handleClickShowPassword}
-                handleMouseDownPassword={handleMouseDownPassword}
-                onChange={(e)=>{setconpass(e.target.value)}}
-                value={conpass}
-              />
-              
-            </Grid>
+      <Grid item xs={12}>
+        <Typography style={{ color: "#183A1D",fontWeight:600 }}>
+          Confirm Password <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
+        </Typography>
+        <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword1 ? "text" : "password"}
+            onChange={handleChange1}
+            value={conpass}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  // aria-label={`toggle ${label.toLowerCase()} password visibility`}
+                  onClick={handleClickShowPassword1}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? (
+                    <VisibilityOff style={{ color: "#183A1D" }} />
+                  ) : (
+                    <Visibility style={{ color: "#183A1D" }} />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </Grid>
           
-            <NavLink to="/dashboard" style={{textDecoration:"none"}}>
+           
             <div style={styles.buttonContainer}>
-              <Button variant="contained" style={styles.signInButton}>
+              <Button variant="contained" style={styles.signInButton} onClick={handlePassword}>
                 Done
               </Button>
             </div>
-            </NavLink>
           </form>
          
         </Paper>

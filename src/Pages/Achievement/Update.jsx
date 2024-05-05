@@ -12,14 +12,41 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 export default function Update() {
+  useEffect(() => {
+    updateView();
+   }, []);
   const [open, setOpen] = React.useState(false);
+  const [update,setupdate]=useState([]);
   const [description,setDescription]=useState();
+  const email=localStorage.getItem("userMail");
+  const {sno}=useParams();
 
   const handleChangedescription=(event)=>
   {
      setDescription(event.target.value)
   }
+
+  const updateView=async () =>{
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAchievementById.php",
+        {
+          adminId:email,
+          id: sno,
+          // You can include additional data here as needed
+        }
+      );
+      setupdate(response.data);
+      console.log(update);
+      // console.log(update.course_name);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  }
+
   const Navigate = useNavigate();
 
  const handleClickOpen = async (id) => {
@@ -28,7 +55,7 @@ export default function Update() {
      const response = await axios.post(
        `https://vebbox.in/Nursing/controllers/api/admin/put/A_updateAchievement.php/${id}`,
        {
-         adminId: "nandinivebbox@gmail.com",
+         adminId:email,
          id: id, // Assuming id is already defined
          content: description, // Pass description as value, not as a function
        }
@@ -52,8 +79,8 @@ export default function Update() {
   ];
   const MainBox = {
     backgroundColor: "#f6f6f6",
-    width: "50vw",
-    height: "90vh",
+    // width: "50vw",
+    // height: "90vh",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     margin: "30px",
   };
@@ -61,24 +88,7 @@ export default function Update() {
     display: "flex",
     justifyContent: "center",
   };
-  const second = {
-    backgroundColor: "#707070",
-    height: "50px",
-    width: "50px",
-    borderRadius: "50%",
-    marginLeft: "10px",
-  };
-  const div1 = {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "30px",
-  };
-  const step = {
-    paddingTop: "3px",
-    width: "210px",
-    display: "flex",
-    justifyContent: "space-between",
-  };
+  
   const MainText = {
     display: "flex",
     justifyContent: "center",
@@ -133,7 +143,10 @@ export default function Update() {
   return (
     <div>
       <YEARMCQStyle>
-        <div style={{ padding: "20px" }}>
+        {
+          update.map((r)=>(
+            <>
+            <div style={{ padding: "20px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
         <div style={bodystyle}>
@@ -150,21 +163,7 @@ export default function Update() {
             <hr style={{ border: "1px solid black" }} />
 
             <div style={MainText}>
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Course Name</label>
-                </div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div>
-                  <input type="number" style={TextB} />
-                </div> */}
+              
               <div></div>
               <div
                 style={{
@@ -179,32 +178,17 @@ export default function Update() {
                 </div>
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
-                  <textarea cols={20} rows={5} style={TextA} onChange={handleChangedescription} value={description}></textarea>
+                  <textarea cols={20} rows={5} style={TextA} onChange={handleChangedescription} value={description} placeholder={r.content}></textarea>
                 </div>
               </div>
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Course About</label>
-                </div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div>
-                  <textarea cols={20} rows={5} style={TextA}></textarea>
-                </div>
-              </div> */}
+              
             </div>
             <div>
               <div
                 style={{
                   marginTop: "30px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
@@ -218,8 +202,9 @@ export default function Update() {
                 style={{
                   marginTop: "10px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
+                  marginBottom:"30px"
                 }}
               >
                 <NavLink to="/course">
@@ -229,6 +214,9 @@ export default function Update() {
             </div>
           </div>
         </div>
+            </>
+          ))
+        }
         <Dialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"

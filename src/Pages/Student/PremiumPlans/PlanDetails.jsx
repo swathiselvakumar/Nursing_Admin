@@ -23,6 +23,7 @@ import axios from "axios";
 export default function PlanDetails() {
   const [open, setOpen] = useState(false);
   const [plansData, setPlansData] = useState([]);
+  const email=localStorage.getItem("userMail");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,8 +40,11 @@ export default function PlanDetails() {
 
   const fetchPlansData = async () => {
     try {
-      const response = await axios.get(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        {
+          adminId:email
+        }
       );
       setPlansData(response.data || []); // Ensure plansData is an array
     } catch (error) {
@@ -117,14 +121,14 @@ export default function PlanDetails() {
                     </div>
                     <div style={{ padding: "10px" }}>
                       <Typography style={{ marginTop: "20px" }}>
-                        1 month plan for course
+                        {plan.duration} month plan for course
                       </Typography>
                       <Typography style={{ fontSize: "26px" }}>
                         <ul className="ulstyle">
                           {[...Array(plan.tickCount)].map((_, i) => (
                             <li key={i}>
                               <img src={Tick} alt="Tick" />
-                              &nbsp;Lorem ipsum
+                              &nbsp;{plan.description}
                             </li>
                           ))}
                         </ul>

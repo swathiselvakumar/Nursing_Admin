@@ -29,6 +29,8 @@ const { sno } = useParams();
     const { mcq, setMcq } = useContext(navContext);
     const [openFirstDialog, setOpenFirstDialog] = useState(false);
     const [openSecondDialog, setOpenSecondDialog] = useState(false);
+const email=localStorage.getItem("userMail");
+
     // const {sno}=useParams()
   const handleCloseFirstDialog = () => {
     setOpenFirstDialog(false);
@@ -113,7 +115,7 @@ const [Data, setData] = useState(() => {
             const res = await axios.post(
               "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockMeta.php",
               {
-                adminId: "nandinivebbox@gmail.com",
+                adminId: email,
                 institutionId: '1',
                 stageId: mcq,
                 mcqName: stage,

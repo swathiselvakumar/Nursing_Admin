@@ -13,6 +13,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function ModelMockCard() {
   const [open, setOpen] = useState(false);
@@ -20,6 +22,8 @@ export default function ModelMockCard() {
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
   const [data, setData] = useState([]);
+const email=localStorage.getItem("userMail");
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,7 +50,7 @@ export default function ModelMockCard() {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockInstitution.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           name: name,
           desc: description,
           instruction: instruction,
@@ -61,19 +65,20 @@ export default function ModelMockCard() {
       console.error("Error adding new institution:", error);
     }
   };
-
+ 
   const fetchData = async () => {
     try {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockInstitution.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
       const fetchedData = res.data.map((item) => ({
         img: Model,
         name: item.institution_name,
         path: `/modelinstitution/${item.sno}`,
+        sno:item.sno
       }));
       fetchedData.push({
         img: Plus,
@@ -83,6 +88,22 @@ export default function ModelMockCard() {
       setData(fetchedData);
     } catch (error) {
       console.error("Error fetching institution data:", error);
+    }
+  };
+
+  const CardDelete = async (sno) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteModelMockCategory.php",
+        {
+          data: {
+            institutionId: sno,
+          },
+        }
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching course data:", error);
     }
   };
 
@@ -108,22 +129,23 @@ export default function ModelMockCard() {
                 marginBottom: "20px",
               }}
             >
-              <NavLink
-                to={d.path}
-                style={{ color: "black", textDecoration: "none" }}
-              >
                 <div className="Div" onClick={d.onClick}>
-                  <img src={Delete} className="del" alt="delete" />
-                  <div>
+                {
+                    d.name!="Add Institution" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
+                  }
+                 <NavLink to={d.path}
+                style={{ color: "black", textDecoration: "none" }}>
+                 <div style={{display:"flex",justifyContent:"center"}}>
                     <img src={d.img} height="70px" alt="model" />
                   </div>
-                  <div style={{ paddingTop: "10px" }}>
+                  <div style={{ paddingTop: "10px",textAlign:"center" }}>
                     <Typography style={{ fontWeight: 600 }}>
                       {d.name}
                     </Typography>
                   </div>
+                 </NavLink>
                 </div>
-              </NavLink>
+              
             </Col>
           ))}
         </Row>

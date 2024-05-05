@@ -26,7 +26,7 @@ function createData(sno, sname, email, memberSince, expireddate) {
   return { sno, sname, email, memberSince, expireddate };
 }
 
-export default function PremiumTb() {
+export default function PremiumTb({data}) {
   const [openDialog, setOpenDialog] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -34,7 +34,9 @@ export default function PremiumTb() {
   const [Originaldata,setOriginaldata] = useState();
   const [modified,setmodified] = useState();
   const [index,setindex] = useState();
-  const [True,setTrue] = useState()
+  const [True,setTrue] = useState();
+const email=localStorage.getItem("userMail");
+
 
 console.log(index);
   useEffect(() => {
@@ -48,7 +50,7 @@ console.log(index);
   },[True])
 
 
-  console.log(modified);
+  // console.log(modified);
 
 
   const blocklist = async () => {
@@ -56,7 +58,7 @@ console.log(index);
       const response = await axios.put(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           id: modified.email,
           status: modified.status,
         }
@@ -98,7 +100,7 @@ const handleCloseDialog = () => {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPremiumSt.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
         }
       );
 
@@ -107,6 +109,8 @@ const handleCloseDialog = () => {
       const unblockedData = response.data.filter(
         (item) => item.status === 1
       );
+
+      // const search =response.data.filter((item)=>item.)
 
       const newData = unblockedData.map((item) =>
         createData(

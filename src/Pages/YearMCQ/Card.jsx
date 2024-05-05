@@ -15,19 +15,25 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import Rong from "../../assets/icons/rong.jpg";
 import { Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export default function YearCard() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState([]);
   const[sno,setSno]=useState([])
   const [obj, setObj] = useState([]);
+const email=localStorage.getItem("userMail");
+const [click, setclick] = useState(false);
+
+
 
   const getCourses = async () => {
     try {
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqInstitution.php",
         {
-          adminId: "nandinivebbox@gmail.com",
+          adminId:email,
           
         }
       );
@@ -39,7 +45,7 @@ export default function YearCard() {
         img: Institution,
         name: item.institution_name,
         path: `/yearinstitution/${item.sno}`,
-        // sno: item.sno,
+        sno1: item.sno,
       }));
       
       obj.push({
@@ -50,6 +56,22 @@ export default function YearCard() {
       setName(obj);
       setObj(obj);
       // console.log(obj);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+  const CardDelete = async (sno) => {
+    setclick(true);
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+        {
+          data: {
+            institutionId: sno,
+          },
+        }
+      );
+      getCourses();
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
@@ -99,22 +121,23 @@ export default function YearCard() {
                 marginBottom: "20px",
               }}
             >
-              <NavLink
-                to={d.path}
-                style={{ color: "black", textDecoration: "none" }}
-              >
                 <div className="Div">
-                  <img src={Delete} className="del" alt="delete icon" />
-                  <div>
+                  {
+                    d.name!="Add institution" && <button onClick={() => CardDelete(d.sno1)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
+                  }
+                  
+                  <NavLink to={d.path}
+                style={{ color: "black", textDecoration: "none" }}>
+                  <div style={{display:"flex",justifyContent:"center"}}>
                     <img src={d.img} alt="institution" height="70px" />
                   </div>
-                  <div style={{ paddingTop: "10px" }}>
+                  <div style={{ paddingTop: "10px",textAlign:"center" }}>
                     <Typography style={{ fontWeight: 600 }}>
                       {d.name}
                     </Typography>
                   </div>
+                  </NavLink>
                 </div>
-              </NavLink>
             </Col>
           ))}
         </Row>

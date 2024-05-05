@@ -24,25 +24,10 @@ export default function AddMock() {
 
 
       ];
-
-
-
-
-
-
-
-
-
-      
       const handlechange =(event)=>
       {
 setStage(event.target.value);
         setNavMcq(event.target.value);
-
-
-
-
-
       }
       const handlechanged = (event) => {
       
