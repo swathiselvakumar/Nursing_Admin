@@ -89,9 +89,11 @@ export const ModelMockStyle=styled("div")(()=>({
         border:"none",
         outline:"none",
         backgroundColor:"#E1EEDD",
+        // backgroundColor:"red",
         borderRadius:"10px",
         marginLeft:"10px",
-        paddingLeft:"20px"
+        paddingLeft:"20px",
+        // marginTop:"10px"
     },
     ".Namebox":{
         display:"flex",

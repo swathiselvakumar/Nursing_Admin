@@ -92,6 +92,7 @@ export default function NonNursingCard() {
         "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteNonNursingCategory.php",
         {
           data: {
+            adminId:email,
             categoryId: sno,
           },
         }

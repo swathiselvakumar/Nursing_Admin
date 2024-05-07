@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 import { Container, Row, Col } from "react-bootstrap";
 import Mini from '../../assets/images/minitest.webp';
@@ -20,11 +20,11 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function MiniInstitution() {
   const BreadcrumbItems = [
-    // { label: "Dashboard", path: PATH.DASHBOARD },
-
     { label: "Hybrid", path: PATH.HYBRID },
     { label: "Institution", path: PATH.MINIINSTITUTION },
   ];
@@ -36,6 +36,8 @@ export default function MiniInstitution() {
 
   const [open, setOpen] = React.useState(false);
   const [openBtn, setOpenBtn] = React.useState(false);
+  const [data,setdata]=useState([]);
+  const email=localStorage.getItem("userMail");
 
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
@@ -50,8 +52,28 @@ export default function MiniInstitution() {
   const handleClose = () => {
     setOpen(false);
   };
+const fetchApi=async()=>{
+  try{ 
+    const response = await axios.post(
+          "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMiniTestDetails.php",
+          {
+            adminId:email
+          }
+        );
+        setdata(response.data);
+    }catch(error)
+    {
+          console.error("Error fetching data:", error);
+    
+    }
+}
+useEffect(()=>{
+  fetchApi();
+},[])
 
-  return (
+  
+
+  return ( 
     <div style={{ backgroundColor: "white", padding: "10px" }}>
       <div style={{ padding: "25px" }}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
@@ -74,7 +96,9 @@ export default function MiniInstitution() {
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-            <Col className="Col1">
+            {
+              data.map((d)=>(
+                <Col className="Col1">
               <div className="box">
                 <NavLink
                   to="/miniupload"
@@ -87,13 +111,15 @@ export default function MiniInstitution() {
                       paddingTop: "5px",
                     }}
                   >
-                    Test Name 1
+                    {d.test_name}
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <img src={Delete} className="delete" />
+                  {/* <img src={Delete} className="delete" /> */}
                 </NavLink>
               </div>
             </Col>
+              ))
+            }
           </Row>
         </Container>
 
@@ -103,78 +129,7 @@ export default function MiniInstitution() {
       </NavLink>
     </div>
       </div>
-      {/* <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-        style={{}}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title" style={{fontWeight:600,textAlign:"center",backgroundColor:"#f6f6f6"}}>
-          Add Academic Year
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers style={{backgroundColor:"#f6f6f6",display:"flex",justifyContent:"center",flexDirection:"column"}}>
-          <Typography>Choose Year</Typography>
-          <div style={{display:"flex"}}>
-          <FormControl sx={{ m: 1, minWidth: 150,backgroundColor:"white" }} size="small">
-      <InputLabel id="demo-select-small-label">Year</InputLabel>
-      <Select
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={age}
-        label="Age"
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={2024}>2024</MenuItem>
-        <MenuItem value={2025}>2025</MenuItem>
-        <MenuItem value={2026}>2026</MenuItem>
-      </Select>
-    </FormControl>
-    <FormControl sx={{ m: 1, minWidth: 150,backgroundColor:"white" }} size="small">
-      <InputLabel id="demo-select-small-label">Month</InputLabel>
-      <Select
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={age}
-        label="Age"
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={1}>01</MenuItem>
-        <MenuItem value={2}>02</MenuItem>
-        <MenuItem value={3}>03</MenuItem>
-        <MenuItem value={4}>04</MenuItem>
-        <MenuItem value={5}>05</MenuItem>
-        <MenuItem value={6}>06</MenuItem>
-
-      </Select>
-    </FormControl>
-          </div>
-            <div style={{display:"flex",justifyContent:"center",marginTop:"20px"}}>
-            <button className='Submit' autoFocus onClick={handleClickOpenBtn}>
-            Submit
-          </button>
-            </div>
-        </DialogContent>
-        
-      </Dialog> */}
-
+      
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

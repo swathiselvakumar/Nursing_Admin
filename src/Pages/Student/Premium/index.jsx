@@ -27,9 +27,9 @@ export default function Premium() {
     
     { label: "Premium List", path: PATH.PREMIUM },
   ];
-  useEffect(() => {
-    handleClickOpenSearch();
-  }, [search]);
+  // useEffect(() => {
+  //   handleClickOpenSearch();
+  // }, [search]);
  
   const [open, setOpen] = React.useState(false);
  const [search, setSearch] = useState("");
@@ -41,19 +41,15 @@ export default function Premium() {
   const handleClose = () => {
     setOpen(false);
   };
-   const handleChange = (event) => {
-     const { value } = event.target;
-     setSearch(value);
-    
-   };
-   const handleClickOpenSearch = async () => {
-      
-    try {
+   const handleChange =async (event) => {
+    //  const { value } = event.target;
+     setSearch(event.target.value);
+     try {
       const response = await axios.post(
         'https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php',
         {
           adminId:email,
-          searchData:search,
+          searchData:event.target.value,
           accountType:"premium" 
         }
       );
@@ -62,7 +58,9 @@ export default function Premium() {
     } catch (error) {
       console.error("search datas not found:", error);
     }
-  }
+    
+   };
+   
    
 
   const Btn1={backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"}

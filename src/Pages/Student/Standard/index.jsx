@@ -1,22 +1,24 @@
-import { Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { StandardStyle } from './style';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled} from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import { Container,Row,Col } from 'react-bootstrap';
-import UpdateIcon from '@mui/icons-material/Update';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import StdTb from '../../StudentTable/StdTb';
-import Dialog from '@mui/material/Dialog';
-import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
-import Pagination from '@mui/material/Pagination';
-import Block from '../../../assets/icons/block.png'
-import { NavLink } from 'react-router-dom';
-import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
-import { getLocalStorage } from '../../../utils/helperFunc';
-import { PATH } from '../../../constants/routeConstants';
-import SearchAppBar from '../../../components/Common/Searchinput/Search';
+import { Button, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { StandardStyle } from "./style";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import { Container, Row, Col } from "react-bootstrap";
+import UpdateIcon from "@mui/icons-material/Update";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import StdTb from "../../StudentTable/StdTb";
+import Dialog from "@mui/material/Dialog";
+import BreadcrumbsComp from "../../../components/Common/BreadCrumbs";
+import Pagination from "@mui/material/Pagination";
+import Block from "../../../assets/icons/block.png";
+import { NavLink } from "react-router-dom";
+import CustomBreadCrumbs from "../../../components/Common/CustomBreadcrumbs";
+import { getLocalStorage } from "../../../utils/helperFunc";
+import { PATH } from "../../../constants/routeConstants";
+import SearchAppBar from "../../../components/Common/Searchinput/Search";
+import axios from "axios";
+import { navContext } from "../../../context/navContext";
 export default function Standard() {
   const languageName = getLocalStorage("languageName");
 
@@ -24,9 +26,12 @@ export default function Standard() {
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Standard List", path: PATH.STANDARD },
   ];
+  const [loaded, setLoaded] = useState(false)
+  const email=localStorage.getItem("userMail");
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState(""); // State variable to store search input
-
+  const [tableData, setTableData] = useState([]);
+  const {index,setindex}=useContext(navContext)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,12 +40,62 @@ export default function Standard() {
     setOpen(false);
   };
 
-  // Function to handle change event of the search field
-  // Function to handle change event of the search field
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setSearch(value);
-    console.log("Search input:", value); // Log the search input value
+  function createData(sno, sname, email, memberSince) {
+    return { sno, sname, email, memberSince };
+  }
+  
+
+  const handleChange = async (event) => {
+    // console.log(event.target.value);
+    // const { value } = event.target.value;
+    setSearch(event.target.value);
+    try {
+    
+      const response = await axios.post(
+        "http://localhost/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
+        {
+          adminId: email,
+          searchData:event.target.value,
+          accountType:"standard"
+        }
+      );
+      const blockedData = response.data.filter((item) => item.status === 1);
+
+     const newData = response.data.map((item,i) =>
+       createData(Number(i+1), item.username, item.email, item.plan_join_date)
+     );
+
+      // console.log(response.data);
+      setLoaded(true)
+      setTableData(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockStandard.php",
+        {
+          adminId: email,
+        }
+      );
+      setLoaded(true)
+      console.log(response.data);
+      // const blockedData = response.data.filter((item) => item.status === 1);
+
+     const newData = response.data.map((item,i) =>
+       createData(Number(i+1), item.username, item.email, item.plan_join_date)
+     );
+
+      // console.log(newData);
+
+      setTableData(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const Btn1 = {
@@ -61,9 +116,15 @@ export default function Standard() {
       "rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
     width: "200px",
   };
+  useEffect(()=>{
+    fetchData();
+  },[])
+
   return (
     <StandardStyle>
-      <div className="bodystyle">
+      {
+        loaded ? 
+        <div className="bodystyle">
         <div style={{ padding: "25px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
@@ -99,37 +160,17 @@ export default function Standard() {
           </Row>
         </Container>
         <div style={{ marginTop: "25px", padding: "10px" }}>
-          <StdTb />
+          {/* <StdTb /> */}
+          <StdTb tableData={tableData}   onClick={() => {
+                      setindex(index);
+                    }}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />
         </div>
-      </div>
-      {/* <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2, fontFamily: "Roboto, sans-serif" }} id="customized-dialog-title">
-          Add Members
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          <AlertBox/>
-        </DialogContent>
-       
-      </BootstrapDialog> */}
+      </div> : <p>Loading</p>
+      }
+      
     </StandardStyle>
   );
 }

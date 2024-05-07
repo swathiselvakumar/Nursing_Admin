@@ -25,6 +25,8 @@ import Block from "../../assets/icons/block.png";
 import Profile from "../Profile";
 import Box from "@mui/material/Box";
 import axios from "axios";
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
 // import UnBlockIcon from "../../assets/icons/unlock.png";
 
 function createData(sno, sname, email, memberSince) {
@@ -39,19 +41,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(2),
   },
 }));
-export default function StdTb() {
+export default function StdTb({tableData,}) {
   // const [openDialog, setOpenDialog] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const {index,setindex}=useContext(navContext);
   const [rows, setRows] = useState([]);
     const [Originaldata, setOriginaldata] = useState();
     const [modified, setmodified] = useState();
-    const [index, setindex] = useState();
+    // const [index, setindex] = useState();
     const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
 const email=localStorage.getItem("userMail");
-
-  console.log(index);
+// console.log(tableData);
+  // console.log(index);
   const handleClickOpens = () => {
     setModal(true);
   };
@@ -62,9 +64,9 @@ const email=localStorage.getItem("userMail");
   const handleClickOpen = () => {
     setOpen(true);
   };
-useEffect(() => {
-  fetchData();
-}, []);
+// useEffect(() => {
+//   fetchData();
+// }, []);
 useEffect(() => {
   if (Originaldata && index >= 0) {
     setmodified(Originaldata[index]);
@@ -76,6 +78,9 @@ useEffect(() => {
     blocklist();
   // }
 }, [True]);
+useEffect(()=>{
+console.log(tableData);
+},[])
   
   const Btn = {
     backgroundColor: "white",
@@ -104,10 +109,6 @@ useEffect(() => {
     width: "90%",
     // height:'92%'
   };
-  
-
- 
-
 //  console.log(modified);
 
  const blocklist = async () => {
@@ -130,33 +131,35 @@ const handleClose = () => {
   setOpen(false);
   const modifiedData = { ...modified, status: "block" };
   setmodified(modifiedData);
+  // console.log(modifiedData);
   setTrue(!True);
 };
  const handleOpenDialog = () => {
    setOpenDialog(true);
- };
+ }; 
+ console.log(index);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockSt.php",
-        {
-          adminId: email,
-        }
-      );
-      // const blockedData = response.data.filter((item) => item.status === 1);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockSt.php",
+  //       {
+  //         adminId: email,
+  //       }
+  //     ); 
+  //     // const blockedData = response.data.filter((item) => item.status === 1);
 
-     const newData = response.data.map((item) =>
-       createData(item.sno, item.username, item.email, item.plan_join_date)
-     );
+  //    const newData = response.data.map((item) =>
+  //      createData(item.sno, item.username, item.email, item.plan_join_date)
+  //    );
 
-      console.log(newData);
+  //     console.log(newData);
 
-      setRows(newData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  //     setRows(newData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   return (
     <>
@@ -189,7 +192,7 @@ const handleClose = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {tableData?.map((row) => (
                   <TableRow
                     className="tb-row"
                     key={row.sno}

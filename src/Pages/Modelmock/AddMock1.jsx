@@ -19,7 +19,6 @@ import FormControl from "@mui/material/FormControl";
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
-const { sno } = useParams();
   const [category, setcategory] = useState("");
   
     const [open, setOpen] = React.useState(false);
@@ -31,7 +30,7 @@ const { sno } = useParams();
     const [openSecondDialog, setOpenSecondDialog] = useState(false);
 const email=localStorage.getItem("userMail");
 
-    // const {sno}=useParams()
+    // console.log(sno);
   const handleCloseFirstDialog = () => {
     setOpenFirstDialog(false);
   };
@@ -50,11 +49,14 @@ const email=localStorage.getItem("userMail");
   const handleOpenFirstDialog = () => {
     setOpenFirstDialog(true);
   };
+
+const { sno } = useParams();
 const [Data, setData] = useState(() => {
+
   const storedData = localStorage.getItem("selectedFileData");
   return {
-    adminId: "nandinivebbox@gmail.com",
-    institutionId: "1",
+    adminId:email,
+    institutionId: sno,
     stageId: "1",
     mcqId: "2",
     category: category,
@@ -66,6 +68,7 @@ const [Data, setData] = useState(() => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
+      
       const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: "array" });
       const sheetName = workbook.SheetNames[0];
@@ -74,7 +77,7 @@ const [Data, setData] = useState(() => {
 
       setData({
         ...Data,
-        institutionId: "1",
+        institutionId: "1", 
         stageId: "1",
         mcqId: "2",
         category: category,
@@ -100,7 +103,7 @@ const [Data, setData] = useState(() => {
       );
       // setMonth("");
       // setYear("");
-      window.location.href = `/uploadtestmodel/${sno}`;
+      // window.location.href = `/uploadtestmodel/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }

@@ -18,7 +18,7 @@ export const NotificationStyle = styled("div")(() => ({
     paddingLeft:"40px",
     marginBottom: "10px",
     width: "70vw",
-    height:"80vh",
+    // height:"80vh",
     flexDirection:"column"
   },
 
@@ -73,10 +73,10 @@ export const NotificationStyle = styled("div")(() => ({
   ".details":{
     display:"flex",
     justifyContent:"space-between",
-    width:"60vw",
+    // width:"60vw",
     backgroundColor:"white",
     padding:"10px",
-    height:"44px",
+    // height:"54px",
     borderRadius:"5px",
     margin:"20px"
   }

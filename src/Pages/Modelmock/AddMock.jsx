@@ -7,12 +7,17 @@ import AlertIcon from '../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
 import { useContext } from "react";
 import { navContext } from "../../context/navContext";
+import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-export default function AddMock() {
+export default function AddMock() { 
   const[mcq,setMcq]=useState('')
+  const Navigate = useNavigate();
   const [stage, setStage] = useState("");
   const { setMcq: setNavMcq } = useContext(navContext);
   const { setStage: setNavStage } = useContext(navContext);
+const {sno}=useParams();
+
 
 
     const BreadcrumbItems = [
@@ -35,6 +40,8 @@ setStage(event.target.value);
         setMcq(event.target.value);
         setNavStage(event.target.value);
       };
+
+      
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
@@ -134,12 +141,12 @@ setStage(event.target.value);
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Choose Stages</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='number' style={TextB} value={stage} onChange={handlechange}/></div>
+                <div><input type='number' style={TextB} value={stage} onChange={handlechange} required/></div>
               </div>
               <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
                 <div><label>Model MCQ</label></div>
                 {/* <div><img src={AlertIcon}/></div> */}
-                <div><input type='text' style={TextB} value={mcq} onChange={handlechanged}/></div>
+                <div><input type='text' style={TextB} value={mcq} onChange={handlechanged} required/></div>
               </div>
              
               
@@ -147,8 +154,8 @@ setStage(event.target.value);
             </div>
             <div>
               <div style={{marginTop:"30px",display:"flex",justifyContent:"end",width:"530px"}}>
-               <NavLink to="/addmock1">
-               <button style={btn1}>NEXT</button>
+               <NavLink to={`/addmock1/${sno}`}>
+               <button style={btn1} >NEXT</button>
                </NavLink>
               </div>
             </div>
