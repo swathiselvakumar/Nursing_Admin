@@ -92,9 +92,10 @@ const email=localStorage.getItem("userMail");
   const CardDelete = async (sno) => {
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteSubWiseSubject.php",
         {
           data: {
+            adminId:email,
             subjectId: sno,
           },
         }

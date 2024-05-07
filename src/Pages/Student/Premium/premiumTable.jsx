@@ -56,7 +56,7 @@ console.log(index);
   const blocklist = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockPremium.php",
         {
           adminId:email,
           id: modified.email,
@@ -105,6 +105,7 @@ const handleCloseDialog = () => {
       );
 
       setOriginaldata(response.data);
+      // console.log(response.data);
 
       const unblockedData = response.data.filter(
         (item) => item.status === 1

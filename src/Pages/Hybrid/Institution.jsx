@@ -20,6 +20,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { PATH } from '../../constants/routeConstants'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
+import axios from 'axios';
+import { useState,useEffect } from 'react';
 
 export default function DailyInstitution() {
   const BreadcrumbItems = [
@@ -36,7 +38,8 @@ export default function DailyInstitution() {
 
   const [open, setOpen] = React.useState(false);
   const [openBtn, setOpenBtn] = React.useState(false);
-
+  const [data,setdata]=useState([]);
+  const email=localStorage.getItem("userMail");
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
@@ -50,6 +53,25 @@ export default function DailyInstitution() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const fetchApi=async()=>{
+    try{ 
+      const response = await axios.post(
+            "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewDailyTestDetails.php",
+            {
+              adminId:email
+            }
+          );
+          setdata(response.data);
+      }catch(error)
+      {
+            console.error("Error fetching data:", error);
+      
+      }
+  }
+  useEffect(()=>{
+    fetchApi();
+  },[])
 
   return (
     <div style={{backgroundColor:"white",padding:"10px"}}>
@@ -71,14 +93,18 @@ export default function DailyInstitution() {
     <div className='TotalBox'>
     <Container  className='MainBox'>
       <Row>
-        <Col className='Col1'>
+        {
+          data.map((d)=>(
+            <Col className='Col1'>
         <div className='box'>
           <NavLink to="/uploaddailytest" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>Test Name 1</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <img src={Delete} className='delete'/>
+          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>{d.test_name}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+          {/* <img src={Delete} className='delete'/> */}
           </NavLink>
         </div>
         </Col>
+          ))
+        }
         
       </Row>
       

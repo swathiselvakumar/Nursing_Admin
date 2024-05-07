@@ -41,6 +41,7 @@ const {sno}=useParams();
         "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteNonNursingPaper.php",
         {
           data: {
+            adminId:email,
             paperId: sno,
           }, 
         }

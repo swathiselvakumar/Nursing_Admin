@@ -146,10 +146,11 @@ const email=localStorage.getItem("userMail");
   // setclick(true);
   try {
     const res = await axios.delete(
-      "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+      "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQPaper.php",
       {
         data: {
-          institutionId: sno,
+          adminId:email,
+          paperId: sno,
         },
       }
     );

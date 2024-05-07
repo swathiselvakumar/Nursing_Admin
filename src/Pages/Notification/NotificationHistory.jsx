@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -24,7 +25,7 @@ function NotificationHistory() {
    const [yesterdaynotifications, setYesterdaynotifications] = useState([]);
    const [allnotifications, setAllnotifications] = useState([]);
    const email=localStorage.getItem("userMail");
-
+  const Navigate=useNavigate();
   const BreadcrumbItems = [
     // { label: "Dashboard", path: PATH.DASHBOARD },
     
@@ -157,17 +158,18 @@ function NotificationHistory() {
               }}
             >
               <CustomBreadCrumbs items={BreadcrumbItems} />
-              <button className="notify">
+              <button className="notify" onClick={()=>Navigate('/notification')}>
                 <NotificationsIcon style={{ fontSize: "19px" }} />
                 &nbsp;Send Notification
               </button>
             </div>
             <div>
-              {todaynotifications.map((notification, index) => (
-                <div key={index}>
-                  <label htmlFor="description" className="pass-lab">
+            <label htmlFor="description" className="pass-lab">
                     Today
                   </label>
+              {todaynotifications.map((notification, index) => (
+                <div key={index}>
+                  
                   <div className="details">
                     <p>{notification.admin_id}</p>
                     <p>{notification.title}</p>
@@ -178,12 +180,13 @@ function NotificationHistory() {
               ))}
             </div>
             <div>
+            <label htmlFor="description" className="pass-lab">
+                      yesterday
+                    </label>
               {Array.isArray(yesterdaynotifications) &&
                 yesterdaynotifications.map((notification, index) => (
                   <div key={index}>
-                    <label htmlFor="description" className="pass-lab">
-                      yesterday
-                    </label>
+                    
                     <div className="details">
                       <p>{notification.admin_id}</p>
                       <p>{notification.title}</p>
@@ -193,11 +196,12 @@ function NotificationHistory() {
                   </div>
                 ))}
             </div>
-            {allnotifications.map((notification, index) => (
-              <div key={index}>
-                <label htmlFor="description" className="pass-lab">
+            <label htmlFor="description" className="pass-lab">
                  All notification 
                 </label>
+            {allnotifications.map((notification, index) => (
+              <div key={index}>
+                
                 <div className="details">
                   <p>{notification.admin_id}</p>
                   <p>{notification.title}</p>

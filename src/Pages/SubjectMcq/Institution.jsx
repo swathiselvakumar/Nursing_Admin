@@ -121,6 +121,7 @@ export default function SubInstitution() {
         "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteSubWisePaper.php",
         {
           data: {
+            adminId:email,
             paperId: sno,
           }, 
         }

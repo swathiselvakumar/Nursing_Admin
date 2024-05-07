@@ -97,6 +97,7 @@ const email=localStorage.getItem("userMail");
         "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteModelMockCategory.php",
         {
           data: {
+            adminId:email,
             institutionId: sno,
           },
         }

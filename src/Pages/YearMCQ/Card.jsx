@@ -67,6 +67,7 @@ const [click, setclick] = useState(false);
         "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
         {
           data: {
+            adminId:email,
             institutionId: sno,
           },
         }

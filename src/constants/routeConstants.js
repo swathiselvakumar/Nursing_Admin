@@ -39,7 +39,7 @@ export const PATH = {
   ADDQUESTION: "/addquestion",
   ADDNONNURSING: "/addnonnursing/:sno/:lastId",
   ADDMOCK: "/addmock/:sno",
-  ADDMOCK1: "/addmock1",
+  ADDMOCK1: "/addmock1/:sno",
   ADDMCQ1: "/addmcq1",
   MCQTABLE: "/mcqtable",
   MCQTABLEPAGE: "/mcqtablepage/:id",

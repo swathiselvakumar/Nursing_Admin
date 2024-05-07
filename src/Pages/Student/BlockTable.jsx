@@ -102,7 +102,7 @@ const email=localStorage.getItem("userMail");
   const table = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/Nursing/controllers/api/admin/get/A_ViewBlockStandardStd.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php",
         {
           adminId:email,
         }

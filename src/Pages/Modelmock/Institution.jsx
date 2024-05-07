@@ -16,7 +16,7 @@ import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import axios from 'axios'
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import { useEffect } from 'react'
 
 export default function ModelInstitution() {
 
@@ -29,6 +29,7 @@ export default function ModelInstitution() {
   ];
   const [open, setOpen] = React.useState(false);
   const[stage,setStage]=useState();
+  const [data,setdata]=useState();
 const email=localStorage.getItem("userMail");
 const {sno}=useParams();
   const handleClickOpen = () => {
@@ -46,8 +47,7 @@ const response = await axios.post(
         stageName: stage,
       }
     );
-    setStage(response.data.stageName)
-    // console.log();
+    setStage(response.data.stageName);
 }catch(error)
 {
       console.error("Error fetching data:", error);
@@ -55,6 +55,27 @@ const response = await axios.post(
 }
     
   };
+
+  const fetchData=async()=>{
+    try{ 
+      const response = await axios.post(
+            "http://localhost/_Nursing_final/controllers/api/admin/get/A_viewStage.php",
+            {
+              adminId:email,
+              institution_id:sno
+            }
+          );
+          setdata(response.data);
+      }catch(error)
+      {
+            console.error("Error fetching data:", error);
+      
+      }
+  }
+
+  useEffect(()=>{
+    fetchData();
+  },[])
 
   const [age, setAge] = React.useState('');
 
@@ -90,34 +111,92 @@ const handlestage = (event) => {
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
+          {
+  data.length > 0 ? (
+    <Container className="MainBox">
+      <Row>
+        {data.map((d) => (
+          <Col className="Col1">
+            <div className="box" style={{ backgroundColor: "black" }}>
+              <button
+                style={{
+                  backgroundColor: "black",
+                  border: "none",
+                  paddingTop: "5px",
+                  color: "white",
+                }}
+              >
+                {d.stage_name}
+              </button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  ) : (
+    <h1>No data available</h1>
+  )
+}
+
+            
+          </Row>
+        </Container>
+        <Container className="MainBox">
+          <Row style={{ marginTop: "-80px" }}>
             <Col className="Col1">
-              <div className="box" style={{ backgroundColor: "black" }}>
-                <button
-                  style={{
-                    backgroundColor: "black",
-                    border: "none",
-                    paddingTop: "5px",
-                    color: "white",
-                  }}
+              <div className="box" style={{marginTop:"20px"}}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                      // marginTop:"10px"
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
-                  Stage 1
-                </button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
               </div>
             </Col>
             <Col className="Col1">
-              <div className="box" style={{ backgroundColor: "black" }}>
-                <button
-                  style={{
-                    backgroundColor: "black",
-                    border: "none",
-                    paddingTop: "5px",
-                    color: "white",
-                  }}
+              <div className="box" style={{marginTop:"20px"}}>
+                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    2022 Model MCQ
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                </NavLink>
+                <NavLink
+                  to="/viewquestionsmodel"
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
                 >
-                  Stage 2
-                </button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
               </div>
             </Col>
           </Row>
@@ -125,7 +204,7 @@ const handlestage = (event) => {
         <Container className="MainBox">
           <Row style={{ marginTop: "-80px" }}>
             <Col className="Col1">
-              <div className="box">
+              <div className="box" style={{marginTop:"35px"}}>
                 <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -152,65 +231,7 @@ const handlestage = (event) => {
               </div>
             </Col>
             <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box">
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box">
+              <div className="box" style={{marginTop:"35px"}}>
                 <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -241,7 +262,7 @@ const handlestage = (event) => {
         <Container className="MainBox">
           <Row style={{ marginTop: "-80px" }}>
             <Col className="Col1">
-              <div className="box">
+              <div className="box" style={{marginTop:"35px"}}>
                 <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -268,7 +289,7 @@ const handlestage = (event) => {
               </div>
             </Col>
             <Col className="Col1">
-              <div className="box">
+              <div className="box" style={{marginTop:"35px"}}>
                 <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -296,7 +317,7 @@ const handlestage = (event) => {
             </Col>
           </Row>
         </Container>
-        <div className="BtnBox" style={{ marginTop: "-30px" }}>
+        <div className="BtnBox" style={{marginTop:"20px"}}>
           <button className="Btn" onClick={handleClickOpen}>
             Add Stage
           </button>
