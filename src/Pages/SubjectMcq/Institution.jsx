@@ -51,7 +51,7 @@ export default function SubInstitution() {
         const id = `${mcq.sno}_${j}`; // Concatenate sno with index for unique ID
         
         rowItems.push(
-          <Col key={mcq.sno} id={id} className="MainBox">
+          <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
               <NavLink to="/mcqnursingtable" style={{ textDecoration: "none" }}>
                 <button

@@ -20,9 +20,9 @@ export default function DailyTestTable() {
   const fetchTestData = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/User/get/U_ViewDailyTestDetails.php",
+        "http://localhost/_Nursing/controllers/api/admin/get/A_ViewDailyTestDetails.php",
         {
-          userId: "swathi@gmail.com",
+          adminId: "nandinivebbox@gmail.com",
         }
       );
       setTestData(response.data);
@@ -44,7 +44,7 @@ export default function DailyTestTable() {
           <Typography style={{ paddingBottom: "10px", fontWeight: "bold" }}>
             Recent Test
           </Typography>
-          <Table sx={{ minWidth: 550 }} size="small" aria-label="a dense table">
+          <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow style={{ backgroundColor: "#e7f6f2" }}>
                 <TableCell
