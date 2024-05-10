@@ -29,9 +29,7 @@ import { useContext } from "react";
 import { navContext } from "../../context/navContext";
 // import UnBlockIcon from "../../assets/icons/unlock.png";
 
-function createData(sno, sname, email, memberSince) {
-  return { sno, sname, email, memberSince };
-}
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -41,7 +39,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(2),
   },
 }));
-export default function StdTb({tableData,}) {
+export default function StdTb({tableData}) {
   // const [openDialog, setOpenDialog] = useState(false);
   const [open, setOpen] = useState(false);
   const {index,setindex}=useContext(navContext);
@@ -51,7 +49,7 @@ export default function StdTb({tableData,}) {
     // const [index, setindex] = useState();
     const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
-const email=localStorage.getItem("userMail");
+const emailId=localStorage.getItem("userMail");
 // console.log(tableData);
   // console.log(index);
   const handleClickOpens = () => {
@@ -79,7 +77,7 @@ useEffect(() => {
   // }
 }, [True]);
 useEffect(()=>{
-console.log(tableData);
+// console.log(tableData);
 },[])
   
   const Btn = {
@@ -116,17 +114,19 @@ console.log(tableData);
     const response = await axios.post(
       "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
       {
-        adminId:email,
+        adminId:emailId,
         id: modified.email,
         status: modified.status,
       }
     );
+    console.log(response.data);
 
 
    } catch (error) {
      console.error("Error fetching data:", error);
    }
  };
+//  https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockStandard.php
 const handleClose = () => {
   setOpen(false);
   const modifiedData = { ...modified, status: "block" };
@@ -139,28 +139,7 @@ const handleClose = () => {
  }; 
  console.log(index);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockSt.php",
-  //       {
-  //         adminId: email,
-  //       }
-  //     ); 
-  //     // const blockedData = response.data.filter((item) => item.status === 1);
-
-  //    const newData = response.data.map((item) =>
-  //      createData(item.sno, item.username, item.email, item.plan_join_date)
-  //    );
-
-  //     console.log(newData);
-
-  //     setRows(newData);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
+  
   return (
     <>
       <TableStdStyle>

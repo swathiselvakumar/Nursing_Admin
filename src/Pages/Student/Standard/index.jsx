@@ -52,7 +52,7 @@ export default function Standard() {
     try {
     
       const response = await axios.post(
-        "http://localhost/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
         {
           adminId: email,
           searchData:event.target.value,
@@ -77,7 +77,7 @@ export default function Standard() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockStandard.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockStandard.php",
         {
           adminId: email,
         }
@@ -90,7 +90,7 @@ export default function Standard() {
        createData(Number(i+1), item.username, item.email, item.plan_join_date)
      );
 
-      // console.log(newData);
+      // console.log(newData); 
 
       setTableData(newData);
     } catch (error) {

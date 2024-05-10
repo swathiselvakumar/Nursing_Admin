@@ -26,7 +26,7 @@ function createData(sno, sname, email, memberSince, expireddate) {
   return { sno, sname, email, memberSince, expireddate };
 }
 
-export default function PremiumTb({data}) {
+export default function PremiumTb({tableData}) {
   const [openDialog, setOpenDialog] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -56,7 +56,7 @@ console.log(index);
   const blocklist = async () => {
     try {
       const response = await axios.put(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockPremium.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php",
         {
           adminId:email,
           id: modified.email,
@@ -91,46 +91,46 @@ const handleCloseDialog = () => {
     setOpenModal(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPremiumSt.php",
-        {
-          adminId:email,
-        }
-      );
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPremiumSt.php",
+  //       {
+  //         adminId:email,
+  //       }
+  //     );
 
-      setOriginaldata(response.data);
-      // console.log(response.data);
+  //     setOriginaldata(response.data);
+  //     // console.log(response.data);
 
-      const unblockedData = response.data.filter(
-        (item) => item.status === 1
-      );
+  //     const unblockedData = response.data.filter(
+  //       (item) => item.status === 1
+  //     );
 
-      // const search =response.data.filter((item)=>item.)
+  //     // const search =response.data.filter((item)=>item.)
 
-      const newData = unblockedData.map((item) =>
-        createData(
-          item.id,
-          item.username,
-          item.email,
-          item.plan_join_date,
-          item.plan_expiry_date
-        )
-      );
+  //     const newData = unblockedData.map((item) =>
+  //       createData(
+  //         item.id,
+  //         item.username,
+  //         item.email,
+  //         item.plan_join_date,
+  //         item.plan_expiry_date
+  //       )
+  //     );
 
-      setRows(newData);
-      console.log(newData)
-      console.log(rows);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
+  //     setRows(newData);
+  //     console.log(newData)
+  //     console.log(rows);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+console.log(tableData);
 
   return (
     <>
@@ -166,7 +166,7 @@ const handleCloseDialog = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => (
+                {tableData.map((row, index) => (
                   <TableRow
                     className="tb-row"
                     key={row.sno}
@@ -182,7 +182,6 @@ const handleCloseDialog = () => {
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
                     <TableCell align="left">{row.expireddate}</TableCell>
-                    {/* <TableCell align="left">{row.expireddate}</TableCell> */}
                     <TableCell align="center">
                       <img
                         src={BlockIcon}
