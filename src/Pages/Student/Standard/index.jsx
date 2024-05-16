@@ -1,26 +1,18 @@
 import { Button, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { StandardStyle } from "./style";
-import SearchIcon from "@mui/icons-material/Search";
-import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
 import { Container, Row, Col } from "react-bootstrap";
-import UpdateIcon from "@mui/icons-material/Update";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import StdTb from "../../StudentTable/StdTb";
-import Dialog from "@mui/material/Dialog";
-import BreadcrumbsComp from "../../../components/Common/BreadCrumbs";
 import Pagination from "@mui/material/Pagination";
 import Block from "../../../assets/icons/block.png";
 import { NavLink } from "react-router-dom";
 import CustomBreadCrumbs from "../../../components/Common/CustomBreadcrumbs";
-import { getLocalStorage } from "../../../utils/helperFunc";
 import { PATH } from "../../../constants/routeConstants";
 import SearchAppBar from "../../../components/Common/Searchinput/Search";
 import axios from "axios";
-import { navContext } from "../../../context/navContext";
+
 export default function Standard() {
-  const languageName = getLocalStorage("languageName");
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -31,7 +23,10 @@ export default function Standard() {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState(""); // State variable to store search input
   const [tableData, setTableData] = useState([]);
-  const {index,setindex}=useContext(navContext)
+  const [orgData,setOrgData]=useState([]);
+  const [stdId,setStdId]=useState(null);
+
+  console.log("stdId",stdId);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -46,26 +41,22 @@ export default function Standard() {
   
 
   const handleChange = async (event) => {
-    // console.log(event.target.value);
-    // const { value } = event.target.value;
     setSearch(event.target.value);
     try {
     
       const response = await axios.post(
-        "http://localhost/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
         {
           adminId: email,
           searchData:event.target.value,
           accountType:"standard"
         }
       );
-      const blockedData = response.data.filter((item) => item.status === 1);
+      // const blockedData = response.data.filter((item) => item.status === 1);
 
      const newData = response.data.map((item,i) =>
        createData(Number(i+1), item.username, item.email, item.plan_join_date)
      );
-
-      // console.log(response.data);
       setLoaded(true)
       setTableData(newData);
     } catch (error) {
@@ -77,20 +68,18 @@ export default function Standard() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockStandard.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockStandard.php",
         {
-          adminId: email,
+          adminId: email,  
         }
       );
       setLoaded(true)
       console.log(response.data);
-      // const blockedData = response.data.filter((item) => item.status === 1);
 
      const newData = response.data.map((item,i) =>
        createData(Number(i+1), item.username, item.email, item.plan_join_date)
      );
 
-      // console.log(newData);
 
       setTableData(newData);
     } catch (error) {
@@ -160,10 +149,7 @@ export default function Standard() {
           </Row>
         </Container>
         <div style={{ marginTop: "25px", padding: "10px" }}>
-          {/* <StdTb /> */}
-          <StdTb tableData={tableData}   onClick={() => {
-                      setindex(index);
-                    }}/>
+          <StdTb tableData={tableData} updateStudentId={setStdId}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

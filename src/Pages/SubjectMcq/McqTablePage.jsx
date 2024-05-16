@@ -104,9 +104,9 @@ export default function McqTablePage() {
                   2022 Model MCQ
                 </Typography>
               </div>
-              <div className="search">
+              {/* <div className="search">
                 <SearchAppBar value={search} onChange={handleChange} />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>

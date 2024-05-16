@@ -67,7 +67,7 @@ export default function Otp() {
     const handleOTP = async () => {
       try {
         const response = await axios.post(
-          'http://localhost/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
+          'https://vebbox.in/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
           {
             gmailId: email,
             otp:otp

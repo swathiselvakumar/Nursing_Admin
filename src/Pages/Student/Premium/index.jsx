@@ -19,6 +19,7 @@ import { getLocalStorage } from '../../../utils/helperFunc';
 import SearchAppBar from '../../../components/Common/Searchinput/Search';
 import axios from 'axios';
 import { Value } from 'sass';
+import { useEffect } from "react";
 export default function Premium() {
   const languageName = getLocalStorage("languageName");
 
@@ -27,13 +28,17 @@ export default function Premium() {
     
     { label: "Premium List", path: PATH.PREMIUM },
   ];
-  // useEffect(() => {
-  //   handleClickOpenSearch();
-  // }, [search]);
+  function createData(sno, sname, email, memberSince, expireddate) {
+    return { sno, sname, email, memberSince, expireddate };
+  }
  
   const [open, setOpen] = React.useState(false);
  const [search, setSearch] = useState("");
  const [searchData,setsearchdata]=useState([]);
+ const [tableData, setTableData] = useState([]);
+ const [loaded, setLoaded] = useState(false)
+ console.log(loaded);
+
  const email=localStorage.getItem("userMail");
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,13 +58,53 @@ export default function Premium() {
           accountType:"premium" 
         }
       );
-      setsearchdata(response.data);
+      setTableData(response.data);
       console.log(searchData);
     } catch (error) {
       console.error("search datas not found:", error);
     }
     
    };
+
+   const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php",
+          {
+            adminId:email,
+          }
+        );
+  
+        // setOriginaldata(response.data);
+        // console.log(response.data);
+  
+        const unblockedData = response.data.filter(
+          (item) => item.status === 1
+        );
+  
+        // const search =response.data.filter((item)=>item.)
+  
+        const newData = unblockedData.map((item) =>
+          createData(
+            item.id,
+            item.username,
+            item.email,
+            item.plan_join_date,
+            item.plan_expiry_date
+          )
+        );
+  
+        setTableData(newData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+  
+  useEffect(()=>{
+    fetchData();
+    handleChange();
+  },[loaded])
    
    
 
@@ -67,7 +112,8 @@ export default function Premium() {
   const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
   return (
     <PremiumStyle>
-      <div className="bodystyle">
+     
+        <div className="bodystyle">
         <div style={{ padding: "25px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
@@ -103,12 +149,13 @@ export default function Premium() {
           </Row>
         </Container>
         <div style={{ marginTop: "25px", padding: "10px" }}>
-          <PremiumTb data={searchData}/>
+          <PremiumTb tableData={tableData} setLoaded={setLoaded} loaded={loaded}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />
         </div>
       </div>
+      
     </PremiumStyle>
   );
 }
