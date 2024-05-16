@@ -15,7 +15,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import { SidebarStyleWrapper } from "./style";
 import { TopListData } from "./ListItems/ListData";
 import MenuListItem from "./ListItems";
-
+import '@fontsource/dm-sans'
 // icons
 import AndroidOutlinedIcon from "@mui/icons-material/AndroidOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -82,7 +82,14 @@ export default function SideNavigationbar() {
   return (
     <SidebarStyleWrapper>
       <Box sx={{ display: "flex" }}>
-        <Drawer variant="permanent" open={open} className="drawer">
+        <Drawer
+          variant="permanent"
+          open={open}
+          className="drawer"
+        //   ModalProps={{
+        //     keepMounted: true, // Better open performance on mobile.
+        //   }}
+        >
           <DrawerHeader>
             <List>
               <ListItem disablePadding sx={{ display: "block" }}>
@@ -100,11 +107,13 @@ export default function SideNavigationbar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                     }}
-                  >
-                   
-                  </ListItemIcon>
+                  ></ListItemIcon>
                   <ListItemText
-                    primary={<Typography>Company Name</Typography>}
+                    primary={
+                      <Typography style={{ fontFamily: "Roboto, sans-serif" }}>
+                        Nursing Update
+                      </Typography>
+                    }
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -151,9 +160,7 @@ export default function SideNavigationbar() {
                   <data.icon
                     sx={{
                       color:
-                        data.path === locatePath
-                          ? theme.font.primary
-                          : theme.font.white,
+                        data.path === locatePath ? "#F0A04B" : theme.font.white,
                     }}
                     fontSize="medium"
                   />

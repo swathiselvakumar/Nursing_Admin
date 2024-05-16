@@ -1,0 +1,154 @@
+*{
+    font-family: "Roboto", sans-serif;
+  }
+  .Div{
+      background-color: white;
+    
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      display:flex;
+      justify-content:center;
+      flex-direction: column;
+      align-items:center;
+      border-radius:10px;
+      padding:20px;
+      position: relative;
+  }
+  .Div:hover .del{
+    display: block;
+  }
+  .Div:hover{
+      background-color:#fefbe9;
+  }
+   .del{
+  padding: 10px;
+  display: none;
+  position: absolute;
+  right:0;
+  top:0
+  }
+  .title1{
+    display:flex;
+    background-color: #e7f6f2;
+    padding:10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  
+  }
+  .delete{
+    padding: 10px;
+    display: none;
+    position: absolute;
+    right:0;
+    top:8px
+  }
+  .box{
+    background-color: white;
+    width:300px;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: relative;
+  }
+  .box:hover .delete{
+    display: block;
+   
+  }
+  
+  .MainBox{
+    justify-content: center;
+    padding: 25px;
+  }
+  .Col1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:10px
+  }
+  .TotalBox{
+    background-color:#f6f6f6;
+    /* width:600px */
+  }
+  .BtnBox{
+    display: flex;
+    justify-content: center;
+  }
+  .Btn{
+    border:none;
+    background-color: #e4a45a;
+    color:white;
+    height: 40px;
+    width: 250px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .Submit{
+    border:none;
+    background-color:#1b4242;
+    color:white;
+    height: 40px;
+    width: 300px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+  }
+  .Submit1{
+    border:none;
+    background-color:#1b4242;
+    color:white;
+    height: 60px;
+    /* width: 100px; */
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    margin:40px;
+  }
+  .Main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+  .Sub{
+    background-color: #f6f6f6;
+    height: 360px;
+    width:500px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .Number{
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #DEE2DF;
+    padding-left: 15px;
+    height: 30px;
+    width:220px;
+  }
+  .SubBtn{
+    border:none;
+    width:220px;
+    height: 30px;
+    color: white;
+    background-color: #1b4242;
+    border-radius: 5px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .SubBtn1{
+    border:none;
+    width:220px;
+    height: 30px;
+    color:black;
+    background-color:white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }

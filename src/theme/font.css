@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "fontLight";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: local("Source Sans 3"), local("Light"),
+    url("../assets/fonts/SourceSans3/Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "fontRegular";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local("Source Sans 3"), local("Regular"),
+    url("../assets/fonts/SourceSans3/Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "fontMedium";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: local("Source Sans 3"), local("Medium"),
+    url("../assets/fonts/SourceSans3/Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "fontSemiBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: local("Source Sans 3"), local("SemiBold"),
+    url("../assets/fonts/SourceSans3/SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "fontBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: local("Source Sans 3"), local("Bold"),
+    url("../assets/fonts/SourceSans3/Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "fontExtraBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: local("Source Sans 3"), local("ExtraBold"),
+    url("../assets/fonts/SourceSans3/ExtraBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "latoFontRegular";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local("Lato"), local("Lato-Regular"),
+    url("../assets/fonts/Lato/Lato-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "latoFontBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: local("Lato"), local("Lato-Bold"),
+    url("../assets/fonts/Lato/Lato-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeRegular";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local("Segoe UI"), local("Lato-Bold"),
+    url("../assets/fonts/SegoeUi/Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeLight";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: local("Segoe UI"), local("Lato-Bold"),
+    url("../assets/fonts/SegoeUi/Light-300.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeSemiBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: local("Segoe UI"), local("Lato-Bold"),
+    url("../assets/fonts/SegoeUi/Semibold-600.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: local("Segoe UI"), local("Lato-Bold"),
+    url("../assets/fonts/SegoeUi/Black-900.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeExtraBold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: local("Segoe UI"), local("ExtraBold"),
+    url("../assets/fonts/SegoeUi/Black-900.ttf") format("truetype");
+}
+@font-face {
+  font-family: "segoeItalic";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local("Segoe UI"), local("ExtraBold"),
+    url("../assets/fonts/SegoeUi/Italique-400.ttf") format("truetype");
+}
