@@ -15,22 +15,17 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { TableStdStyle } from "../../StudentTable/style";
 import Profile from "../../Profile";
 import BlockIcon from "../../../assets/icons/block.png";
 
-function createData(sno, sname, email, memberSince, expireddate) {
-  return { sno, sname, email, memberSince, expireddate };
-}
 
-export default function PremiumTb({tableData}) {
+
+export default function PremiumTb({tableData,setLoaded,loaded}) {
   const [openDialog, setOpenDialog] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [rows, setRows] = useState([]);
   const [Originaldata,setOriginaldata] = useState();
   const [modified,setmodified] = useState();
   const [index,setindex] = useState();
@@ -40,47 +35,58 @@ const email=localStorage.getItem("userMail");
 
 console.log(index);
   useEffect(() => {
-    if (Originaldata && index >= 0) {
-      setmodified(Originaldata[index]);
+    if (tableData && index >= 0) {
+      setmodified(tableData[index]);
+      console.log(tableData[index]);
     }
-  }, [Originaldata, index]);
+  }, [index]);
 
-  useEffect(()=>{
-    blocklist()
-  },[True])
+  // useEffect(()=>{
+
+  //   blocklist();
+  //   // console.log(modified.email);
+  // },[])
 
 
-  // console.log(modified);
+  const handleCloseDialog = () => {
+  
+
+    setOpenDialog(false);
+  };
+
+  const handleCloseDialogBlk=()=>{
+    // const modifiedData = { ...modified, status: "block" };
+    // setmodified({ ...modified, status: "block" });
+    console.log(modified.email);
+    setTrue(!True)
+    blocklist();
+    setOpenDialog(false);
+  }
 
 
   const blocklist = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
         {
           adminId:email,
           id: modified.email,
-          status: modified.status,
+          status: "block",
         }
       );
+      setLoaded(!loaded);
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
     
   };
 
-
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
 
-const handleCloseDialog = () => {
-  
-  const modifiedData = { ...modified, status: "block" };
-  setmodified(modifiedData);
-  setTrue(!True)
-  setOpenDialog(false);
-};
+
 
 
   const handleOpenModal = () => {
@@ -206,7 +212,7 @@ console.log(tableData);
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleCloseDialog} color="error">
+          <Button onClick={handleCloseDialogBlk} color="error">
             Block
           </Button>
         </DialogActions>

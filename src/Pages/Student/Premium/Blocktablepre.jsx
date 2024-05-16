@@ -47,6 +47,8 @@ function Blocktablepre() {
 const email=localStorage.getItem("userMail");
 
 
+// console.log(index);
+
   useEffect(() => {
     if (Originaldata && index >= 0) {
       setmodified(Originaldata[index]);

@@ -5,30 +5,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { TableStdStyle } from "./style";
 import Dialog from "@mui/material/Dialog";
 import Modal from "@mui/material/Modal";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContentText from "@mui/material/DialogContentText";
-
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import { Typography, Button } from "@mui/material";
 import Rong from "../../assets/icons/rong.jpg";
 import { styled } from "@mui/material/styles";
-import Delete from "../../assets/icons/delete.jpeg";
 import Block from "../../assets/icons/block.png";
 import Profile from "../Profile";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { useContext } from "react";
 import { navContext } from "../../context/navContext";
-// import UnBlockIcon from "../../assets/icons/unlock.png";
-
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -39,19 +32,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(2),
   },
 }));
-export default function StdTb({tableData}) {
-  // const [openDialog, setOpenDialog] = useState(false);
+export default function StdTb({ tableData, updateStudentId }) {
   const [open, setOpen] = useState(false);
-  const {index,setindex}=useContext(navContext);
+  const { index, setindex } = useContext(navContext);
   const [rows, setRows] = useState([]);
-    const [Originaldata, setOriginaldata] = useState();
-    const [modified, setmodified] = useState();
-    // const [index, setindex] = useState();
-    const [True, setTrue] = useState();
+  const [Originaldata, setOriginaldata] = useState();
+  const [modified, setmodified] = useState();
+  const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
-const emailId=localStorage.getItem("userMail");
-// console.log(tableData);
-  // console.log(index);
+  const emailId = localStorage.getItem("userMail");
   const handleClickOpens = () => {
     setModal(true);
   };
@@ -59,27 +48,22 @@ const emailId=localStorage.getItem("userMail");
     setModal(false);
   };
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e,row) => {
+    e.stopPropagation();
     setOpen(true);
-  };
-// useEffect(() => {
-//   fetchData();
-// }, []);
-useEffect(() => {
-  if (Originaldata && index >= 0) {
-    setmodified(Originaldata[index]);
+    updateStudentId(row.sno);
   }
-}, [Originaldata, index]);
-useEffect(() => {
-  // console.log("Modified changed:", modified);
-  // if (modified && modified.email) {
+  useEffect(() => {
+    if (Originaldata && index >= 0) {
+      setmodified(Originaldata[index]);
+    }
+  }, [Originaldata, index]);
+  useEffect(() => {
     blocklist();
-  // }
-}, [True]);
-useEffect(()=>{
-// console.log(tableData);
-},[])
-  
+  }, [True]);
+  useEffect(() => {
+  }, []);
+
   const Btn = {
     backgroundColor: "white",
     color: "black",
@@ -96,50 +80,37 @@ useEffect(()=>{
   };
   const style = {
     position: "absolute",
-    // top: '50%',
-    // left: '50%',
     transform: "translate(5%, 5%)",
-    // width: 400,
     bgcolor: "background.paper",
-    // border: '2px solid #000',
-    // boxShadow: 24,
     p: 4,
     width: "90%",
-    // height:'92%'
   };
-//  console.log(modified);
+ 
 
- const blocklist = async () => {
-   try {
-    const response = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
-      {
-        adminId:emailId,
-        id: modified.email,
-        status: modified.status,
-      }
-    );
-    console.log(response.data);
-
-
-   } catch (error) {
-     console.error("Error fetching data:", error);
-   }
- };
-//  https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockStandard.php
-const handleClose = () => {
-  setOpen(false);
-  const modifiedData = { ...modified, status: "block" };
-  setmodified(modifiedData);
-  // console.log(modifiedData);
-  setTrue(!True);
-};
- const handleOpenDialog = () => {
-   setOpenDialog(true);
- }; 
- console.log(index);
-
-  
+  const blocklist = async () => {
+    try {
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        {
+          adminId: emailId,
+          id: modified.email,
+          status: modified.status,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const handleClose = () => {
+    setOpen(false);
+    const modifiedData = { ...modified, status: "block" };
+    setmodified(modifiedData);
+    setTrue(!True);
+  };
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
   return (
     <>
       <TableStdStyle>
@@ -176,28 +147,16 @@ const handleClose = () => {
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    onClick={() => {
-                      setindex(index);
-                    }}
+                    onClick={handleClickOpens}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}
                     </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.sname}
-                    </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.email}
-                    </TableCell>
-                    <TableCell align="left" onClick={handleClickOpens}>
-                      {row.memberSince}
-                    </TableCell>
-                    <TableCell align="center">
-                      <img
-                        src={Block}
-                        height="20px"
-                        onClick={handleClickOpen}
-                      />
+                    <TableCell align="left">{row.sname}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.memberSince}</TableCell>
+                    <TableCell align="center" onClick={(e)=>handleClickOpen(e,row)}>
+                      <img src={Block} height="20px" />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -243,7 +202,6 @@ const handleClose = () => {
       </BootstrapDialog>
       <Modal
         open={modal}
-        // onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         style={{ height: "10%" }}

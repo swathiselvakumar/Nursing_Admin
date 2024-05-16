@@ -46,7 +46,6 @@ function UnBlockTable() {
   const [True, setTrue] = useState();
 const email=localStorage.getItem("userMail");
 
-
   useEffect(() => {
     if (Originaldata && index >= 0) {
       setmodified(Originaldata[index]);

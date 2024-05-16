@@ -37,6 +37,7 @@ export default function Premium() {
  const [searchData,setsearchdata]=useState([]);
  const [tableData, setTableData] = useState([]);
  const [loaded, setLoaded] = useState(false)
+ console.log(loaded);
 
  const email=localStorage.getItem("userMail");
   const handleClickOpen = () => {
@@ -94,8 +95,6 @@ export default function Premium() {
         );
   
         setTableData(newData);
-        // console.log(newData)
-        // console.log(rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -104,7 +103,8 @@ export default function Premium() {
   
   useEffect(()=>{
     fetchData();
-  },[])
+    handleChange();
+  },[loaded])
    
    
 
@@ -112,8 +112,7 @@ export default function Premium() {
   const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
   return (
     <PremiumStyle>
-      {
-         loaded ? 
+     
         <div className="bodystyle">
         <div style={{ padding: "25px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
@@ -150,15 +149,13 @@ export default function Premium() {
           </Row>
         </Container>
         <div style={{ marginTop: "25px", padding: "10px" }}>
-          <PremiumTb tableData={tableData}   onClick={() => {
-                      setindex(index);
-                    }}/>
+          <PremiumTb tableData={tableData} setLoaded={setLoaded} loaded={loaded}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />
         </div>
-      </div>:<p>Loading</p>
-      }
+      </div>
+      
     </PremiumStyle>
   );
 }

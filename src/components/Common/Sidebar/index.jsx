@@ -111,7 +111,7 @@ export default function SideNavigationbar() {
                   <ListItemText
                     primary={
                       <Typography style={{ fontFamily: "Roboto, sans-serif" }}>
-                        Company Name
+                        Nursing Update
                       </Typography>
                     }
                     sx={{ opacity: open ? 1 : 0 }}
