@@ -69,13 +69,14 @@ export default function SubInstitution() {
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to="/mcqtablepage" style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqtablepage/${id}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
                     border: "none",
                     paddingTop: "5px",
                   }}
+                  onClick={()=>console.log(`/mcqtablepage/${id}/${sno}`)}
                 >
                   {mcq.paper_name}
                 </button>
@@ -88,7 +89,7 @@ export default function SubInstitution() {
                 />
               </NavLink>
             </div>
-            <NavLink
+            <NavLink 
               to={`/viewquestionssub/${id}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
@@ -149,7 +150,7 @@ export default function SubInstitution() {
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqtablepage/${id}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqtablepage/${id}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",

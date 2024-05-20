@@ -101,7 +101,7 @@ useEffect(()=>{
                 <Col className="Col1">
               <div className="box">
                 <NavLink
-                  to="/miniupload"
+                  to={`/miniupload/${d.sno}`}
                   style={{ textDecoration: "none" }}
                 >
                   <button
@@ -109,13 +109,21 @@ useEffect(()=>{
                       backgroundColor: "white",
                       border: "none",
                       paddingTop: "5px",
-                    }}
+                    }} 
                   >
                     {d.test_name}
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   {/* <img src={Delete} className="delete" /> */}
                 </NavLink>
+                <NavLink 
+              to={`/minitestquestions/${d.sno}`}
+              style={{ textDecoration: "none", marginLeft: "20px" }}
+            >
+              <div style={{ display: "flex", marginLeft: 160,marginTop:"20px" }}>
+                View Questions
+              </div>
+            </NavLink>
               </div>
             </Col>
               ))
@@ -123,11 +131,6 @@ useEffect(()=>{
           </Row>
         </Container>
 
-        <div className='BtnBox'>
-      <NavLink to="/hybridviewtest">
-      <button className='Btn'>View Questions</button>
-      </NavLink>
-    </div>
       </div>
       
       <Dialog

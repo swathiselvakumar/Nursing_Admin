@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -7,7 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import { Container, Row, Col } from "react-bootstrap";
 import UpdateIcon from "@mui/icons-material/Update";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 // import PremiumTb from './premiumTable';
 import Dialog from "@mui/material/Dialog";
 // import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
@@ -18,8 +18,11 @@ import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { getLocalStorage } from "../../utils/helperFunc";
 import MiniTable from "./MiniTable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
+import axios from "axios";
 export default function MiniUpload() {
   const languageName = getLocalStorage("languageName");
+  const {sno}=useParams();
+const email=localStorage.getItem("userMail");
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -65,7 +68,7 @@ export default function MiniUpload() {
 
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
-
+  const [datas,setdata]=useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -77,23 +80,24 @@ export default function MiniUpload() {
     setSearch(value);
     console.log("Search input:", value); // Log the search input value
   };
-  const Btn1 = {
-    backgroundColor: "#fefbe9",
-    width: "200px",
-    fontWeight: "bold",
-    color: "black",
-    textTransform: "capitalize",
-    boxShadow:
-      " rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
-  };
-  const Btn2 = {
-    backgroundColor: "white",
-    color: "black",
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    boxShadow:
-      "rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
-    width: "200px",
+  useEffect(() => {
+    fetchTestDetails();
+  }, []);
+  
+  const fetchTestDetails = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_Mini_testDetails.php",
+        {
+          adminId:email,
+          paperId:sno
+        }
+      );
+     
+      setdata(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
   };
   return (
     <PremiumStyle>
@@ -116,14 +120,14 @@ export default function MiniUpload() {
                   Mini Test
                 </Typography>
               </div>
-              <div className="search">
+              {/* <div className="search">
                 <SearchAppBar value={search} onChange={handleChange} />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <MiniTable />
+          <MiniTable datas={datas}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

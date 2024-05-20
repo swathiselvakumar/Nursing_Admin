@@ -1,19 +1,13 @@
 import React from "react";
 
-export default function Btn({
-  v1,
-  v2,
-  v3,
-  v4,
-  v5, 
-  handleQuestionChange,
-  fetchQuestions,
-}) {
+export default function MicroBtn({ v1, v2, v3, v4, v5, handleQuestionChange,fetchQuestions  }) {
   const handleClick = (index) => {
+    // Call the handleQuestionChange function with the new question id
     handleQuestionChange(index);
-    fetchQuestions(index); // Call fetchQuestions with the index
+    fetchQuestions(index);
   };
-  const btn = {
+
+  const btnStyle = {
     height: "50px",
     width: "50px",
     borderRadius: "50%",
@@ -24,22 +18,23 @@ export default function Btn({
     marginTop: "10px",
     backgroundColor: "white",
   };
+
   return (
     <div style={{ padding: "10px",marginLeft:"30px" }}>
       <div>
-        <button style={btn} onClick={() => handleClick(v1)}>
+        <button style={btnStyle} onClick={() => handleClick(v1)}>
           {v1}
         </button>
-        <button style={btn} onClick={() => handleClick(v2)}>
+        <button style={btnStyle} onClick={() => handleClick(v2)}>
           {v2}
         </button>
-        <button style={btn} onClick={() => handleClick(v3)}>
+        <button style={btnStyle} onClick={() => handleClick(v3)}>
           {v3}
         </button>
-        <button style={btn} onClick={() => handleClick(v4)}>
+        <button style={btnStyle} onClick={() => handleClick(v4)}>
           {v4}
         </button>
-        <button style={btn} onClick={() => handleClick(v5)}>
+        <button style={btnStyle} onClick={() => handleClick(v5)}>
           {v5}
         </button>
       </div>

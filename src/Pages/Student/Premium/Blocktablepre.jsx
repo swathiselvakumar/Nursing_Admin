@@ -101,7 +101,7 @@ const email=localStorage.getItem("userMail");
   const table = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/Nursing/controllers/api/admin/get/A_ViewBlockPremiumStd.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockPremiumStd.php?page=1",
         {
           adminId:email,
         }
@@ -111,8 +111,8 @@ const email=localStorage.getItem("userMail");
 
       const blockedData = response.data.filter((item) => item.status === 0);
 
-      const newData = blockedData.map((item, index) =>
-        createData(item.sno, item.username, item.email, item.plan_join_date)
+      const newData = blockedData.map((item, i) =>
+        createData(Number(i+1), item.username, item.email, item.plan_join_date)
       );
       console.log(newData);
       setRows(newData);

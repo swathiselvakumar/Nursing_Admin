@@ -6,10 +6,10 @@ import { Typography } from "@mui/material";
 import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+ 
 export default function Viewquestions() {
   const { sno } = useParams();
-  const { id } = useParams();
+  const { id } = useParams(); 
 const email=localStorage.getItem("userMail");
 
 

@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { PremiumStyle } from '../Student/Premium/style';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled} from '@mui/material/styles';
@@ -18,9 +18,12 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import { getLocalStorage } from '../../utils/helperFunc';
 import McqTable from './McqTable';
 import SearchAppBar from '../../components/Common/Searchinput/Search';
+import axios from 'axios';
 export default function McqTablePage() {
+  const {id} =useParams();
+  const { sno } = useParams();
   const languageName = getLocalStorage("languageName");
-  const {id} =useParams()
+
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     
@@ -70,6 +73,34 @@ export default function McqTablePage() {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
 
+  const [datas,setdata]=useState([]);
+  
+const email=localStorage.getItem("userMail");
+
+  useEffect(() => {
+    fetchTestDetails();
+  }, []);
+  
+  const fetchTestDetails = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_Subject_testDetails.php",
+        {
+          adminId:email,
+          institutionId:sno,
+          paperId:id
+        }
+      );
+      // const newData = res.data.map((item,i) =>
+      //   createData(Number(i+1), item.student_name, item.total_count, item.correct_count,item.test_date)
+      // );
+      setdata(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
+  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -111,7 +142,7 @@ export default function McqTablePage() {
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <McqTable />
+          <McqTable datas={datas}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

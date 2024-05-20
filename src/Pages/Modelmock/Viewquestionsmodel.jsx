@@ -9,73 +9,11 @@ import { useParams } from "react-router-dom";
 
 export default function Viewquestionsmodel() {
   const { sno } = useParams();
+  const {id}=useParams();
+  const {stageno}=useParams();
 const email=localStorage.getItem("userMail");
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
-  const [questions, setQuestions] = useState([
-    {
-      number: 1,
-      text: "What is your age?",
-      options: ["10-20", "21-30", "31-40", "41+"],
-      answer: "21-30", // Correct answer
-    },
-    {
-      number: 2,
-      text: "What is your name?",
-      options: ["John", "Alice", "Bob", "Jane"],
-      answer: "John", // Correct answer
-    },
-    {
-      number: 3,
-      text: "Javascript is an ___ language?",
-      options: [
-        "Object-Oriented",
-        "Object-Based",
-        "Assembly-language",
-        "High-level+",
-      ],
-      answer: "Object-Based", // Correct answer
-    },
-    {
-      number: 4,
-      text: "The function and  var are known as:",
-      options: [
-        "Keywords",
-        "Data types",
-        "Declaration statements",
-        "Prototypes",
-      ],
-      answer: "Declaration statements", // Correct answer
-    },
-    {
-      number: 5,
-      text: "Which one of the following is the correct way for calling the JavaScript code?",
-      options: ["Preprocessor", "Triggering Event", "RMI", "Function/Method"],
-      answer: "Function/Method", // Correct answer
-    },
-    {
-      number: 6,
-      text: "Which of the following type of a variable is volatile?",
-      options: [
-        "Mutable variable",
-        "Dynamic variable",
-        "Volatile variable",
-        "Immutable variable",
-      ],
-      answer: "Mutable variable", // Correct answer
-    },
-    {
-      number: 7,
-      text: "In the JavaScript, which one of the following is not considered as an error?",
-      options: [
-        "Syntax error",
-        "Missing of semicolons",
-        "Division by zero",
-        "Missing of Bracket",
-      ],
-      answer: "Division by zero", // Correct answer
-    },
-    // Add more questions as needed
-  ]);
+  const [questions, setQuestions] = useState([]);
 
   const finish = {
     width: "100px",
@@ -111,20 +49,23 @@ const email=localStorage.getItem("userMail");
     marginBottom: "20px",
   };
   useEffect(() => {
-    response();
+    fetchQuestions(1);
   }, []);
 
-  const response = async () => {
+  const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockQuestions.php",
         {
           adminId:email,
           institutionId: sno,
-          paperId: "7",
-          questionId: "5",
+          stageId:stageno,
+          mcqId: id,
+          questionId: questionId,
         }
       );
+      setQuestions(res.data);
+      setSelectedQuestionIndex(0); 
     } catch (error) {
       console.error("Error adding new item:", error);
     }
@@ -135,15 +76,15 @@ const email=localStorage.getItem("userMail");
     setSelectedQuestionIndex(index - 1);
   };
 
-  const handleNextQuestion = () => {
-    if (
-      selectedQuestionIndex !== null &&
-      selectedQuestionIndex < questions.length - 1
-    ) {
-      console.log("Next question index:", selectedQuestionIndex + 1);
-      setSelectedQuestionIndex(selectedQuestionIndex + 1);
-    }
-  };
+  // const handleNextQuestion = () => {
+  //   if (
+  //     selectedQuestionIndex !== null &&
+  //     selectedQuestionIndex < questions.length - 1
+  //   ) {
+  //     console.log("Next question index:", selectedQuestionIndex + 1);
+  //     setSelectedQuestionIndex(selectedQuestionIndex + 1);
+  //   }
+  // };
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -178,22 +119,23 @@ const email=localStorage.getItem("userMail");
                 Question Details
               </Typography>
               <hr />
-              {selectedQuestionIndex !== null &&
-                selectedQuestionIndex < questions.length && (
-                  <div>
-                    <p>{questions[selectedQuestionIndex].text}</p>
-                    <ul>
-                      {questions[selectedQuestionIndex].options.map(
-                        (option, index) => (
-                          <li key={index}>{option}</li>
-                        )
-                      )}
-                    </ul>
-                    <p>
-                      Correct Answer: {questions[selectedQuestionIndex].answer}
-                    </p>
-                  </div>
-                )}
+              {questions[selectedQuestionIndex] ? (
+                <div>
+                  <p>{questions[selectedQuestionIndex].questions}</p>
+                  <ul>
+                    {[1, 2, 3, 4].map((option) => (
+                      <li key={option}>
+                        {questions[selectedQuestionIndex][`option${option}`]}
+                      </li>
+                    ))}
+                  </ul>
+                  <p>
+                    Correct Answer: {questions[selectedQuestionIndex].answer}
+                  </p>
+                </div>
+              ) : (
+                <p>No question selected</p>
+              )}
 
              
             </div>
@@ -218,6 +160,7 @@ const email=localStorage.getItem("userMail");
                   v4={index * 5 + 4}
                   v5={index * 5 + 5}
                   handleQuestionChange={handleQuestionChange}
+                  fetchQuestions={fetchQuestions}
                 />
               ))}
             </div>

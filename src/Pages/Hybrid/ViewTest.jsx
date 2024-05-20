@@ -23,33 +23,31 @@ const email=localStorage.getItem("userMail");
    fontSize: "20px",
    borderRadius: "5px",
    height: "50px",
-   marginLeft: "60px",
    marginTop: "20px",
    marginBottom: "20px",
  };
-//  useEffect(()=>
-//   {
-//     fetchQuestions(1);
-//   },[])  
+ useEffect(()=>
+  {
+    fetchQuestions(1);
+  },[])  
 
-//   const fetchQuestions = async (questionId) => {
-//     try {
-//       const res = await axios.post(
-//         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
-//         {
-//           adminId: email,
-//           institutionId: sno,
-//           paperId: id,
-//           questionId: questionId,
-//         }
-//       )
-//         setQuestions(res.data);
-//       setSelectedQuestionIndex(0); 
+  const fetchQuestions = async (questionId) => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewDailyQuestion.php",
+        {
+          adminId: email,
+          test_id: sno,
+          question_id: questionId,
+        }
+      )
+        setQuestions(res.data);
+      setSelectedQuestionIndex(0); 
       
-//     } catch (error) {
-//       console.error("Error adding new item:", error);
-//     }
-//   };
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
 
   const handleQuestionChange = (index) => {
     console.log("Selected question index:", index);
@@ -129,10 +127,10 @@ const email=localStorage.getItem("userMail");
                 padding: "20px",
                 borderRadius: "15px",
                 overflow: "auto",
-                height: "665px",
+                // height: "665px",
               }}
             >
-              {[...Array(10)].map((_, index) => (
+              {[...Array(2)].map((_, index) => (
                 <Btn
                   key={index}
                   v1={index * 5 + 1}
@@ -141,13 +139,14 @@ const email=localStorage.getItem("userMail");
                   v4={index * 5 + 4}
                   v5={index * 5 + 5}
                   handleQuestionChange={handleQuestionChange}
-                //   fetchQuestions={fetchQuestions}
+                  fetchQuestions={fetchQuestions}
                 />
               ))}
-            </div>
-            <div style={{ width: "400px" }}>
+              <div style={{ width: "400px" }}>
               <button style={final}>Finish </button>
             </div>
+            </div>
+            
           </Col>
         </Row>
       </Container>

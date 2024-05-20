@@ -95,6 +95,15 @@ export const ModelMockStyle=styled("div")(()=>({
         paddingLeft:"20px",
         // marginTop:"10px"
     },
+    ".box1":{
+        border:"none",
+        outline:"none",
+        backgroundColor:"#E1EEDD",
+        borderRadius:"10px",
+        marginLeft:"10px",
+        paddingLeft:"20px",
+        display:"flex"
+    },
     ".Namebox":{
         display:"flex",
         justifyContent:"center",
@@ -107,6 +116,17 @@ export const ModelMockStyle=styled("div")(()=>({
     },
     ".MuiTypography-root":{
         fontFamily: "Roboto, sans-serif"
-    }
+    },
+    ".delete":{
+        padding: "10px",
+        display: "none",
+        position: "absolute",
+        right:"0",
+        top:"8px"
+      },
+      ".box:hover .delete":{
+        display: "block"
+       
+      }
 
 }))

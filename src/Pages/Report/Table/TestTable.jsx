@@ -23,26 +23,22 @@ export default function TestTable() {
   const table = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php",
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php?page=1",
          {
            adminId:email,
          }
       );
 
-      const newData = response.data.map((item) => ({
-        // name: ,
+      const newData = response.data.map((item,i) => ({
+       
         calories: item.plan_category,
-        id: item.id,
+        id: Number(i+1),
         name: item.username,
         calories: item.email,
         fat: item.plan_join_date,
         score:item.score,
       }));
-      //  "id": 26,
-      // "username": "moni",
-      // "plan_category": "",
-      // "email": "pathi@gmail.com",
-      // "plan_join_date": "0000-00-00"
+     
 
       setRows(newData);
     } catch (error) {
