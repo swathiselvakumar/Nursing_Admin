@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -12,15 +12,18 @@ import { NavLink } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 // import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from "@mui/material/Pagination";
-import Block from "../../assets/icons/block.png";
+import Block from "../../assets/icons/block.png"; 
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { getLocalStorage } from "../../utils/helperFunc";
 import Mcqnursetable from "./Mcqnursetable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 export default function Mcqnursingtable() {
   const languageName = getLocalStorage("languageName");
-
+  const { sno } = useParams();
+  const { id } = useParams();
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
@@ -65,6 +68,34 @@ export default function Mcqnursingtable() {
 
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
+  const [datas,setdata]=useState([]);
+const email=localStorage.getItem("userMail");
+
+
+  useEffect(() => {
+    fetchTestDetails();
+  }, []);
+  
+  const fetchTestDetails = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursing_testDetails.php",
+        {
+          adminId:email,
+          categoryId:sno,
+          paperId:id
+        }
+      );
+      // const newData = res.data.map((item,i) =>
+      //   createData(Number(i+1), item.student_name, item.total_count, item.correct_count,item.test_date)
+      // );
+      setdata(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
+  
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,7 +105,7 @@ export default function Mcqnursingtable() {
   };
   const handleChange = (event) => {
     const { value } = event.target;
-    setSearch(value);
+    setSearch(value); 
     console.log("Search input:", value); // Log the search input value
   };
   const Btn1 = {
@@ -116,14 +147,14 @@ export default function Mcqnursingtable() {
                   2022 Model MCQ
                 </Typography>
               </div>
-              <div className="search">
+              {/* <div className="search">
                 <SearchAppBar value={search} onChange={handleChange} />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <Mcqnursetable/>
+          <Mcqnursetable datas={datas}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

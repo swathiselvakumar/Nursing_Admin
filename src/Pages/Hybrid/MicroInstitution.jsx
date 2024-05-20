@@ -39,7 +39,7 @@ export default function MicroInstitution() {
   const [openBtn, setOpenBtn] = React.useState(false);
   const [data,setdata]=useState([]); 
   const email=localStorage.getItem("userMail");
-
+  const [paper,setpaper]=useState();
 
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
@@ -99,9 +99,10 @@ export default function MicroInstitution() {
           <Row>
             {
               data.map((d)=>(
+                
                 <Col className="Col1">
               <div className="box">
-                <NavLink to="/microupload" style={{ textDecoration: "none" }}>
+                <NavLink to={`/microupload/${d.sno}`} style={{ textDecoration: "none" }}>
                   <button
                     style={{
                       backgroundColor: "white",
@@ -112,8 +113,16 @@ export default function MicroInstitution() {
                     {d.test_name}
                   </button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  {/* <img src={Delete} className="delete" /> */}
+                 
                 </NavLink>
+                <NavLink 
+              to={`/microtestquestions/${d.sno}`}
+              style={{ textDecoration: "none", marginLeft: "20px" }}
+            >
+              <div style={{ display: "flex", marginLeft: 160,marginTop:"20px" }}>
+                View Questions
+              </div>
+            </NavLink>
               </div>
             </Col>
               ))
@@ -121,11 +130,11 @@ export default function MicroInstitution() {
           </Row>
         </Container>
 
-        <div className='BtnBox'>
-      <NavLink to="/hybridviewtest">
+        {/* <div className='BtnBox'>
+      <NavLink to={`/microtestquestions`}>
       <button className='Btn'>View Questions</button>
       </NavLink>
-    </div>
+    </div> */}
       </div>
       
       <Dialog

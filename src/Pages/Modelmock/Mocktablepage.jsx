@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -7,7 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import { Container, Row, Col } from "react-bootstrap";
 import UpdateIcon from "@mui/icons-material/Update";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 // import PremiumTb from './premiumTable';
 import Dialog from "@mui/material/Dialog";
 // import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
@@ -19,15 +19,21 @@ import { getLocalStorage } from "../../utils/helperFunc";
 // import Mcqnursetable from "./Mcqnursetable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
 import Mocktable from "./Mocktable";
+import axios from "axios";
+// import { useParams } from "react-router-dom";
 export default function Mocktablepage() {
   const languageName = getLocalStorage("languageName");
+  const {sno}=useParams();
+  const {id}=useParams();
+  const {stageno}=useParams();
+const email=localStorage.getItem("userMail");
 
   const BreadcrumbItems = [
-    { label: "Dashboard", path: PATH.DASHBOARD },
-
+    { label: "Dashboard", path: PATH.DASHBOARD }, 
+ 
     { label: "Model mock", path: PATH.MODELMOCK },
     { label: "Institution", path: PATH.MODELINSTITUTION },
-    { label: "stage1", path: PATH.MODELINSTITUTION },
+    // { label: "stage1", path: PATH.MODELINSTITUTION },
 
     { label: "2022 Model MCQ ", path: PATH.MOCKTABLEPAGE },
   ];
@@ -68,13 +74,35 @@ export default function Mocktablepage() {
 
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
-
+  const [datas,setdata]=useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    fetchTestDetails();
+  }, []);
+  
+  const fetchTestDetails = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ModelMock_testDetails.php",
+        {
+          adminId:email,
+          institutionId:sno,
+          stageId:stageno,
+          mcqId:id
+        }
+      );
+     
+      setdata(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
+
   const handleChange = (event) => {
     const { value } = event.target;
     setSearch(value);
@@ -119,14 +147,14 @@ export default function Mocktablepage() {
                   2022 Model MCQ
                 </Typography>
               </div>
-              <div className="search">
+              {/* <div className="search">
                 <SearchAppBar value={search} onChange={handleChange} />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <Mocktable />
+          <Mocktable datas={datas}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />

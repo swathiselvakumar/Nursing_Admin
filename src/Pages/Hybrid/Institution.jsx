@@ -62,7 +62,8 @@ export default function DailyInstitution() {
               adminId:email
             }
           );
-          setdata(response.data);
+          const testid=response.data;
+          setdata(testid);
       }catch(error)
       {
             console.error("Error fetching data:", error);
@@ -96,11 +97,20 @@ export default function DailyInstitution() {
         {
           data.map((d)=>(
             <Col className='Col1'>
-        <div className='box'>
-          <NavLink to="/uploaddailytest" style={{textDecoration:"none"}}>
-          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>{d.test_name}</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          {/* <img src={Delete} className='delete'/> */}
+        <div className='box' style={{marginBottom:"20px"}}>
+          
+          <NavLink to={`/uploaddailytest/${d.sno}`}>
+          <button style={{backgroundColor:"white",border:"none",paddingTop:"5px"}}>{d.test_name}</button>
           </NavLink>
+          <NavLink 
+              to={`/hybridviewtest/${d.sno}`}
+              style={{ textDecoration: "none", marginLeft: "20px" }}
+            >
+              <div style={{ display: "flex", marginLeft: 160,marginTop:"20px" }}>
+                View Questions
+              </div>
+            </NavLink>
+         
         </div>
         </Col>
           ))
@@ -110,11 +120,11 @@ export default function DailyInstitution() {
       
     </Container>
     
-    <div className='BtnBox'>
-      <NavLink to="/hybridviewtest">
+    {/* <div className='BtnBox'>
+      <NavLink to={`/hybridviewtest/`}>
       <button className='Btn'>View Questions</button>
       </NavLink>
-    </div>
+    </div> */}
     </div>
     {/* <Dialog
         onClose={handleClose}

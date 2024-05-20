@@ -101,18 +101,18 @@ const email=localStorage.getItem("userMail");
   const table = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php?page=1",
         {
           adminId:email,
         }
       );
 
-      setOriginaldata(response.data);
+      setOriginaldata(response.data); 
 
       const blockedData = response.data.filter((item) => item.status === 0);
 
-      const newData = blockedData.map((item,index) =>
-        createData(item.sno, item.username, item.email, item.plan_join_date)
+      const newData = blockedData.map((item,i) =>
+        createData(Number(i+1), item.username, item.email, item.plan_join_date)
       );
       console.log(newData);
       setRows(newData);

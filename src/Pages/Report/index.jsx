@@ -4,6 +4,8 @@ import TestTable from "./Table/TestTable";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { getLocalStorage } from "../../utils/helperFunc";
+import Pagination from "@mui/material/Pagination";
+
 export default function Report() {
   const languageName = getLocalStorage("languageName");
 
@@ -22,6 +24,10 @@ export default function Report() {
         <div style={{padding:'20px'}}>
           <TestTable/>
         </div>
+        <div>
+        <Pagination style={{display:"flex",justifyContent:"flex-end"}} count={10} shape="rounded" />
+        </div>
+
       </ReportStyle>
     </div>
   );

@@ -20,122 +20,76 @@ import { TableStdStyle } from "../../StudentTable/style";
 import Profile from "../../Profile";
 import BlockIcon from "../../../assets/icons/block.png";
 
-
-
-export default function PremiumTb({tableData,setLoaded,loaded}) {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+export default function PremiumTb({tableData,setLoaded,loaded,updateStudentId}) {
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [Originaldata,setOriginaldata] = useState();
   const [modified,setmodified] = useState();
   const [index,setindex] = useState();
   const [True,setTrue] = useState();
+  const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState(false);
+
+
 const email=localStorage.getItem("userMail");
 
-
-console.log(index);
-  useEffect(() => {
-    if (tableData && index >= 0) {
-      setmodified(tableData[index]);
-      console.log(tableData[index]);
-    }
-  }, [index]);
-
-  // useEffect(()=>{
-
-  //   blocklist();
-  //   // console.log(modified.email);
-  // },[])
-
-
-  const handleCloseDialog = () => {
+const handleClickOpens = () => {
+  setModal(true);
+    
   
+};
 
-    setOpenDialog(false);
+const handleClickOpen = (e,row,index) => {
+  e.stopPropagation();
+  setOpen(true);
+  updateStudentId(row.sno);
+  setmodified(tableData[index]);
+}
+  
+  const handleCloseDialog = () => {
+    setOpen(false);
   };
 
   const handleCloseDialogBlk=()=>{
-    // const modifiedData = { ...modified, status: "block" };
-    // setmodified({ ...modified, status: "block" });
-    console.log(modified.email);
     setTrue(!True)
     blocklist();
-    setOpenDialog(false);
+    setOpen(false);
   }
 
 
-  const blocklist = async () => {
-    try {
-      const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
-        {
-          adminId:email,
-          id: modified.email,
-          status: "block",
-        }
-      );
-      setLoaded(!loaded);
+  // const blocklist = async () => {
+  //   try {
+  //     const response = await axios.put(
+  //       "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+  //       {
+  //         adminId:email,
+  //         id: modified.email,
+  //         status: "block",
+  //       }
+  //     );
+  //     setLoaded(!loaded);
+      
 
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
     
-  };
+  // };
 
   const handleOpenDialog = () => {
-    setOpenDialog(true);
+    setOpen(true);
   };
 
 
 
 
   const handleOpenModal = () => {
-    setOpenModal(true);
+    setModal(true);
   };
 
   const handleCloseModal = () => {
-    setOpenModal(false);
+    setModal(false);
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPremiumSt.php",
-  //       {
-  //         adminId:email,
-  //       }
-  //     );
-
-  //     setOriginaldata(response.data);
-  //     // console.log(response.data);
-
-  //     const unblockedData = response.data.filter(
-  //       (item) => item.status === 1
-  //     );
-
-  //     // const search =response.data.filter((item)=>item.)
-
-  //     const newData = unblockedData.map((item) =>
-  //       createData(
-  //         item.id,
-  //         item.username,
-  //         item.email,
-  //         item.plan_join_date,
-  //         item.plan_expiry_date
-  //       )
-  //     );
-
-  //     setRows(newData);
-  //     console.log(newData)
-  //     console.log(rows);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+  
 console.log(tableData);
 
   return (
@@ -177,9 +131,7 @@ console.log(tableData);
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    onClick={() => {
-                    setindex(index);
-                    }}
+                    onClick={handleClickOpens}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}
@@ -188,11 +140,10 @@ console.log(tableData);
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
                     <TableCell align="left">{row.expireddate}</TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" onClick={(e)=>handleClickOpen(e,row,index)}>
                       <img
                         src={BlockIcon}
                         height="20px"
-                        onClick={handleOpenDialog}
                       />
                     </TableCell>
                   </TableRow>
@@ -204,7 +155,7 @@ console.log(tableData);
       </TableStdStyle>
       <Dialog
         onClose={handleCloseDialog}
-        open={openDialog}
+        open={open}
         aria-labelledby="customized-dialog-title"
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
@@ -218,7 +169,7 @@ console.log(tableData);
         </DialogActions>
       </Dialog>
       <Modal
-        open={openModal}
+        open={modal}
         onClose={handleCloseModal}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"

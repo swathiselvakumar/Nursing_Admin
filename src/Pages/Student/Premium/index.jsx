@@ -36,9 +36,20 @@ export default function Premium() {
  const [search, setSearch] = useState("");
  const [searchData,setsearchdata]=useState([]);
  const [tableData, setTableData] = useState([]);
- const [loaded, setLoaded] = useState(false)
- console.log(loaded);
+ const [currentPage, setCurrentPage] = useState(1);
+ const [totalPages, setTotalPages] = useState(1);
+ const [loaded, setLoaded] = useState(false);
+ const [stdId,setStdId]=useState(null);
+ const [load,setLoad]=useState(false);
+ console.log("stdId",stdId);
 
+ useEffect(() => {
+  fetchData(currentPage);
+}, [currentPage, load]);
+
+const handleChange1 = (event, value) => {
+  setCurrentPage(value);
+};
  const email=localStorage.getItem("userMail");
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,47 +57,60 @@ export default function Premium() {
   const handleClose = () => {
     setOpen(false);
   };
-   const handleChange =async (event) => {
-    //  const { value } = event.target;
-     setSearch(event.target.value);
-     try {
+  const handleChange = async (event) => {
+    setSearch(event.target.value);
+    try {
       const response = await axios.post(
-        'https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php',
+        'http://localhost/_Nursing_final/controllers/api/admin/get/A_filterSearchStd.php',
         {
-          adminId:email,
-          searchData:event.target.value,
-          accountType:"premium" 
+          adminId: email,
+          searchData: event.target.value,
+          accountType: "premium",
+          status: "1"
         }
       );
-      setTableData(response.data);
-      console.log(searchData);
+      
+  
+      // Log the response to debug
+      console.log("API response:", response.data);
+  
+      // Check if response data is an array
+      if (Array.isArray(response.data)) {
+        const newData = response.data.map((item, i) =>
+          createData(
+            Number(i + 1),
+            item.username,
+            item.email,
+            item.plan_join_date,
+            item.plan_expiry_date
+          )
+        );
+        setLoad(true);
+        setTableData(newData);
+      } else {
+        console.error("Expected an array but got:", response.data);
+        setTableData([]);
+      }
     } catch (error) {
       console.error("search datas not found:", error);
     }
-    
-   };
-
-   const fetchData = async () => {
+  };
+  
+   const fetchData = async (page) => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php",
+          `https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php?page=${page}`,
           {
             adminId:email,
           }
         );
-  
-        // setOriginaldata(response.data);
-        // console.log(response.data);
-  
+        setLoad(true);
         const unblockedData = response.data.filter(
           (item) => item.status === 1
         );
-  
-        // const search =response.data.filter((item)=>item.)
-  
-        const newData = unblockedData.map((item) =>
+        const newData = unblockedData.map((item,i) =>
           createData(
-            item.id,
+            Number(i+1),
             item.username,
             item.email,
             item.plan_join_date,
@@ -99,11 +123,28 @@ export default function Premium() {
         console.error("Error fetching data:", error);
       }
     };
+
+    const pagination = async () => {
+      try {
+        const response = await axios.post(
+          `http://localhost/_Nursing_final/controllers/api/admin/get/A_UnblockPremiumPagination.php`,
+          {
+            adminId: email
+          }
+        );
+        setLoaded(true);
+  
+        const { data, totalPages } = response.data;
+        setTableData(data);
+        setTotalPages(totalPages);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
   
   
   useEffect(()=>{
-    fetchData();
-    handleChange();
+    pagination();
   },[loaded])
    
    
@@ -113,48 +154,57 @@ export default function Premium() {
   return (
     <PremiumStyle>
      
-        <div className="bodystyle">
-        <div style={{ padding: "25px" }}>
-          <CustomBreadCrumbs items={BreadcrumbItems} />
-        </div>
-
-        <Container fluid style={{ marginTop: "20px" }}>
-          <Row>
-            <Col xs={12} sm={12} md={12} lg={12} xl={12} className="MainCol">
-              <div className="title">
-                <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-                  Premium List{" "}
-                </Typography>
-              </div>
-              <div className="search">
-                <SearchAppBar onChange={handleChange} value={search} />
-              </div>
-
-              <div>
-                <NavLink to="/blocktablepre">
-                  <Button style={Btn1}>
-                    <img src={Block} height="20px" /> &nbsp; Block List
-                  </Button>
-                </NavLink>
-              </div>
-              <div>
-                <NavLink to="/preadd">
-                  <Button style={Btn2} onClick={handleClickOpen}>
-                    <AddCircleOutlineIcon style={{ height: "20px" }} />
-                    &nbsp; Add Members
-                  </Button>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <div style={{ marginTop: "25px", padding: "10px" }}>
-          <PremiumTb tableData={tableData} setLoaded={setLoaded} loaded={loaded}/>
-        </div>
-        <div>
-          <Pagination count={10} shape="rounded" />
-        </div>
-      </div>
+        {
+          load ? <div className="bodystyle">
+          <div style={{ padding: "25px" }}>
+            <CustomBreadCrumbs items={BreadcrumbItems} />
+          </div>
+  
+          <Container fluid style={{ marginTop: "20px" }}>
+            <Row>
+              <Col xs={12} sm={12} md={12} lg={12} xl={12} className="MainCol">
+                <div className="title">
+                  <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                    Premium List{" "}
+                  </Typography>
+                </div>
+                <div className="search">
+                  <SearchAppBar onChange={handleChange} value={search} />
+                </div>
+  
+                <div>
+                  <NavLink to="/blocktablepre">
+                    <Button style={Btn1}>
+                      <img src={Block} height="20px" /> &nbsp; Block List
+                    </Button>
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink to="/preadd">
+                    <Button style={Btn2} onClick={handleClickOpen}>
+                      <AddCircleOutlineIcon style={{ height: "20px" }} />
+                      &nbsp; Add Members
+                    </Button>
+                  </NavLink>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+          <div style={{ marginTop: "25px", padding: "10px" }}>
+            <PremiumTb tableData={tableData} updateStudentId={setStdId}setLoaded={setLoaded} loaded={loaded}/>
+          </div>
+          <div>
+          {load && (
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handleChange1}
+            shape="rounded"
+          />
+        )}
+          </div>
+        </div> : <p>Loading</p>
+        }
       
     </PremiumStyle>
   );

@@ -20,27 +20,22 @@ import Block from "../../assets/icons/block.png";
 import Profile from "../Profile";
 import Box from "@mui/material/Box";
 import axios from "axios";
-import { useContext } from "react";
-import { navContext } from "../../context/navContext";
+import DialogActions from "@mui/material/DialogActions";
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-    width: "400px",
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(2),
-  },
-}));
-export default function StdTb({ tableData, updateStudentId }) {
+
+export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
   const [open, setOpen] = useState(false);
-  const { index, setindex } = useContext(navContext);
-  const [rows, setRows] = useState([]);
-  const [Originaldata, setOriginaldata] = useState();
+  const { index, setindex } = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
-  const emailId = localStorage.getItem("userMail");
+  const email = localStorage.getItem("userMail");
+  
+
+
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
   const handleClickOpens = () => {
     setModal(true);
   };
@@ -48,36 +43,14 @@ export default function StdTb({ tableData, updateStudentId }) {
     setModal(false);
   };
 
-  const handleClickOpen = (e,row) => {
+  const handleClickOpen = (e,row,index) => {
     e.stopPropagation();
     setOpen(true);
     updateStudentId(row.sno);
+    setmodified(tableData[index]);
   }
-  useEffect(() => {
-    if (Originaldata && index >= 0) {
-      setmodified(Originaldata[index]);
-    }
-  }, [Originaldata, index]);
-  useEffect(() => {
-    blocklist();
-  }, [True]);
-  useEffect(() => {
-  }, []);
+  
 
-  const Btn = {
-    backgroundColor: "white",
-    color: "black",
-    border: "1px solid black",
-    width: "100px",
-    marginTop: "20px",
-  };
-  const Btn1 = {
-    backgroundColor: "red",
-    color: "white",
-    marginLeft: "10px",
-    width: "100px",
-    marginTop: "20px",
-  };
   const style = {
     position: "absolute",
     transform: "translate(5%, 5%)",
@@ -86,31 +59,28 @@ export default function StdTb({ tableData, updateStudentId }) {
     width: "90%",
   };
  
+  const handleCloseDialogBlk=()=>{
+    setTrue(!True)
+    blocklist();
+    setOpen(false);
+  }
 
   const blocklist = async () => {
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
         {
-          adminId: emailId,
+          adminId: email,
           id: modified.email,
-          status: modified.status,
+          status: "block",
         }
       );
-      console.log(response.data);
+      setUpdate(!update);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  const handleClose = () => {
-    setOpen(false);
-    const modifiedData = { ...modified, status: "block" };
-    setmodified(modifiedData);
-    setTrue(!True);
-  };
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
+  
   return (
     <>
       <TableStdStyle>
@@ -142,7 +112,7 @@ export default function StdTb({ tableData, updateStudentId }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData?.map((row) => (
+                {tableData?.map((row,index) => (
                   <TableRow
                     className="tb-row"
                     key={row.sno}
@@ -155,7 +125,7 @@ export default function StdTb({ tableData, updateStudentId }) {
                     <TableCell align="left">{row.sname}</TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
-                    <TableCell align="center" onClick={(e)=>handleClickOpen(e,row)}>
+                    <TableCell align="center" onClick={(e)=>handleClickOpen(e,row,index)}>
                       <img src={Block} height="20px" />
                     </TableCell>
                   </TableRow>
@@ -165,41 +135,21 @@ export default function StdTb({ tableData, updateStudentId }) {
           </TableContainer>
         </div>
       </TableStdStyle>
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+      <Dialog
+        onClose={handleCloseDialog}
         open={open}
+        aria-labelledby="customized-dialog-title"
       >
-        <DialogTitle
-          sx={{ m: 0, p: 2 }}
-          id="customized-dialog-title"
-        ></DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent sx={{ textAlign: "center" }}>
-          <img src={Rong} height="25px" style={{ marginTop: "-30px" }} />
-          <br />
-          Are You sure ?<br />
-          want to block this student?
-          <br />
-          <Button onClick={handleClose} style={Btn}>
-            Cancel
-          </Button>
-          <Button onClick={handleClose} style={Btn1}>
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          Are you sure?
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleCloseDialogBlk} color="error">
             Block
           </Button>
-        </DialogContent>
-      </BootstrapDialog>
+        </DialogActions>
+      </Dialog>
       <Modal
         open={modal}
         aria-labelledby="modal-modal-title"

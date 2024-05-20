@@ -17,6 +17,7 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import axios from 'axios'
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from 'react'
+import '../YearMCQ/CardStyle.css'
 
 export default function ModelInstitution() {
 
@@ -30,6 +31,7 @@ export default function ModelInstitution() {
   const [open, setOpen] = React.useState(false);
   const[stage,setStage]=useState();
   const [data,setdata]=useState();
+  const [paper,setpaper]=useState([]);
 const email=localStorage.getItem("userMail");
 const {sno}=useParams();
   const handleClickOpen = () => {
@@ -52,20 +54,41 @@ const response = await axios.post(
 {
       console.error("Error fetching data:", error);
 
-}
+} 
     
   };
+  const PaperData = async () => {
+    try {
+      const res = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockStagePaper.php",
+        {
+          adminId: email,
+          id: sno
+        }
+      );
+  
+      const papers = Object.values(res.data).flatMap(stageData => stageData);
+      setpaper(papers); // Assuming `setpaper` is the state updater function
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+
 
   const fetchData=async()=>{
     try{ 
-      const response = await axios.post(
+      const res= await axios.post(
             "http://localhost/_Nursing_final/controllers/api/admin/get/A_viewStage.php",
             {
               adminId:email,
               institution_id:sno
             }
           );
-          setdata(response.data);
+          const stageData = res.data;
+          console.log(stageData);
+          setdata(stageData|| []);
+          // console.log(data);
       }catch(error)
       {
             console.error("Error fetching data:", error);
@@ -75,7 +98,33 @@ const response = await axios.post(
 
   useEffect(()=>{
     fetchData();
+    PaperData();
   },[])
+
+  const CardDelete = async (id) => {
+    // setclick(true);
+    try {
+      const res = await axios.delete(
+        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteModelMockPaper.php",
+        {
+          data: {
+            adminId:email,
+            paperId: id,
+          }, 
+        }
+      );
+
+      console.log(data.paperId);
+      PaperData();
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+    }
+  };
+
+  useEffect(() => {
+    PaperData();
+  }, []);
+
 
   const [age, setAge] = React.useState('');
 
@@ -111,212 +160,73 @@ const handlestage = (event) => {
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-          {
-  data.length > 0 ? (
+          
     <Container className="MainBox">
-      <Row>
-        {data.map((d) => (
-          <Col className="Col1">
-            <div className="box" style={{ backgroundColor: "black" }}>
-              <button
-                style={{
-                  backgroundColor: "black",
-                  border: "none",
-                  paddingTop: "5px",
-                  color: "white",
-                }}
-              >
-                {d.stage_name}
-              </button>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-          </Col>
-        ))}
-      </Row>
+    <Row>
+            {Array.isArray(data) && data.length > 0 ? (
+              data.map((d) => (
+                <div>
+                  <Col key={d.sno}  >
+                  <div className="box" style={{ backgroundColor: "black",marginBottom:"10px" }}>
+                    <button
+                      style={{
+                        backgroundColor: "black",
+                        border: "none",
+                        paddingTop: "5px",
+                        color: "white",
+                      }}
+                    >
+                      {d.stage_name}
+                    </button>
+                  </div>
+                  
+                </Col>
+                {Array.isArray(paper) && paper.length > 0 && (paper[0].institution_id) ? (
+                  console.log(paper),
+                  paper
+                    // .filter((r) => r.institution_id === d.sno)  // Filter papers by stage_id
+                    .map((j,index) => (
+                      <div  key={index}>
+                        <NavLink to={`/mocktablepage/${j.sno}/${sno}/${d.sno}`}>
+                        <button
+                        className="box" 
+                          style={{
+                            backgroundColor: "white",
+                            border: "none",
+                           
+                          }} 
+                        >
+                          {j.mcq_name}
+                        </button>
+                        </NavLink>
+                        <button onClick={() => CardDelete(j.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                        <NavLink
+                  to={`/viewquestionsmodel/${j.sno}/${sno}/${d.sno}`}
+                  style={{ textDecoration: "none", marginLeft: "20px" }}
+                >
+                  <div
+                    style={{ display: "flex", marginLeft: 160, marginTop: 20 }}
+                  >
+                    View Questions
+                  </div>
+                </NavLink>
+                      </div>
+                    ))
+                ) : null}
+                </div>
+                
+              ))
+            ) : (
+              <Typography>No data available</Typography>
+            )}
+          </Row>
     </Container>
-  ) : (
-    <h1>No data available</h1>
-  )
-}
+  
 
             
           </Row>
         </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"20px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                      // marginTop:"10px"
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"20px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"35px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"35px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div> 
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="MainBox">
-          <Row style={{ marginTop: "-80px" }}>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"35px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="Col1">
-              <div className="box" style={{marginTop:"35px"}}>
-                <NavLink to="/mocktablepage" style={{ textDecoration: "none" }}>
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    2022 Model MCQ
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
-                </NavLink>
-                <NavLink
-                  to="/viewquestionsmodel"
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 10 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        
         <div className="BtnBox" style={{marginTop:"20px"}}>
           <button className="Btn" onClick={handleClickOpen}>
             Add Stage

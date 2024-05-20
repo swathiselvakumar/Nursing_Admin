@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -7,9 +7,9 @@ import InputBase from "@mui/material/InputBase";
 import { Container, Row, Col } from "react-bootstrap";
 import UpdateIcon from "@mui/icons-material/Update";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 // import PremiumTb from './premiumTable';
-import Dialog from "@mui/material/Dialog";
+import Dialog from "@mui/material/Dialog"; 
 // import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from "@mui/material/Pagination";
 import Block from "../../assets/icons/block.png";
@@ -18,9 +18,12 @@ import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { getLocalStorage } from "../../utils/helperFunc";
 import MicroTable from "./MicroTable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
+import axios from "axios";
 export default function MicroUpload() {
   const languageName = getLocalStorage("languageName");
-
+const {sno}=useParams();
+const email=localStorage.getItem("userMail");
+const [datas,setdata]=useState([]);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
@@ -77,24 +80,27 @@ export default function MicroUpload() {
     setSearch(value);
     console.log("Search input:", value); // Log the search input value
   };
-  const Btn1 = {
-    backgroundColor: "#fefbe9",
-    width: "200px",
-    fontWeight: "bold",
-    color: "black",
-    textTransform: "capitalize",
-    boxShadow:
-      " rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
+
+  useEffect(() => {
+    fetchTestDetails();
+  }, []);
+  
+  const fetchTestDetails = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_Micro_testDetails.php",
+        {
+          adminId:email,
+          paperId:sno
+        }
+      );
+     
+      setdata(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
   };
-  const Btn2 = {
-    backgroundColor: "white",
-    color: "black",
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    boxShadow:
-      "rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",
-    width: "200px",
-  };
+ 
   return (
     <PremiumStyle>
       <div className="bodystyle">
@@ -116,14 +122,14 @@ export default function MicroUpload() {
                   Micro Test
                 </Typography>
               </div>
-              <div className="search">
+              {/* <div className="search">
                 <SearchAppBar value={search} onChange={handleChange} />
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <MicroTable />
+          <MicroTable datas={datas}/>
         </div>
         <div>
           <Pagination count={10} shape="rounded" />
