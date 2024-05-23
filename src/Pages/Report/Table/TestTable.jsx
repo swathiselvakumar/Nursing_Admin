@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,34 +9,54 @@ import Paper from "@mui/material/Paper";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DropDown from "./DropDown";
 import axios from "axios";
-
+import Pagination from "@mui/material/Pagination";
 
 export default function TestTable() {
 
   const [rows, setRows] = React.useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loaded, setLoaded] = useState(false);
   const email=localStorage.getItem("userMail");
 
   useEffect(() => {
-    table();
-  }, []);
-
-  const table = async () => {
+    table(currentPage);
+  }, [currentPage, loaded]);
+  
+  const handleChange1 = (event, value) => {
+    setCurrentPage(value);
+  };
+  // let sno=1;
+  let itemsPerPage;
+  totalPages ==1?itemsPerPage=50:itemsPerPage=10;
+  const table = async (page) => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php?page=1",
+        `https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php?page=${page}`,
          {
            adminId:email,
          }
       );
+      const itemsPerPageFirstPage = 50;
+      const itemsPerPageOtherPages = 10;
+      
+      // Determine the starting serial number based on the current page
+      let sno;
+      if (currentPage === 1) {
+          sno = 1;
+      } else {
+          sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+      }
 
-      const newData = response.data.map((item,i) => ({
+      const newData = response.data.map((item) => ({
        
         calories: item.plan_category,
-        id: Number(i+1),
+        id: sno++,
         name: item.username,
         calories: item.email,
         fat: item.plan_join_date,
         score:item.score,
+        
       }));
      
 
@@ -45,6 +65,29 @@ export default function TestTable() {
       console.error("Error fetching data:", error);
     }
   };
+  const pagination = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_StudentReportPagination.php`, {
+          adminId: email
+        }
+      );
+
+      setLoaded(true);
+
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    pagination();
+  }, []);
+
+
   const Tbhead={
     fontWeight:"bold"
   }
@@ -68,20 +111,7 @@ export default function TestTable() {
           <div className="d1" style={{ flex: "1" }}>
             <h5>Students Reports</h5>
           </div>
-          <div
-            // className="menu-wrapper"
-            style={{
-              justifyContent: "flex-end",
-              alignItems: "center",
-              backgroundColor: "#e1eede",
-              borderRadius: "5px",
-              display: "flex",
-            }}
-          >
-            <FilterListIcon />
-            &nbsp;
-            <DropDown />
-          </div>
+          
         </div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -124,7 +154,20 @@ export default function TestTable() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        
       </div>
+      <div style={{display:"flex",justifyContent:"flex-end",marginTop:"10px"}}>
+        {loaded && (
+                <Pagination
+                  count={totalPages.pages}
+                  page={currentPage}
+                  onChange={handleChange1}
+                  shape="rounded"
+                  style={{backgroundColor: "#e1eede",}}
+                />
+              )}
+        </div>
     </>
   );
 }

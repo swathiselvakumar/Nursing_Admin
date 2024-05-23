@@ -65,18 +65,18 @@ export default function SubInstitution() {
       for (let j = i; j < Math.min(i + 3, mc.length); j++) {
         const mcq = mc[j];
         const id = `${j}`; // Concatenate sno with index for unique ID
-        //  console.log(id);
+        
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqtablepage/${id}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqtablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
                     border: "none",
                     paddingTop: "5px",
                   }}
-                  onClick={()=>console.log(`/mcqtablepage/${id}/${sno}`)}
+                  // onClick={()=>console.log(`/mcqtablepage/${mcq.sno}/${sno}`)}
                 >
                   {mcq.paper_name}
                 </button>
@@ -90,7 +90,7 @@ export default function SubInstitution() {
               </NavLink>
             </div>
             <NavLink 
-              to={`/viewquestionssub/${id}/${sno}`}
+              to={`/viewquestionssub/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -150,7 +150,7 @@ export default function SubInstitution() {
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqtablepage/${id}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqtablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -166,7 +166,7 @@ export default function SubInstitution() {
               <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
             </div>
             <NavLink
-              to={`/viewquestionssub/${id}/${sno}`}
+              to={`/viewquestionssub/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>

@@ -31,7 +31,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
   
-
+// console.log(tableData);
 
   const handleCloseDialog = () => {
     setOpen(false);
@@ -113,6 +113,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
               </TableHead>
               <TableBody>
                 {tableData?.map((row,index) => (
+                  
                   <TableRow
                     className="tb-row"
                     key={row.sno}

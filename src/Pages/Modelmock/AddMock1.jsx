@@ -20,6 +20,7 @@ import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
   const [category, setcategory] = useState("");
+  const { mcqname } = useContext(navContext);
   
     const [open, setOpen] = React.useState(false);
     const [duration, setDuration] = React.useState('');
@@ -28,6 +29,7 @@ export default function AddMock1() {
     const { mcq, setMcq } = useContext(navContext);
     const [openFirstDialog, setOpenFirstDialog] = useState(false);
     const [openSecondDialog, setOpenSecondDialog] = useState(false);
+    const [mcqid, setMcqid] = useState('');
 const email=localStorage.getItem("userMail");
 
     // console.log(sno);
@@ -50,20 +52,44 @@ const email=localStorage.getItem("userMail");
     setOpenFirstDialog(true);
   };
 
-const { sno } = useParams();
+  const fetchmcqid = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMCQId.php",
+        {
+          adminId: email,
+          mcqname:mcqname,
+         
+        }
+      );
+
+      // Assuming `res.data` contains the object directly, not an array
+      const mcqId = res.data.sno;
+      setMcqid(mcqId);
+      console.log(mcqid);
+      setOpen(true);
+    } catch (error) {
+      console.error("Error fetching:", error);
+    }
+  };
+
+const { sno ,id} = useParams();
 const [Data, setData] = useState(() => {
+  
+  
 
   const storedData = localStorage.getItem("selectedFileData");
   return {
     adminId:email,
     institutionId: sno,
-    stageId: "1",
-    mcqId: "2",
+    stageId: id, 
+    mcqId: mcqid,
     category: category,
     questions: storedData ? JSON.parse(storedData) : [],
   };
 });
   function handleFile(e) {
+    
     const file = e.target.files[0];
     const reader = new FileReader();
 
@@ -77,9 +103,9 @@ const [Data, setData] = useState(() => {
 
       setData({
         ...Data,
-        institutionId: "1", 
-        stageId: "1",
-        mcqId: "2",
+        institutionId: sno, 
+        stageId: id,
+        mcqId: mcqid,
         category: category,
         questions: excelData,
       });
@@ -96,40 +122,40 @@ const [Data, setData] = useState(() => {
   }, [Data.questions]);
 
   const SendApi = async () => {
+    
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockQuestion.php",
         Data
       );
-      // setMonth("");
-      // setYear("");
-      // window.location.href = `/uploadtestmodel/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
   };
 
     const handleClickOpen =async () => {
-        setOpen(true);
-
-        
+      
+      handleOpenSecondDialog();
           try{
              const currentDate = new Date().toISOString().split("T")[0];
             const res = await axios.post(
               "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockMeta.php",
               {
                 adminId: email,
-                institutionId: '1',
-                stageId: mcq,
-                mcqName: stage,
+                institutionId: sno,
+                stageId: id,
+                mcqName: mcqname,
                 date: currentDate,
-                duration:'3',
+                duration:time,
+                category:category
               }
             );
              console.log("New item added:", res.data);
-
+              
                 setDuration("");
                 setTime('');
+                fetchmcqid();
+               
           }
           catch (error) {
       console.error("Error fetching data:", error);
@@ -267,32 +293,7 @@ const [Data, setData] = useState(() => {
             </div>
 
             <div style={MainText}>
-              {/* <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}> */}
-              {/* <div><label>Date</label></div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div><input type='date' style={TextB}/></div> */}
-              {/* </div> */}
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              > */}
-              {/* <div>
-                  <label>Duration</label>
-                </div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div>
-                  <input
-                    type="number"
-                    style={TextB}
-                    value={duration}
-                    onChange={durationchange}
-                  />
-                </div>
-              </div> */}
+              
               <div
                 style={{
                   marginTop: "15px",
@@ -342,11 +343,7 @@ const [Data, setData] = useState(() => {
                   <MenuItem value="premium">Premium</MenuItem>
                 </Select>
               </FormControl>
-              {/* <div style={{marginTop:"15px",display:"flex",justifyContent:"space-between",width:"380px"}}>
-                <div><label>End Time</label></div> */}
-              {/* <div><img src={AlertIcon}/></div> */}
-              {/* <div><input type='time' placeholder='Add Category' style={TextB}/></div>
-              </div> */}
+             
             </div>
             <div>
               <div
@@ -357,7 +354,7 @@ const [Data, setData] = useState(() => {
                   width: "530px",
                 }}
               >
-                <button onClick={handleOpenSecondDialog} style={btn1}>
+                <button onClick={handleClickOpen} style={btn1}>
                   SUBMIT
                 </button>
               </div>
@@ -401,26 +398,16 @@ const [Data, setData] = useState(() => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <button className="Submit1">Download Template</button>
-            {/* <NavLink to="/uploadtest"> */}
-            {/* <button type="file" onChange={handleFile}>Upload Questions</button>
-          <input type="file"  onChange={handleFile} /> */}
+            
             <label
               htmlFor="fileInput"
               style={{
-                border: "none",
-                backgroundColor: "#1b4242",
-                color: "white",
-                height: "40px",
-                width: "200px",
-                fontWeight: "500",
-                textTransform: "uppercase",
-                fontFamily: "Roboto, sans-serif",
-                margin: "40px",
+              
                 textAlign: "center",
-                // justifyContent:'center',
-                // alignItems:'center',
+               
                 alignContent: "center",
               }}
+              className="Submit1"
             >
               Upload Questions
             </label>

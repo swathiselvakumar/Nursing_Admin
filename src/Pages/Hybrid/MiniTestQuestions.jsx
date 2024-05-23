@@ -13,23 +13,13 @@ export default function MiniTestQuestions() {
 const email=localStorage.getItem("userMail");
 
   const [questions, setQuestions] = useState([]);
+  const [questionsNo, setQuestionsNo] = useState([]);
 
  
- const final = {
-   width: "500px",
-   border: "none",
-   backgroundColor: "#1b4242",
-   color: "white",
-   fontSize: "20px",
-   borderRadius: "5px",
-   height: "50px",
-   marginTop: "20px",
-   marginBottom: "20px",
- };
- useEffect(()=>
-  {
-    fetchQuestions(1);
-  },[])  
+ 
+ useEffect(() => {
+  fetchQuestionSno();
+}, []);  
 
   const fetchQuestions = async (questionId) => {
     try {
@@ -51,20 +41,31 @@ const email=localStorage.getItem("userMail");
 
   const handleQuestionChange = (index) => {
     console.log("Selected question index:", index);
-    setSelectedQuestionIndex(index-1);
+    if (index >= 0 && index < questionsNo.length) {
+      const selectedSno = questionsNo[index].sno;
+      console.log("Selected question sno:", selectedSno);
+      fetchQuestions(selectedSno);
+      setSelectedQuestionIndex(index);
+    }
   };
 
 
-  // const handleNextQuestion = () => {
-  //   if (
-  //     selectedQuestionIndex !== null &&
-  //     selectedQuestionIndex < questions.length - 1
-  //   ) {
-  //     console.log("Next question index:", selectedQuestionIndex + 1);
-  //     setSelectedQuestionIndex(selectedQuestionIndex + 1);
-  //   }
-  // };
-
+  const fetchQuestionSno = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMiniQuestionCount.php",
+        {
+          adminId: email,
+          test_id:sno,
+        }
+      );
+      setQuestionsNo(res.data);
+      console.log(res.data);
+      setSelectedQuestionIndex(0);
+    } catch (error) {
+      console.error("Error fetching question numbers:", error);
+    }
+  };
  
   const BreadcrumbItems = [
     { label: "Hybrid", path: PATH.HYBRID },
@@ -101,16 +102,14 @@ const email=localStorage.getItem("userMail");
               {questions[selectedQuestionIndex] ? (
                 <div>
                   <p>{questions[selectedQuestionIndex].questions}</p>
-                  <ul>
+                  <ol type="a">
                     {[1, 2, 3, 4].map((option) => (
                       <li key={option}>
                         {questions[selectedQuestionIndex][`option${option}`]}
                       </li>
                     ))}
-                  </ul>
-                  <p>
-                    Correct Answer: {questions[selectedQuestionIndex].answer}
-                  </p>
+                  </ol>
+                  <p>Correct Answer: {questions[selectedQuestionIndex].answer}</p>
                 </div>
               ) : (
                 <p>No question selected</p>
@@ -130,21 +129,28 @@ const email=localStorage.getItem("userMail");
                 // height: "665px",
               }}
             >
-              {[...Array(5)].map((_, index) => (
-                <MiniBtn
-                  key={index}
-                  v1={index * 5 + 1}
-                  v2={index * 5 + 2}
-                  v3={index * 5 + 3}
-                  v4={index * 5 + 4}
-                  v5={index * 5 + 5}
-                  handleQuestionChange={handleQuestionChange}
-                  fetchQuestions={fetchQuestions}
-                />
-              ))}
-              <div style={{ width: "400px" }}>
-              <button style={final}>Finish </button>
-            </div>
+              {Array.isArray(questionsNo) && questionsNo.length > 0 ? (
+                questionsNo.map((question, index) => (
+                  <button
+                    key={index}
+                    style={{
+                      margin: "20px",
+                      padding: "10px",
+                      borderRadius: "50%",
+                      border: "1px solid #ccc",
+                      backgroundColor: "#f9f9f9",
+                      cursor: "pointer",
+                      width: "50px",
+                    }}
+                    onClick={() => handleQuestionChange(index)}
+                  >
+                    {index + 1}
+                  </button>
+                ))
+              ) : (
+                <p>No questions available</p>
+              )}
+              
             </div>
             
           </Col>

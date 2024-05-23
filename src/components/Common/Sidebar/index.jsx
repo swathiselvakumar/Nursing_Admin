@@ -17,12 +17,12 @@ import { TopListData } from "./ListItems/ListData";
 import MenuListItem from "./ListItems";
 import '@fontsource/dm-sans'
 // icons
-import AndroidOutlinedIcon from "@mui/icons-material/AndroidOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AppHeader from "../AppHeader";
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
 import BottomMenuListItem from "./ListItems/BottomList";
+import Logo from '../../../assets/icons/Artboard 2.png'
  
 const drawerWidth = 220;
 
@@ -86,9 +86,6 @@ export default function SideNavigationbar() {
           variant="permanent"
           open={open}
           className="drawer"
-        //   ModalProps={{
-        //     keepMounted: true, // Better open performance on mobile.
-        //   }}
         >
           <DrawerHeader>
             <List>
@@ -107,7 +104,8 @@ export default function SideNavigationbar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                     }}
-                  ></ListItemIcon>
+                  >
+                  </ListItemIcon>
                   <ListItemText
                     primary={
                       <Typography style={{ fontFamily: "Roboto, sans-serif" }}>

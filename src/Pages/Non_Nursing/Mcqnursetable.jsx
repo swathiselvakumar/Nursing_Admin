@@ -8,11 +8,20 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-export default function Mcqnursetable({ datas }) {
+export default function Mcqnursetable({ datas,currentPage }) {
   const Tbhead = {
     fontWeight: "bold",
   };
 
+  const itemsPerPageFirstPage = 50;
+  const itemsPerPageOtherPages = 10;
+  
+  let sno; 
+  if (currentPage === 1) {
+      sno = 1;
+  } else {
+      sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+  }
   return (
     <>
       <div
@@ -51,13 +60,13 @@ export default function Mcqnursetable({ datas }) {
             </TableHead>
             <TableBody>
               {datas.length > 0 ? (
-                datas.map((row, i) => (
+                datas.map((row) => (
                   <TableRow
-                    key={i}
+                    key={sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {i + 1}
+                      {sno}
                     </TableCell>
                     <TableCell align="left">{row.student_name}</TableCell>
                     <TableCell align="left">{row.total_count}</TableCell>

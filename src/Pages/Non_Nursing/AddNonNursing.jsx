@@ -82,7 +82,7 @@ const {sno,lastId}=useParams();
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNonNursingQuestion.php",
         Data
       );
-      window.location.href = `/uploadtestnursing/${sno}/${lastId}`;
+      window.location.href = `/noninstitution/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -196,17 +196,11 @@ const {sno,lastId}=useParams();
           <label
             htmlFor="fileInput"
             style={{
-              border: "none",
-              backgroundColor: "#1b4242",
-              color: "white",
-              height: "60px",
-              fontWeight: "500",
-              textTransform: "uppercase",
-              fontFamily: "Roboto, sans-serif",
-              margin: "40px",
+             
               textAlign: "center",
               alignContent: "center",
             }}
+            className="Submit1"
           >
             Upload Questions
           </label>

@@ -3,54 +3,21 @@ import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { Typography } from "@mui/material";
-import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
- 
-export default function Viewquestions() {
-  const { sno } = useParams();
-  const { id } = useParams(); 
-const email=localStorage.getItem("userMail");
 
+export default function ViewQuestions() {
+  const { sno, id } = useParams(); 
+  const email = localStorage.getItem("userMail");
 
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const [questionsNo, setQuestionsNo] = useState([]);
 
-  const finish = {
-    width: "100px",
-    border: "none",
-    backgroundColor: "#1b4242",
-    color: "white",
-    fontSize: "12px",
-    borderRadius: "5px",
-    height: "30px",
-  };
-  const save = {
-    width: "100px",
-    border: "1px solid black",
-    fontSize: "12px",
-    borderRadius: "5px",
-  };
-  const remove = {
-    width: "100px",
-    border: "1px solid black",
-    fontSize: "12px",
-    borderRadius: "5px",
-  };
-  const final = {
-    width: "500px",
-    border: "none",
-    backgroundColor: "#1b4242",
-    color: "white",
-    fontSize: "20px",
-    borderRadius: "5px",
-    height: "50px",
-    marginLeft: "60px",
-    marginTop: "20px",
-    marginBottom: "20px",
-  };
+  
+
   useEffect(() => {
-    fetchQuestions(1);
+    fetchQuestionSno();
   }, []);
 
   const fetchQuestions = async (questionId) => {
@@ -58,38 +25,50 @@ const email=localStorage.getItem("userMail");
       const res = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
         {
-          adminId:email,
+          adminId: email,
           subjectId: sno,
           paperId: id,
           questionId: questionId,
         }
       );
       setQuestions(res.data);
-      setSelectedQuestionIndex(0); 
-   
+      setSelectedQuestionIndex(0);
     } catch (error) {
-      console.error("Error adding new item:", error);
+      console.error("Error fetching questions:", error);
     }
   };
 
   const handleQuestionChange = (index) => {
     console.log("Selected question index:", index);
-    setSelectedQuestionIndex(index - 1);
+    if (index >= 0 && index < questionsNo.length) {
+      const selectedSno = questionsNo[index].sno;
+      console.log("Selected question sno:", selectedSno);
+      fetchQuestions(selectedSno);
+      setSelectedQuestionIndex(index);
+    }
   };
 
-  // const handleNextQuestion = () => {
-  //   if (
-  //     selectedQuestionIndex !== null &&
-  //     selectedQuestionIndex < questions.length - 1
-  //   ) {
-  //     console.log("Next question index:", selectedQuestionIndex + 1);
-  //     setSelectedQuestionIndex(selectedQuestionIndex + 1);
-  //   }
-  // };
+  const fetchQuestionSno = async () => {
+    try {
+      const res = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestionCount.php",
+        {
+          adminId: email,
+          subjectId: sno,
+          paperId: id,
+        }
+      );
+      setQuestionsNo(res.data);
+      console.log(res.data);
+      setSelectedQuestionIndex(0);
+    } catch (error) {
+      console.error("Error fetching question numbers:", error);
+    }
+  };
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "Subject wiseMCQ", path: PATH.SUBJECTMCQ },
+    { label: "Subject wise MCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
     { label: "View Questions", path: PATH.VIEWQUETIONSSUB },
   ];
@@ -119,26 +98,22 @@ const email=localStorage.getItem("userMail");
               <Typography style={{ fontWeight: 700 }}>
                 Question Details
               </Typography>
-              <hr /> 
+              <hr />
               {questions[selectedQuestionIndex] ? (
                 <div>
                   <p>{questions[selectedQuestionIndex].questions}</p>
-                  <ul>
+                  <ol type="a">
                     {[1, 2, 3, 4].map((option) => (
                       <li key={option}>
                         {questions[selectedQuestionIndex][`option${option}`]}
                       </li>
                     ))}
-                  </ul>
-                  <p>
-                    Correct Answer: {questions[selectedQuestionIndex].answer}
-                  </p>
+                  </ol>
+                  <p>Correct Answer: {questions[selectedQuestionIndex].answer}</p>
                 </div>
               ) : (
                 <p>No question selected</p>
               )}
-
-              
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>
@@ -149,24 +124,31 @@ const email=localStorage.getItem("userMail");
                 padding: "20px",
                 borderRadius: "15px",
                 overflow: "auto",
-                height: "665px",
+                // height: "665px",
               }}
             >
-              {[...Array(10)].map((_, index) => (
-                <Btn
-                  key={index}
-                  v1={index * 5 + 1}
-                  v2={index * 5 + 2}
-                  v3={index * 5 + 3}
-                  v4={index * 5 + 4}
-                  v5={index * 5 + 5}
-                  handleQuestionChange={handleQuestionChange}
-                  fetchQuestions={fetchQuestions}
-                />
-              ))}
-            </div>
-            <div style={{ width: "400px" }}>
-              <button style={final}>Finish </button>
+              {Array.isArray(questionsNo) && questionsNo.length > 0 ? (
+                questionsNo.map((question, index) => (
+                  <button
+                    key={index}
+                    style={{
+                      margin: "20px",
+                      padding: "10px",
+                      borderRadius: "50%",
+                      border: "1px solid #ccc",
+                      backgroundColor: "#f9f9f9",
+                      cursor: "pointer",
+                      width: "50px",
+                    }}
+                    onClick={() => handleQuestionChange(index)}
+                  >
+                    {index + 1}
+                  </button>
+                ))
+              ) : (
+                <p>No questions available</p>
+              )}
+              
             </div>
           </Col>
         </Row>

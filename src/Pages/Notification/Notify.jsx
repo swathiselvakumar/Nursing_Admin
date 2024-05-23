@@ -182,34 +182,7 @@ function Notification() {
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
-                <div>
-                  <label htmlFor="attachment" className="pass-lab">
-                    Attachments:{" "}
-                  </label>
-                  <br />
-                  <Button
-                    component="label"
-                    variant="contained"
-                    startIcon={<CloudUploadIcon />}
-                    style={{
-                      height: "50px",
-                      width: "345px",
-                      marginTop: "5px",
-                      backgroundColor: "white",
-                      color: "black",
-                      border: "1px dashed black",
-                      boxShadow: "none",
-                    }}
-                  >
-                    Upload file
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                      accept="image/*,.pdf,.doc,.docx"
-                    />
-                  </Button>
-                </div>
+                
                 <div className="btnbox">
                   <button className="submit-btn" onClick={handleSend}>
                     Send&nbsp;&nbsp;

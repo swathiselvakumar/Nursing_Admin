@@ -52,7 +52,7 @@ export default function Standard() {
     setSearch(event.target.value);
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_filterSearchStd.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_filterSearchStd.php",
         {
           adminId: email,
           searchData: event.target.value,
@@ -62,7 +62,7 @@ export default function Standard() {
       );
 
       const newData = response.data.map((item, i) =>
-        createData(Number(i + 1), item.username, item.email, item.plan_join_date)
+        createData(Number(i + 1), item.username, item.email, item.date_of_enrollment)
       );
       setLoaded(true);
       setTableData(newData);
@@ -74,15 +74,24 @@ export default function Standard() {
   const fetchData = async (page) => {
     try {
       const response = await axios.post(
-        `https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockStandard.php?page=${page}`,
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockStandard.php?page=${page}`,
         {
           adminId: email,
         }
       );
       setLoaded(true);
+      const itemsPerPageFirstPage = 50;
+      const itemsPerPageOtherPages = 10;
+      
+      let sno; 
+      if (currentPage === 1) {
+          sno = 1;
+      } else {
+          sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+      }
 
       const newData = response.data.map((item, i) =>
-        createData(Number(i + 1), item.username, item.email, item.plan_join_date)
+        createData(sno++, item.username, item.email, item.date_of_enrollment)
       );
 
       setTableData(newData);
@@ -101,8 +110,9 @@ export default function Standard() {
 
       setLoaded(true);
 
-      const { totalPages } = response.data;
-      setTotalPages(totalPages);
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -176,7 +186,7 @@ export default function Standard() {
             <div>
               {loaded && (
                 <Pagination
-                  count={totalPages}
+                  count={totalPages.pages}
                   page={currentPage}
                   onChange={handleChange1}
                   shape="rounded"

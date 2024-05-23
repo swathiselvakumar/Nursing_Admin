@@ -23,7 +23,7 @@ console.log(email);
     
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewDailyTestDetails.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewDailyTestDetailsDashboard.php",
         {
           adminId:email ,
         }
@@ -67,7 +67,7 @@ console.log(email);
                   }}
                   align="right"
                 >
-                  Total Test
+                   Date
                 </TableCell>
               </TableRow>
             </TableHead>

@@ -69,7 +69,7 @@ const {sno}=useParams();
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqnursingtable/${id}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqnursingtable/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -84,7 +84,7 @@ const {sno}=useParams();
               <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
             </div>
             <NavLink
-              to={`/viewquestionsnursing/${id}/${sno}`}
+              to={`/viewquestionsnursing/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -118,7 +118,7 @@ const {sno}=useParams();
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqnursingtable/${id}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mcqnursingtable/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -134,7 +134,7 @@ const {sno}=useParams();
               <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
             </div>
             <NavLink
-              to={`/viewquestionsnursing/${id}/${sno}`}
+              to={`/viewquestionsnursing/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -149,7 +149,7 @@ const {sno}=useParams();
           {rowItems}
         </Row>
       );
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     return rows;
   };
 
@@ -169,7 +169,7 @@ const {sno}=useParams();
           <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
             <div>
               <img src={Aptitude} height="40px" alt="Aptitude" />
-            </div>
+            </div> 
             &nbsp;&nbsp;  
             <div>
               <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>

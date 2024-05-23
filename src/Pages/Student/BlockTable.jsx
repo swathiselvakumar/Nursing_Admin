@@ -44,7 +44,19 @@ function UnBlockTable() {
   const [index, setindex] = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loaded, setLoaded] = useState(false);
+
 const email=localStorage.getItem("userMail");
+
+useEffect(() => {
+  table(currentPage);
+}, [currentPage, loaded]);
+
+const handleChange1 = (event, value) => {
+  setCurrentPage(value);
+};
 
   useEffect(() => {
     if (Originaldata && index >= 0) {
@@ -52,7 +64,7 @@ const email=localStorage.getItem("userMail");
     }
   }, [Originaldata, index]);
 
-  console.log(modified);
+  // console.log(modified);
 
   const HandleUnblock=(()=>{
      const modifiedData = { ...modified, status: "unblock" };
@@ -77,10 +89,7 @@ const email=localStorage.getItem("userMail");
     setOpen(false);
   };
 
-  useEffect(() => {
-    table();
-// unblocklist();
-  }, []);
+  
   
   const unblocklist = async () => {
     try {
@@ -98,10 +107,10 @@ const email=localStorage.getItem("userMail");
   };
 
 
-  const table = async () => {
+  const table = async (page) => {
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php?page=1",
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php?page=${page}`,
         {
           adminId:email,
         }
@@ -110,9 +119,17 @@ const email=localStorage.getItem("userMail");
       setOriginaldata(response.data); 
 
       const blockedData = response.data.filter((item) => item.status === 0);
-
+      const itemsPerPageFirstPage = 50;
+      const itemsPerPageOtherPages = 10;
+      
+      let sno;
+      if (currentPage === 1) {
+          sno = 1;
+      } else {
+          sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+      }
       const newData = blockedData.map((item,i) =>
-        createData(Number(i+1), item.username, item.email, item.plan_join_date)
+        createData(sno++, item.username, item.email, item.date_of_enrollment)
       );
       console.log(newData);
       setRows(newData);
@@ -120,6 +137,28 @@ const email=localStorage.getItem("userMail");
       console.error("Error fetching data:", error);
     }
   };
+
+  const pagination = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_BlockStandardPagination.php`, {
+          adminId: email
+        }
+      );
+
+      setLoaded(true);
+
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    pagination();
+  }, []);
 
 
   return (
@@ -188,7 +227,14 @@ const email=localStorage.getItem("userMail");
           </TableContainer>
         </div>
         <div>
-          <Pagination count={10} shape="rounded" />
+        {loaded && (
+                <Pagination
+                  count={totalPages.pages}
+                  page={currentPage}
+                  onChange={handleChange1}
+                  shape="rounded"
+                />
+              )}
         </div>
       </TableStdStyle>
       <Dialog

@@ -26,7 +26,8 @@ export default function AddSub() {
   const Navigate = useNavigate()
 
   const {sno , lastId}=useParams();
-  console.log(lastId);
+  const email = localStorage.getItem("userMail");
+  // console.log(lastId);
   const[input,setInput]=useState('');
   const [category, setcategory] = useState('');
 const [index, setIndex] = useState(0);
@@ -89,7 +90,7 @@ const [Data, setData] = useState(() => {
   const storedData = localStorage.getItem("selectedFileData");
   return {
     
-      adminId: "nandinivebbox@gmail.com",
+      adminId:email,
       subjectId: sno,
       paperName :input,
       category:category,
@@ -103,13 +104,10 @@ const [Data, setData] = useState(() => {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseQuestion.php",
         Data
-      );
-
-      // setInput(""); 
-      // setYear("");
-      console.log(lastId);
-      Navigate(`/uploadtestsub/${sno}/${lastId}`);
-      // window.location.href = `/uploadtestsub/${sno}/${lastId}`;
+      ); 
+      
+      Navigate(`/subinstitution/${sno}`);
+      // window.location.href = `/subinstitution/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -235,21 +233,9 @@ const [Data, setData] = useState(() => {
 
           <label
             htmlFor="fileInput"
-            style={{
-              border: "none",
-              backgroundColor: "#1b4242",
-              color: "white",
-              height: "60px",
-              // width: "100px",
-              fontWeight: "500",
-              textTransform: "uppercase",
-              fontFamily: "Roboto, sans-serif",
-              margin: "40px",
-              textAlign: "center",
-              // justifyContent:'center',
-              // alignItems:'center',
-              alignContent: "center",
-            }}
+           
+            style={{ textAlign: "center", alignContent: "center",}}
+            className="Submit1"
           >
             Upload Questions
           </label>

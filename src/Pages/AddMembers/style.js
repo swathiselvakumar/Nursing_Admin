@@ -1,3 +1,4 @@
+import { Padding } from "@mui/icons-material";
 import styled from "styled-components";
 
 export const AlertBoxStyle = styled("div")(() => ({
@@ -7,20 +8,21 @@ export const AlertBoxStyle = styled("div")(() => ({
   ".alt-box": {
     // width: "35vw",
     borderRadius: "5px",
-    padding: "18px",
+    padding: "40px",
     fontFamily: "Roboto, sans-serif",
     backgroundColor: "#e7f6f2",
     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+   
   },
   ".TotalBox": {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    height: "50vh",
+    // height: "50vh",
   },
   ".form": {
     width: "120px",
@@ -49,7 +51,7 @@ export const AlertBoxStyle = styled("div")(() => ({
     marginBottom: "10px",
   },
   ".textB": {
-    width: "32vw",
+    width: "500px",
     padding: "10px",
     marginBottom: "20px",
     border: "none",
@@ -60,9 +62,8 @@ export const AlertBoxStyle = styled("div")(() => ({
   ".radioBtn": {
     display: "flex",
     justifyContent: "space-around",
-    
-    // width:90
-    // width: "100px",
+   paddingLeft:"20px" 
+   ,
   },
   ".dialogbox": {
     height: "200px",

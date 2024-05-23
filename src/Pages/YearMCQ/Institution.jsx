@@ -117,7 +117,8 @@ const email=localStorage.getItem("userMail");
       );
       setMonth("");
       setYear("");
-      window.location.href = "/uploadtest";
+     
+      window.location.href = `/yearinstitution/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
@@ -203,7 +204,7 @@ useEffect(() => {
                             paddingTop: "5px",
                           }}
                         >
-                          {item.year} {item.month} Question Paper
+                          {item.year} {item.month}  Paper
                         </button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </NavLink>
@@ -271,13 +272,26 @@ useEffect(() => {
                 labelId="demo-select-small-label"
                 id="demo-select-small"
                 value={year}
-                label="Age"
+                label="Year"
                 onChange={handleChange}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={2024}>2020</MenuItem>
+                <MenuItem value={2010}>2010</MenuItem>
+                <MenuItem value={2011}>2011</MenuItem>
+                <MenuItem value={2012}>2012</MenuItem>
+                <MenuItem value={2013}>2013</MenuItem>
+                <MenuItem value={2014}>2014</MenuItem>
+                <MenuItem value={2016}>2016</MenuItem>
+                <MenuItem value={2017}>2017</MenuItem>
+                <MenuItem value={2018}>2018</MenuItem>
+                <MenuItem value={2019}>2019</MenuItem>
+                <MenuItem value={2020}>2020</MenuItem>
+                <MenuItem value={2021}>2021</MenuItem>
+                <MenuItem value={2022}>2022</MenuItem>
+                <MenuItem value={2023}>2023</MenuItem>
+                <MenuItem value={2024}>2024</MenuItem>
                 <MenuItem value={2025}>2025</MenuItem>
                 <MenuItem value={2026}>2026</MenuItem>
               </Select>
@@ -291,24 +305,24 @@ useEffect(() => {
                 labelId="demo-select-small-label"
                 id="demo-select-small"
                 value={month}
-                label="Age"
+                label="Month"
                 onChange={handleChanged}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={1}>january</MenuItem>
-                <MenuItem value={2}>february</MenuItem>
-                <MenuItem value={3}>march</MenuItem>
-                <MenuItem value={4}>april</MenuItem>
-                <MenuItem value={5}>may</MenuItem>
-                <MenuItem value={6}>june</MenuItem>
-                <MenuItem value={7}>july</MenuItem>
-                <MenuItem value={8}>august</MenuItem>
-                <MenuItem value={9}>september</MenuItem>
-                <MenuItem value={10}>october</MenuItem>
-                <MenuItem value={11}>november</MenuItem>
-                <MenuItem value={12}>december</MenuItem>
+                <MenuItem value="January">January</MenuItem>
+                <MenuItem value="February">February</MenuItem>
+                <MenuItem value="March">March</MenuItem>
+                <MenuItem value="April">April</MenuItem>
+                <MenuItem value="May">May</MenuItem>
+                <MenuItem value="June">June</MenuItem>
+                <MenuItem value="July">July</MenuItem>
+                <MenuItem value="August">August</MenuItem>
+                <MenuItem value="September">September</MenuItem>
+                <MenuItem value="Octobe">October</MenuItem>
+                <MenuItem value="November">November</MenuItem>
+                <MenuItem value="December">December</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -353,26 +367,11 @@ useEffect(() => {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <button className="Submit1">Download Template</button>
-          {/* <NavLink to="/uploadtest"> */}
-          {/* <button type="file" onChange={handleFile}>Upload Questions</button>
-          <input type="file"  onChange={handleFile} /> */}
+          
           <label
             htmlFor="fileInput"
-            style={{
-              border: "none",
-              backgroundColor: "#1b4242",
-              color: "white",
-              height: "40px",
-              width: "200px",
-              fontWeight: "500",
-              textTransform: "uppercase",
-              fontFamily: "Roboto, sans-serif",
-              margin: "40px",
-              textAlign: "center",
-              // justifyContent:'center',
-              // alignItems:'center',
-              alignContent: "center",
-            }}
+            style={{ textAlign: "center", alignContent: "center",}}
+            className="Submit1"
           >
             Upload Questions
           </label>

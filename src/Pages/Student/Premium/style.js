@@ -86,11 +86,12 @@ export const PremiumStyle=styled("div")(()=>({
 },
 ".MuiPagination-root":{
   position:"relative",
-  left:"60%",
   padding:"5px",
-  backgroundColor:"#e7f6f2",
-  width:"380px",
-  borderRadius:"10px"
+  // backgroundColor:"#e7f6f2",
+  // width:"auto",
+  borderRadius:"10px",
+  display:"flex",
+  justifyContent:"flex-end"
 },
 ".MuiTypography-root":{
   fontFamily: "Roboto, sans-serif"
