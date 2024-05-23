@@ -34,27 +34,6 @@ export default function DashboardPage() {
        </Container>
     </div>
     </>
-    // <div style={{backgroundColor:"green",overflowX:"hidden",width:"100%"}}>
-    //   <div style={{ padding: "20px" }}>
-    //     <Card />
-    //   </div>
-    //   <Container fluid style={{ padding: "20px" }}>
-    //     <Row>
-    //       <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-    //         <div>
-    //           <DailyTestTable />
-    //         </div>
-    //       </Col>
-    //       <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-    //         <div>
-    //           <RecentStudentTable />
-    //         </div>
-    //       </Col>
-    //     </Row>
-    //   </Container>
-    //   <div style={{ padding: "20px" }}>
-    //     <TableViewOrg />
-    //   </div>
-    // </div>
+    
   );
 }

@@ -19,7 +19,7 @@ export default function TableViewOrg() {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreportDashboard.php",
+          "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewStudentreportDashboard.php",
           {
             adminId:email,
           }
@@ -90,7 +90,7 @@ export default function TableViewOrg() {
                       style={tbCellans}
                       className="TableDataCell"
                     >
-                      {row.id}
+                      {index+1}
                     </TableCell>
                     <TableCell
                       align="left"
@@ -118,7 +118,7 @@ export default function TableViewOrg() {
                       style={tbCellans}
                       className="TableDataCell"
                     >
-                      {row.score}
+                      {row.plan_category}
                     </TableCell>
                   </TableRow>
                 ))}

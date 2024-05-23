@@ -29,7 +29,7 @@ function StAdd() {
     setOpen(true);
      try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertStudentSt.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/post/A_InsertStudentSt.php",
         {
           username: name,
           email: email,
@@ -37,8 +37,9 @@ function StAdd() {
       );
 
       console.log("Success:", response.data);
-
       setOpen(true);
+      setEmail("");
+      setName("");
     } catch (error) {
       console.error("Error:", error);
       // Handle error here if needed
@@ -139,9 +140,9 @@ function StAdd() {
           <Typography style={{ paddingBottom: "20px" }}>
             Successfully Completed
           </Typography>
-          <NavLink to="/standard">
-            <button style={Btn}>Done</button>
-          </NavLink>
+          {/* <NavLink to="/standard"> */}
+            <button style={Btn}  onClick={handleClose}>Done</button>
+          {/* </NavLink> */}
         </DialogContent>
       </Dialog>
     </AlertBoxStyle>

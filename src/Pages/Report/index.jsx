@@ -24,9 +24,7 @@ export default function Report() {
         <div style={{padding:'20px'}}>
           <TestTable/>
         </div>
-        <div>
-        <Pagination style={{display:"flex",justifyContent:"flex-end"}} count={10} shape="rounded" />
-        </div>
+      
 
       </ReportStyle>
     </div>

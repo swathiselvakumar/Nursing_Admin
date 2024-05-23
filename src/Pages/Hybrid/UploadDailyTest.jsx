@@ -67,6 +67,9 @@ const {sno}=useParams();
   const [search, setSearch] = useState("");
   const email=localStorage.getItem("userMail");
   const [datas,setdata]=useState();
+  const [loaded, setLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,13 +84,17 @@ const {sno}=useParams();
   };
 
   useEffect(() => {
-    fetchTestDetails();
-  }, []);
+    fetchTestDetails(currentPage);
+  }, [currentPage, loaded]);
   
-  const fetchTestDetails = async () => {
+  const handleChange1 = (event, value) => {
+    setCurrentPage(value);
+  };
+  
+  const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_Daily_testDetails.php",
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_Daily_testDetails.php?page=${page}`,
         {
           adminId:email,
           paperId:sno,
@@ -100,7 +107,28 @@ const {sno}=useParams();
       console.error("Error adding new item:", error);
     }
   };
+  const pagination = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_DailyTestPagination.php`, {
+          adminId: email
+        }
+      );
 
+      setLoaded(true);
+
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    pagination();
+  }, []);
+  
   
   return (
     <PremiumStyle>
@@ -130,10 +158,18 @@ const {sno}=useParams();
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <DailyTable datas={datas}/>
+          <DailyTable datas={datas} currentPage={currentPage}/>
         </div>
         <div>
-          <Pagination count={10} shape="rounded" />
+        {loaded && (
+                <Pagination
+                  count={totalPages.pages}
+                  page={currentPage}
+                  onChange={handleChange1}
+                  shape="rounded"
+                  
+                />
+              )}
         </div>
       </div>
     </PremiumStyle>

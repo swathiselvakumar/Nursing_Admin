@@ -30,8 +30,9 @@ export default function ModelInstitution() {
   ];
   const [open, setOpen] = React.useState(false);
   const[stage,setStage]=useState();
-  const [data,setdata]=useState();
+  const [data,setData]=useState([]);
   const [paper,setpaper]=useState([]);
+  const [id,setId]=useState();
 const email=localStorage.getItem("userMail");
 const {sno}=useParams();
   const handleClickOpen = () => {
@@ -86,15 +87,20 @@ const response = await axios.post(
             }
           );
           const stageData = res.data;
-          console.log(stageData);
-          setdata(stageData|| []);
-          // console.log(data);
+          // const obj= res.data.map((item)=>({ 
+          //   institution_id: item.institution_id,
+          //   id:item.sno,
+          //   stage_name:item.stage_name  
+    // }));
+          setData(stageData);
       }catch(error)
       {
             console.error("Error fetching data:", error);
       
       }
   }
+  console.log("...",data);
+
 
   useEffect(()=>{
     fetchData();
@@ -127,7 +133,6 @@ const response = await axios.post(
 
 
   const [age, setAge] = React.useState('');
-
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -219,6 +224,7 @@ const handlestage = (event) => {
             ) : (
               <Typography>No data available</Typography>
             )}
+            
           </Row>
     </Container>
   
@@ -226,17 +232,21 @@ const handlestage = (event) => {
             
           </Row>
         </Container>
-        
         <div className="BtnBox" style={{marginTop:"20px"}}>
           <button className="Btn" onClick={handleClickOpen}>
             Add Stage
           </button>
         </div>
-        <div className="BtnBox">
-          <NavLink to={`/addmock/${sno}`}>
+        {
+          data.map((s)=>(
+            <div className="BtnBox">
+          <NavLink to={`/addmock/${sno}/${s.sno}`}>
             <button className="Btn">Upload Questions</button>
           </NavLink>
         </div>
+          ))
+        }
+        
       </div>
       <Dialog
         onClose={handleClose}

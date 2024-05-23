@@ -72,33 +72,58 @@ export default function McqTablePage() {
  
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
-
+  const [loaded, setLoaded] = useState(false);
   const [datas,setdata]=useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   
 const email=localStorage.getItem("userMail");
 
-  useEffect(() => {
-    fetchTestDetails();
-  }, []);
+useEffect(() => {
+  fetchTestDetails(currentPage);
+}, [currentPage, loaded]);
+
+const handleChange1 = (event, value) => {
+  setCurrentPage(value);
+};
   
-  const fetchTestDetails = async () => {
+  const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_Subject_testDetails.php",
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_Subject_testDetails.php?page=${page}`,
         {
           adminId:email,
           institutionId:sno,
-          paperId:id
+          paperId:id 
         }
-      );
-      // const newData = res.data.map((item,i) =>
-      //   createData(Number(i+1), item.student_name, item.total_count, item.correct_count,item.test_date)
-      // );
+      );   
       setdata(res.data);
     } catch (error) {
       console.error("Error adding new item:", error);
     }
   };
+
+  const pagination = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_SubTestDetailsPagination.php`, {
+          adminId: email
+        }
+      );
+
+      setLoaded(true);
+
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    pagination();
+  }, []);
   
 
   const handleClickOpen = () => {
@@ -112,8 +137,7 @@ const email=localStorage.getItem("userMail");
     setSearch(value);
     console.log("Search input:", value); // Log the search input value
   };
-  const Btn1={backgroundColor:"#fefbe9",width:"200px",fontWeight:"bold",color:"black",textTransform:"capitalize",boxShadow:" rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"}
-  const Btn2={backgroundColor:"white",color:"black",fontWeight:"bold",textTransform:"capitalize",boxShadow:"rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px",width:"200px"}
+  
   return (
     <PremiumStyle>
       <div className="bodystyle">
@@ -142,10 +166,18 @@ const email=localStorage.getItem("userMail");
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <McqTable datas={datas}/>
+          <McqTable datas={datas} currentPage={currentPage}/>
         </div>
         <div>
-          <Pagination count={10} shape="rounded" />
+        {loaded && (
+                <Pagination
+                  count={totalPages.pages}
+                  page={currentPage}
+                  onChange={handleChange1}
+                  shape="rounded"
+                  
+                />
+              )}
         </div>
       </div>
     </PremiumStyle>

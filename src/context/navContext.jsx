@@ -21,6 +21,7 @@ function NavContextProvider({ children }) {
  const [price, setPrice] = useState(1999);
  const [email,setemail]=useState("");
  const [index, setindex] = useState();
+ const [mcqname,setMcqname]=useState();
 
   //  const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
@@ -69,9 +70,9 @@ function NavContextProvider({ children }) {
         email,
         setemail,
         index,
-        setindex
-        // quetionpaperhistory,
-        // setQuestionpaperhistory
+        setindex,
+        mcqname,
+        setMcqname
       }}
     >
       {children}

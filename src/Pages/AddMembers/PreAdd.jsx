@@ -5,6 +5,12 @@ import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function PreAdd() {
   const BreadcrumbItems = [
@@ -18,6 +24,9 @@ function PreAdd() {
   const [email, setEmail] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
   const [plans, setPlans] = useState([]);
+  const emailId=localStorage.getItem("userMail");
+  const [boxopen, setBoxOpen] = React.useState(false);
+
 
   useEffect(() => {
     fetchPlans();
@@ -25,8 +34,11 @@ function PreAdd() {
 
   const fetchPlans = async () => {
     try {
-      const response = await axios.get(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php"
+      const response = await axios.post(
+        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        {
+          adminId:emailId
+        }
       );
       setPlans(response.data);
     } catch (error) {
@@ -42,9 +54,21 @@ const Btn = {
   color: "white",
   fontWeight: "550",
   marginBottom: "10px",
-  width: "510px",
+  width: "500px",
+};
+const Btn1 = {
+  padding: "10px 20px",
+  backgroundColor: "green",
+  border: "none",
+  borderRadius: "5px",
+  marginTop: "20px",
+  color: "white",
+  fontWeight: "550",
+  marginBottom: "10px",
+  width: "100px",
 };
   const handleClickOpen = async () => {
+    setOpen(true);
     try {
       const userData = {
         username: name,
@@ -53,7 +77,7 @@ const Btn = {
       };
 
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertStudentPre.php",
+        "http://localhost/_Nursing_final/controllers/api/admin/post/A_InsertStudentPre.php",
         userData
       );
 
@@ -62,6 +86,7 @@ const Btn = {
       setOpen(true);
       setEmail("");
       setName("");
+      // setPlans("");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -129,7 +154,7 @@ const Btn = {
                     onChange={(e) => setSelectedPlan(e.target.value)}
                   />
                   {/* {"                                                      "} */}
-                  <label htmlFor={plan.plan_id}>{plan.title}</label>
+                  &nbsp;<label htmlFor={plan.plan_id}>{plan.title}</label>
                   {/* <br/> */}
                   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                   {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
@@ -140,13 +165,48 @@ const Btn = {
               ))}
             </span>
           </div>
-          <NavLink to="/premium">
             <button onClick={handleClickOpen} style={Btn}>
               Submit
             </button>
-          </NavLink>
         </div>
       </div>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent
+          dividers
+          style={{
+            height: "200px",
+            width: "400px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography style={{ paddingBottom: "20px" }}>
+            Successfully Completed
+          </Typography>
+          {/* <NavLink to="/standard"> */}
+            <button style={Btn1} onClick={handleClose}>Done</button>
+          {/* </NavLink> */}
+        </DialogContent>
+      </Dialog>
     </AlertBoxStyle>
   );
 }

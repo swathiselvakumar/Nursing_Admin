@@ -69,31 +69,57 @@ export default function Mcqnursingtable() {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = useState("");
   const [datas,setdata]=useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 const email=localStorage.getItem("userMail");
 
 
-  useEffect(() => {
-    fetchTestDetails();
-  }, []);
-  
-  const fetchTestDetails = async () => {
+useEffect(() => {
+  fetchTestDetails(currentPage);
+}, [currentPage, loaded]);
+
+const handleChange1 = (event, value) => {
+  setCurrentPage(value);
+};
+  const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursing_testDetails.php",
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursing_testDetails.php?page=${page}`,
         {
           adminId:email,
           categoryId:sno,
           paperId:id
         }
       );
-      // const newData = res.data.map((item,i) =>
-      //   createData(Number(i+1), item.student_name, item.total_count, item.correct_count,item.test_date)
-      // );
+      
       setdata(res.data);
     } catch (error) {
       console.error("Error adding new item:", error);
     }
   };
+
+  const pagination = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursingPagination.php`, {
+          adminId: email
+        }
+      );
+
+      setLoaded(true);
+
+      // const { totalPages } = response.data;
+      setTotalPages(response.data || []);
+      console.log(totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    pagination();
+  }, []);
   
 
 
@@ -154,10 +180,18 @@ const email=localStorage.getItem("userMail");
           </Row>
         </Container>
         <div style={{ marginTop: "20px", padding: "10px" }}>
-          <Mcqnursetable datas={datas}/>
+          <Mcqnursetable datas={datas} currentPage={currentPage} />
         </div>
         <div>
-          <Pagination count={10} shape="rounded" />
+        {loaded && (
+                <Pagination
+                  count={totalPages.pages}
+                  page={currentPage}
+                  onChange={handleChange1}
+                  shape="rounded"
+                  
+                />
+              )}
         </div>
       </div>
     </PremiumStyle>

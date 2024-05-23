@@ -99,18 +99,27 @@ const handleChange1 = (event, value) => {
    const fetchData = async (page) => {
       try {
         const response = await axios.post(
-          `https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewUnblockPremium.php?page=${page}`,
+          `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockPremium.php?page=${page}`,
           {
             adminId:email,
           }
         );
         setLoad(true);
+        const itemsPerPageFirstPage = 50;
+      const itemsPerPageOtherPages = 10;
+      
+      let sno;
+      if (currentPage === 1) {
+          sno = 1;
+      } else {
+          sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+      }
         const unblockedData = response.data.filter(
           (item) => item.status === 1
         );
         const newData = unblockedData.map((item,i) =>
           createData(
-            Number(i+1),
+            sno++,
             item.username,
             item.email,
             item.plan_join_date,

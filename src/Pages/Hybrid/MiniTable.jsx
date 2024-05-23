@@ -10,10 +10,19 @@ import { Typography } from "@mui/material";
 
 
 
-export default function MiniTable({datas}) {
+export default function MiniTable({datas,currentPage}) {
   const Tbhead = {
     fontWeight: "bold",
   };
+  const itemsPerPageFirstPage = 50;
+  const itemsPerPageOtherPages = 10;
+  
+  let sno; 
+  if (currentPage === 1) {
+      sno = 1;
+  } else {
+      sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+  }
   return (
     <>
       <div
@@ -53,13 +62,13 @@ export default function MiniTable({datas}) {
             </TableHead>
             <TableBody>
             {datas.length > 0 ? (
-                datas.map((row, i) => (
+                datas.map((row) => (
                   <TableRow
-                    key={i}
+                    key={sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {i + 1}
+                      {sno}
                     </TableCell>
                     <TableCell align="left">{row.student_name}</TableCell>
                     <TableCell align="left">{row.total_count}</TableCell>
