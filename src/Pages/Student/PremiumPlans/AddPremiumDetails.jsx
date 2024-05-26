@@ -7,7 +7,8 @@ import AlertIcon from '../../../assets/icons/alert.png'
 import Tick from '../../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
-import { navContext } from '../../../context/navContext'
+import { navContext } from '../../../context/navContext';
+
 export default function PremiumPlanDetails() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
@@ -22,7 +23,7 @@ export default function PremiumPlanDetails() {
   const { plan, setPlan } = useContext(navContext);
   const { price, setPrice } = useContext(navContext);
    const { durationname, setDurationname } = useContext(navContext);
-   
+   const {Endpoint}=useContext(navContext);
 
 
 const handleChangeduration = (event) => {
@@ -42,14 +43,13 @@ const handleChangeduration = (event) => {
         console.log("Plan Details:", planDetails);
          try {
          const response = await axios.post(
-           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
+           `${Endpoint}admin/post/A_InsertPlans.php`,
            {
-             //  id: 1,
              title: plan,
              amount: price,
              duration: 2,
              description: category,
-             // You can include additional data here as needed
+            
            }
          );
       console.log("New item added:", response.data);
@@ -170,49 +170,7 @@ const handleChangeduration = (event) => {
             </div>
 
             <div style={MainText}>
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Plan Duration</label>
-                </div> */}
-                {/* <div><img src={AlertIcon}/></div> */}
-                {/* <div>
-                  <input
-                    type="number"
-                    style={TextB}
-                    value={duration}
-                    onChange={handleChangeduration}
-                  />
-                </div>
-              </div> */}
-              {/* <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
-                }}
-              >
-                <div>
-                  <label>Price</label>
-                </div> */}
-                {/* <div><img src={AlertIcon}/></div> */}
-                {/* <div>
-                  <input
-                    type="number"
-                    // value="1999"
-                    style={TextB}
-                    value={pricename}
-                    onChange={handleChangeprice}
-                  />
-                </div>
-              </div> */}
+             
               <div
                 style={{
                   marginTop: "15px",
@@ -224,7 +182,7 @@ const handleChangeduration = (event) => {
                 <div>
                   <label>Category Access</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
+               
                 <div>
                   <input
                     type="text"

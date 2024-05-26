@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Button, Typography } from "@mui/material";
 import { PlansStyle } from "./planstyle";
 import { Container, Row, Col } from "react-bootstrap";
@@ -19,12 +19,13 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Rong from "../../../assets/icons/rong.jpg";
 import axios from "axios";
+import { navContext } from "../../../context/navContext";
 
 export default function PlanDetails() {
   const [open, setOpen] = useState(false);
   const [plansData, setPlansData] = useState([]);
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -41,7 +42,7 @@ export default function PlanDetails() {
   const fetchPlansData = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        `${Endpoint}admin/get/A_ViewPlans.php`,
         {
           adminId:email
         }

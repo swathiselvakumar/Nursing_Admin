@@ -22,6 +22,7 @@ function NavContextProvider({ children }) {
  const [email,setemail]=useState("");
  const [index, setindex] = useState();
  const [mcqname,setMcqname]=useState();
+ const [Endpoint,setEndpoint]=useState("https://vebbox.in/Nursing/controllers/api/");
 
   //  const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
@@ -72,7 +73,9 @@ function NavContextProvider({ children }) {
         index,
         setindex,
         mcqname,
-        setMcqname
+        setMcqname,
+        Endpoint,
+        setEndpoint
       }}
     >
       {children}

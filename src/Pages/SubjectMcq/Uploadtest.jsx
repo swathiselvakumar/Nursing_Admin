@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useContext} from 'react'
 import { Container,Row,Col } from 'react-bootstrap'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../constants/routeConstants'
@@ -6,11 +6,12 @@ import { Typography } from '@mui/material';
 import Btn from './Btn';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { navContext } from '../../context/navContext';
 export default function UploadTestsub() {
 const {sno}=useParams();
 const {lastId}  =useParams();
 const email=localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -37,25 +38,11 @@ const handleEdit = () => {
     fetchQuestions(1)
     // Send()
   },[])   
-// const response = async (questionId) => {
-//   try {
-//     const res = await axios.post(
-//       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
-//       {
-//         adminId: "nandinivebbox@gmail.com",
-//         subjectId: sno,
-//         paperId: "3",
-//         questionId: questionId,
-//       }
-//     );
-//   } catch (error) {
-//     console.error("Error adding new item:", error);
-//   }
-// };
+
  const fetchQuestions = (questionId) => {
    axios
      .post(
-       "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
+       `${Endpoint}admin/get/A_ViewSubWiseQuestions.php`,
        {
          adminId: email,
          subjectId: sno,

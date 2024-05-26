@@ -23,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 import UnBlockIcon from '../../../assets/icons/unlock.png'
 import { TableStdStyle } from "../../StudentTable/style";
 import axios from "axios";
+import { useContext } from "react";
+import { navContext } from "../../../context/navContext";
 
 function createData(sno, sname, email, memberSince) {
   return { sno, sname, email, memberSince };
@@ -47,6 +49,7 @@ function Blocktablepre() {
   const [totalPages, setTotalPages] = useState(1);
   const [True, setTrue] = useState();
   const [loaded, setLoaded] = useState(false);
+  const {Endpoint}=useContext(navContext);
 
 const email=localStorage.getItem("userMail");
 
@@ -94,7 +97,7 @@ const handleChange1 = (event, value) => {
   const unblocklist = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        `${Endpoint}admin/put/A_blockUnblockStd.php`,
         {
           adminId:email,
           id: modified.email,
@@ -109,7 +112,7 @@ const handleChange1 = (event, value) => {
   const table = async (page) => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockPremiumStd.php?page=${page}`,
+        `${Endpoint}admin/get/A_ViewBlockPremiumStd.php?page=${page}`,
         {
           adminId:email,
         }
@@ -140,7 +143,7 @@ const handleChange1 = (event, value) => {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_BlockPremiumPagination.php`, {
+        `${Endpoint}admin/get/A_BlockPremiumPagination.php`, {
           adminId: email
         }
       );

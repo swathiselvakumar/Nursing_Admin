@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 export default function UploadTestmodel() {
   const { sno } = useParams();
 
@@ -18,7 +19,7 @@ export default function UploadTestmodel() {
   ];
   const [editMode, setEditMode] = useState(false);
 const email=localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
   const [questions, setQuestions] = useState([
     { id: 1, text: "What are the benefits of using Python language?" },
     // Add more questions as needed
@@ -44,7 +45,7 @@ const email=localStorage.getItem("userMail");
   const response = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockQuestions.php",
+        `${Endpoint}admin/get/A_ViewModelMockQuestions.php`,
         {
           adminId:email,
           institutionId: "1",

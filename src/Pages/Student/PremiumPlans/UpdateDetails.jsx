@@ -23,7 +23,7 @@ export default function UpdateDetails() {
       const { plan, setPlan } = useContext(navContext);
       const { price, setPrice } = useContext(navContext);
       const {durationname, setDurationname } = useContext(navContext);
- 
+      const {Endpoint}=useContext(navContext);
   const handleChangecategory = (event) => {
     setCategory(event.target.value);
   };
@@ -32,7 +32,7 @@ export default function UpdateDetails() {
     console.log("Plan Details:", planDetails);
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_updatePlans.php",
+        `${Endpoint}admin/put/A_updatePlans.php`,
         {
           id: 4,
           title: plan,

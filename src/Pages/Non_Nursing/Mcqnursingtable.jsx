@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -20,10 +20,12 @@ import Mcqnursetable from "./Mcqnursetable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 export default function Mcqnursingtable() {
   const languageName = getLocalStorage("languageName");
   const { sno } = useParams();
   const { id } = useParams();
+  const {Endpoint}=useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
@@ -85,7 +87,7 @@ const handleChange1 = (event, value) => {
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursing_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_NonNursing_testDetails.php?page=${page}`,
         {
           adminId:email,
           categoryId:sno,
@@ -102,7 +104,7 @@ const handleChange1 = (event, value) => {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_NonNursingPagination.php`, {
+        `${Endpoint}admin/get/A_NonNursingPagination.php`, {
           adminId: email
         }
       );

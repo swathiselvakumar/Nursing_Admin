@@ -39,6 +39,7 @@ export default function YearInstitution() {
   const [openSecondDialog, setOpenSecondDialog] = useState(false);
    const[paper,setPaper]=useState([]);
   const [open, setOpen] = useState(false);
+  const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
   const { sno} = useParams();
@@ -112,7 +113,7 @@ const email=localStorage.getItem("userMail");
   const SendApi = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqQuestion.php",
+        `${Endpoint}admin/post/A_InsertPmcqQuestion.php`,
         Data
       );
       setMonth("");
@@ -129,7 +130,7 @@ const email=localStorage.getItem("userMail");
   try 
   {
     const res = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqPaper.php",
+      `${Endpoint}admin/get/A_ViewPmcqPaper.php`,
       {
         adminId:email,
         id: sno,
@@ -147,7 +148,7 @@ const email=localStorage.getItem("userMail");
   // setclick(true);
   try {
     const res = await axios.delete(
-      "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQPaper.php",
+      `${Endpoint}admin/delete/A_deletePMCQPaper.php`,
       {
         data: {
           adminId:email,

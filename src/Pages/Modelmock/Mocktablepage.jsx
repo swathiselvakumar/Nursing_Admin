@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -20,12 +20,14 @@ import { getLocalStorage } from "../../utils/helperFunc";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
 import Mocktable from "./Mocktable";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 // import { useParams } from "react-router-dom";
 export default function Mocktablepage() {
   const languageName = getLocalStorage("languageName");
   const {sno}=useParams();
   const {id}=useParams();
   const {stageno}=useParams();
+  const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
   const BreadcrumbItems = [
@@ -95,7 +97,7 @@ const email=localStorage.getItem("userMail");
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ModelMock_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_ModelMock_testDetails.php?page=${page}`,
         {
           adminId:email,
           institutionId:sno,
@@ -113,7 +115,7 @@ const email=localStorage.getItem("userMail");
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ModelMockPagination.php`, {
+        `${Endpoint}admin/get/A_ModelMockPagination.php`, {
           adminId: email
         }
       );

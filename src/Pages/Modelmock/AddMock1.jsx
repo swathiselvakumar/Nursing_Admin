@@ -30,6 +30,7 @@ export default function AddMock1() {
     const [openFirstDialog, setOpenFirstDialog] = useState(false);
     const [openSecondDialog, setOpenSecondDialog] = useState(false);
     const [mcqid, setMcqid] = useState('');
+    const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
     // console.log(sno);
@@ -55,7 +56,7 @@ const email=localStorage.getItem("userMail");
   const fetchmcqid = async () => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMCQId.php",
+      `${Endpoint}admin/get/A_ViewMCQId.php`,
         {
           adminId: email,
           mcqname:mcqname,
@@ -125,7 +126,7 @@ const [Data, setData] = useState(() => {
     
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockQuestion.php",
+        `${Endpoint}admin/post/A_InsertModelMockQuestion.php`,
         Data
       );
     } catch (error) {
@@ -139,7 +140,7 @@ const [Data, setData] = useState(() => {
           try{
              const currentDate = new Date().toISOString().split("T")[0];
             const res = await axios.post(
-              "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockMeta.php",
+              `${Endpoint}admin/post/A_InsertModelMockMeta.php`,
               {
                 adminId: email,
                 institutionId: sno,
@@ -310,10 +311,10 @@ const [Data, setData] = useState(() => {
                     <option value="">Select Time</option>
                     {[
                       { label: "1 hour", value: "60" },
-                      // { label: "1/2 hour", value: "30" },
                       { label: "2 hour", value: "120" },
-                      // { label: "2 1/2 hour", value: "150" },
                       { label: "3 hour", value: "180" },
+                      { label: "2 mins", value: "2" },
+
                     ].map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}

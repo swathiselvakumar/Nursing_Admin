@@ -15,8 +15,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState } from "react";
+import { useState,useContext } from "react";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -34,7 +35,7 @@ function UpdateAds() {
  const [adminId, setAdminId] = useState("nandinivebbox@gmail.com");
  const [category, setCategory] = useState("yearMCQ");
  const [file, setFile] = useState(null); // This will hold the file data
-
+const {Endpoint}=useContext(navContext);
  // Function to handle file input change
  const handleFileChange = (event) => {
    setFile(event.target.files[0]);
@@ -49,7 +50,7 @@ function UpdateAds() {
 
    try {
      const response = await fetch(
-       "https://vebbox.in/Nursing/controllers/api/admin/upload/A_updateAdvertisement.php",
+       `${Endpoint}admin/upload/A_updateAdvertisement.php`,
        {
          method: "POST",
          body: formData,

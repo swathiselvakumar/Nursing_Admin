@@ -46,10 +46,11 @@ import {
 export default function Signin() {
   const Navigate=useNavigate();
  const {email,setemail}=useContext(navContext);
+ const {Endpoint}=useContext(navContext);
     const [showPassword, setShowPassword] = useState(false);
     const [pass,setPass]=useState("");
+    const [error, setError] = useState("");
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
@@ -58,32 +59,41 @@ export default function Signin() {
     };
     localStorage.setItem("userMail", email);
     const handleClickOpen = async () => {
-      
+      validateEmail();
       try {
         const response = await axios.post(
-          'https://vebbox.in/Nursing/controllers/api/admin/put/A_login.php',
+          `${Endpoint}admin/put/A_login.php`,
           {
             gmailId: localStorage.getItem("userMail"),
             password:pass, 
           }
-        );
+        ).then(function (response) {
+          if (response.data.message === "success") {
+              Navigate("/dashboard");
+            }  else {
+              alert("Username or Password is Invalid");
+            }
+        })
+        .catch(function (error) {
+          alert("Enter Valid Credentials");
+          // console.error(error);
+          // if()
+          
+        });
         
-        console.log("Success:", response.data);
-
-        if (response.data.message === "success") {
-          Navigate("/dashboard");
-        } else {
-          // Handle the case where the response is not successful
-          alert("Username or password invalid");
-          console.error("Error in response:", response.data);
-          // Optionally, display an error message to the user
-        }
-       
+        
+  
       } catch (error) {
         console.error("Error check email or password:", error);
+        setError("Error checking email or password");
       }
-      // Navigate('/otp');
     };
+  
+    const validateEmail = (email) => {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    };
+    
   return (
     <>
     <Grid container component="main" style={{ height: "100vh",overflow:"hidden"}}>
@@ -117,6 +127,7 @@ export default function Signin() {
               Email <EmailIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-2px" }} />
             </Typography>
             <TextField variant="outlined" fullWidth
+              type='email'
               id="email"
               style={{ marginBottom: "8px" }}
               onChange={(e)=>{setemail(e.target.value)}}
@@ -167,7 +178,7 @@ export default function Signin() {
                 textAlign: "right",
               }}
             >
-              Forget Password?
+              Forgot Password?
             </Typography>
            </NavLink>
             

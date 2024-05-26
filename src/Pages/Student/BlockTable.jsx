@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Typography, Button } from "@mui/material";
 import {
   Table,
@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import UnBlockIcon from "../../assets/icons/unlock.png";
 import { TableStdStyle } from "../StudentTable/style";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 function createData(sno, sname, email, memberSince) {
   return { sno, sname, email, memberSince };
@@ -47,7 +48,7 @@ function UnBlockTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loaded, setLoaded] = useState(false);
-
+  const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
 useEffect(() => {
@@ -94,7 +95,7 @@ const handleChange1 = (event, value) => {
   const unblocklist = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        `${Endpoint}admin/put/A_blockUnblockStd.php`,
         {
           adminId: email,
           id: modified.email,
@@ -110,7 +111,7 @@ const handleChange1 = (event, value) => {
   const table = async (page) => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewBlockStandardStd.php?page=${page}`,
+        `${Endpoint}admin/get/A_ViewBlockStandardStd.php?page=${page}`,
         {
           adminId:email,
         }
@@ -141,7 +142,7 @@ const handleChange1 = (event, value) => {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_BlockStandardPagination.php`, {
+        `${Endpoint}admin/get/A_BlockStandardPagination.php`, {
           adminId: email
         }
       );

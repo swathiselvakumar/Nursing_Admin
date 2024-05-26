@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Institution from "../../assets/images/vadakk.png";
 import { Typography } from "@mui/material";
@@ -16,6 +16,7 @@ import axios from "axios";
 import Rong from "../../assets/icons/rong.jpg";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { navContext } from "../../context/navContext";
 
 
 export default function YearCard() {
@@ -25,13 +26,13 @@ export default function YearCard() {
   const [obj, setObj] = useState([]);
 const email=localStorage.getItem("userMail");
 const [click, setclick] = useState(false);
-
+const {Endpoint}=useContext(navContext);
 
 
   const getCourses = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqInstitution.php",
+        `${Endpoint}admin/get/A_ViewPmcqInstitution.php`,
         {
           adminId:email,
           
@@ -64,7 +65,7 @@ const [click, setclick] = useState(false);
     setclick(true);
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deletePMCQInstitution.php",
+        `${Endpoint}admin/delete/A_deletePMCQInstitution.php`,
         {
           data: {
             adminId:email,

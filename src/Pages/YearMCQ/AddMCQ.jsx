@@ -11,7 +11,8 @@ import { navContext } from '../../context/navContext'
 export default function AddMCQ() {
   const [name, setName] = useState('');
   const { setName: setNavName } = useContext(navContext);
-  
+  const {Endpoint}=useContext(navContext);
+  const email=localStorage.getItem("userMail");
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -28,29 +29,29 @@ export default function AddMCQ() {
 
         //  console.log("Name prop:", name);
        const handleNextClick = async () => {
-        //  const planDetails = { name };
-        //  console.log("Plan Details:", planDetails);
-        //  setSuccessDialogOpen(true);
-    //      try {
-    //      const response = await axios.post(
-    //        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqInstitution.php",
-    //        {
-    //          adminId: "nandinivebbox@gmail.com",
-    //          name: name,
-    //         //  about: about,
-    //         //  description: description,
-    //          // You can include additional data here as needed
-    //        }
-    //      );
-    //   console.log("New item added:", response.data);
-    //    setName("");
-    //    console.log(name);
+         const planDetails = { name };
+         console.log("Plan Details:", planDetails);
+         setSuccessDialogOpen(true);
+         try {
+         const response = await axios.post(
+           `${Endpoint}admin/post/A_InsertPmcqInstitution.php`,
+           {
+             adminId:email,
+             name: name,
+            //  about: about,
+            //  description: description,
+             // You can include additional data here as needed
+           }
+         );
+      console.log("New item added:", response.data);
+       setName("");
+       console.log(name);
 
-    //   //  setDescription("");
-    //   //  setAbout(""); // Clear input fields
-    // } catch (error) {
-    //   console.error("Error adding new item:", error);
-    // }
+      //  setDescription("");
+      //  setAbout(""); // Clear input fields
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
        };
       const MainBox={
         backgroundColor:"#f6f6f6",

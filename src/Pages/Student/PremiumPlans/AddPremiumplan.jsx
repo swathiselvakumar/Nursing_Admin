@@ -16,7 +16,7 @@ export default function AddPremiumplan() {
   const { setPlan: setPlanName } = useContext(navContext);
   const { setPrice: setPriceName } = useContext(navContext);
   const { setDuration: setDurationName } = useContext(navContext);
-
+  const {Endpoint}=useContext(navContext);
 
    
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
@@ -51,28 +51,26 @@ export default function AddPremiumplan() {
         const planDetails = { plan, price, durationname };
         console.log("Plan Details:", planDetails);
         setSuccessDialogOpen(true);
-    //       try {
-    //      const response = await axios.post(
-    //        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPlans.php",
-    //        {
-    //          //  adminId: "nandinivebbox@gmail.com",
-    //          name: setPlanName,
-    //          instruction: setPriceName,
-    //          desc: setDurationName,
+          try {
+         const response = await axios.post(
+           `${Endpoint}admin/post/A_InsertPlans.php`,
+           {
              
-    //          // You can include additional data here as needed
-    //        }
-    //      );
-    //   console.log("New item added:", response.data);
-    //    setPlan("");
-    //    setPrice("");
-    //    setDuration(""); 
-    //    // Clear input fields
-    //   console.log(name);
+             name: setPlanName,
+             instruction: setPriceName,
+             desc: setDurationName,
+             
+           }
+         );
+      console.log("New item added:", response.data);
+       setPlan("");
+       setPrice("");
+       setDuration(""); 
+      
 
-    // } catch (error) {
-    //   console.error("Error adding new item:", error);
-    // }
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
       };
 
       const handleSuccessDialogClose = () => {

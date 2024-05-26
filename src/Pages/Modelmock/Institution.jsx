@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import { Container,Row,Col } from 'react-bootstrap'
 import {Typography } from '@mui/material'
@@ -18,6 +18,7 @@ import axios from 'axios'
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from 'react'
 import '../YearMCQ/CardStyle.css'
+import { navContext } from '../../context/navContext'
 
 export default function ModelInstitution() {
 
@@ -34,6 +35,7 @@ export default function ModelInstitution() {
   const [paper,setpaper]=useState([]);
   const [id,setId]=useState();
 const email=localStorage.getItem("userMail");
+const {Endpoint}=useContext(navContext);
 const {sno}=useParams();
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +45,7 @@ const {sno}=useParams();
 
 try{ 
 const response = await axios.post(
-      "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockStage.php",
+      `${Endpoint}admin/post/A_InsertModelMockStage.php`,
       {
         adminId:email,
         institutionId: sno,
@@ -61,7 +63,7 @@ const response = await axios.post(
   const PaperData = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockStagePaper.php",
+        `${Endpoint}admin/get/A_ViewModelMockStagePaper.php`,
         {
           adminId: email,
           id: sno
@@ -80,18 +82,14 @@ const response = await axios.post(
   const fetchData=async()=>{
     try{ 
       const res= await axios.post(
-            "http://localhost/_Nursing_final/controllers/api/admin/get/A_viewStage.php",
+            `${Endpoint}admin/get/A_viewStage.php`,
             {
               adminId:email,
               institution_id:sno
             }
           );
           const stageData = res.data;
-          // const obj= res.data.map((item)=>({ 
-          //   institution_id: item.institution_id,
-          //   id:item.sno,
-          //   stage_name:item.stage_name  
-    // }));
+         
           setData(stageData);
       }catch(error)
       {
@@ -111,7 +109,7 @@ const response = await axios.post(
     // setclick(true);
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteModelMockPaper.php",
+        `${Endpoint}admin/delete/A_deleteModelMockPaper.php`,
         {
           data: {
             adminId:email,

@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -17,6 +17,7 @@ import { getLocalStorage } from "../../utils/helperFunc";
 import DailyTable from "./DailyTable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 export default function UploadDailyTest() {
   const languageName = getLocalStorage("languageName");
@@ -70,6 +71,7 @@ const {sno}=useParams();
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const {Endpoint}=useContext(navContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,7 +96,7 @@ const {sno}=useParams();
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_Daily_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_Daily_testDetails.php?page=${page}`,
         {
           adminId:email,
           paperId:sno,
@@ -110,7 +112,7 @@ const {sno}=useParams();
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_DailyTestPagination.php`, {
+        `${Endpoint}admin/get/A_DailyTestPagination.php`, {
           adminId: email
         }
       );

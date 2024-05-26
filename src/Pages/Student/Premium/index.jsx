@@ -1,16 +1,10 @@
 import { Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { PremiumStyle } from './style';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled} from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import { Container,Row,Col } from 'react-bootstrap';
-import UpdateIcon from '@mui/icons-material/Update';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { NavLink } from 'react-router-dom';
 import PremiumTb from './premiumTable';
-import Dialog from '@mui/material/Dialog';
-import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import Pagination from '@mui/material/Pagination';
 import Block from '../../../assets/icons/block.png'
 import { PATH } from '../../../constants/routeConstants';
@@ -18,8 +12,10 @@ import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
 import { getLocalStorage } from '../../../utils/helperFunc';
 import SearchAppBar from '../../../components/Common/Searchinput/Search';
 import axios from 'axios';
+import { navContext } from "../../../context/navContext";
 import { Value } from 'sass';
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
+
 export default function Premium() {
   const languageName = getLocalStorage("languageName");
 
@@ -41,6 +37,7 @@ export default function Premium() {
  const [loaded, setLoaded] = useState(false);
  const [stdId,setStdId]=useState(null);
  const [load,setLoad]=useState(false);
+ const {Endpoint}=useContext(navContext);
  console.log("stdId",stdId);
 
  useEffect(() => {
@@ -61,7 +58,7 @@ const handleChange1 = (event, value) => {
     setSearch(event.target.value);
     try {
       const response = await axios.post(
-        'http://localhost/_Nursing_final/controllers/api/admin/get/A_filterSearchStd.php',
+        `${Endpoint}admin/get/A_filterSearchStd.php`,
         {
           adminId: email,
           searchData: event.target.value,
@@ -69,8 +66,6 @@ const handleChange1 = (event, value) => {
           status: "1"
         }
       );
-      
-  
       // Log the response to debug
       console.log("API response:", response.data);
   
@@ -99,7 +94,7 @@ const handleChange1 = (event, value) => {
    const fetchData = async (page) => {
       try {
         const response = await axios.post(
-          `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockPremium.php?page=${page}`,
+          `${Endpoint}admin/get/A_ViewUnblockPremium.php?page=${page}`,
           {
             adminId:email,
           }
@@ -136,7 +131,7 @@ const handleChange1 = (event, value) => {
     const pagination = async () => {
       try {
         const response = await axios.post(
-          `http://localhost/_Nursing_final/controllers/api/admin/get/A_UnblockPremiumPagination.php`,
+          `${Endpoint}admin/get/A_UnblockPremiumPagination.php`,
           {
             adminId: email
           }

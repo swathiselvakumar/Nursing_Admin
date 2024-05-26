@@ -9,12 +9,13 @@ import Paper from '@mui/material/Paper';
 import { Grid, Typography } from '@mui/material';
 import { TableStyle } from "../Report/Table/style";
 import axios from 'axios';
-
+import { useContext } from 'react';
+import { navContext } from '../../context/navContext';
 
 export default function RecentStudentTable() {
 const [rows, setRows] = React.useState([]);
 const email=localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
 
     React.useEffect(() => {
       table();
@@ -23,7 +24,7 @@ const email=localStorage.getItem("userMail");
     const table = async () => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewRecentStudents.php",
+          `${Endpoint}admin/get/A_ViewRecentStudents.php`,
            {
              adminId:email,
            }

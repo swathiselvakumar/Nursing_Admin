@@ -27,7 +27,7 @@ export default function AddSub() {
 
   const {sno , lastId}=useParams();
   const email = localStorage.getItem("userMail");
-  // console.log(lastId);
+  const {Endpoint}=useContext(navContext);
   const[input,setInput]=useState('');
   const [category, setcategory] = useState('');
 const [index, setIndex] = useState(0);
@@ -102,7 +102,7 @@ const [Data, setData] = useState(() => {
   const SendApi = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseQuestion.php",
+        `${Endpoint}admin/post/A_InsertSubWiseQuestion.php`,
         Data
       ); 
       

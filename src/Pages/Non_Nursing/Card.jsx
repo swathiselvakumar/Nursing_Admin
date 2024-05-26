@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Aptitude from "../../assets/images/Aptitude.jpg";
 import Reasoning from "../../assets/images/reasoning.png";
@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { navContext } from "../../context/navContext";
 
 
 export default function NonNursingCard() {
@@ -25,7 +26,7 @@ export default function NonNursingCard() {
   const [instruction, setInstruction] = useState("");
   const [datas, setDatas] = useState([]);
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -37,7 +38,7 @@ export default function NonNursingCard() {
   const handleAddCategory = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNonNursingCategory.php",
+        `${Endpoint}admin/post/A_InsertNonNursingCategory.php`,
         {
           adminId:email,
           name: name,
@@ -63,7 +64,7 @@ export default function NonNursingCard() {
   const getCourses = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingCategory.php",
+        `${Endpoint}admin/get/A_ViewNonNursingCategory.php`,
         {
           adminId:email,
         }
@@ -89,7 +90,7 @@ export default function NonNursingCard() {
   const CardDelete = async (sno) => {
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteNonNursingCategory.php",
+        `${Endpoint}admin/delete/A_deleteNonNursingCategory.php`,
         {
           data: {
             adminId:email,

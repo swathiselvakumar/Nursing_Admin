@@ -21,7 +21,8 @@ import Select from "@mui/material/Select";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
+import { navContext } from "../../context/navContext";
 export default function MicroInstitution() {
   const BreadcrumbItems = [
     // { label: "Dashboard", path: PATH.DASHBOARD },
@@ -40,7 +41,7 @@ export default function MicroInstitution() {
   const [data,setdata]=useState([]); 
   const email=localStorage.getItem("userMail");
   const [paper,setpaper]=useState();
-
+  const {Endpoint}=useContext(navContext);
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
@@ -58,7 +59,7 @@ export default function MicroInstitution() {
   const fetchApi=async()=>{
     try{ 
       const response = await axios.post(
-            "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMicroTestDetails.php",
+            `${Endpoint}admin/get/A_ViewMicroTestDetails.php`,
             {
               adminId:email
             }

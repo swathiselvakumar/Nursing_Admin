@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { StandardStyle } from "./style";
 import { Container, Row, Col } from "react-bootstrap";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -11,6 +11,7 @@ import CustomBreadCrumbs from "../../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../../constants/routeConstants";
 import SearchAppBar from "../../../components/Common/Searchinput/Search";
 import axios from "axios";
+import { navContext } from "../../../context/navContext";
 
 export default function Standard() {
 
@@ -27,7 +28,7 @@ export default function Standard() {
   const [stdId, setStdId] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [update, setUpdate] = useState(false);
-
+  const {Endpoint}=useContext(navContext);
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage, update]);
@@ -52,7 +53,7 @@ export default function Standard() {
     setSearch(event.target.value);
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_filterSearchStd.php",
+      `${Endpoint}admin/get/A_filterSearchStd.php`,
         {
           adminId: email,
           searchData: event.target.value,
@@ -74,7 +75,7 @@ export default function Standard() {
   const fetchData = async (page) => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewUnblockStandard.php?page=${page}`,
+        `${Endpoint}admin/get/A_ViewUnblockStandard.php?page=${page}`,
         {
           adminId: email,
         }
@@ -103,7 +104,7 @@ export default function Standard() {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_UnblockStandardPagination.php`, {
+        `${Endpoint}admin/get/A_UnblockStandardPagination.php`, {
           adminId: email
         }
       );

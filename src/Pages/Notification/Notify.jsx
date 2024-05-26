@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { NotificationStyle } from "./style";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import RestorePageIcon from "@mui/icons-material/RestorePage";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -27,7 +28,7 @@ function Notification() {
   const [headline, setHeadline] = useState("");
   const [description, setDescription] = useState("");
   const [attachment, setAttachment] = useState(null);
-
+  const {Endpoint}=useContext(navContext);
   const handleFileChange = (event) => {
     setAttachment(event.target.files[0]);
   };
@@ -46,7 +47,7 @@ function Notification() {
       };
 
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNotification.php",
+        `${Endpoint}admin/post/A_InsertNotification.php`,
         formData,
         config
       );

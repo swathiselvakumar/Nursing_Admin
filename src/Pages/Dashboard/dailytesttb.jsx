@@ -9,10 +9,12 @@ import Paper from "@mui/material/Paper";
 import { Grid, Typography } from "@mui/material";
 import { TableStyle } from "../Report/Table/style";
 import axios from "axios";
-
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
 
 export default function DailyTestTable() {
   const [testData, setTestData] = useState([]);
+  const {Endpoint}=useContext(navContext);
   
   useEffect(() => {
     fetchTestData();
@@ -23,7 +25,7 @@ console.log(email);
     
     try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewDailyTestDetailsDashboard.php",
+        `${Endpoint}admin/get/A_ViewDailyTestDetailsDashboard.php`,
         {
           adminId:email ,
         }

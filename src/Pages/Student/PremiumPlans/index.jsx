@@ -41,12 +41,12 @@ export default function PremiumPlans() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 const email=localStorage.getItem("userMail");
-  
+  const {Endpoint}=useContext(navContext);
 useEffect(() => {
   const fetchPlans = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        `${Endpoint}admin/get/A_ViewPlans.php`,
         {
           adminId:email
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { NotificationStyle } from "./style";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -26,6 +27,7 @@ function NotificationHistory() {
   const [allnotifications, setAllnotifications] = useState([]);
   const email = localStorage.getItem("userMail");
   const navigate = useNavigate();
+  const {Endpoint}=useContext(navContext);
 
   const BreadcrumbItems = [
     { label: "Settings", path: PATH.SETTINGS },
@@ -42,7 +44,7 @@ function NotificationHistory() {
   const fetchTodayNotifications = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewTodayNotification.php",
+        `${Endpoint}admin/get/A_ViewTodayNotification.php`,
         { admin_id: email }
       );
       if (Array.isArray(response.data)) {
@@ -58,7 +60,7 @@ function NotificationHistory() {
   const fetchYesterdayNotifications = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewYesterdayNotification.php",
+        `${Endpoint}admin/get/A_ViewYesterdayNotification.php`,
         { admin_id: email }
       );
       if (Array.isArray(response.data)) {
@@ -74,7 +76,7 @@ function NotificationHistory() {
   const fetchAllNotifications = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAllNotification.php",
+        `${Endpoint}admin/get/A_ViewAllNotification.php`,
         { admin_id: email }
       );
       if (Array.isArray(response.data)) {

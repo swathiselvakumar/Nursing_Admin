@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function Viewquestionsmodel() {
   const { sno } = useParams();
@@ -15,7 +16,7 @@ const email=localStorage.getItem("userMail");
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionsNo, setQuestionsNo] = useState([]);
-
+  const {Endpoint}=useContext(navContext);
  
   useEffect(() => {
     fetchQuestionSno();
@@ -24,7 +25,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockQuestions.php",
+        `${Endpoint}admin/get/A_ViewModelMockQuestions.php`,
         {
           adminId:email,
           institutionId: sno,
@@ -53,7 +54,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        "https://localhost/_Nursing_final/controllers/api/admin/get/A_ViewModelMockQuestionCount.php",
+        `${Endpoint}admin/get/A_ViewModelMockQuestionCount.php`,
         {
           adminId: email,
           institutionId: sno,

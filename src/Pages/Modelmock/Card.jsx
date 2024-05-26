@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Model from "../../assets/images/model.png";
 import { Typography } from "@mui/material";
@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import { navContext } from "../../context/navContext";
 
 export default function ModelMockCard() {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function ModelMockCard() {
   const [instruction, setInstruction] = useState("");
   const [data, setData] = useState([]);
 const email=localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,7 +48,7 @@ const email=localStorage.getItem("userMail");
   const handleAddInstitution = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertModelMockInstitution.php",
+        `${Endpoint}admin/post/A_InsertModelMockInstitution.php`,
         {
           adminId:email,
           name: name,
@@ -69,7 +69,7 @@ const email=localStorage.getItem("userMail");
   const fetchData = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewModelMockInstitution.php",
+        `${Endpoint}admin/get/A_ViewModelMockInstitution.php`,
         {
           adminId:email,
         }
@@ -94,7 +94,7 @@ const email=localStorage.getItem("userMail");
   const CardDelete = async (sno) => {
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteModelMockCategory.php",
+        `${Endpoint}admin/delete/A_deleteModelMockCategory.php`,
         {
           data: {
             adminId:email,

@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from "react";
 import myImage from "../../assets/images/profile.svg";
-import Notify from "../Notification/Notify";
 import { SettingStyle } from "./Style";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+
 function Settings() {
   const [mobileNo, setMobileNo] = useState("");
   const [address, setAddress] = useState("");
-   const [data, setData] = useState(null); 
-const email=localStorage.getItem("userMail");
-const [update,setupdate]=useState([]);
+  const email = localStorage.getItem("userMail");
 
+  useEffect(() => {
+    updateView();
+  }, []);
 
-useEffect(() => {
-  updateView();
- }, []);
-
-  const BreadcrumbItems = [
-    { label: "Settings", path: PATH.SETTINGS },
-    { label: "Profile Update", path: PATH.SETTINGS },
-
-  ];
   const handleMobileNoChange = (e) => {
     setMobileNo(e.target.value);
   };
@@ -30,43 +22,44 @@ useEffect(() => {
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
   };
-  
-  const updateView=async () =>{
+
+  const updateView = async () => {
     try {
       const response = await axios.post(
         "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStaticInfo.php",
         {
-          adminId:email,
+          adminId: email,
         }
       );
-      setupdate(response.data);
-      console.log(update);
-      // console.log(update.course_name);
+      const data = response.data[0]; // Assuming the response data structure
+      setMobileNo(data.mobibleno);
+      setAddress(data.address);
     } catch (error) {
-      console.error("Error adding new item:", error);
+      console.error("Error fetching data:", error);
     }
-  }
+  };
 
   const submitchange = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost/_Nursing_final/controllers/api/admin/put/A_updateStaticInfo.php",
         {
-          adminId:email,
+          adminId: email,
           mobNo: mobileNo,
           address: address,
         }
       );
-      setAddress('')
-      setMobileNo('')
       // Handle success
-      console.log("Data submitted successfully:", response.data);
+      console.log("Data submitted successfully");
     } catch (error) {
       console.error("Error submitting data:", error);
-      // Handle error here
     }
   };
- 
+
+  const BreadcrumbItems = [
+    { label: "Settings", path: PATH.SETTINGS },
+    { label: "Profile Update", path: PATH.SETTINGS },
+  ];
 
   return (
     <>
@@ -92,8 +85,7 @@ useEffect(() => {
             <div className="btn-wrap-1">
               <button
                 style={{
-                  boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
-                  // fontWeight: "600",
+                  boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.1)",
                   width: "480px",
                   padding: "10px 20px",
                   border: "none",
@@ -103,7 +95,6 @@ useEffect(() => {
                   textAlign: "center",
                   margin: "5px",
                 }}
-                onClick={() => setact("password")}
               >
                 Profile Update
               </button>
@@ -112,8 +103,7 @@ useEffect(() => {
               <NavLink to="/notification">
                 <button
                   style={{
-                    boxShadow: "0px 0px   5px  rgba(0, 0, 0, 0.1)",
-                    // fontWeight: "600",
+                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
                     width: "480px",
                     padding: "10px 0px",
                     border: "none",
@@ -123,7 +113,6 @@ useEffect(() => {
                     backgroundColor: "white",
                     margin: "5px",
                   }}
-                  // onClick={() => setact("notification")}
                 >
                   Notifications
                 </button>
@@ -139,8 +128,8 @@ useEffect(() => {
                 <CustomBreadCrumbs items={BreadcrumbItems} />
               </div>
               <div className="profile-card">
-                <div className="profile" style={{}}>
-                  <img src={myImage} alt="Description of the image" />
+                <div className="profile">
+                  <img src={myImage} alt="Profile" />
                   <h5 className="email">Divya@gmail.com</h5>
                   <NavLink to="/passwordchange">
                     <p style={{ color: "#e4a45a", textDecoration: "none" }}>
@@ -148,29 +137,24 @@ useEffect(() => {
                     </p>
                   </NavLink>
                 </div>
-                {
-                  update.map((r)=>(
-                    <>
-                    <div className="form">
+                <div className="form">
                   <div>
-                    <label htmlFor="username" className="pass-lab">
+                    <label htmlFor="mobileNo" className="pass-lab">
                       Mobile No :
                     </label>
                     <br />
                     <br />
-                    
                     <input
                       type="text"
-                      id="Old Password"
-                      name="Old Password"
+                      id="mobileNo"
+                      name="mobileNo"
                       className="Old-Password"
                       value={mobileNo}
                       onChange={handleMobileNoChange}
-                      placeholder={r.mobibleno}
                     />
                   </div>
                   <div style={{ marginTop: "20px" }}>
-                    <label htmlFor="username" className="pass-lab">
+                    <label htmlFor="address" className="pass-lab">
                       Address :{" "}
                     </label>
                     <br />
@@ -180,14 +164,12 @@ useEffect(() => {
                       className="Old-Password"
                       value={address}
                       onChange={handleAddressChange}
-                      placeholder={r.address}
                     ></textarea>
                   </div>
-                  <button className="submit-btn" onClick={submitchange}>Submit</button>
+                  <button className="submit-btn" onClick={submitchange}>
+                    Submit
+                  </button>
                 </div>
-                    </>
-                  ))
-                }
               </div>
             </div>
           </div>

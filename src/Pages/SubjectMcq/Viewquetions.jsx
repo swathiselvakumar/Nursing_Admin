@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { Typography } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function ViewQuestions() {
   const { sno, id } = useParams(); 
   const email = localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionsNo, setQuestionsNo] = useState([]);
@@ -23,7 +24,7 @@ export default function ViewQuestions() {
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestions.php",
+        `${Endpoint}admin/get/A_ViewSubWiseQuestions.php`,
         {
           adminId: email,
           subjectId: sno,
@@ -51,7 +52,7 @@ export default function ViewQuestions() {
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseQuestionCount.php",
+        `${Endpoint}admin/get/A_ViewSubWiseQuestionCount.php`,
         {
           adminId: email,
           subjectId: sno,

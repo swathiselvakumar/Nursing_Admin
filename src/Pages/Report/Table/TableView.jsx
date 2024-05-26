@@ -8,18 +8,19 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableStyle } from "./style";
 import axios from "axios";
-
+import { useContext } from "react";
+import { navContext } from "../../../context/navContext";
 
 export default function TableViewOrg() {
   const [rows, setRows] = useState([]);
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewStudentreportDashboard.php",
+          `${Endpoint}admin/get/A_ViewStudentreportDashboard.php`,
           {
             adminId:email,
           }

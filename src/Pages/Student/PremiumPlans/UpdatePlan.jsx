@@ -6,7 +6,7 @@ import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
 import { NavLink } from 'react-router-dom'
 import { navContext } from '../../../context/navContext'
-// import { navContext } from '../../../context/navContext'
+
 export default function UpdatePlan() {
    const [plan, setPlan] = useState();
    const [price, setPrice] = useState(1999);

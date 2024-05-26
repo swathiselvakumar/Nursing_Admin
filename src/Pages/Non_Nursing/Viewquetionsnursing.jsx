@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,10 +6,12 @@ import { Typography } from "@mui/material";
 import Btn from './Btn';
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function Viewquestionsnursing() {
   const { sno } = useParams();
   const { id } = useParams();
+  const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
@@ -26,7 +28,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingQuestions.php",
+        `${Endpoint}admin/get/A_ViewNonNursingQuestions.php`,
         {
           adminId:email,
           categoryId: sno,
@@ -54,7 +56,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingQuestionCount.php",
+        `${Endpoint}admin/get/A_ViewNonNursingQuestionCount.php`,
         {
           adminId: email,
           categoryId: sno,

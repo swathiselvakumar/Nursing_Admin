@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Typography } from "@mui/material";
 import Delete from "../../assets/icons/delete.jpeg";
@@ -8,18 +8,19 @@ import axios from "axios";
 import { PATH } from "../../constants/routeConstants";
 import Aptitude from "../../assets/images/Aptitude.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { navContext } from "../../context/navContext";
 
 
 export default function NonInstitution() {
   const [mcqs, setMcqs] = useState([]);
 const email=localStorage.getItem("userMail");
 const [lastId, setlastId] = useState(null);
-
+const {Endpoint}=useContext(navContext);
 const {sno}=useParams();
   const Send = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingPaper.php",
+        `${Endpoint}admin/get/A_ViewNonNursingPaper.php`,
         {
           adminId:email,
           id: sno,
@@ -38,7 +39,7 @@ const {sno}=useParams();
     // setclick(true);
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteNonNursingPaper.php",
+        `${Endpoint}admin/delete/A_deleteNonNursingPaper.php`,
         {
           data: {
             adminId:email,

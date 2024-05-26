@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { PremiumStyle } from "../Student/Premium/style";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -19,11 +19,13 @@ import { getLocalStorage } from "../../utils/helperFunc";
 import MicroTable from "./MicroTable";
 import SearchAppBar from "../../components/Common/Searchinput/Search";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 export default function MicroUpload() {
   const languageName = getLocalStorage("languageName");
 const {sno}=useParams();
 const email=localStorage.getItem("userMail");
 const [datas,setdata]=useState([]);
+const {Endpoint}=useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
@@ -71,6 +73,7 @@ const [datas,setdata]=useState([]);
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  // const {Endpoint}=useContext(navContext);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -95,7 +98,7 @@ const [datas,setdata]=useState([]);
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_Micro_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_Micro_testDetails.php?page=${page}`,
         {
           adminId:email,
           paperId:sno
@@ -110,7 +113,7 @@ const [datas,setdata]=useState([]);
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_MicroTestPagination.php`, {
+        `${Endpoint}admin/get/A_MicroTestPagination.php`, {
           adminId: email
         }
       );

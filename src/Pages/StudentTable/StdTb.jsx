@@ -12,7 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { Typography, Button } from "@mui/material";
 import Rong from "../../assets/icons/rong.jpg";
 import { styled } from "@mui/material/styles";
@@ -21,6 +21,7 @@ import Profile from "../Profile";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import DialogActions from "@mui/material/DialogActions";
+import { navContext } from "../../context/navContext";
 
 
 export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
@@ -30,7 +31,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
-  
+  const {Endpoint}=useContext(navContext);
 // console.log(tableData);
 
   const handleCloseDialog = () => {
@@ -68,7 +69,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
   const blocklist = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        `${Endpoint}admin/put/A_blockUnblockStd.php`,
         {
           adminId: email,
           id: modified.email,

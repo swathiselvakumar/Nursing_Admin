@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,10 +6,11 @@ import { Typography } from "@mui/material";
 import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 export default function Uploadtestnursing() {
   const { sno ,lastId} = useParams();
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
 
@@ -38,7 +39,7 @@ export default function Uploadtestnursing() {
   const fetchQuestions = (questionId) => {
     axios
       .post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewNonNursingQuestions.php",
+        `${Endpoint}admin/get/A_ViewNonNursingQuestions.php`,
         {
           adminId:email,
           categoryId:sno,

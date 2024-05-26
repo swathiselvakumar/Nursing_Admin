@@ -36,11 +36,11 @@ export default function Achievement() {
         name: item.content,
         sno:item.sno
       }));
-      obj.push({
-        img: Plus,
-        name: "Add Achievement",
-        path: "/addachievement",
-      });
+      // obj.push({
+      //   img: Plus,
+      //   name: "Add Achievement",
+      //   path: "/addachievement",
+      // });
       setCourseData(obj);
     } catch (error) {
       console.error("Error fetching course data:", error);
@@ -87,7 +87,24 @@ export default function Achievement() {
          
         </div>
         <Row style={{ marginTop: "20px", justifyContent: "center" }}>
+
           <Row style={{ marginTop: "20px", justifyContent: "center" }}>
+            <Col xs={4} className='order-md-last order-lg-last'>
+            <NavLink to="/addachievement"
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
+                    <div className="Div">
+                      <div>
+                        <img src={Plus} height="70px" alt="Awards" />
+                      </div>
+                      <div style={{ paddingTop: "10px" }}>
+                        <Typography style={{ fontWeight: 600 }}>
+                          Add Achievement
+                        </Typography>
+                      </div>
+                    </div>
+               </NavLink>
+            </Col>
             {courseData ? (
               courseData.map((d, index) => (
                 <Col
@@ -103,10 +120,10 @@ export default function Achievement() {
                     marginBottom: "20px",
                   }}
                 >
-                  <NavLink
+                  <NavLink to={d.path}
                     style={{ color: "black", textDecoration: "none" }}
                   >
-                    <div className="Div">
+                    <div className="Div d-flex flex-column p-3 service-div shadow w-100 h-100  ">
                    
                       {
                         d.name!="Add Achievement" && <div className="del">
@@ -121,7 +138,7 @@ export default function Achievement() {
                         <img src={d.img} height="70px" alt="Awards" />
                       </div>
                       <div style={{ paddingTop: "10px" }}>
-                        <Typography style={{ fontWeight: 600 }}>
+                        <Typography style={{ fontWeight: 600,textAlign:"justify" }}>
                           {d.name}
                         </Typography>
                       </div>

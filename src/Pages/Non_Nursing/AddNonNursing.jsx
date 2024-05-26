@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
 import '../SubjectMcq/style.css'
 import { InputLabel, MenuItem, Select, Typography } from '@mui/material'
@@ -15,6 +15,7 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 import FormControl from "@mui/material/FormControl";
 import axios from 'axios'
 import * as XLSX from "xlsx";
+import { navContext } from '../../context/navContext'
 
 export default function AddNonNursing() {
   const BreadcrumbItems = [
@@ -29,6 +30,7 @@ export default function AddNonNursing() {
   const [category, setcategory] = useState("");
   const [mcq,setMcq]=useState('');
 const email=localStorage.getItem("userMail");
+const {Endpoint}=useContext(navContext);
 const {sno,lastId}=useParams();
   const modelchange=(event)=>
   {
@@ -79,7 +81,7 @@ const {sno,lastId}=useParams();
   const SendApi = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertNonNursingQuestion.php",
+        `${Endpoint}admin/post/A_InsertNonNursingQuestion.php`,
         Data
       );
       window.location.href = `/noninstitution/${sno}`;

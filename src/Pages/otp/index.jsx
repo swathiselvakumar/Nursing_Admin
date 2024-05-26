@@ -13,6 +13,8 @@ import {
   import { useState } from "react";
   import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { useContext } from 'react';
+import { navContext } from '../../context/navContext';
 import { useNavigate } from 'react-router-dom';
 
   const styles = {
@@ -43,6 +45,7 @@ export default function Otp() {
     const [email,setemail]=useState("");
     const [otp, setOtp] = React.useState('');
     const Navigate=useNavigate();
+    const {Endpoint}=useContext(navContext);
     const handleChange = (newValue) => {
       setOtp(newValue)
     } 
@@ -51,11 +54,22 @@ export default function Otp() {
     const handleClickOpen = async () => {
       try {
         const response = await axios.post(
-          'https://vebbox.in/Nursing/controllers/api/admin/put/A_updateOTP.php',
+          `${Endpoint}admin/put/A_updateOTP.php`,
           {
             gmailId: admin,
           }
-        );
+        ).then(function (response) {
+          if (response.data.message === "success") {
+              alert("OTP Sent.");
+            }  else {
+              alert("EmailId is Invalid");
+            }
+        })
+        .catch(function (error) {
+          alert("Enter Valid Credentials");
+          
+          
+        });
         
         console.log("Success:", response.data);
        
@@ -67,7 +81,7 @@ export default function Otp() {
     const handleOTP = async () => {
       try {
         const response = await axios.post(
-          'https://vebbox.in/Nursing/controllers/api/admin/post/A_ValidateOtp_Token.php',
+          `${Endpoint}admin/post/A_ValidateOtp_Token.php`,
           {
             gmailId: email,
             otp:otp
@@ -78,7 +92,7 @@ export default function Otp() {
         if (response.data.message === "Success") {
           Navigate("/forget");
         } else {
-          alert("Username invalid");
+          alert("Invalid Otp");
           console.error("Error in response:", response.data);
         }
        

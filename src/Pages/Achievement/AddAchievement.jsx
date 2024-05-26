@@ -11,12 +11,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ADDACHIEVEMENT() {
   const [achievementDescription, setAchievementDescription] = useState("");
   const [open,setOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const email=localStorage.getItem("userMail");
+  const Navigate=useNavigate();
 
 
   const handleChange = (e) => {
@@ -45,8 +47,8 @@ export default function ADDACHIEVEMENT() {
       );
       console.log("New item added:", response.data);
       setAchievementDescription("");
-      // setDescription("");
-      // setAbout(""); // Clear input fields
+      Navigate('/achievement');
+     
     } catch (error) {
       console.error("Error adding new item:", error);
     }

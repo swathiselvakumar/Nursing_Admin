@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 import { Container, Row, Col } from "react-bootstrap";
 import Mini from '../../assets/images/minitest.webp';
@@ -22,6 +22,7 @@ import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { useEffect } from "react";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 export default function MiniInstitution() {
   const BreadcrumbItems = [
@@ -38,7 +39,7 @@ export default function MiniInstitution() {
   const [openBtn, setOpenBtn] = React.useState(false);
   const [data,setdata]=useState([]);
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
@@ -55,7 +56,7 @@ export default function MiniInstitution() {
 const fetchApi=async()=>{
   try{ 
     const response = await axios.post(
-          "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMiniTestDetails.php",
+          `${Endpoint}admin/get/A_ViewMiniTestDetails.php`,
           {
             adminId:email
           }

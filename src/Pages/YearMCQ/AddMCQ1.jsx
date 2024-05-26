@@ -22,6 +22,8 @@ export default function AddMCQ1() {
     const [description, setDescription] = useState();
     const [instruction, setInstruction] = useState();
     const { name, setName } = useContext(navContext);
+    const {Endpoint}=useContext(navContext);
+    const email=localStorage.getItem("userMail");
       // const location = useLocation();
   //  const location = useLocation();
   // const location = useLocation();
@@ -30,14 +32,13 @@ export default function AddMCQ1() {
       // console.log("Received prop:", location.state.stateProp);
 // console.log(name);
     const handleClickOpen = async() => {
-      // const planDetails = { description, instruction };
-      // console.log("Plan Details:", planDetails);
+      
         setOpen(true);
           try {
          const response = await axios.post(
-           "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqInstitution.php",
+           `${Endpoint}admin/post/A_InsertPmcqInstitution.php`,
            {
-             adminId: "nandinivebbox@gmail.com",
+             adminId:email,
              name: name,
              instruction: instruction,
              desc: description,
@@ -285,7 +286,9 @@ export default function AddMCQ1() {
             style={{ display: "flex", justifyContent: "space-between" }}
             onClick={handleClose}
           >
-            <button className="Submit1">ok</button>
+           <NavLink to="/yearmcq">
+           <button className="Submit1">ok</button>
+           </NavLink>
           </DialogContent>
         </Dialog>
       </YEARMCQStyle>

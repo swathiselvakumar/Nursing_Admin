@@ -18,15 +18,17 @@ import axios from "axios";
 import { TableStdStyle } from "../../StudentTable/style";
 import Profile from "../../Profile";
 import BlockIcon from "../../../assets/icons/block.png";
+import { useContext } from "react";
+import { navContext } from "../../../context/navContext";
 
 export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStudentId }) {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [modified, setModified] = useState();
   const [True, setTrue] = useState();
   const [open, setOpen] = useState(false);
-  const [modal, setModal] = useState(false);
-
   const email = localStorage.getItem("userMail");
+  const [modal, setModal] = useState(false);
+  const {Endpoint}=useContext(navContext);
 
   const handleClickOpens = () => {
     setModal(true);
@@ -52,7 +54,7 @@ export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStu
   const blocklist = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_blockUnblockStd.php",
+        `${Endpoint}admin/put/A_blockUnblockStd.php`,
         {
           adminId: email,
           id: modified.email,

@@ -21,6 +21,7 @@ export default function YearCard() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
+  const {Endpoint}=useContext(navContext);
   // const { quetionpaperhistory,setQuestionpaperhistory } = useContext(navContext);
   
   const [obj, setObj] = useState([]);
@@ -37,7 +38,7 @@ const email=localStorage.getItem("userMail");
   const handleAddSubject = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertSubWiseSubject.php",
+        `${navContext}admin/post/A_InsertSubWiseSubject.php`,
         {
           adminId: email,
           name: name,
@@ -65,7 +66,7 @@ const email=localStorage.getItem("userMail");
   const getCourses = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWiseSubject.php",
+        `${Endpoint}admin/get/A_ViewSubWiseSubject.php`,
         {
           adminId:email,
         }
@@ -92,7 +93,7 @@ const email=localStorage.getItem("userMail");
   const CardDelete = async (sno) => {
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteSubWiseSubject.php",
+        `${Endpoint}admin/delete/A_deleteSubWiseSubject.php`,
         {
           data: {
             adminId:email,

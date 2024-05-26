@@ -19,11 +19,14 @@ import { getLocalStorage } from '../../utils/helperFunc';
 import McqTable from './McqTable';
 import SearchAppBar from '../../components/Common/Searchinput/Search';
 import axios from 'axios';
+import { useContext } from 'react';
+import { navContext } from '../../context/navContext';
+
 export default function McqTablePage() {
   const {id} =useParams();
   const { sno } = useParams();
   const languageName = getLocalStorage("languageName");
-
+  const {Endpoint}=useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     
@@ -90,7 +93,7 @@ const handleChange1 = (event, value) => {
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_Subject_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_Subject_testDetails.php?page=${page}`,
         {
           adminId:email,
           institutionId:sno,
@@ -106,7 +109,7 @@ const handleChange1 = (event, value) => {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_SubTestDetailsPagination.php`, {
+        `${Endpoint}admin/get/A_SubTestDetailsPagination.php`, {
           adminId: email
         }
       );

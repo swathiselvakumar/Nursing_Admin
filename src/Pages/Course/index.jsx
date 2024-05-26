@@ -14,6 +14,8 @@ import UpdateIcon from "@mui/icons-material/Update";
 import Axios from "axios";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
 
 export default function Course() {
   const languageName = getLocalStorage("languageName");
@@ -21,11 +23,12 @@ export default function Course() {
   const [click, setclick] = useState(false);
   const email = localStorage.getItem("userMail");
   const navigate = useNavigate();
+  const {Endpoint}=useContext(navContext);
 
   const getCourses = async () => {
     try {
       const res = await Axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseName.php",
+        `${Endpoint}admin/get/A_ViewCourseName.php`,
         {
           adminId: email,
         }
@@ -48,10 +51,10 @@ export default function Course() {
   };
 
   const CardDelete = async (sno) => {
-    setclick(true);
+    // setclick(true);
     try {
       const res = await Axios.delete(
-        "https://vebbox.in/Nursing/controllers/api/admin/delete/A_deleteCourse.php",
+        `${Endpoint}admin/delete/A_deleteCourse.php`,
         {
           data: {
             courseId: sno,

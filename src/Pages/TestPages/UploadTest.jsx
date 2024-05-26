@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,12 +6,13 @@ import { Typography } from "@mui/material";
 import Btn from "./Btn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function UploadTest() {
   const { sno, id } = useParams();
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const email = localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   const [questions, setQuestions] = useState([]);
   const [questionsNo, setQuestionsNo] = useState([]);
 
@@ -24,7 +25,7 @@ export default function UploadTest() {
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+        `${Endpoint}admin/get/A_ViewPmcqQuestions.php`,
         {
           adminId: email,
           institutionId: sno,
@@ -52,7 +53,7 @@ export default function UploadTest() {
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestionCount.php",
+        `${Endpoint}admin/get/A_ViewPmcqQuestionCount.php`,
         {
           adminId: email,
           institutionId: sno,

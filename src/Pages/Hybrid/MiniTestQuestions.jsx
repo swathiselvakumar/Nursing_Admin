@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
@@ -6,12 +6,13 @@ import { Typography } from "@mui/material";
 import MiniBtn from "./MiniBtn";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function MiniTestQuestions() {
   const { sno,id } = useParams();
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
 const email=localStorage.getItem("userMail");
-
+const {Endpoint}=useContext(navContext);
   const [questions, setQuestions] = useState([]);
   const [questionsNo, setQuestionsNo] = useState([]);
 
@@ -24,7 +25,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMiniQuestion.php",
+        `${Endpoint}admin/get/A_ViewMiniQuestion.php`,
         {
           adminId: email,
           test_id: sno,
@@ -53,7 +54,7 @@ const email=localStorage.getItem("userMail");
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/get/A_ViewMiniQuestionCount.php",
+        `${Endpoint}admin/get/A_ViewMiniQuestionCount.php`,
         {
           adminId: email,
           test_id:sno,

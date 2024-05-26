@@ -9,14 +9,14 @@ import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { navContext } from "../../context/navContext";
 
-// import { navContext } from "../../context/navContext";
 
 export default function SubInstitution() {
   
   const [lastId, setlastId] = useState(null)
   const email=localStorage.getItem("userMail");
-
+  const {Endpoint}=useContext(navContext);
   // const [idstate]
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -40,7 +40,7 @@ export default function SubInstitution() {
     // console.log("jsj");
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewSubWisePaper.php",
+        `${Endpoint}admin/get/A_ViewSubWisePaper.php`,
         {
           adminId:email,
           id: sno,
@@ -119,7 +119,7 @@ export default function SubInstitution() {
     // setclick(true);
     try {
       const res = await axios.delete(
-        "http://localhost/_Nursing_final/controllers/api/admin/delete/A_deleteSubWisePaper.php",
+        `${Endpoint}admin/delete/A_deleteSubWisePaper.php`,
         {
           data: {
             adminId:email,
