@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { YEARMCQStyle } from '../YearMCQ/style';
 import { Button, Typography } from '@mui/material';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
@@ -8,20 +8,44 @@ import axios from 'axios';
 import { navContext } from '../../context/navContext';
 
 export default function AddMock() {
-  
   const navigate = useNavigate();
   const { mcqname, setMcqname } = useContext(navContext);
   const { sno, id } = useParams();
-  
+  const [stages, setStages] = useState([]);
+  const [selectedStage, setSelectedStage] = useState('');
+  const { Endpoint } = useContext(navContext);
+  const email = localStorage.getItem("userMail");
+
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Model Mock", path: PATH.MODELMOCK },
     { label: "Institution", path: PATH.MODELINSTITUTION },
     { label: "Add Question", path: PATH.ADDMOCK },
   ];
-  
- 
-  
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.post(
+        `${Endpoint}admin/get/A_ViewStage.php`,
+        {
+          adminId: email,
+          institution_id: sno
+        }
+      );
+      console.log("Stages:", res.data);
+      setStages(res.data);
+    } catch (error) {
+      console.error("Error fetching stages:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleStageChange = (event) => {
+    setSelectedStage(event.target.value);
+  };
 
   const handlechanged = (event) => {
     setMcqname(event.target.value);
@@ -30,7 +54,6 @@ export default function AddMock() {
   const MainBox = {
     backgroundColor: "#f6f6f6",
     width: "50vw",
-    height: "90vh",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     margin: "30px",
   };
@@ -132,7 +155,14 @@ export default function AddMock() {
             <div style={MainText}>
               <div style={{ marginTop: "15px", display: "flex", justifyContent: "space-between", width: "380px" }}>
                 <div><label>Choose Stages</label></div>
-                <div><input type='text' style={TextB} value={id} readOnly /></div>
+                <div>
+                  <select style={TextB} value={selectedStage} onChange={handleStageChange}>
+                    <option value="">Select a stage</option>
+                    {stages.map((stage) => (
+                      <option key={stage.sno} value={stage.sno}>{stage.stage_name}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div style={{ marginTop: "15px", display: "flex", justifyContent: "space-between", width: "380px" }}>
                 <div><label>Model MCQ</label></div>
@@ -140,17 +170,19 @@ export default function AddMock() {
               </div>
             </div>
             <div>
-              <NavLink to={`/addmock1/${sno}/${id}`}>
-              <div style={{ marginTop: "30px", display: "flex", justifyContent: "end", width: "530px" }}>
-                <button style={btn1} >NEXT</button>
-              </div>
-              </NavLink>
-            </div>
-            <div>
-              <div style={{ marginTop: "10px", display: "flex", justifyContent: "end", width: "530px" }}>
-                <NavLink to="/modelinstitution">
-                  <button style={btn2}>CANCEL</button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <NavLink to={`/addmock1/${sno}/${selectedStage}`}>
+                  <div style={{ marginTop: "30px", display: "flex", justifyContent: "center", width: "530px" }}>
+                    <button style={btn1}>NEXT</button>
+                  </div>
                 </NavLink>
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: "40px" }}>
+                <div style={{ marginTop: "10px", display: "flex", justifyContent: "center", width: "530px" }}>
+                  <NavLink to="/modelinstitution">
+                    <button style={btn2}>CANCEL</button>
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>

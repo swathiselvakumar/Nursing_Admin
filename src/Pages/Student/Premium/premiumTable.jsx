@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -21,39 +21,52 @@ import BlockIcon from "../../../assets/icons/block.png";
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
 
-export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStudentId }) {
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [modified, setModified] = useState();
-  const [True, setTrue] = useState();
+
+export default function PremiumTb({ tableData, updateStudentId,setUpdate,update }) {
   const [open, setOpen] = useState(false);
-  const email = localStorage.getItem("userMail");
+  const { index, setindex } = useState();
+  const [modified, setmodified] = useState();
+  const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
+  const email = localStorage.getItem("userMail");
   const {Endpoint}=useContext(navContext);
-
-  const handleClickOpens = () => {
-    setModal(true);
-  };
-
-  const handleClickOpen = (e, row, index) => {
-    e.stopPropagation();
-    setOpen(true);
-    updateStudentId(row.sno);
-    setModified(tableData[index]);
-  };
+// console.log(tableData);
 
   const handleCloseDialog = () => {
     setOpen(false);
   };
+  const handleClickOpens = () => {
+    setModal(true);
+  };
+  const handleClosed = () => {
+    setModal(false);
+  };
 
-  const handleCloseDialogBlk = () => {
-    setTrue(!True);
+  const handleClickOpen = (e,row,index) => {
+    e.stopPropagation();
+    setOpen(true);
+    updateStudentId(row.sno);
+    setmodified(tableData[index]);
+  }
+  
+
+  const style = {
+    position: "absolute",
+    transform: "translate(5%, 5%)",
+    bgcolor: "background.paper",
+    p: 4,
+    width: "90%",
+  };
+ 
+  const handleCloseDialogBlk=()=>{
+    setTrue(!True)
     blocklist();
     setOpen(false);
-  };
+  }
 
   const blocklist = async () => {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${Endpoint}admin/put/A_blockUnblockStd.php`,
         {
           adminId: email,
@@ -61,29 +74,15 @@ export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStu
           status: "block",
         }
       );
-      setLoaded(!loaded);
+      setUpdate(!update);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-  const handleOpenDialog = () => {
-    setOpen(true);
-  };
-
-  const handleOpenModal = () => {
-    setModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setModal(false);
-  };
-
-  console.log(tableData);
-
+  
   return (
     <>
-      <TableStdStyle>
+      <TableStdStyle >
         <div style={{ margin: "10px" }}>
           <TableContainer
             style={{
@@ -106,8 +105,8 @@ export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStu
                   <TableCell className="head" align="left">
                     Member Since
                   </TableCell>
-                  <TableCell className="head" align="left">
-                    Expired Date
+                  <TableCell className="head" align="center">
+                    Expiry Date
                   </TableCell>
                   <TableCell className="head" align="center">
                     Action
@@ -115,39 +114,35 @@ export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStu
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData && tableData.length > 0 ? (
-                  tableData.map((row, index) => (
-                    <TableRow
-                      className="tb-row"
-                      key={row.sno}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                      onClick={handleClickOpens}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.sno}
-                      </TableCell>
-                      <TableCell align="left">{row.sname}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                      <TableCell align="left">{row.memberSince}</TableCell>
-                      <TableCell align="left">{row.expireddate}</TableCell>
-                      <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
-                        <img src={BlockIcon} height="20px" />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={6} align="center">
-                      No data available
+                {tableData.map((row, index) => (
+                  <TableRow
+                    className="tb-row"
+                    key={row.username} // Assuming 'username' can act as a unique key
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    // onClick={handleClickOpens}
+                  >
+                    <TableCell component="th" scope="row">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell align="left">{row.sname}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.memberSince}</TableCell>
+                    <TableCell align="left">{row.expireddate}</TableCell>
+                    <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
+                      <img src={BlockIcon} height="20px" />
                     </TableCell>
                   </TableRow>
-                )}
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
-      </TableStdStyle>
-      <Dialog onClose={handleCloseDialog} open={open} aria-labelledby="customized-dialog-title">
+      </TableStdStyle >
+      <Dialog
+        onClose={handleCloseDialog}
+        open={open}
+        aria-labelledby="customized-dialog-title"
+      >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           Are you sure?
         </DialogTitle>
@@ -160,22 +155,12 @@ export default function PremiumTb({ tableData = [], setLoaded, loaded, updateStu
       </Dialog>
       <Modal
         open={modal}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        style={{ height: "10%" }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            p: 4,
-            width: "90%",
-          }} 
-        >
-          <Profile student={selectedStudent} />
+        <Box sx={style}>
+          <Profile onClose={handleClosed} />
         </Box>
       </Modal>
     </>

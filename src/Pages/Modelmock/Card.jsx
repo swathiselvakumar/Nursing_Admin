@@ -60,6 +60,7 @@ const {Endpoint}=useContext(navContext);
       setName("");
       setDescription("");
       setInstruction("");
+      fetchData();
       handleClose();
     } catch (error) {
       console.error("Error adding new institution:", error);

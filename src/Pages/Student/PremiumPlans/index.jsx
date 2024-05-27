@@ -128,14 +128,14 @@ if (error) {
         </div>
             </Col>
             <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
-              <div>
+              {/* <div>
                 <NavLink to="/updateplan">
                 <Button style={UpdateBtn}><UpdateIcon/>&nbsp; Update</Button>
                 </NavLink>
               </div>&nbsp;&nbsp;
               <div>
                 <Button onClick={handleClickOpen} style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>
@@ -145,7 +145,7 @@ if (error) {
         <Row style={{ display: "flex", justifyContent: "space-around" }}>
             {plans.map((plan, index) => (
               <Col key={index} xs={12} sm={12} md={6} lg={3} xl={3}>
-                <div className="item">
+                <div className="item" style={{width:"230px"}}>
                   <div className="innerContent">
                     <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
                   </div>

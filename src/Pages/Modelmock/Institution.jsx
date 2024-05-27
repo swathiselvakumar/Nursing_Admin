@@ -1,65 +1,58 @@
-import React, { useState,useContext } from 'react'
-import BreadcrumbsComp from '../../components/Common/BreadCrumbs'
-import { Container,Row,Col } from 'react-bootstrap'
-import {Typography } from '@mui/material'
-import Delete from '../../assets/icons/delete.jpeg'
-import { NavLink, useParams } from 'react-router-dom'
-import Model from '../../assets/images/model.png'
-import '../YearMCQ/CardStyle.css'
+import React, { useState, useContext, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Typography } from '@mui/material';
+import { NavLink, useParams } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { PATH } from '../../constants/routeConstants';
-import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
-import axios from 'axios'
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect } from 'react'
-import '../YearMCQ/CardStyle.css'
-import { navContext } from '../../context/navContext'
+import axios from 'axios';
+import { navContext } from '../../context/navContext';
+import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
+import { PATH } from '../../constants/routeConstants';
+import Model from '../../assets/images/model.png';
+import '../YearMCQ/CardStyle.css';
 
 export default function ModelInstitution() {
-
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    
     { label: "Model Mock", path: PATH.MODELMOCK },
     { label: "Institution", path: PATH.MODELINSTITUTION },
-    
   ];
-  const [open, setOpen] = React.useState(false);
-  const[stage,setStage]=useState();
-  const [data,setData]=useState([]);
-  const [paper,setpaper]=useState([]);
-  const [id,setId]=useState();
-const email=localStorage.getItem("userMail");
-const {Endpoint}=useContext(navContext);
-const {sno}=useParams();
+
+  const [open, setOpen] = useState(false);
+  const [stage, setStage] = useState('');
+  const [stages, setStages] = useState([]);
+  const [papers, setPapers] = useState({});
+  const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
+  const { sno } = useParams();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleClose = async() => {
+
+  const handleClose = async () => {
     setOpen(false);
 
-try{ 
-const response = await axios.post(
-      `${Endpoint}admin/post/A_InsertModelMockStage.php`,
-      {
-        adminId:email,
-        institutionId: sno,
-        stageName: stage,
-      }
-    );
-    setStage(response.data.stageName);
-}catch(error)
-{
-      console.error("Error fetching data:", error);
-
-} 
-    
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/post/A_InsertModelMockStage.php`,
+        {
+          adminId: email,
+          institutionId: sno,
+          stageName: stage,
+        }
+      );
+      setStage('');
+      fetchData(); // Refresh data after adding a stage
+    } catch (error) {
+      console.error("Error adding stage:", error);
+    }
   };
+
   const PaperData = async () => {
     try {
       const res = await axios.post(
@@ -69,77 +62,55 @@ const response = await axios.post(
           id: sno
         }
       );
-  
-      const papers = Object.values(res.data).flatMap(stageData => stageData);
-      setpaper(papers); // Assuming `setpaper` is the state updater function
+      console.log("Papers:", res.data);
+      setPapers(res.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching papers:", error);
     }
   };
-  
 
-
-  const fetchData=async()=>{
-    try{ 
-      const res= await axios.post(
-            `${Endpoint}admin/get/A_viewStage.php`,
-            {
-              adminId:email,
-              institution_id:sno
-            }
-          );
-          const stageData = res.data;
-         
-          setData(stageData);
-      }catch(error)
-      {
-            console.error("Error fetching data:", error);
-      
-      }
-  }
-  console.log("...",data);
-
-
-  useEffect(()=>{
-    fetchData();
-    PaperData();
-  },[])
-
-  const CardDelete = async (id) => {
-    // setclick(true);
+  const fetchData = async () => {
     try {
-      const res = await axios.delete(
-        `${Endpoint}admin/delete/A_deleteModelMockPaper.php`,
+      const res = await axios.post(
+        `${Endpoint}admin/get/A_ViewStage.php`,
         {
-          data: {
-            adminId:email,
-            paperId: id,
-          }, 
+          adminId: email,
+          institution_id: sno
         }
       );
-
-      console.log(data.paperId);
-      PaperData();
+      console.log("Stages:", res.data);
+      setStages(res.data);
     } catch (error) {
-      console.error("Error fetching course data:", error);
+      console.error("Error fetching stages:", error);
     }
   };
 
   useEffect(() => {
+    fetchData();
     PaperData();
   }, []);
 
-
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const CardDelete = async (id) => {
+    try {
+      await axios.delete(
+        `${Endpoint}admin/delete/A_deleteModelMockPaper.php`,
+        {
+          data: {
+            adminId: email,
+            paperId: id,
+          },
+        }
+      );
+      PaperData(); // Refresh papers after deletion
+    } catch (error) {
+      console.error("Error deleting paper:", error);
+    }
   };
 
+  const handlestage = (event) => {
+    setStage(event.target.value);
+  };
 
-const handlestage = (event) => {
-  setStage(event.target.value);
-};
-  
   return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
       <div style={{ padding: "25px" }}>
@@ -147,104 +118,84 @@ const handlestage = (event) => {
       </div>
       <Container fluid style={{ paddingLeft: "27px", paddingRight: "27px" }}>
         <Row>
-          <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
-            <div>
-              <img src={Model} height="40px" />
-            </div>
+          <Col xs={12} className="title1" style={{ display: 'flex', alignItems: 'center' }}>
+            <img src={Model} height="40px" alt="Model" />
             &nbsp;&nbsp;
-            <div>
-              <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-                Institution 1
-              </Typography>
-            </div>
+            <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
+              Institution 1
+            </Typography>
           </Col>
         </Row>
       </Container>
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-          
-    <Container className="MainBox">
-    <Row>
-            {Array.isArray(data) && data.length > 0 ? (
-              data.map((d) => (
-                <div>
-                  <Col key={d.sno}  >
-                  <div className="box" style={{ backgroundColor: "black",marginBottom:"10px" }}>
+            {stages.length > 0 ? (
+              stages.map(stage => (
+                <Col key={stage.sno} xs={12} sm={6} md={4} lg={3} className="mb-4">
+                  <div className="box" style={{ backgroundColor: "black", marginBottom: "10px", width: "100%" }}>
                     <button
                       style={{
                         backgroundColor: "black",
                         border: "none",
                         paddingTop: "5px",
                         color: "white",
+                        width: "100%",
+                        textAlign: "center"
                       }}
                     >
-                      {d.stage_name}
+                      {stage.stage_name}
                     </button>
                   </div>
-                  
-                </Col>
-                {Array.isArray(paper) && paper.length > 0 && (paper[0].institution_id) ? (
-                  console.log(paper),
-                  paper
-                    // .filter((r) => r.institution_id === d.sno)  // Filter papers by stage_id
-                    .map((j,index) => (
-                      <div  key={index}>
-                        <NavLink to={`/mocktablepage/${j.sno}/${sno}/${d.sno}`}>
-                        <button
-                        className="box" 
-                          style={{
-                            backgroundColor: "white",
-                            border: "none",
-                           
-                          }} 
-                        >
-                          {j.mcq_name}
-                        </button>
+                  {papers[stage.sno] && papers[stage.sno].length > 0 && (
+                    papers[stage.sno].map((paper, index) => (
+                      <div key={index}>
+                        <NavLink to={`/mocktablepage/${paper.sno}/${sno}/${stage.sno}`}>
+                          <button
+                            className="box"
+                            style={{
+                              backgroundColor: "white",
+                              border: "none",
+                              width: "100%",
+                              textAlign: "center",
+                              marginBottom: "10px"
+                            }}
+                          >
+                            {paper.mcq_name}
+                          </button>
                         </NavLink>
-                        <button onClick={() => CardDelete(j.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
+                        <button onClick={() => CardDelete(paper.sno)} className="delete" style={{ border: "none", backgroundColor: "white", height: "10px" }}>
+                          <DeleteIcon />
+                        </button>
                         <NavLink
-                  to={`/viewquestionsmodel/${j.sno}/${sno}/${d.sno}`}
-                  style={{ textDecoration: "none", marginLeft: "20px" }}
-                >
-                  <div
-                    style={{ display: "flex", marginLeft: 160, marginTop: 20 }}
-                  >
-                    View Questions
-                  </div>
-                </NavLink>
+                          to={`/viewquestionsmodel/${paper.sno}/${sno}/${stage.sno}`}
+                          style={{ textDecoration: "none", display: "block", marginTop: "10px" }}
+                        >
+                          <div style={{ textAlign: "center" }}>
+                            View Questions
+                          </div>
+                        </NavLink>
                       </div>
                     ))
-                ) : null}
-                </div>
-                
+                  )}
+                </Col>
               ))
             ) : (
               <Typography>No data available</Typography>
             )}
-            
-          </Row>
-    </Container>
-  
-
-            
           </Row>
         </Container>
-        <div className="BtnBox" style={{marginTop:"20px"}}>
+        <div className="BtnBox" style={{ marginTop: "20px" }}>
           <button className="Btn" onClick={handleClickOpen}>
             Add Stage
           </button>
         </div>
-        {
-          data.map((s)=>(
-            <div className="BtnBox">
-          <NavLink to={`/addmock/${sno}/${s.sno}`}>
-            <button className="Btn">Upload Questions</button>
-          </NavLink>
-        </div>
-          ))
-        }
-        
+            <div className="BtnBox" key={sno}>
+              <NavLink to={`/addmock/${sno}`}>
+                <button className="Btn">Add Papers</button>
+              </NavLink>
+            </div>
+          
       </div>
       <Dialog
         onClose={handleClose}
@@ -291,7 +242,6 @@ const handlestage = (event) => {
               value={stage}
               onChange={handlestage}
             />
-
             <button autoFocus onClick={handleClose} className="subjectBtn">
               Submit
             </button>

@@ -194,7 +194,7 @@ export default function AddPremiumplan() {
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
-                    type="number"
+                    type="text"
                     style={TextB}
                     onChange={handlechange}
                     value={plan}

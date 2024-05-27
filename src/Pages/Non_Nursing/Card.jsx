@@ -138,7 +138,7 @@ export default function NonNursingCard() {
                     <img src={d.img} height="70px" />
                   </div>
                   <div style={{ paddingTop: "10px" }}>
-                    <Typography style={{ fontWeight: 600 }}>
+                    <Typography style={{ fontWeight: 600,textAlign:"center" }}>
                       {d.name}
                     </Typography>
                   </div>

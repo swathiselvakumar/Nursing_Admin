@@ -11,6 +11,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
 
 function PreAdd() {
   const BreadcrumbItems = [
@@ -26,7 +28,7 @@ function PreAdd() {
   const [plans, setPlans] = useState([]);
   const emailId=localStorage.getItem("userMail");
   const [boxopen, setBoxOpen] = React.useState(false);
-
+  const {Endpoint}=useContext(navContext);
 
   useEffect(() => {
     fetchPlans();
@@ -35,7 +37,7 @@ function PreAdd() {
   const fetchPlans = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPlans.php",
+        `${Endpoint}admin/get/A_ViewPlans.php`,
         {
           adminId:emailId
         }
@@ -77,7 +79,7 @@ const Btn1 = {
       };
 
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/post/A_InsertStudentPre.php",
+        `${Endpoint}admin/post/A_InsertStudentPre.php`,
         userData
       );
 

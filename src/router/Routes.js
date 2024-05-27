@@ -71,6 +71,7 @@ import Blocktablepre from "../Pages/Student/Premium/Blocktablepre";
 import HybridViewTest from "../Pages/Hybrid/ViewTest";
 import MiniTestQuestions from "../Pages/Hybrid/MiniTestQuestions";
 import MicroTestQuestions from "../Pages/Hybrid/MicroTestQuestions";
+import UploadQuestion from "../Pages/Modelmock/UploadQuestion";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -496,6 +497,12 @@ export const routeConfig = [
     title: "microtestquestions",
     Component: MicroTestQuestions,
     route: PATH.MICROTESTQUESTIONS,
+  },
+  {
+    key: "uploadquestion",
+    title: "uploadquestion",
+    Component: UploadQuestion,
+    route: PATH.UPLOADQUESTION,
   },
 ];
 

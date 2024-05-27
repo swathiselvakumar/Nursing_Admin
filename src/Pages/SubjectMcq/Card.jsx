@@ -38,7 +38,7 @@ const email=localStorage.getItem("userMail");
   const handleAddSubject = async () => {
     try {
       const response = await axios.post(
-        `${navContext}admin/post/A_InsertSubWiseSubject.php`,
+        `${Endpoint}admin/post/A_InsertSubWiseSubject.php`,
         {
           adminId: email,
           name: name,
@@ -50,6 +50,7 @@ const email=localStorage.getItem("userMail");
       setName("");
       setDescription("");
       setInstruction("");
+      getCourses();
       handleClose();
     } catch (error) {
       console.error("Error adding new item:", error);
@@ -128,19 +129,20 @@ const email=localStorage.getItem("userMail");
                 alignItems: "center",
                 marginBottom: "20px",
               }}
+              // className="d-flex flex-col w-100 h-100"
             >
              
-                <div className="Div" onClick={d.onClick}>
+                <div className="Div d-flex flex-column p-3 service-div shadow w-100 h-100" onClick={d.onClick}>
                 {
                     d.name!="Add Subject" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
                   }
                   <NavLink to={d.path}
                 style={{ color: "black", textDecoration: "none" }}>
-                  <div>
+                  <div style={{textAlign:"center"}}>
                     <img src={d.img} height="70px" />
                   </div>
                   <div style={{ paddingTop: "10px" }}>
-                    <Typography style={{ fontWeight: 600 }}>
+                    <Typography style={{ fontWeight: 600,textAlign:"center" }}>
                       {d.name}
                     </Typography>
                   </div>

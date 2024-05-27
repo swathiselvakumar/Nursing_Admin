@@ -76,7 +76,7 @@ export const SubListData1 = [
     path: PATH.NONNURSING,
   },
   {
-    title: "Model mock test",
+    title: "Model mock MCQ",
     path: PATH.MODELMOCK,
   },
   {

@@ -15,6 +15,8 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
 // import getLocalStorage from '../../utils/helperFunc'
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { navContext } from "../../context/navContext";
 function StAdd() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
@@ -25,11 +27,12 @@ function StAdd() {
   const [open, setOpen] = React.useState(false);
   const [name,setName]=useState('');
   const[email,setEmail]=useState('');
+  const {Endpoint}=useContext(navContext);
   const handleClickOpen = async() => {
     setOpen(true);
      try {
       const response = await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/post/A_InsertStudentSt.php",
+        `${Endpoint}admin/post/A_InsertStudentSt.php`,
         {
           username: name,
           email: email,

@@ -38,7 +38,7 @@ export const PATH = {
   DAILYINSTITUTION: "/dailyinstitution",
   ADDQUESTION: "/addquestion",
   ADDNONNURSING: "/addnonnursing/:sno/:lastId",
-  ADDMOCK: "/addmock/:sno/:id",
+  ADDMOCK: "/addmock/:sno",
   ADDMOCK1: "/addmock1/:sno/:id",
   ADDMCQ1: "/addmcq1",
   MCQTABLE: "/mcqtable",
@@ -69,5 +69,6 @@ export const PATH = {
   BLOCKTABLEPRE: "/blocktablepre",
   HYBRIDVIEWTEST:"/hybridviewtest/:sno",
   MINITESTQUESTIONS:"/minitestquestions/:sno",
-  MICROTESTQUESTIONS:"microtestquestions/:sno"
+  MICROTESTQUESTIONS:"/microtestquestions/:sno",
+  UPLOADQUESTION:"/uploadquestion/:sno/:id"
 };

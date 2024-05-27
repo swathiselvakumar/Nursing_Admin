@@ -19,7 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
 export default function AddMock1() {
-  const [category, setcategory] = useState("");
+  const {category, setcategory} = useContext(navContext);
   const { mcqname } = useContext(navContext);
   
     const [open, setOpen] = React.useState(false);
@@ -29,7 +29,7 @@ export default function AddMock1() {
     const { mcq, setMcq } = useContext(navContext);
     const [openFirstDialog, setOpenFirstDialog] = useState(false);
     const [openSecondDialog, setOpenSecondDialog] = useState(false);
-    const [mcqid, setMcqid] = useState('');
+    const {mcqid, setMcqid} = useContext(navContext);
     const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
@@ -56,24 +56,24 @@ const email=localStorage.getItem("userMail");
   const fetchmcqid = async () => {
     try {
       const res = await axios.post(
-      `${Endpoint}admin/get/A_ViewMCQId.php`,
+        `${Endpoint}admin/get/A_ViewMCQId.php`,
         {
           adminId: email,
-          mcqname:mcqname,
-         
+          mcqname: mcqname,
         }
       );
-
-      // Assuming `res.data` contains the object directly, not an array
-      const mcqId = res.data.sno;
-      setMcqid(mcqId);
-      console.log(mcqid);
+  
+      console.log(res.data);
+      setMcqid(res.data);
       setOpen(true);
     } catch (error) {
       console.error("Error fetching:", error);
     }
   };
 
+  
+
+ 
 const { sno ,id} = useParams();
 const [Data, setData] = useState(() => {
   
@@ -91,52 +91,13 @@ const [Data, setData] = useState(() => {
 });
   function handleFile(e) {
     
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const excelData = XLSX.utils.sheet_to_json(sheet);
-
-      setData({
-        ...Data,
-        institutionId: sno, 
-        stageId: id,
-        mcqId: mcqid,
-        category: category,
-        questions: excelData,
-      });
-    };
 
     reader.readAsArrayBuffer(file);
   }
 
-  useEffect(() => {
-    if (Data.questions.length > 0) {
-      SendApi();
-    }
-   
-  }, [Data.questions]);
-
-  const SendApi = async () => {
-    
-    try {
-      const response = await axios.post(
-        `${Endpoint}admin/post/A_InsertModelMockQuestion.php`,
-        Data
-      );
-    } catch (error) {
-      console.error("Error posting questions:", error);
-    }
-  };
 
     const handleClickOpen =async () => {
       
-      handleOpenSecondDialog();
           try{
              const currentDate = new Date().toISOString().split("T")[0];
             const res = await axios.post(
@@ -156,6 +117,7 @@ const [Data, setData] = useState(() => {
                 setDuration("");
                 setTime('');
                 fetchmcqid();
+                handleOpenSecondDialog();
                
           }
           catch (error) {
@@ -346,26 +308,28 @@ const [Data, setData] = useState(() => {
               </FormControl>
              
             </div>
-            <div>
+            <div style={{display:"flex",justifyContent:"center"}}>
               <div
                 style={{
                   marginTop: "30px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
-                <button onClick={handleClickOpen} style={btn1}>
+                <NavLink to={`/uploadquestion/${sno}/${id}`}>
+                <button  style={btn1} onClick={handleClickOpen}>
                   SUBMIT
                 </button>
+                </NavLink>
               </div>
             </div>
-            <div>
+            <div style={{display:"flex",justifyContent:"center"}}>
               <div
                 style={{
                   marginTop: "10px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
