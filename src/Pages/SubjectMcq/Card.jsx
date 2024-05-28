@@ -4,28 +4,23 @@ import Book from "../../assets/images/book.png";
 import { Typography } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
-import Delete from "../../assets/icons/delete.jpeg";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 export default function YearCard() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
-  const {Endpoint}=useContext(navContext);
-  // const { quetionpaperhistory,setQuestionpaperhistory } = useContext(navContext);
-  
+  const { Endpoint } = useContext(navContext);
   const [obj, setObj] = useState([]);
-const email=localStorage.getItem("userMail");
+  const email = localStorage.getItem("userMail");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,42 +64,53 @@ const email=localStorage.getItem("userMail");
       const res = await axios.post(
         `${Endpoint}admin/get/A_ViewSubWiseSubject.php`,
         {
-          adminId:email,
+          adminId: email,
         }
       );
-      const obj = res.data.map((item) => ({
-        img: Book,
-        name: item.subject_name,
-        path: `/subinstitution/${item.sno}`,
-        sno:item.sno
-      }));
-      obj.push({
+      if (res.data.length > 0) {
+        const obj = res.data.map((item) => ({
+          img: Book,
+          name: item.subject_name,
+          path: `/subinstitution/${item.sno}`,
+          sno: item.sno
+        }));
+        obj.push({
+          img: Plus,
+          name: "Add Subject",
+          onClick: handleClickOpen,
+        });
+        setObj(obj);
+      } else {
+        setObj([{
+          img: Plus,
+          name: "Add Subject",
+          onClick: handleClickOpen,
+        }]);
+      }
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+      setObj([{
         img: Plus,
         name: "Add Subject",
         onClick: handleClickOpen,
-      });
-      // setQuestionpaperhistory({ ...quetionpaperhistory, paperId:obj.sno });
-      // console.log(quetionpaperhistory);
-      setObj(obj);
-    } catch (error) {
-      console.error("Error fetching course data:", error);
+      }]);
     }
   };
 
   const CardDelete = async (sno) => {
     try {
-      const res = await axios.delete(
+      await axios.delete(
         `${Endpoint}admin/delete/A_deleteSubWiseSubject.php`,
         {
           data: {
-            adminId:email,
+            adminId: email,
             subjectId: sno,
           },
         }
       );
       getCourses();
     } catch (error) {
-      console.error("Error fetching course data:", error);
+      console.error("Error deleting subject:", error);
     }
   };
 
@@ -129,26 +135,26 @@ const email=localStorage.getItem("userMail");
                 alignItems: "center",
                 marginBottom: "20px",
               }}
-              // className="d-flex flex-col w-100 h-100"
             >
-             
-                <div className="Div d-flex flex-column p-3 service-div shadow w-100 h-100" onClick={d.onClick}>
+              <div className="Div d-flex flex-column p-3 service-div shadow w-100 h-100" onClick={d.onClick}>
                 {
-                    d.name!="Add Subject" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
-                  }
-                  <NavLink to={d.path}
-                style={{ color: "black", textDecoration: "none" }}>
-                  <div style={{textAlign:"center"}}>
-                    <img src={d.img} height="70px" />
+                  d.name !== "Add Subject" && (
+                    <button onClick={() => CardDelete(d.sno)} className="del" style={{ border: "none", backgroundColor: "white" }}>
+                      <DeleteIcon />
+                    </button>
+                  )
+                }
+                <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
+                  <div style={{ textAlign: "center" }}>
+                    <img src={d.img} alt="subject" height="70px" />
                   </div>
                   <div style={{ paddingTop: "10px" }}>
-                    <Typography style={{ fontWeight: 600,textAlign:"center" }}>
+                    <Typography style={{ fontWeight: 600, textAlign: "center" }}>
                       {d.name}
                     </Typography>
                   </div>
-                  </NavLink>
-                </div>
-              
+                </NavLink>
+              </div>
             </Col>
           ))}
         </Row>

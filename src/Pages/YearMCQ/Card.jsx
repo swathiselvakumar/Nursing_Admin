@@ -5,11 +5,9 @@ import { Typography } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
 import "./CardStyle.css";
-import Delete from "../../assets/icons/delete.jpeg";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
@@ -18,64 +16,69 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
 
-
 export default function YearCard() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState([]);
-  const[sno,setSno]=useState([])
-  const [obj, setObj] = useState([]);
-const email=localStorage.getItem("userMail");
-const [click, setclick] = useState(false);
-const {Endpoint}=useContext(navContext);
-
+  const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
 
   const getCourses = async () => {
     try {
       const res = await axios.post(
         `${Endpoint}admin/get/A_ViewPmcqInstitution.php`,
         {
-          adminId:email,
-          
+          adminId: email,
         }
       );
-       const sno = res.data.sno;
-       setSno(sno);
-     
 
-      const obj = res.data.map((item) => ({
-        img: Institution,
-        name: item.institution_name,
-        path: `/yearinstitution/${item.sno}`,
-        sno1: item.sno,
-      }));
-      
-      obj.push({
-        img: Plus,
-        name: "Add institution",
-        path: "/addmcq",
-      });
-      setName(obj);
-      setObj(obj);
-      // console.log(obj);
+      if (res.data.length > 0) {
+        const obj = res.data.map((item) => ({
+          img: Institution,
+          name: item.institution_name,
+          path: `/yearinstitution/${item.sno}`,
+          sno1: item.sno,
+        }));
+        obj.push({
+          img: Plus,
+          name: "Add institution",
+          path: "/addmcq",
+        });
+        setName(obj);
+      } else {
+        setName([
+          {
+            img: Plus,
+            name: "Add institution",
+            path: "/addmcq",
+          },
+        ]);
+      }
     } catch (error) {
       console.error("Error fetching course data:", error);
+      setName([
+        {
+          img: Plus,
+          name: "Add institution",
+          path: "/addmcq",
+        },
+      ]);
     }
   };
+
   const CardDelete = async (sno) => {
-    setclick(true);
     try {
-      const res = await axios.delete(
+      await axios.delete(
         `${Endpoint}admin/delete/A_deletePMCQInstitution.php`,
         {
           data: {
-            adminId:email,
+            adminId: email,
             institutionId: sno,
           },
         }
       );
       getCourses();
     } catch (error) {
-      console.error("Error fetching course data:", error);
+      console.error("Error deleting institution:", error);
     }
   };
 
@@ -86,6 +89,7 @@ const {Endpoint}=useContext(navContext);
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -97,6 +101,7 @@ const {Endpoint}=useContext(navContext);
     width: "100px",
     marginTop: "20px",
   };
+  
   const Btn1 = {
     backgroundColor: "red",
     color: "white",
@@ -111,7 +116,7 @@ const {Endpoint}=useContext(navContext);
         <Row style={{ marginTop: "20px", justifyContent: "center" }}>
           {name.map((d) => (
             <Col
-              key={d.name}
+              key={d.sno1 || d.name}
               xs={12}
               sm={12}
               md={6}
@@ -123,23 +128,28 @@ const {Endpoint}=useContext(navContext);
                 marginBottom: "20px",
               }}
             >
-                <div className="Div">
-                  {
-                    d.name!="Add institution" && <button onClick={() => CardDelete(d.sno1)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
-                  }
-                  
-                  <NavLink to={d.path}
-                style={{ color: "black", textDecoration: "none" }}>
-                  <div style={{display:"flex",justifyContent:"center"}}>
+              <div className="Div">
+                {d.name !== "Add institution" && (
+                  <button
+                    onClick={() => CardDelete(d.sno1)}
+                    className="del"
+                    style={{ border: "none", backgroundColor: "white" }}
+                  >
+                    <DeleteIcon />
+                  </button>
+                )}
+                <NavLink
+                  to={d.path}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <img src={d.img} alt="institution" height="70px" />
                   </div>
-                  <div style={{ paddingTop: "10px",textAlign:"center" }}>
-                    <Typography style={{ fontWeight: 600 }}>
-                      {d.name}
-                    </Typography>
+                  <div style={{ paddingTop: "10px", textAlign: "center" }}>
+                    <Typography style={{ fontWeight: 600 }}>{d.name}</Typography>
                   </div>
-                  </NavLink>
-                </div>
+                </NavLink>
+              </div>
             </Col>
           ))}
         </Row>
@@ -149,22 +159,20 @@ const {Endpoint}=useContext(navContext);
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle
-          sx={{ m: 0, p: 2 }}
-          id="customized-dialog-title"
-        ></DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent sx={{ textAlign: "center" }}>
           <img
             src={Rong}
@@ -173,8 +181,8 @@ const {Endpoint}=useContext(navContext);
             style={{ marginTop: "-30px" }}
           />
           <br />
-          Are You sure ?<br />
-          you want to delete this student?
+          Are you sure?<br />
+          You want to delete this institution?
           <br />
           <Button onClick={handleClose} style={Btn}>
             Cancel

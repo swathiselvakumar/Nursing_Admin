@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Aptitude from "../../assets/images/Aptitude.jpg";
 import Reasoning from "../../assets/images/reasoning.png";
@@ -7,17 +7,21 @@ import GK from "../../assets/images/gk.webp";
 import { Typography } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
-import Delete from "../../assets/icons/delete.jpeg";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
 
+const categoryImages = {
+  Aptitude,
+  Reasoning,
+  English,
+  GK,
+};
 
 export default function NonNursingCard() {
   const [open, setOpen] = useState(false);
@@ -25,8 +29,9 @@ export default function NonNursingCard() {
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
   const [datas, setDatas] = useState([]);
-  const email=localStorage.getItem("userMail");
-  const {Endpoint}=useContext(navContext);
+  const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -37,73 +42,84 @@ export default function NonNursingCard() {
 
   const handleAddCategory = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${Endpoint}admin/post/A_InsertNonNursingCategory.php`,
         {
-          adminId:email,
+          adminId: email,
           name: name,
           desc: description,
           instruction: instruction,
         }
       );
-      console.log("New item added:", response.data);
       setName("");
       setDescription("");
       setInstruction("");
       handleClose();
-    // setOpen(false);
-
       getCourses();
     } catch (error) {
       console.error("Error adding new item:", error);
     }
   };
 
- 
-
   const getCourses = async () => {
     try {
       const res = await axios.post(
         `${Endpoint}admin/get/A_ViewNonNursingCategory.php`,
         {
-          adminId:email,
+          adminId: email,
         }
       );
       const data = res.data;
       const newData = data.map((item) => ({
-        img:Aptitude,Reasoning,English,
+        img: categoryImages[item.category_name] || Aptitude,
         name: item.category_name,
         path: `/noninstitution/${item.sno}`,
-        sno:item.sno
+        sno: item.sno,
       }));
-      newData.push({
-        img: Plus,
-        name: "Add Category",
-        onClick: handleClickOpen,
-      });
-      setDatas(newData);
+      if (newData.length === 0) {
+        setDatas([
+          {
+            img: Plus,
+            name: "Add Category",
+            onClick: handleClickOpen,
+          },
+        ]);
+      } else {
+        newData.push({
+          img: Plus,
+          name: "Add Category",
+          onClick: handleClickOpen,
+        });
+        setDatas(newData);
+      }
     } catch (error) {
       console.error("Error fetching course data:", error);
+      setDatas([
+        {
+          img: Plus,
+          name: "Add Category",
+          onClick: handleClickOpen,
+        },
+      ]);
     }
   };
 
   const CardDelete = async (sno) => {
     try {
-      const res = await axios.delete(
+      await axios.delete(
         `${Endpoint}admin/delete/A_deleteNonNursingCategory.php`,
         {
           data: {
-            adminId:email,
+            adminId: email,
             categoryId: sno,
           },
         }
       );
       getCourses();
     } catch (error) {
-      console.error("Error fetching course data:", error);
+      console.error("Error deleting category:", error);
     }
   };
-
 
   useEffect(() => {
     getCourses();
@@ -125,35 +141,49 @@ export default function NonNursingCard() {
                 justifyContent: "center",
                 alignItems: "center",
                 marginBottom: "20px",
+                height:"150px"
               }}
             >
-             
-                <div className="Div" onClick={d.onClick}>
-                {
-                    d.name!="Add Category" && <button onClick={() => CardDelete(d.sno)} className="del" style={{border:"none",backgroundColor:"white"}}><DeleteIcon/></button>
-                  }
-                  <NavLink to={d.path}
-                style={{ color: "black", textDecoration: "none" }}>
-                  <div>
-                    <img src={d.img} height="70px" />
+              <div
+                className="Div d-flex flex-column p-3 service-div shadow w-100 h-100"
+                onClick={d.onClick}
+              >
+                {d.name !== "Add Category" && (
+                  <button
+                    onClick={() => CardDelete(d.sno)}
+                    className="del"
+                    style={{ border: "none", backgroundColor: "white" }}
+                  >
+                    <DeleteIcon />
+                  </button>
+                )}
+                {d.name === "Add Category" ? (
+                  <div style={{ textAlign: "center" }}>
+                    <img src={d.img} height="70px" alt="Add Category" />
+                    <div>
+                    <Typography style={{ fontWeight: 600, textAlign: "center",paddingTop:"20px" }}>
+                        {d.name}
+                      </Typography>
+                    </div>
                   </div>
-                  <div style={{ paddingTop: "10px" }}>
-                    <Typography style={{ fontWeight: 600,textAlign:"center" }}>
-                      {d.name}
-                    </Typography>
-                  </div>
+                ) : (
+                  <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
+                    <div style={{ textAlign: "center" }}>
+                      <img src={d.img} height="70px" alt={d.name} />
+                    </div>
+                    <div style={{ paddingTop: "10px" }}>
+                      <Typography style={{ fontWeight: 600, textAlign: "center" }}>
+                        {d.name}
+                      </Typography>
+                    </div>
                   </NavLink>
-                </div>
-             
+                )}
+              </div>
             </Col>
           ))}
         </Row>
       </Container>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
+      <Dialog onClose={handleClose} open={open}>
         <DialogTitle
           sx={{
             m: 0,
@@ -162,22 +192,21 @@ export default function NonNursingCard() {
             textAlign: "center",
             backgroundColor: "#f6f6f6",
           }}
-          id="customized-dialog-title"
         >
           Add Category
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
         </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
         <DialogContent
           dividers
           style={{ padding: "20px", backgroundColor: "#f6f6f6" }}
@@ -209,12 +238,7 @@ export default function NonNursingCard() {
               onChange={(e) => setInstruction(e.target.value)}
             />
             <br />
-            <button
-              autoFocus
-              onClick={handleAddCategory}
-              className="subjectBtn"
-              // onClick={handleClose}
-            >
+            <button autoFocus onClick={handleAddCategory} className="subjectBtn">
               Submit
             </button>
           </div>
