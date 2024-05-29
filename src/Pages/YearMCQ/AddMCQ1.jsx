@@ -21,41 +21,45 @@ export default function AddMCQ1() {
     const [open, setOpen] = React.useState(false);
     const [description, setDescription] = useState();
     const [instruction, setInstruction] = useState();
-    const { name, setName } = useContext(navContext);
+    const { name} = useContext(navContext);
     const {Endpoint}=useContext(navContext);
+    const {file}=useContext(navContext);
     const email=localStorage.getItem("userMail");
-      // const location = useLocation();
-  //  const location = useLocation();
-  // const location = useLocation();
-// const {name} = useParams();
-// console.log(name);
-      // console.log("Received prop:", location.state.stateProp);
-// console.log(name);
-    const handleClickOpen = async() => {
+    
+    const handleClickOpen = async () => {
+      // Create a new FormData object
+      const formData = new FormData();
       
+      // Append the file to the FormData object
+      formData.append('file', file);
+    
+      // Append other form data fields
+      formData.append('admin_id', email);
+      formData.append('name', name);
+      formData.append('instruction', instruction);
+      formData.append('desc', description);
+    
+      // Send the FormData object in the POST request
+      try {
+        const response = await axios.post(
+          `${Endpoint}admin/post/A_InsertPmcqInstitution.php`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+            }
+          }
+        );
+        console.log("New item added:", response.data);
+        // Clear input fields
+        // setName("");
+        setDescription("");
+        setInstruction(""); 
         setOpen(true);
-          try {
-         const response = await axios.post(
-           `${Endpoint}admin/post/A_InsertPmcqInstitution.php`,
-           {
-             adminId:email,
-             name: name,
-             instruction: instruction,
-             desc: description,
-             // You can include additional data here as needed
-           }
-         );
-      console.log("New item added:", response.data);
-      //  setName("");
-       setDescription("");
-       setInstruction(""); 
-       // Clear input fields
-      console.log(name);
-
-    } catch (error) {
-      console.error("Error adding new item:", error);
-    }
-      };
+      } catch (error) {
+        console.error("Error adding new item:", error);
+      }
+    };
       const handleClose = () => {
         setOpen(false);
       };

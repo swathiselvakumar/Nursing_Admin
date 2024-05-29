@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Model from "../../assets/images/model.png";
-import { Typography } from "@mui/material";
+import { Typography,Button } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
 import "../YearMCQ/CardStyle.css";
@@ -13,8 +13,25 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
-
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 export default function ModelMockCard() {
+
+  const {file,setFile} = useState(null);
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+   const VisuallyHiddenInput = styled('input')({
+     clip: 'rect(0 0 0 0)',
+     clipPath: 'inset(50%)',
+     height: 1,
+     overflow: 'hidden',
+     position: 'absolute',
+     bottom: 0,
+     left: 0,
+     whiteSpace: 'nowrap',
+     width: 1,
+   });
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,6 +40,7 @@ export default function ModelMockCard() {
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
 
+ 
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -115,8 +133,33 @@ export default function ModelMockCard() {
     <div>
       <Container fluid>
         <Row style={{ marginTop: "20px", justifyContent: "center" }}>
-          {data.length === 0 ? (
+          {/* Always show the "Add Institution" card */}
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={3}
+            xl={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+            className="order-last"
+          > 
+            <div className="Div" onClick={handleClickOpen} >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img src={Plus} height="70px" alt="Add Institution" />
+              </div>
+              <div style={{ paddingTop: "10px", textAlign: "center" }}>
+                <Typography style={{ fontWeight: 600 }}>Add Institution</Typography>
+              </div>
+            </div>
+          </Col>
+          {/* Display existing institution cards */}
+          {data.map((d, index) => (
             <Col
+              key={index}
               xs={12}
               sm={12}
               md={6}
@@ -128,52 +171,25 @@ export default function ModelMockCard() {
                 marginBottom: "20px",
               }}
             >
-              <div className="Div" onClick={handleClickOpen}>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={Plus} height="70px" alt="Add Institution" />
-                </div>
-                <div style={{ paddingTop: "10px", textAlign: "center" }}>
-                  <Typography style={{ fontWeight: 600 }}>Add Institution</Typography>
-                </div>
+              <div className="Div">
+                <button
+                  onClick={() => CardDelete(d.sno)}
+                  className="del"
+                  style={{ border: "none", backgroundColor: "white" }}
+                >
+                  <DeleteIcon />
+                </button>
+                <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img src={d.img} height="70px" alt="model" />
+                  </div>
+                  <div style={{ paddingTop: "10px", textAlign: "center" }}>
+                    <Typography style={{ fontWeight: 600 }}>{d.name}</Typography>
+                  </div>
+                </NavLink>
               </div>
             </Col>
-          ) : (
-            data.map((d, index) => (
-              <Col
-                key={index}
-                xs={12}
-                sm={12}
-                md={6}
-                lg={3}
-                xl={3}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                }}
-              >
-                <div className="Div">
-                  <button
-                    onClick={() => CardDelete(d.sno)}
-                    className="del"
-                    style={{ border: "none", backgroundColor: "white" }}
-                  >
-                    <DeleteIcon />
-                  </button>
-                  <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <img src={d.img} height="70px" alt="model" />
-                    </div>
-                    <div style={{ paddingTop: "10px", textAlign: "center" }}>
-                      <Typography style={{ fontWeight: 600 }}>
-                        {d.name}
-                      </Typography>
-                    </div>
-                  </NavLink>
-                </div>
-              </Col>
-            ))
-          )}
+          ))}
         </Row>
       </Container>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
@@ -224,6 +240,40 @@ export default function ModelMockCard() {
               value={instruction}
             />
             <br />
+            <div >
+                  <label htmlFor="description" className="pass-lab" >
+                    Image :{" "}
+                  </label>
+                  <br/>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "340px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file" />
+                    </Button>
+                  </label>
+                </div>
             <button autoFocus onClick={handleAddInstitution} className="subjectBtn">
               Submit
             </button>

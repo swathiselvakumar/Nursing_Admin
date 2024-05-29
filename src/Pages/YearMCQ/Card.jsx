@@ -30,10 +30,10 @@ export default function YearCard() {
           adminId: email,
         }
       );
-
+      console.log(res.data);
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: Institution,
+          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.institution_name,
           path: `/yearinstitution/${item.sno}`,
           sno1: item.sno,

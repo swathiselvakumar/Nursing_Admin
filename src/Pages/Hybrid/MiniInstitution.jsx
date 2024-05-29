@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 import { Container, Row, Col } from "react-bootstrap";
 import Mini from '../../assets/images/minitest.webp';
@@ -20,9 +20,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
-import { useEffect } from "react";
-import axios from "axios";
 import { navContext } from "../../context/navContext";
+import axios from "axios";
 
 export default function MiniInstitution() {
   const BreadcrumbItems = [
@@ -37,9 +36,10 @@ export default function MiniInstitution() {
 
   const [open, setOpen] = React.useState(false);
   const [openBtn, setOpenBtn] = React.useState(false);
-  const [data,setdata]=useState([]);
-  const email=localStorage.getItem("userMail");
-  const {Endpoint}=useContext(navContext);
+  const [data, setData] = useState([]);
+  const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
+
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
@@ -53,28 +53,27 @@ export default function MiniInstitution() {
   const handleClose = () => {
     setOpen(false);
   };
-const fetchApi=async()=>{
-  try{ 
-    const response = await axios.post(
-          `${Endpoint}admin/get/A_ViewMiniTestDetails.php`,
-          {
-            adminId:email
-          }
-        );
-        setdata(response.data);
-    }catch(error)
-    {
-          console.error("Error fetching data:", error);
-    
+
+  const fetchApi = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewMiniTestDetails.php`,
+        {
+          adminId: email,
+        }
+      );
+      console.log("API Response:", response.data);
+      setData(response.data || []); // Ensure setData is always called with an array
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-}
-useEffect(()=>{
-  fetchApi();
-},[])
+  };
 
-  
+  useEffect(() => {
+    fetchApi();
+  }, []);
 
-  return ( 
+  return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
       <div style={{ padding: "25px" }}>
         <CustomBreadCrumbs items={BreadcrumbItems} />
@@ -83,7 +82,7 @@ useEffect(()=>{
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
             <div>
-              <img src={Mini} height="40px" />
+              <img src={Mini} height="40px" alt="Mini Test" />
             </div>
             &nbsp;&nbsp;
             <div>
@@ -97,43 +96,51 @@ useEffect(()=>{
       <div className="TotalBox">
         <Container className="MainBox">
           <Row>
-            {
-              data.map((d)=>(
-                <Col className="Col1">
-              <div className="box">
-                <NavLink
-                  to={`/miniupload/${d.sno}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <button
-                    style={{
-                      backgroundColor: "white",
-                      border: "none",
-                      paddingTop: "5px",
-                    }} 
-                  >
-                    {d.test_name}
-                  </button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  {/* <img src={Delete} className="delete" /> */}
-                </NavLink>
-                <NavLink 
-              to={`/minitestquestions/${d.sno}`}
-              style={{ textDecoration: "none", marginLeft: "20px" }}
-            >
-              <div style={{ display: "flex", marginLeft: 160,marginTop:"20px" }}>
-                View Questions
-              </div>
-            </NavLink>
-              </div>
-            </Col>
+            {Array.isArray(data) && data.length === 0 ? (
+              <Col xs={12} className="text-center">
+                <Typography>No data found</Typography>
+              </Col>
+            ) : (
+              data.map((d) => (
+                <Col className="Col1" key={d.sno}>
+                  <div className="box">
+                    <NavLink
+                      to={`/miniupload/${d.sno}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <button
+                        style={{
+                          backgroundColor: "white",
+                          border: "none",
+                          paddingTop: "5px",
+                        }}
+                      >
+                        {d.test_name}
+                      </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    </NavLink>
+                    <NavLink
+                      to={`/minitestquestions/${d.sno}`}
+                      style={{ textDecoration: "none", marginLeft: "20px" }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          marginLeft: 160,
+                          marginTop: "20px",
+                        }}
+                      >
+                        View Questions
+                      </div>
+                    </NavLink>
+                  </div>
+                </Col>
               ))
-            }
+            )}
           </Row>
         </Container>
-
       </div>
-      
+  
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -153,7 +160,10 @@ useEffect(()=>{
         </IconButton>
         <DialogContent
           dividers
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
           <button className="Submit1">Download Template</button>
           <NavLink to="/testpage">

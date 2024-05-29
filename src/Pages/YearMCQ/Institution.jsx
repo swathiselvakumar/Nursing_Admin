@@ -25,6 +25,7 @@ import { navContext } from "../../context/navContext";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from '@mui/material/TextField';
 
 
 export default function YearInstitution() {
@@ -301,30 +302,9 @@ useEffect(() => {
               sx={{ m: 1, minWidth: 150, backgroundColor: "white" }}
               size="small"
             >
-              <InputLabel id="demo-select-small-label">Month</InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={month}
-                label="Month"
-                onChange={handleChanged}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="January">January</MenuItem>
-                <MenuItem value="February">February</MenuItem>
-                <MenuItem value="March">March</MenuItem>
-                <MenuItem value="April">April</MenuItem>
-                <MenuItem value="May">May</MenuItem>
-                <MenuItem value="June">June</MenuItem>
-                <MenuItem value="July">July</MenuItem>
-                <MenuItem value="August">August</MenuItem>
-                <MenuItem value="September">September</MenuItem>
-                <MenuItem value="Octobe">October</MenuItem>
-                <MenuItem value="November">November</MenuItem>
-                <MenuItem value="December">December</MenuItem>
-              </Select>
+              
+              <TextField id="outlined-basic" label="Name" variant="outlined" size="small" value={month}  onChange={handleChanged}/>
+             
             </FormControl>
           </div>
           <div
@@ -346,10 +326,10 @@ useEffect(() => {
       </Dialog>
 
       <Dialog
-        // onClose={handleCloseSecondDialog}
+        
         open={openSecondDialog}
         aria-labelledby="customized-dialog-title"
-        // open={openBtn}
+      
       >
         <IconButton
           aria-label="close"

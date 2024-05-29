@@ -125,7 +125,7 @@ export default function PlanDetails() {
                         {plan.duration} month plan for course
                       </Typography>
                       <Typography style={{ fontSize: "26px" }}>
-                        <ul className="ulstyle">
+                        <ul >
                           {[...Array(plan.tickCount)].map((_, i) => (
                             <li key={i}>
                               <img src={Tick} alt="Tick" />

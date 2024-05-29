@@ -275,7 +275,7 @@ const [Data, setData] = useState(() => {
                       { label: "1 hour", value: "60" },
                       { label: "2 hour", value: "120" },
                       { label: "3 hour", value: "180" },
-                      { label: "2 mins", value: "2" },
+                      { label: "90 mins", value: "90" },
 
                     ].map((option) => (
                       <option key={option.value} value={option.value}>

@@ -25,7 +25,7 @@ function NavContextProvider({ children }) {
  const [Endpoint,setEndpoint]=useState("https://vebbox.in/Nursing/controllers/api/");
  const [category, setcategory] = useState("");
  const [mcqid, setMcqid] = useState('');
-
+ const [file, setFile] = useState(null);
 
 
   //  const [durationname, setDurationname] = useState();
@@ -83,7 +83,9 @@ function NavContextProvider({ children }) {
         category,
         setcategory,
         mcqid,
-        setMcqid
+        setMcqid,
+        file,
+        setFile
       }}
     >
       {children}

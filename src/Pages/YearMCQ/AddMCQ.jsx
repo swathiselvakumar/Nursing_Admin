@@ -8,7 +8,32 @@ import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+
 export default function AddMCQ() {
+  const {file,setFile} = useContext(navContext);
+
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+    
+  
+  };
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
   const [name, setName] = useState('');
   const { setName: setNavName } = useContext(navContext);
   const {Endpoint}=useContext(navContext);
@@ -27,36 +52,11 @@ export default function AddMCQ() {
          
        };
 
-        //  console.log("Name prop:", name);
-       const handleNextClick = async () => {
-         const planDetails = { name };
-         console.log("Plan Details:", planDetails);
-         setSuccessDialogOpen(true);
-         try {
-         const response = await axios.post(
-           `${Endpoint}admin/post/A_InsertPmcqInstitution.php`,
-           {
-             adminId:email,
-             name: name,
-            //  about: about,
-            //  description: description,
-             // You can include additional data here as needed
-           }
-         );
-      console.log("New item added:", response.data);
-       setName("");
-       console.log(name);
-
-      //  setDescription("");
-      //  setAbout(""); // Clear input fields
-    } catch (error) {
-      console.error("Error adding new item:", error);
-    }
-       };
+       
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
-        height:"90vh",
+        height:"70vh",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
         margin:"30px"
       }
@@ -156,7 +156,8 @@ export default function AddMCQ() {
               </div>
             </div>
 
-            <div style={MainText}>
+           <form method='post' enctype="multipart/form-data">
+           <div style={MainText}>
               <div
                 style={{
                   marginTop: "15px",
@@ -178,13 +179,41 @@ export default function AddMCQ() {
                   />
                 </div>
               </div>
+              <div style={{display:"flex",marginTop:"20px"}}>
+                  <label htmlFor="description" className="pass-lab" style={{paddingRight:"105px"}}>
+                    Image{" "}
+                  </label>
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "230px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file"   onChange={handleFileChange}/>
+                    </Button>
+                  </label>
+                </div>
+             
             </div>
-            <div>
+       
+            <div style={{width:"120%",display:"flex",justifyContent:"center"}}>
               <div
                 style={{
                   marginTop: "30px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
@@ -192,18 +221,20 @@ export default function AddMCQ() {
                 <NavLink
                   to={ '/addmcq1' }
                 >
-                  <button style={btn1} onClick={handleNextClick}>
+                  <button style={btn1}>
                     NEXT
                   </button>
+                  
                 </NavLink>
               </div>
             </div>
-            <div>
+            </form>
+            <div style={{width:"120%",display:"flex",justifyContent:"center"}}>
               <div
                 style={{
                   marginTop: "10px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >

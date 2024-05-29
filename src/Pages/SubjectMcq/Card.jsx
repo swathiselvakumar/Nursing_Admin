@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Book from "../../assets/images/book.png";
-import { Typography } from "@mui/material";
+import { Typography ,Button} from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
@@ -12,8 +12,31 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 export default function YearCard() {
+
+  const {file,setFile} = useContext(navContext);
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+    
+  
+  };
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -31,14 +54,24 @@ export default function YearCard() {
   };
 
   const handleAddSubject = async () => {
+    const formData = new FormData();
+      
+    // Append the file to the FormData object
+    formData.append('file', file);
+  
+    // Append other form data fields
+    formData.append('admin_id', email);
+    formData.append('name', name);
+    formData.append('instruction', instruction);
+    formData.append('desc', description);
     try {
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertSubWiseSubject.php`,
+        formData,
         {
-          adminId: email,
-          name: name,
-          desc: description,
-          instruction: instruction,
+          headers: {
+            'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+          }
         }
       );
       console.log("New item added:", response.data);
@@ -69,7 +102,7 @@ export default function YearCard() {
       );
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: Book,
+          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.subject_name,
           path: `/subinstitution/${item.sno}`,
           sno: item.sno
@@ -217,6 +250,39 @@ export default function YearCard() {
               onChange={handleChange}
             />
             <br />
+            <div >
+                  <label htmlFor="description" className="pass-lab" >
+                    Image :{" "}
+                  </label>
+                  <br/>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".jpg, .jpeg, .png"
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "340px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file"  onChange={handleFileChange} />
+                    </Button>
+                  </label>
+                </div>
             <button autoFocus onClick={handleAddSubject} className="subjectBtn">
               Submit
             </button>

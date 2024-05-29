@@ -4,7 +4,7 @@ import Aptitude from "../../assets/images/Aptitude.jpg";
 import Reasoning from "../../assets/images/reasoning.png";
 import English from "../../assets/images/english.png";
 import GK from "../../assets/images/gk.webp";
-import { Typography } from "@mui/material";
+import { Typography,Button } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
@@ -15,7 +15,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
-
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 const categoryImages = {
   Aptitude,
   Reasoning,
@@ -24,6 +25,28 @@ const categoryImages = {
 };
 
 export default function NonNursingCard() {
+
+  const {file,setFile} = useContext(navContext);
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+    
+  
+  };
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -41,14 +64,24 @@ export default function NonNursingCard() {
   };
 
   const handleAddCategory = async () => {
+    const formData = new FormData();
+      
+    // Append the file to the FormData object
+    formData.append('file', file);
+  
+    // Append other form data fields
+    formData.append('admin_id', email);
+    formData.append('name', name);
+    formData.append('instruction', instruction);
+    formData.append('desc', description);
     try {
       await axios.post(
         `${Endpoint}admin/post/A_InsertNonNursingCategory.php`,
+        formData,
         {
-          adminId: email,
-          name: name,
-          desc: description,
-          instruction: instruction,
+          headers: {
+            'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+          }
         }
       );
       setName("");
@@ -71,7 +104,7 @@ export default function NonNursingCard() {
       );
       const data = res.data;
       const newData = data.map((item) => ({
-        img: categoryImages[item.category_name] || Aptitude,
+        img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
         name: item.category_name,
         path: `/noninstitution/${item.sno}`,
         sno: item.sno,
@@ -238,6 +271,40 @@ export default function NonNursingCard() {
               onChange={(e) => setInstruction(e.target.value)}
             />
             <br />
+            <div >
+                  <label htmlFor="description" className="pass-lab" >
+                    Image :{" "}
+                  </label>
+                  <br/>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "340px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file" />
+                    </Button>
+                  </label>
+                </div>
             <button autoFocus onClick={handleAddCategory} className="subjectBtn">
               Submit
             </button>

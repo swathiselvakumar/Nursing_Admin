@@ -149,25 +149,29 @@ export default function ModelInstitution() {
                   </div>
                   {papers[stage.sno] && papers[stage.sno].length > 0 && (
                     papers[stage.sno].map((paper, index) => (
-                      <div key={index}>
+                      <>
+                      <div className='Div' style={{borderRadius:"0px"}} key={index}>
                         <NavLink to={`/mocktablepage/${paper.sno}/${sno}/${stage.sno}`}>
                           <button
-                            className="box"
+                            // className="box"
                             style={{
                               backgroundColor: "white",
                               border: "none",
                               width: "100%",
+                              height:"10px",
                               textAlign: "center",
-                              marginBottom: "10px"
+                              marginBottom: "10px",
                             }}
                           >
                             {paper.mcq_name}
                           </button>
                         </NavLink>
-                        <button onClick={() => CardDelete(paper.sno)} className="delete" style={{ border: "none", backgroundColor: "white", height: "10px" }}>
+                        <button onClick={() => CardDelete(paper.sno)} className="del" style={{ border: "none", backgroundColor: "white", height: "10px" }}>
                           <DeleteIcon />
                         </button>
-                        <NavLink
+                       
+                      </div>
+                      <NavLink
                           to={`/viewquestionsmodel/${paper.sno}/${sno}/${stage.sno}`}
                           style={{ textDecoration: "none", display: "block", marginTop: "10px" }}
                         >
@@ -175,7 +179,7 @@ export default function ModelInstitution() {
                             View Questions
                           </div>
                         </NavLink>
-                      </div>
+                      </>
                     ))
                   )}
                 </Col>

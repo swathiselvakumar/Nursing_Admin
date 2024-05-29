@@ -83,5 +83,6 @@ export const PremiumPlansStyle=styled("div")(()=>({
     },
     ".MuiTypography-root":{
       fontFamily: "Roboto, sans-serif"
-    }
+    },
+   
 }))

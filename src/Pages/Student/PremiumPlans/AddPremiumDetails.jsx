@@ -19,48 +19,60 @@ export default function PremiumPlanDetails() {
       ];
 //  const [durationname, setDurationname] = useState();
  const [pricename, setPricename] = useState(1999);
- const [category, setCategory] = useState();
+ const [category, setCategory] = useState(['']);
   const { plan, setPlan } = useContext(navContext);
   const { price, setPrice } = useContext(navContext);
    const { durationname, setDurationname } = useContext(navContext);
    const {Endpoint}=useContext(navContext);
+   const [additionalCategories, setAdditionalCategories] = useState([""]);
 
-
-const handleChangeduration = (event) => {
-  setDurationname(event.target.value);
+   const handleChangeduration = (event) => {
+    setDurationname(event.target.value);
 };
 
-      const handleChangeprice = (event) => {
-        setPricename(event.target.value);
-        // set
-      };
+const handleChangeprice = (event) => {
+    setPricename(event.target.value);
+};
 
-      const handleChangecategory = (event) => {
-        setCategory(event.target.value);
-      };
-      const handleNextClick = async() => {
-        const planDetails = { plan,category, price, durationname };
-        console.log("Plan Details:", planDetails);
-         try {
-         const response = await axios.post(
-           `${Endpoint}admin/post/A_InsertPlans.php`,
-           {
-             title: plan,
-             amount: price,
-             duration: 2,
-             description: category,
-            
-           }
-         );
+const handleChangecategory = (event) => {
+    setCategory(event.target.value);
+};
+
+const handleAddCategory = () => {
+    let newcat = "";
+    setCategory([...category,newcat]);
+   
+};
+
+const handleCategoryInputChange = (index, event) => {
+  console.log(category.map((val,i)=> i == index ? event.target.value : val));
+    setCategory(category.map((val,i)=> i == index ?  event.target.value : val))
+};
+
+const handleNextClick = async() => {
+  const allCategories = [category, ...additionalCategories]; // Combine the initial category and additional categories
+  const concatenatedCategories = allCategories.join(', '); // Concatenate all categories into a single string
+
+  const planDetails = { plan, category: concatenatedCategories, price, durationname };
+  console.log("Plan Details:", planDetails);
+
+  try {
+      const response = await axios.post(
+          `${Endpoint}admin/post/A_InsertPlans.php`,
+          {
+              title: plan,
+              amount: price,
+              duration: 2,
+              description: concatenatedCategories, // Send concatenated categories to the API
+          }
+      );
       console.log("New item added:", response.data);
-     
-
-    } catch (error) {
+  } catch (error) {
       console.error("Error adding new item:", error);
-    }
-    // console.log(duration);
-        
-      };
+  }
+};
+
+
       const MainBox={
         backgroundColor:"#f6f6f6",
         width:"50vw",
@@ -180,10 +192,10 @@ const handleChangeduration = (event) => {
                 }}
               >
                 <div>
-                  <label>Category Access</label>
+                  <label>Add Category </label>
                 </div>
                
-                <div>
+                {/* <div>
                   <input
                     type="text"
                     placeholder="Add Category"
@@ -191,8 +203,24 @@ const handleChangeduration = (event) => {
                     value={category}
                     onChange={handleChangecategory}
                   />
-                </div>
+                </div> */}
+                <br/>
+                <Typography onClick={handleAddCategory} style={{cursor:"pointer"}}>+Add</Typography>
               </div>
+              {category.map((cat, index) => (
+                            <div key={index} style={{ marginTop: "15px", display: "flex", justifyContent: "space-between", width: "380px" }}>
+                               
+                                <div style={{marginLeft:"103px"}}>
+                                    <input
+                                        type="text"
+                                        placeholder="Add Category"
+                                        style={TextB}
+                                        value={cat}
+                                        onChange={(e) => handleCategoryInputChange(index, e)}
+                                    />
+                                </div>
+                            </div>
+                        ))}
             </div>
             <div>
               <div
