@@ -26,19 +26,21 @@ import { navContext } from "../../context/navContext";
 
 export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
   const [open, setOpen] = useState(false);
-  const { index, setindex } = useState();
+  const [ studentid, setstudentid] = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
   const {Endpoint}=useContext(navContext);
-// console.log(tableData);
+
 
   const handleCloseDialog = () => {
     setOpen(false);
   };
-  const handleClickOpens = () => {
+  const handleClickOpens = (e,row) => {
     setModal(true);
+    setstudentid(row.email);
+
   };
   const handleClosed = () => {
     setModal(false);
@@ -49,6 +51,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
     setOpen(true);
     updateStudentId(row.sno);
     setmodified(tableData[index]);
+    console.log(row.email);
   }
   
 
@@ -119,7 +122,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    // onClick={handleClickOpens}
+                    onClick={(e)=>handleClickOpens(e,row)}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}
@@ -159,7 +162,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
         style={{ height: "10%" }}
       >
         <Box sx={style}>
-          <Profile onClose={handleClosed} />
+          <Profile onClose={handleClosed} studentid={studentid}/>
         </Box>
       </Modal>
     </>

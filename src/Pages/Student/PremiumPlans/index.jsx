@@ -1,29 +1,22 @@
 import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState, useContext } from 'react';
 import { PremiumPlansStyle } from './style';
-import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import { Container, Row, Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
 import { NavLink } from 'react-router-dom';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Crown from '../../../assets/images/Crown.png';
 import Plus from '../../../assets/icons/plus b.png';
-import BreadcrumbsComp from '../../../components/Common/BreadCrumbs';
 import { PATH } from '../../../constants/routeConstants';
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
-import { getLocalStorage } from '../../../utils/helperFunc';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { navContext } from '../../../context/navContext';
 import Rong from '../../../assets/icons/rong.jpg'
-import Tick from "../../../assets/icons/tick.png";
 
 export default function PremiumPlans() {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -135,16 +128,6 @@ export default function PremiumPlans() {
                   <Typography sx={{ fontWeight: 600, fontSize: "18px" }}>Premium Plans &nbsp;<img src={Crown} height="20px" /></Typography>
                 </div>
               </Col>
-              <Col xs={12} sm={12} md={7} lg={6} xl={6} className='MainCol'>
-                {/* <div>
-                  <NavLink to="/updateplan">
-                    <Button style={UpdateBtn}><UpdateIcon />&nbsp; Update</Button>
-                  </NavLink>
-                </div>&nbsp;&nbsp;
-                <div>
-                  <Button onClick={handleClickOpen} style={DeleteBtn}><DeleteOutlineIcon />&nbsp; Delete</Button>
-                </div> */}
-              </Col>
             </Row>
           </Container>
         </div>
@@ -154,6 +137,11 @@ export default function PremiumPlans() {
               {plans.map((plan, index) => (
                 <Col key={index} xs={12} sm={12} md={6} lg={3} xl={3}>
                 <div className="item" style={{ width: "260px" }}>
+                <div className='updateBtn' style={{width:"250px"}}>
+                {/* <NavLink to={`/updateplan`}>
+                      <UpdateIcon style={{display:"flex",justifyContent:"end"}}/>
+                    </NavLink> */}
+                </div>
                   <div className="innerContent">
                     <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
                   </div>

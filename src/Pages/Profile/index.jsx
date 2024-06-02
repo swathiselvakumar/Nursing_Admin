@@ -1,19 +1,77 @@
-import React from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// import ProfileImg from "../../asserts/Component 278 – 1.png";
-import { Button, IconButton, Typography } from "@mui/material";
-// import Footer from "../footer";
+import { Button,  Typography } from "@mui/material";
 import "./style.css";
 import CircleBar from "../Profile/Circularbar";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Style } from "../Profile/style";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { NavLink } from "react-router-dom";
 import Icon from '../../assets/images/Group 2391.png'
+import axios from "axios";
+import { navContext } from "../../context/navContext";
 
-export default function Profile({ onClose }) {
+export default function Profile({ onClose,studentid }) {
+  const [profileData,setProfiledata]=useState([]);
+  const [subjectData,setsubjectdata]=useState([]);
+  const [nonnursingData,setnonnursingdata]=useState([]);
+  const {Endpoint}=useContext(navContext);
+  const profile = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}User/get/U_ViewProfile.php`,
+        {
+          email: studentid,
+        }
+      );
+      setProfiledata(response.data);
+      console.log(studentid);
+      console.log(profileData);
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const subject = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}User/get/U_ScoreProfile_SW.php`,
+        {
+          userId: studentid,
+        }
+      );
+      setsubjectdata(response.data);
+      console.log(studentid);
+      console.log(subjectData);
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const nonnursing = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}User/get/U_ScoreProfile_NN.php`,
+        {
+          userId: studentid,
+        }
+      );
+      setnonnursingdata(response.data);
+      console.log(studentid);
+      console.log(nonnursingData);
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    profile();
+    subject();
+    nonnursing();
+  }, []);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,7 +79,6 @@ export default function Profile({ onClose }) {
 
   const handleClose = (value) => {
     setOpen(false);
-    // console.log(open);
   };
   const [opens, setOpens] = React.useState(false);
   const handleOpens = () => setOpens(true);
@@ -29,11 +86,7 @@ export default function Profile({ onClose }) {
   const MainContainer = {
     display: "flex",
     justifyContent: "center",
-    // alignItems: "center",
-    // alignContent:'center',
-    // backgroundColor: "#E1EEDD",
     height: "20vh",
-    // border:'none'
   };
   const CardDesign = {
     width: "160px",
@@ -42,9 +95,7 @@ export default function Profile({ onClose }) {
     textAlign: "center",
     marginLeft: "26px",
     height: "140px",
-    margin: 10,
-    // display:'flex',
-    // top:80
+    margin: 10
   };
   const CardDesign1 = {
     borderRadius: "10px",
@@ -57,8 +108,6 @@ export default function Profile({ onClose }) {
     alignItems: "center",
     padding: "40px",
     height: "140px",
-
-    // width: "160px",
   };
 
   const Div = {
@@ -69,10 +118,6 @@ export default function Profile({ onClose }) {
     padding: "1px",
     border: "none",
     marginTop: 65,
-
-    // backgroundColor: "red",
-
-    // top:70
   };
   const Div1 = {
     minWidth: "400px",
@@ -81,117 +126,28 @@ export default function Profile({ onClose }) {
     overflow: "auto",
     padding: "1px",
     border: "none",
-    // marginTop: 5,
-    // backgroundColor: "blue",
-
-    // backgroundColor:'red'
-    // top:70
   };
   const Btn = {
     backgroundColor: "#E4A45A",
     color: "white",
     boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
     border: "none",
-
-    // border: "1px solid #183A1D",
   };
   const buttonStyle = {
-    // padding: "8px 16px",
-    // backgroundColor: "#007bff",
     border: "none",
     borderRadius: "4px",
-    // color: "red",
     cursor: "pointer",
-    // transition: "background-color 0.3s ease",
   };
 
-  // Define a variable to conditionally apply background image
-  const withBackground = {
-    backgroundImage: "url('../../asserts/Component 278 – 1.png)", // Adjust the path to your background image
-    backgroundSize: "cover", // Adjust background image size
-    backgroundPosition: "center", // Adjust background image position
-  };
+ 
 
-  const datas = [
-    {
-      sub: "Subject 1",
-      rank: "3/10",
-      range: 40,
-    },
-    {
-      sub: "Subject 2",
-      rank: "5/10",
-      range: 70,
-    },
-    {
-      sub: "Subject 3",
-      rank: "2/10",
-      range: 30,
-    },
-    {
-      sub: "Subject 4",
-      rank: "4/10",
-      range: 30,
-    },
-    {
-      sub: "Subject 5",
-      rank: "7/10",
-      range: 60,
-    },
-    {
-      sub: "Subject 6",
-      rank: "1/10",
-      range: 20,
-    },
-    {
-      sub: "Subject 7",
-      rank: "9/10",
-      range: 95,
-    },
-    {
-      sub: "Subject 8",
-      rank: "5/10",
-      range: 60,
-    },
-    {
-      sub: "Subject 9",
-      rank: "4/10",
-      range: 30,
-    },
-    {
-      sub: "Subject 10",
-      rank: "7/10",
-      range: 60,
-    },
-  ];
-  const Details = [
-    {
-      name: "Aptitude",
-      rank: "3/10",
-      range: 20,
-    },
-    {
-      name: "Reasoning",
-      rank: "4/10",
-      range: 30,
-    },
-    {
-      name: "GK & CA",
-      rank: "5/10",
-      range: 47,
-    },
-    {
-      name: "English & CSE",
-      rank: "7/10",
-      range: 60,
-    },
-  ];
+  
   return (
     <Style>
       <div>
         <Dialog onClose={handleClose} open={open}>
           <DialogTitle
-            style={{ width: "350px", height: "100px", textAlign: "center" }}
+            style={{ width: "450px", height: "100px", textAlign: "center" }}
           >
             {/* <NavLink to="/"> */}
             <Button onClick={handleClose} style={{ width: 1 }}>
@@ -216,12 +172,15 @@ export default function Profile({ onClose }) {
         <Container fluid style={MainContainer}>
           <Button onClick={onClose}>
             <CloseOutlinedIcon
-              sx={{ color: "black", position: "relative",left:1000,bottom:30  }}
+              sx={{ color: "black", position: "relative",left:"70vw",bottom:30  }}
             />
-          </Button>
+          </Button> 
 
           <Row style={{ justifyContent: "space-evenly" }}>
-            <Col
+            {
+              profileData.map((d)=>(
+                <div>
+                  <Col
               xs={12}
               sm={12}
               md={12}
@@ -230,7 +189,7 @@ export default function Profile({ onClose }) {
               style={{ justifyContent: "space-evenly" }}
             >
               <Typography variant="h4" style={{ padding: 10 }}>
-                <img src={Icon} height="65px" /> Santhosh
+                <img src={Icon} height="65px" />&nbsp;&nbsp;{d.username}
               </Typography>
             </Col>
             <Col
@@ -239,11 +198,11 @@ export default function Profile({ onClose }) {
               md={12}
               lg={12}
               xl={12}
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row",justifyContent:"space-between",width:"80vw" }}
             >
               <div>
                 <Typography
-                  style={{ marginTop: 10, fontWeight: 600, marginLeft: 10 }}
+                  style={{ marginTop: 10, fontWeight: 600, }}
                 >
                   Email ID
                 </Typography>
@@ -251,8 +210,6 @@ export default function Profile({ onClose }) {
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 221,
                     marginTop: 10,
                     fontWeight: 600,
                   }}
@@ -263,8 +220,6 @@ export default function Profile({ onClose }) {
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 123,
                     marginTop: 10,
                     fontWeight: 600,
                   }}
@@ -275,8 +230,6 @@ export default function Profile({ onClose }) {
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 110,
                     marginTop: 10,
                     fontWeight: 600,
                   }}
@@ -291,40 +244,38 @@ export default function Profile({ onClose }) {
               md={12}
               lg={12}
               xl={12}
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row",justifyContent:"space-between",width:"80vw" }}
             >
               <div>
-                <Typography style={{ marginTop: 5, marginLeft: 10 }}>
-                  santhosh@gmail.com
+                <Typography style={{ marginTop: 5,}}>
+                  {d.email}
                 </Typography>
               </div>
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 120,
+                    textAlign: "center",
+                    marginRight: 150,
                     marginTop: 5,
                   }}
                 >
-                  +91 1234567890
+                  {d.mobileno}
                 </Typography>
               </div>
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 120,
+                    marginRight: 140,
                     marginTop: 5,
                   }}
                 >
-                  12/02/2024
+                  {d.date_of_enrollment	}
                 </Typography>
               </div>
               <div>
                 <Typography
                   style={{
-                    // textAlign: "center",
-                    marginLeft: 120,
+                    marginRight: 20,
                     marginTop: 5,
                   }}
                 >
@@ -339,17 +290,20 @@ export default function Profile({ onClose }) {
                 fontWeight: 600,
                 paddingLeft: 24,
                 display: "flex",
-                // top: 40,
               }}
             >
               Scores
             </Typography>
+                </div>
+              ))
+            }
           </Row>
         </Container>
         <Container fluid>
           <Row style={{ overflow: "hidden" }}>
             <div style={Div}>
-              {datas.map((e) => {
+              {subjectData.map((e) => {
+                const percentage = ((e.correct_count / e.total_count) * 100).toFixed(2);
                 return (
                   <>
                     <Col>
@@ -357,14 +311,14 @@ export default function Profile({ onClose }) {
                         <Typography
                           style={{ paddingTop: "10px", fontWeight: 600 }}
                         >
-                          {e.sub}
+                          {e.test_name}
                         </Typography>
                         <hr />
                         <Typography style={{ fontSize: "12px" }}>
-                          {e.rank}
+                          {e.correct_count}/{e.total_count}
                         </Typography>
                         <div style={{ marginTop: "10px" }}>
-                          <CircleBar range={e.range} />
+                          <CircleBar range={percentage} />
                         </div>
                       </div>
                     </Col>
@@ -375,9 +329,11 @@ export default function Profile({ onClose }) {
           </Row>
         </Container>
         <Container fluid>
-          {/* <Row style={{ overflow: "hidden",backgroundColor:'yellow' }}> */}
+         
           <div style={Div1}>
-            {Details.map((r) => {
+            {nonnursingData.map((r) => {
+               const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
+               console.log(percentage);
               return (
                 <>
                   <Col
@@ -390,7 +346,7 @@ export default function Profile({ onClose }) {
                   >
                     <div style={CardDesign1}>
                       <Typography style={{ fontWeight: 600 }}>
-                        {r.name}
+                        {r.test_name}
                       </Typography>
                       <hr
                         style={{
@@ -400,10 +356,10 @@ export default function Profile({ onClose }) {
                       />
                       <div style={{ flexDirection: "column" }}>
                         <Typography style={{ fontSize: "12px" }}>
-                          {r.rank}
+                        {r.correct_count}/{r.total_count} 
                         </Typography>
                         <div style={{ marginTop: "10px" }}>
-                          <CircleBar range={r.range} />
+                          <CircleBar range={percentage} />
                         </div>
                       </div>
                     </div>
@@ -412,9 +368,7 @@ export default function Profile({ onClose }) {
               );
             })}
           </div>
-          {/* </Row> */}
         </Container>
-        {/* <Footer /> */}
       </div>
     </Style>
   );

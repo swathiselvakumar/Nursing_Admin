@@ -26,9 +26,9 @@ export default function Course() {
       const res = await Axios.post(`${Endpoint}admin/get/A_ViewCourseName.php`, {
         adminId: email,
       });
-      if (res.data.length > 0) {
+      if (res.data.length > 0) { 
         const obj = res.data.map((item) => ({
-          img: Medical,
+          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.course_name,
           path: "/viewcourse",
           sno: item.sno,

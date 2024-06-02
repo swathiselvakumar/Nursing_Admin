@@ -17,9 +17,15 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 export default function ModelMockCard() {
 
-  const {file,setFile} = useState(null);
+  const {file,setFile} = useContext(navContext);
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+    
+  
   };
    const VisuallyHiddenInput = styled('input')({
      clip: 'rect(0 0 0 0)',
@@ -62,14 +68,22 @@ export default function ModelMockCard() {
   };
 
   const handleAddInstitution = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    // Append other form data fields
+    formData.append('admin_id', email);
+    formData.append('name', name);
+    formData.append('instruction', instruction);
+    formData.append('desc', description);
     try {
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertModelMockInstitution.php`,
+        formData,
         {
-          adminId: email,
-          name: name,
-          desc: description,
-          instruction: instruction,
+          headers: {
+            'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+          }
         }
       );
       console.log("New institution added:", response.data);
@@ -95,7 +109,7 @@ export default function ModelMockCard() {
         setData([]);
       } else {
         const fetchedData = res.data.map((item) => ({
-          img: Model,
+          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.institution_name,
           path: `/modelinstitution/${item.sno}`,
           sno: item.sno,
@@ -249,7 +263,6 @@ export default function ModelMockCard() {
                     type="file"
                     id="file"
                     accept=".jpg, .jpeg, .png"
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                   <label htmlFor="file">
@@ -270,7 +283,7 @@ export default function ModelMockCard() {
                       }}
                     >
                       Upload file
-                      <VisuallyHiddenInput type="file" />
+                      <VisuallyHiddenInput type="file"  onChange={handleFileChange}/>
                     </Button>
                   </label>
                 </div>

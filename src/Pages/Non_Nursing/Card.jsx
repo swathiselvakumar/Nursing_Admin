@@ -280,7 +280,7 @@ export default function NonNursingCard() {
                     type="file"
                     id="file"
                     accept=".jpg, .jpeg, .png"
-                    onChange={handleFileChange}
+                   
                     style={{ display: "none" }}
                   />
                   <label htmlFor="file">
@@ -301,7 +301,7 @@ export default function NonNursingCard() {
                       }}
                     >
                       Upload file
-                      <VisuallyHiddenInput type="file" />
+                      <VisuallyHiddenInput type="file"  onChange={handleFileChange}/>
                     </Button>
                   </label>
                 </div>

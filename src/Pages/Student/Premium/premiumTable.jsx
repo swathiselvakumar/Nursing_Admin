@@ -30,13 +30,15 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
   const {Endpoint}=useContext(navContext);
+  const [studentid,setstudentid]=useState();
 // console.log(tableData);
 
   const handleCloseDialog = () => {
     setOpen(false);
   };
-  const handleClickOpens = () => {
+  const handleClickOpens = (e,row) => {
     setModal(true);
+    setstudentid(row.email);
   };
   const handleClosed = () => {
     setModal(false);
@@ -119,7 +121,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
                     className="tb-row"
                     key={row.username} // Assuming 'username' can act as a unique key
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    // onClick={handleClickOpens}
+                    onClick={(e)=>handleClickOpens(e,row)}
                   >
                     <TableCell component="th" scope="row">
                       {index + 1}
@@ -160,7 +162,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
         style={{ height: "10%" }}
       >
         <Box sx={style}>
-          <Profile onClose={handleClosed} />
+          <Profile onClose={handleClosed} studentid={studentid}/>
         </Box>
       </Modal>
     </>

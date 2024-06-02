@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { YEARMCQStyle } from "../YearMCQ/style";
 import { Button, Typography } from "@mui/material";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
@@ -12,12 +12,35 @@ import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { navContext } from "../../context/navContext";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 export default function ADDACHIEVEMENT() {
+  const {file,setFile} = useContext(navContext);
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+  };
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
   const [achievementDescription, setAchievementDescription] = useState("");
   const [open,setOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  const email=localStorage.getItem("userMail");
+  const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
   const Navigate=useNavigate();
 
 
@@ -33,16 +56,23 @@ export default function ADDACHIEVEMENT() {
 
  
   const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    // Append other form data fields
+    formData.append('admin_id', email);
+    formData.append('content', achievementDescription);
     
     setOpen(true);
 
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertAchievement.php",
+        `${Endpoint}admin/post/A_InsertAchievement.php`,
+        formData,
         {
-          adminId:email,
-          content: achievementDescription
-          // You can include additional data here as needed
+          headers: {
+            'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+          }
         }
       );
       console.log("New item added:", response.data);
@@ -124,6 +154,39 @@ export default function ADDACHIEVEMENT() {
                 </div>
               </div>
             </div>
+            <div style={{marginLeft:"170px"}}>
+                  <label htmlFor="description" className="pass-lab" >
+                    Image {" "}
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".jpg, .jpeg, .png"
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "230px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                        marginLeft:"150px"
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file"  onChange={handleFileChange}/>
+                    </Button>
+                  </label>
+                </div>
             <div>
               <div
                 style={{

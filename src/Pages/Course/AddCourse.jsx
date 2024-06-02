@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { YEARMCQStyle } from '../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
@@ -11,12 +11,37 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from 'react-router-dom'
+import { navContext } from '../../context/navContext'
 import  axios  from 'axios'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 export default function AddCourse() {
+  const {file,setFile} = useContext(navContext);
+  const handleFileChange = (event) => {
+    // Get the selected file from the input
+    const file = event.target.files[0];
+    const newName = file.name.replaceAll(" ", "-");
+    const newFile = new File([file], newName, { type: file.type });
+    setFile(newFile);
+  };
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
     const [open, setOpen] = React.useState(false);
     const [name, setName] = useState();
     const [description, setDescription] = useState();
     const [about, setAbout] = useState();
+    const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
   
     const handlechangename = (event) => {
       setName(event.target.value);
@@ -29,29 +54,29 @@ export default function AddCourse() {
     };
 
 
-
-  // useEffect(() => {
-  //  handleClickOpen();
-  // }, []);
-
   const handleClose = () => {
     setOpen(false);
   };
   
   const handleClickOpen = async () => {
-    // Retrieve the adminId from local storage
-    // const adminId = ;
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    // Append other form data fields
+    formData.append('admin_id', email);
+    formData.append('name', name);
+    formData.append('about', about);
+    formData.append('description', description);
     setOpen(true);
 
     try {
          const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertCourse.php",
+        `${Endpoint}admin/post/A_InsertCourse.php`,
+        formData,
         {
-          adminId: "nandinivebbox@gmail.com",
-          name: name,
-          about: about,
-          description: description,
-          // You can include additional data here as needed
+          headers: {
+            'Content-Type': 'multipart/form-data' // Set content type to multipart/form-data
+          }
         }
       );
       console.log("New item added:", response.data);
@@ -236,12 +261,45 @@ export default function AddCourse() {
                 </div>
               </div>
             </div>
-            <div>
+            <div style={{marginLeft:"190px"}}>
+                  <label htmlFor="description" className="pass-lab">
+                    Image {" "}
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".jpg, .jpeg, .png"
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                      style={{
+                        height: "50px",
+                        width: "230px",
+                        marginTop: "5px",
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px dashed black",
+                        boxShadow: "none",
+                        marginLeft:"106px"
+                      }}
+                    >
+                      Upload file
+                      <VisuallyHiddenInput type="file"  onChange={handleFileChange}/>
+                    </Button>
+                  </label>
+                </div>
+            <div style={{marginLeft:"85px"}}>
               <div
                 style={{
                   marginTop: "30px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >
@@ -250,12 +308,12 @@ export default function AddCourse() {
                 </button>
               </div>
             </div>
-            <div>
+            <div style={{marginLeft:"85px"}}>
               <div
                 style={{
                   marginTop: "10px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "center",
                   width: "530px",
                 }}
               >

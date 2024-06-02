@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import myImage from "../../assets/images/profile.svg";
 import { SettingStyle } from "./Style";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 function Settings() {
   const [mobileNo, setMobileNo] = useState("");
   const [address, setAddress] = useState("");
   const email = localStorage.getItem("userMail");
+  const {Endpoint}=useContext(navContext);
 
   useEffect(() => {
     updateView();
@@ -26,7 +28,7 @@ function Settings() {
   const updateView = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStaticInfo.php",
+        `${Endpoint}admin/get/A_ViewStaticInfo.php`,
         {
           adminId: email,
         }
@@ -42,7 +44,7 @@ function Settings() {
   const submitchange = async () => {
     try {
       await axios.post(
-        "http://localhost/_Nursing_final/controllers/api/admin/put/A_updateStaticInfo.php",
+        `${Endpoint}admin/put/A_updateStaticInfo.php`,
         {
           adminId: email,
           mobNo: mobileNo,
@@ -130,7 +132,7 @@ function Settings() {
               <div className="profile-card">
                 <div className="profile">
                   <img src={myImage} alt="Profile" />
-                  <h5 className="email">Divya@gmail.com</h5>
+                  <h5 className="email">{email}</h5>
                   <NavLink to="/passwordchange">
                     <p style={{ color: "#e4a45a", textDecoration: "none" }}>
                       Password Change

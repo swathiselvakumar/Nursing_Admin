@@ -19,7 +19,7 @@ import { useState,useContext } from "react";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
 const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
+  clip: 'rect(0 0 0 0)', 
   clipPath: 'inset(50%)',
   height: 1,
   overflow: 'hidden',
@@ -31,11 +31,11 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 function UpdateAds() {
-    // const [age, setAge] = useState('');
- const [adminId, setAdminId] = useState("nandinivebbox@gmail.com");
+    
  const [category, setCategory] = useState("yearMCQ");
  const [file, setFile] = useState(null); // This will hold the file data
 const {Endpoint}=useContext(navContext);
+const email = localStorage.getItem("userMail");
  // Function to handle file input change
  const handleFileChange = (event) => {
    setFile(event.target.files[0]);
@@ -44,7 +44,7 @@ const {Endpoint}=useContext(navContext);
  // Function to handle form submission
  const handleFormSubmit = async () => {
    const formData = new FormData();
-   formData.append("admin_id", adminId);
+   formData.append("admin_id", email);
    formData.append("category", category);
    formData.append("file", file);
 

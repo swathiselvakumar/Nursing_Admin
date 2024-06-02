@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import myImage from "../../assets/images/profile.svg";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { PATH } from "../../constants/routeConstants";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { SettingStyle } from "./Style";
-
+import { navContext } from "../../context/navContext";
 function PasswordChange() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
+  
+  const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
 
 
@@ -24,7 +26,7 @@ const email=localStorage.getItem("userMail");
   const handlePasswordChange = async () => {
     try {
       const response = await axios.put(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateChangePassword.php",
+        `${Endpoint}admin/put/A_updateChangePassword.php`,
         {
           admin_id: email,
           old_password: oldPassword,
@@ -110,7 +112,7 @@ const email=localStorage.getItem("userMail");
             <div className="profile-card">
               <div className="profile">
                 <img src={myImage} alt="Profile" />
-                <h5 className="email">Divya@gmail.com</h5>
+                <h5 className="email">{email}</h5>
               </div>
               <div className="form">
                 <div>

@@ -140,11 +140,6 @@ export default function Otp() {
               value={email}
               required
               />
-           
-
-            
-         
-           
             <div style={styles.buttonContainer}>
               <Button variant="contained" style={styles.signInButton} onClick={handleClickOpen}>
                 Get Otp

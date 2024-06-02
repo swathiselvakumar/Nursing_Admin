@@ -23,8 +23,6 @@ export default function YearCard() {
     const newName = file.name.replaceAll(" ", "-");
     const newFile = new File([file], newName, { type: file.type });
     setFile(newFile);
-    
-  
   };
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
