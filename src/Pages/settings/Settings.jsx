@@ -52,7 +52,7 @@ function Settings() {
         }
       );
       // Handle success
-      console.log("Data submitted successfully");
+      alert("Updated successfully");
     } catch (error) {
       console.error("Error submitting data:", error);
     }

@@ -49,7 +49,7 @@ console.log(email);
           <Typography style={{ paddingBottom: "10px", fontWeight: "bold" }}>
             Recent Test
           </Typography>
-          <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+          <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow style={{ backgroundColor: "#e7f6f2" }}>
                 <TableCell

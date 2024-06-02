@@ -35,9 +35,9 @@ const email=localStorage.getItem("userMail");
       );
       setNewPassword('');
       setOldPassword('')
-      // Handle success response
-      // console.log("Password changed successfully:", response.data);
-      // Optionally, you can redirect the user to another page or show a success message
+      
+      alert("Password changed successfully");
+     
     } catch (error) {
       // Handle error response
       console.error("Error changing password:", error);

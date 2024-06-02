@@ -102,7 +102,7 @@ export default function MicroInstitution() {
               data.map((d)=>(
                 
                 <Col className="Col1">
-              <div className="box">
+              <div className="box" style={{marginTop:"20px"}}>
                 <NavLink to={`/microupload/${d.sno}`} style={{ textDecoration: "none" }}>
                   <button
                     style={{

@@ -48,7 +48,7 @@ const {Endpoint}=useContext(navContext);
   <TableStyle >
     <TableContainer style={{padding:"20px",backgroundColor:"#f6f6f6",borderRadius:"5px"}} >
         <Typography style={{paddingBottom:"10px",fontWeight:"bold"}}>Recently Added Students</Typography>
-      <Table sx={{ minWidth: 470 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow style={{backgroundColor:"#e7f6f2"}}>
             <TableCell style={{fontWeight:600,color:"black", fontFamily: "Roboto, sans-serif"}}>Sname</TableCell>

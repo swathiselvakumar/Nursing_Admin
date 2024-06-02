@@ -103,7 +103,7 @@ export default function MiniInstitution() {
             ) : (
               data.map((d) => (
                 <Col className="Col1" key={d.sno}>
-                  <div className="box">
+                  <div className="box" style={{marginTop:"20px"}}>
                     <NavLink
                       to={`/miniupload/${d.sno}`}
                       style={{ textDecoration: "none" }}
@@ -128,6 +128,7 @@ export default function MiniInstitution() {
                           display: "flex",
                           marginLeft: 160,
                           marginTop: "20px",
+                          
                         }}
                       >
                         View Questions
