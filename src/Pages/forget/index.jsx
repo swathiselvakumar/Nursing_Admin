@@ -52,6 +52,41 @@ export default function Forget() {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
+    const PasswordInput = ({
+      label,
+      id,
+      showPassword, 
+      handleClickShowPassword,
+      handleMouseDownPassword,
+    }) => (
+      <Grid item xs={12}>
+        <Typography style={{ color: "#183A1D",fontWeight:600 }}>
+          {label} <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-4px" }} />
+        </Typography>
+        <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
+          <OutlinedInput
+            id={id}
+            type={showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={`toggle ${label.toLowerCase()} password visibility`}
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? (
+                    <VisibilityOff style={{ color: "#183A1D" }} />
+                  ) : (
+                    <Visibility style={{ color: "#183A1D" }} />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </Grid>
+    );
   const Navigate=useNavigate();
   const admin=localStorage.getItem("admin");
     const handlePassword = async () => {
@@ -117,75 +152,38 @@ export default function Forget() {
           </Typography>
           <form style={{ width: "100%", marginTop: "8px", padding: "10px" }}>
            
-          <Grid item xs={12}>
-        <Typography style={{ color: "#183A1D",fontWeight:600 }}>
-          Password <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
-        </Typography>
-        <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            onChange={handleChange}
-            value={password}
-            required
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? (
-                    <VisibilityOff style={{ color: "#183A1D" }} />
-                  ) : (
-                    <Visibility style={{ color: "#183A1D" }} />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-      </Grid>
+          <Grid container spacing={2}>
+              
+              <PasswordInput
+              fullWidth
+                label="Password"
+                id="outlined-adornment-password"
+                showPassword={showPassword}
+                handleClickShowPassword={handleClickShowPassword}
+                handleMouseDownPassword={handleMouseDownPassword}
+                
+              />
+              <PasswordInput
+              fullWidth
+                label="Confirm Password"
+                id="outlined-adornment-password"
+                showPassword={showPassword}
+                handleClickShowPassword={handleClickShowPassword}
+                handleMouseDownPassword={handleMouseDownPassword}
+                
+              />
+              
+              
+            </Grid>
+            
            
-
-      <Grid item xs={12}>
-        <Typography style={{ color: "#183A1D",fontWeight:600 }}>
-          Confirm Password <LockIcon style={{ color: "#183A1D",fontSize:"14px",marginTop:"-3px" }} />
-        </Typography>
-        <FormControl sx={{ width: "100%", marginBottom: "8px" }} variant="outlined">
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword1 ? "text" : "password"}
-            onChange={handleChange1}
-            value={conpass}
-            required
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  // aria-label={`toggle ${label.toLowerCase()} password visibility`}
-                  onClick={handleClickShowPassword1}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? (
-                    <VisibilityOff style={{ color: "#183A1D" }} />
-                  ) : (
-                    <Visibility style={{ color: "#183A1D" }} />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-      </Grid>
-          
-           
+            {/* <NavLink to="/signin" style={{textDecoration:"none"}}> */}
             <div style={styles.buttonContainer}>
-              <Button variant="contained" style={styles.signInButton} onClick={handlePassword}>
+              <Button variant="contained" style={styles.signInButton} onClick={handlePassword }>
                 Done
               </Button>
             </div>
+            {/* </NavLink> */}
           </form>
          
         </Paper>
