@@ -16,6 +16,7 @@ export default function Profile({ onClose,studentid }) {
   const [profileData,setProfiledata]=useState([]);
   const [subjectData,setsubjectdata]=useState([]);
   const [nonnursingData,setnonnursingdata]=useState([]);
+  const [scoreData,setScoredata]=useState([]);
   const {Endpoint}=useContext(navContext);
   const profile = async () => {
     try {
@@ -67,10 +68,29 @@ export default function Profile({ onClose,studentid }) {
       console.error("Error fetching data:", error);
     }
   };
+
+  const score = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_StudentScore.php`,
+        {
+          userId: studentid,
+        }
+      );
+      console.log(response.data);
+
+      setScoredata(response.data);
+      console.log(studentid);
+     
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
     profile();
     subject();
     nonnursing();
+    score();
   }, []);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -273,15 +293,25 @@ export default function Profile({ onClose,studentid }) {
                 </Typography>
               </div>
               <div>
-                <Typography
-                  style={{
-                    marginRight: 20,
-                    marginTop: 5,
-                  }}
-                >
-                  50
-                </Typography>
-              </div>
+      {
+        Array.isArray(scoreData) && scoreData.length > 0 ? (
+          scoreData.map((s, index) => (
+            <Typography
+              key={index}
+              style={{
+                marginRight: 20,
+                marginTop: 5,
+              }}
+            >
+              {s.correct_count}gg
+            </Typography>
+          ))
+        ) : (
+          <Typography>No data available</Typography>
+        )
+      }
+    </div>
+
             </Col>
             <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
             <Typography

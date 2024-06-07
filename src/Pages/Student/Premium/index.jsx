@@ -48,8 +48,8 @@ export default function Standard() {
     setOpen(false);
   };
 
-  function createData(sno, sname, email, memberSince, expireddate) {
-    return { sno, sname, email, memberSince, expireddate };
+  function createData(sno, sname, email, memberSince, expireddate,current_plan_id) {
+    return { sno, sname, email, memberSince, expireddate,current_plan_id };
   }
 
   const handleChange = async (event) => {
@@ -71,7 +71,8 @@ export default function Standard() {
           item.username,
           item.email,
           item.plan_join_date,
-          item.plan_expiry_date
+          item.plan_expiry_date,
+          item.current_plan_id
         )
       );
       setLoaded(true);
@@ -109,7 +110,8 @@ export default function Standard() {
           item.username,
           item.email,
           item.plan_join_date,
-          item.plan_expiry_date
+          item.plan_expiry_date,
+          item.current_plan_id
         )
       );
 

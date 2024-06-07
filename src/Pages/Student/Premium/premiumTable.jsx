@@ -107,8 +107,11 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
                   <TableCell className="head" align="left">
                     Member Since
                   </TableCell>
-                  <TableCell className="head" align="center">
+                  <TableCell className="head" align="left">
                     Expiry Date
+                  </TableCell>
+                  <TableCell className="head" align="left">
+                    Current Plan
                   </TableCell>
                   <TableCell className="head" align="center">
                     Action
@@ -130,6 +133,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
                     <TableCell align="left">{row.expireddate}</TableCell>
+                    <TableCell align="left">{row.current_plan_id}</TableCell>
                     <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
                       <img src={BlockIcon} height="20px" />
                     </TableCell>

@@ -112,7 +112,7 @@ export default function TableViewOrg() {
                       style={tbCellans}
                       className="TableDataCell"
                     >
-                      {row.plan_join_date}
+                      {row.date_of_enrollment}
                     </TableCell>
                     <TableCell
                       align="left"
