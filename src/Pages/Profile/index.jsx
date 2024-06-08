@@ -1,6 +1,6 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Button,  Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import "./style.css";
 import CircleBar from "../Profile/Circularbar";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -12,26 +12,22 @@ import Icon from '../../assets/images/Group 2391.png'
 import axios from "axios";
 import { navContext } from "../../context/navContext";
 
-export default function Profile({ onClose,studentid }) {
-  const [profileData,setProfiledata]=useState([]);
-  const [subjectData,setsubjectdata]=useState([]);
-  const [nonnursingData,setnonnursingdata]=useState([]);
-  const [scoreData,setScoredata]=useState([]);
-  const {Endpoint}=useContext(navContext);
+export default function Profile({ onClose, studentid }) {
+  const [profileData, setProfileData] = useState([]);
+  const [subjectData, setSubjectData] = useState([]);
+  const [nonnursingData, setNonnursingData] = useState([]);
+  const [scoreData, setScoreData] = useState([]);
+  const { Endpoint } = useContext(navContext);
+
   const profile = async () => {
     try {
       const response = await axios.post(
         `${Endpoint}User/get/U_ViewProfile.php`,
-        {
-          email: studentid,
-        }
+        { email: studentid }
       );
-      setProfiledata(response.data);
-      console.log(studentid);
-      console.log(profileData);
-
+      setProfileData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching profile data:", error);
     }
   };
 
@@ -39,16 +35,11 @@ export default function Profile({ onClose,studentid }) {
     try {
       const response = await axios.post(
         `${Endpoint}User/get/U_ScoreProfile_SW.php`,
-        {
-          userId: studentid,
-        }
+        { userId: studentid }
       );
-      setsubjectdata(response.data);
-      console.log(studentid);
-      console.log(subjectData);
-
+      setSubjectData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching subject data:", error);
     }
   };
 
@@ -56,16 +47,11 @@ export default function Profile({ onClose,studentid }) {
     try {
       const response = await axios.post(
         `${Endpoint}User/get/U_ScoreProfile_NN.php`,
-        {
-          userId: studentid,
-        }
+        { userId: studentid }
       );
-      setnonnursingdata(response.data);
-      console.log(studentid);
-      console.log(nonnursingData);
-
+      setNonnursingData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching non-nursing data:", error);
     }
   };
 
@@ -73,36 +59,32 @@ export default function Profile({ onClose,studentid }) {
     try {
       const response = await axios.post(
         `${Endpoint}admin/get/A_StudentScore.php`,
-        {
-          userId: studentid,
-        }
+        { userId: studentid }
       );
-      console.log(response.data);
+      console.log("API Response:", response.data); // Log response data
 
-      setScoredata(response.data);
-      console.log(studentid);
-     
+      setScoreData(response.data);
+      console.log("Student ID:", studentid);
+      console.log("Score Data:",scoreData );
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching score data:", error);
     }
   };
+
   useEffect(() => {
     profile();
     subject();
     nonnursing();
     score();
   }, []);
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = (value) => {
-    setOpen(false);
-  };
-  const [opens, setOpens] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [opens, setOpens] = useState(false);
   const handleOpens = () => setOpens(true);
   const handleClosed = () => setOpens(false);
+
   const MainContainer = {
     display: "flex",
     justifyContent: "center",
@@ -115,7 +97,7 @@ export default function Profile({ onClose,studentid }) {
     textAlign: "center",
     marginLeft: "26px",
     height: "140px",
-    margin: 10
+    margin: 10,
   };
   const CardDesign1 = {
     borderRadius: "10px",
@@ -129,7 +111,6 @@ export default function Profile({ onClose,studentid }) {
     padding: "40px",
     height: "140px",
   };
-
   const Div = {
     minWidth: "400px",
     display: "flex",
@@ -159,9 +140,6 @@ export default function Profile({ onClose,studentid }) {
     cursor: "pointer",
   };
 
- 
-
-  
   return (
     <Style>
       <div>
@@ -169,7 +147,6 @@ export default function Profile({ onClose,studentid }) {
           <DialogTitle
             style={{ width: "450px", height: "100px", textAlign: "center" }}
           >
-            {/* <NavLink to="/"> */}
             <Button onClick={handleClose} style={{ width: 1 }}>
               <img
                 src={close}
@@ -179,7 +156,6 @@ export default function Profile({ onClose,studentid }) {
             </Button>
             <hr style={{ width: "100%" }} />
             <Typography>Are you sure want to logout ?</Typography>
-            {/* </NavLink> */}
           </DialogTitle>
           <DialogTitle>
             <NavLink to="/">
@@ -192,141 +168,72 @@ export default function Profile({ onClose,studentid }) {
         <Container fluid style={MainContainer}>
           <Button onClick={onClose}>
             <CloseOutlinedIcon
-              sx={{ color: "black", position: "relative",left:"70vw",bottom:30  }}
+              sx={{ color: "black", position: "relative", left: "70vw", bottom: 30 }}
             />
-          </Button> 
+          </Button>
 
           <Row style={{ justifyContent: "space-evenly" }}>
-            {
-              profileData.map((d)=>(
-                <div>
-                  <Col
-              xs={12}
-              sm={12}
-              md={12}
-              lg={12}
-              xl={12}
-              style={{ justifyContent: "space-evenly" }}
-            >
-              <Typography variant="h4" style={{ padding: 10 }}>
-                <img src={Icon} height="65px" />&nbsp;&nbsp;{d.username}
-              </Typography>
-            </Col>
-            <Col
-              xs={12}
-              sm={12}
-              md={12}
-              lg={12}
-              xl={12}
-              style={{ display: "flex", flexDirection: "row",justifyContent:"space-between",width:"80vw" }}
-            >
-              <div>
-                <Typography
-                  style={{ marginTop: 10, fontWeight: 600, }}
-                >
-                  Email ID
+            {profileData.map((d) => (
+              <div key={d.id}>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ justifyContent: "space-evenly" }}>
+                  <Typography variant="h4" style={{ padding: 10 }}>
+                    <img src={Icon} height="65px" alt="Profile Icon" />&nbsp;&nbsp;{d.username}
+                  </Typography>
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw" }}>
+                  <div>
+                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                      Email ID
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                      Phone Number
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                      Joining Date
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                      Score
+                    </Typography>
+                  </div>
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw" }}>
+                  <div>
+                    <Typography style={{ marginTop: 5 }}>
+                      {d.email}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography style={{ textAlign: "center", marginRight: 150, marginTop: 5 }}>
+                      {d.mobileno}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography style={{ marginRight: 140, marginTop: 5 }}>
+                      {d.date_of_enrollment}
+                    </Typography>
+                  </div>
+                  <div>
+                    {scoreData ? (
+                      <Typography style={{ marginRight: 20, marginTop: 5 }}>
+                        {scoreData.correct_count}
+                      </Typography>
+                    ) : (
+                      <Typography>No data available</Typography>
+                    )}
+                  </div>
+                </Col>
+                <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
+                <Typography style={{ fontSize: "16px", fontWeight: 600, paddingLeft: 24, display: "flex" }}>
+                  Scores
                 </Typography>
               </div>
-              <div>
-                <Typography
-                  style={{
-                    marginTop: 10,
-                    fontWeight: 600,
-                  }}
-                >
-                  Phone Number
-                </Typography>
-              </div>
-              <div>
-                <Typography
-                  style={{
-                    marginTop: 10,
-                    fontWeight: 600,
-                  }}
-                >
-                  Joining Date
-                </Typography>
-              </div>
-              <div>
-                <Typography
-                  style={{
-                    marginTop: 10,
-                    fontWeight: 600,
-                  }}
-                >
-                  Score
-                </Typography>
-              </div>
-            </Col>
-            <Col
-              xs={12}
-              sm={12}
-              md={12}
-              lg={12}
-              xl={12}
-              style={{ display: "flex", flexDirection: "row",justifyContent:"space-between",width:"80vw" }}
-            >
-              <div>
-                <Typography style={{ marginTop: 5,}}>
-                  {d.email}
-                </Typography>
-              </div>
-              <div>
-                <Typography
-                  style={{
-                    textAlign: "center",
-                    marginRight: 150,
-                    marginTop: 5,
-                  }}
-                >
-                  {d.mobileno}
-                </Typography>
-              </div>
-              <div>
-                <Typography
-                  style={{
-                    marginRight: 140,
-                    marginTop: 5,
-                  }}
-                >
-                  {d.date_of_enrollment	}
-                </Typography>
-              </div>
-              <div>
-      {
-        Array.isArray(scoreData) && scoreData.length > 0 ? (
-          scoreData.map((s, index) => (
-            <Typography
-              key={index}
-              style={{
-                marginRight: 20,
-                marginTop: 5,
-              }}
-            >
-              {s.correct_count}gg
-            </Typography>
-          ))
-        ) : (
-          <Typography>No data available</Typography>
-        )
-      }
-    </div>
-
-            </Col>
-            <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
-            <Typography
-              style={{
-                fontSize: "16px",
-                fontWeight: 600,
-                paddingLeft: 24,
-                display: "flex",
-              }}
-            >
-              Scores
-            </Typography>
-                </div>
-              ))
-            }
+            ))}
           </Row>
         </Container>
         <Container fluid>
@@ -335,66 +242,46 @@ export default function Profile({ onClose,studentid }) {
               {subjectData.map((e) => {
                 const percentage = ((e.correct_count / e.total_count) * 100).toFixed(2);
                 return (
-                  <>
-                    <Col>
-                      <div style={CardDesign}>
-                        <Typography
-                          style={{ paddingTop: "10px", fontWeight: 600 }}
-                        >
-                          {e.test_name}
-                        </Typography>
-                        <hr />
-                        <Typography style={{ fontSize: "12px" }}>
-                          {e.correct_count}/{e.total_count}
-                        </Typography>
-                        <div style={{ marginTop: "10px" }}>
-                          <CircleBar range={percentage} />
-                        </div>
+                  <Col key={e.id}>
+                    <div style={CardDesign}>
+                      <Typography style={{ paddingTop: "10px", fontWeight: 600 }}>
+                        {e.test_name}
+                      </Typography>
+                      <hr />
+                      <Typography style={{ fontSize: "12px" }}>
+                        {e.correct_count}/{e.total_count}
+                      </Typography>
+                      <div style={{ marginTop: "10px" }}>
+                        <CircleBar range={percentage} />
                       </div>
-                    </Col>
-                  </>
+                    </div>
+                  </Col>
                 );
               })}
             </div>
           </Row>
         </Container>
         <Container fluid>
-         
           <div style={Div1}>
             {nonnursingData.map((r) => {
-               const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
-               console.log(percentage);
+              const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
               return (
-                <>
-                  <Col
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    lg={4}
-                    xl={4}
-                    style={{ flexDirection: "row" }}
-                  >
-                    <div style={CardDesign1}>
-                      <Typography style={{ fontWeight: 600 }}>
-                        {r.test_name}
+                <Col xs={12} sm={12} md={4} lg={4} xl={4} style={{ flexDirection: "row" }} key={r.id}>
+                  <div style={CardDesign1}>
+                    <Typography style={{ fontWeight: 600 }}>
+                      {r.test_name}
+                    </Typography>
+                    <hr style={{ borderLeft: "1px solid black", height: "100px" }} />
+                    <div style={{ flexDirection: "column" }}>
+                      <Typography style={{ fontSize: "12px" }}>
+                        {r.correct_count}/{r.total_count}
                       </Typography>
-                      <hr
-                        style={{
-                          borderLeft: "1px solid black",
-                          height: "100px",
-                        }}
-                      />
-                      <div style={{ flexDirection: "column" }}>
-                        <Typography style={{ fontSize: "12px" }}>
-                        {r.correct_count}/{r.total_count} 
-                        </Typography>
-                        <div style={{ marginTop: "10px" }}>
-                          <CircleBar range={percentage} />
-                        </div>
+                      <div style={{ marginTop: "10px" }}>
+                        <CircleBar range={percentage} />
                       </div>
                     </div>
-                  </Col>
-                </>
+                  </div>
+                </Col>
               );
             })}
           </div>
