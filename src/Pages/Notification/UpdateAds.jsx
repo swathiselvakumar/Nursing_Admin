@@ -15,9 +15,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -31,72 +32,67 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 function UpdateAds() {
-    // const [age, setAge] = useState('');
- const [adminId, setAdminId] = useState("nandinivebbox@gmail.com");
- const [category, setCategory] = useState("yearMCQ");
- const [file, setFile] = useState(null); // This will hold the file data
-const {Endpoint}=useContext(navContext);
- // Function to handle file input change
- const handleFileChange = (event) => {
-   setFile(event.target.files[0]);
- };
+  const email = localStorage.getItem("userMail");
+  const [adminId, setAdminId] = useState(email);
+  const [category, setCategory] = useState("yearMCQ");
+  const [file, setFile] = useState(null);
+  const { Endpoint } = useContext(navContext); 
+ 
 
- // Function to handle form submission
- const handleFormSubmit = async () => {
-   const formData = new FormData();
-   formData.append("admin_id", adminId);
-   formData.append("category", category);
-   formData.append("file", file);
+  const handleFileChange = (event) => {
+    console.log(event.target.files[0]);
+    setFile(event.target.files[0]);
+  };
 
-   try {
-     const response = await fetch(
-       `${Endpoint}admin/upload/A_updateAdvertisement.php`,
-       {
-         method: "POST",
-         body: formData,
-       }
-     );
+  const handleFormSubmit = async () => {
+    const formData = new FormData();
+    formData.append("admin_id", adminId);
+    formData.append("category", category);
+    formData.append("file", file);
+console.log(file);
+    try {
+      const response = await fetch(
+        `${Endpoint}admin/upload/A_updateAdvertisement.php`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-     if (!response.ok) {
-       throw new Error("Failed to upload advertisement.");
-     }
+      if (!response.ok) {
+        throw new Error("Failed to upload advertisement.");
+      }
 
-     // Assuming the response contains data in JSON format, you can parse it
-     const responseData = await response.json();
-
-     // Handle the data here, for example:
-     console.log("Advertisement uploaded successfully!", responseData);
-
-     // You can also store the data in your component state if needed
-     // setSomeState(responseData);
-   } catch (error) {
-     console.error("Error occurred while uploading advertisement:", error);
-   }
- };
+      const responseData = await response.json();
+      console.log("Advertisement uploaded successfully!", responseData);
+    } catch (error) {
+      console.error("Error occurred while uploading advertisement:", error);
+    }
+  };
 
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
-  const [act, setact] = React.useState("password");
+
+  const [act, setAct] = useState("password");
   const BreadcrumbItems = [
-    // { label: "Dashboard", path: PATH.DASHBOARD },
-    
     { label: "Settings", path: PATH.SETTINGS },
     { label: "Update Ads", path: PATH.UPDATEADS },
   ];
+
   return (
     <>
       <NotificationStyle>
         <h6
           style={{
-            padding: " 10px 0px 0px 60px",
+            padding: "10px 0px 0px 60px",
             color: "#183a1d",
             fontWeight: "450",
           }}
         >
           Settings
         </h6>
-        <div className="btn-wrapper" style={{ padding: "10px 0px 20px 0px " }}>
+        <div className="btn-wrapper" style={{ padding: "10px 0px 20px 0px" }}>
           <div
             className="btn-1"
             style={{
@@ -109,8 +105,7 @@ const {Endpoint}=useContext(navContext);
               <NavLink to="/settings">
                 <button
                   style={{
-                    boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
-                    // fontWeight: "600",
+                    boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.1)",
                     width: "480px",
                     padding: "10px 20px",
                     border: "none",
@@ -120,7 +115,6 @@ const {Endpoint}=useContext(navContext);
                     textAlign: "center",
                     margin: "5px",
                   }}
-                  // onClick={() => setact("password")}
                 >
                   Profile Update
                 </button>
@@ -129,8 +123,7 @@ const {Endpoint}=useContext(navContext);
             <div className="btn-wrap-2">
               <button
                 style={{
-                  boxShadow: "0px 0px   5px  rgba(0, 0, 0, 0.1)",
-                  // fontWeight: "600",
+                  boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
                   width: "480px",
                   padding: "10px 0px",
                   border: "none",
@@ -140,7 +133,7 @@ const {Endpoint}=useContext(navContext);
                   backgroundColor: "#e4a45a",
                   margin: "5px",
                 }}
-                onClick={() => setact("notification")}
+                onClick={() => setAct("notification")}
               >
                 Notifications
               </button>
@@ -173,9 +166,8 @@ const {Endpoint}=useContext(navContext);
                       label="Choose Place"
                       onChange={handleChange}
                     >
-                      <MenuItem value={category}>Home</MenuItem>
-                      <MenuItem value={category}>YearMCQ</MenuItem>
-                      {/* <MenuItem value={30}>Thirty</MenuItem> */}
+                      <MenuItem value="Home">Home</MenuItem>
+                      <MenuItem value="yearMCQ">YearMCQ</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -215,9 +207,9 @@ const {Endpoint}=useContext(navContext);
                   </label>
                 </div>
                 <div className="btnbox">
-                  <NavLink >
+                  <NavLink>
                     <button className="submit-btn" onClick={handleFormSubmit}>
-                       Upload&nbsp;&nbsp;
+                      Upload&nbsp;&nbsp;
                       <SendIcon style={{ fontSize: "20px" }} />
                     </button>
                   </NavLink>
