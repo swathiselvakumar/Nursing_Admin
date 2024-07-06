@@ -12,10 +12,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-// import { useLocation } from "react-router-dom";
 import { useContext } from 'react'
 import { navContext } from '../../context/navContext'
-// import { zhTW } from '@mui/material/locale'
 import axios from 'axios'
 export default function AddMCQ1() {
     const [open, setOpen] = React.useState(false);
@@ -24,13 +22,7 @@ export default function AddMCQ1() {
     const { name, setName } = useContext(navContext);
     const {Endpoint}=useContext(navContext);
     const email=localStorage.getItem("userMail");
-      // const location = useLocation();
-  //  const location = useLocation();
-  // const location = useLocation();
-// const {name} = useParams();
-// console.log(name);
-      // console.log("Received prop:", location.state.stateProp);
-// console.log(name);
+    
     const handleClickOpen = async() => {
       
         setOpen(true);
@@ -268,6 +260,7 @@ export default function AddMCQ1() {
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
           open={open}
+          
         >
           <IconButton
             aria-label="close"
@@ -283,9 +276,12 @@ export default function AddMCQ1() {
           </IconButton>
           <DialogContent
             dividers
-            style={{ display: "flex", justifyContent: "space-between" }}
+            style={{ display: "flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}
             onClick={handleClose}
           >
+             {/* <div > */}
+          Completed Successfully.
+        {/* </div> */}
            <NavLink to="/yearmcq">
            <button className="Submit1">ok</button>
            </NavLink>

@@ -161,7 +161,7 @@ export default function UpdatePlan() {
                 {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
-                    type="number"
+                    type="text"
                     style={TextB}
                     onChange={handlechange}
                     value={plan}
@@ -200,14 +200,11 @@ export default function UpdatePlan() {
                 <div>
                   <label>Price</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
                     type="number"
-                    // value="1999"
                     style={TextB}
                     onChange={handleChangeprice}
-                    value={price}
                   />
                 </div>
               </div>
@@ -221,7 +218,8 @@ export default function UpdatePlan() {
                   width: "530px",
                 }}
               >
-                <NavLink to="/updatedetails">
+                
+                <NavLink to="/updatedetails/:planid">
                   <button style={btn1} onClick={handleNextClick}>NEXT</button>
                 </NavLink>
               </div>

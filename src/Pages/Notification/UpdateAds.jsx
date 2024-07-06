@@ -1,23 +1,17 @@
-import React from "react";
-import myImage from "../../assets/images/profile.svg";
-import Notify from "../Notification/Notify";
-import { NotificationStyle } from "./style";
-import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
-import { PATH } from "../../constants/routeConstants";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SendIcon from '@mui/icons-material/Send';
-import RestorePageIcon from '@mui/icons-material/RestorePage';
-import AdsClickIcon from '@mui/icons-material/AdsClick';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState, useContext } from "react";
-import axios from "axios";
 import { navContext } from "../../context/navContext";
+import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { PATH } from "../../constants/routeConstants";
+import { NotificationStyle } from "./style";
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -37,19 +31,30 @@ function UpdateAds() {
   const [category, setCategory] = useState("yearMCQ");
   const [file, setFile] = useState(null);
   const { Endpoint } = useContext(navContext); 
- 
 
   const handleFileChange = (event) => {
-    console.log(event.target.files[0]);
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.size > 200 * 1024) { // 200KB size limit
+      alert("File size exceeds 200KB. Please upload a smaller file.");
+      return;
+    }
+    console.log("File selected:", selectedFile);
+    setFile(selectedFile);
   };
 
   const handleFormSubmit = async () => {
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("admin_id", adminId);
     formData.append("category", category);
     formData.append("file", file);
-console.log(file);
+
+    console.log("File to be uploaded:", file);
+
     try {
       const response = await fetch(
         `${Endpoint}admin/upload/A_updateAdvertisement.php`,
@@ -83,58 +88,40 @@ console.log(file);
   return (
     <>
       <NotificationStyle>
-        <h6
-          style={{
-            padding: "10px 0px 0px 60px",
-            color: "#183a1d",
-            fontWeight: "450",
-          }}
-        >
+        <h6 style={{ padding: "10px 0px 0px 60px", color: "#183a1d", fontWeight: "450" }}>
           Settings
         </h6>
         <div className="btn-wrapper" style={{ padding: "10px 0px 20px 0px" }}>
-          <div
-            className="btn-1"
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="btn-1" style={{ display: "flex", justifyContent: "space-evenly", flexWrap: "wrap" }}>
             <div className="btn-wrap-1">
               <NavLink to="/settings">
-                <button
-                  style={{
-                    boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.1)",
-                    width: "480px",
-                    padding: "10px 20px",
-                    border: "none",
-                    color: "black",
-                    fontSize: "18px",
-                    backgroundColor: "white",
-                    textAlign: "center",
-                    margin: "5px",
-                  }}
-                >
+                <button style={{
+                  boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.1)",
+                  width: "480px",
+                  padding: "10px 20px",
+                  border: "none",
+                  color: "black",
+                  fontSize: "18px",
+                  backgroundColor: "white",
+                  textAlign: "center",
+                  margin: "5px"
+                }}>
                   Profile Update
                 </button>
               </NavLink>
             </div>
             <div className="btn-wrap-2">
-              <button
-                style={{
-                  boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
-                  width: "480px",
-                  padding: "10px 0px",
-                  border: "none",
-                  color: "white",
-                  fontSize: "18px",
-                  textAlign: "center",
-                  backgroundColor: "#e4a45a",
-                  margin: "5px",
-                }}
-                onClick={() => setAct("notification")}
-              >
+              <button style={{
+                boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
+                width: "480px",
+                padding: "10px 0px",
+                border: "none",
+                color: "white",
+                fontSize: "18px",
+                textAlign: "center",
+                backgroundColor: "#e4a45a",
+                margin: "5px"
+              }} onClick={() => setAct("notification")}>
                 Notifications
               </button>
             </div>
@@ -143,22 +130,14 @@ console.log(file);
 
         <div className="wrap">
           <div className="inside-wrapper">
-            <div
-              style={{
-                padding: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
+            <div style={{ padding: "10px", display: "flex", justifyContent: "space-between" }}>
               <CustomBreadCrumbs items={BreadcrumbItems} />
             </div>
             <div>
               <div className="form1">
                 <div>
                   <FormControl style={{ width: "340px", marginBottom: "20px" }}>
-                    <InputLabel id="demo-simple-select-label">
-                      Choose Place
-                    </InputLabel>
+                    <InputLabel id="demo-simple-select-label">Choose Place</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -173,9 +152,7 @@ console.log(file);
                 </div>
 
                 <div>
-                  <label htmlFor="description" className="pass-lab">
-                    Image:{" "}
-                  </label>
+                  <label htmlFor="description" className="pass-lab">Image: </label>
                   <br />
                   <input
                     type="file"
@@ -186,10 +163,8 @@ console.log(file);
                   />
                   <label htmlFor="file">
                     <Button
-                      component="label"
-                      role={undefined}
+                      component="span"
                       variant="contained"
-                      tabIndex={-1}
                       startIcon={<CloudUploadIcon />}
                       style={{
                         height: "50px",
@@ -198,11 +173,10 @@ console.log(file);
                         backgroundColor: "white",
                         color: "black",
                         border: "1px dashed black",
-                        boxShadow: "none",
+                        boxShadow: "none"
                       }}
                     >
                       Upload file
-                      <VisuallyHiddenInput type="file" />
                     </Button>
                   </label>
                 </div>

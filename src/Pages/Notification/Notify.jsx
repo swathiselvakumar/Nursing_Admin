@@ -29,27 +29,33 @@ function Notification() {
   const [description, setDescription] = useState("");
   const [attachment, setAttachment] = useState(null);
   const {Endpoint}=useContext(navContext);
+  const email = localStorage.getItem("userMail");
   const handleFileChange = (event) => {
     setAttachment(event.target.files[0]);
   };
 
   const handleSend = async () => {
     try {
-      const formData = new FormData();
-      formData.append("headline", headline);
-      formData.append("description", description);
-      formData.append("attachment", attachment);
+      // const formData = new FormData();
+      // formData.append("title", headline);
+      // formData.append("description", description);
+      // // formData.append("attachment", attachment);
 
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //     admin_id:email
+      //   },
+      // };
 
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertNotification.php`,
-        formData,
-        config
+          {
+            admin_id:email,
+            title:headline,
+            content:description
+          }
+
       );
 
       console.log("Response:", response.data);

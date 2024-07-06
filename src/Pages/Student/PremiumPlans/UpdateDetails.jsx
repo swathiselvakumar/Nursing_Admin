@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { YEARMCQStyle } from '../../YearMCQ/style'
-import { Button, Typography, duration } from '@mui/material'
+import { Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs'
 import { PATH } from '../../../constants/routeConstants'
 import AlertIcon from '../../../assets/icons/alert.png'
@@ -8,8 +8,9 @@ import Tick from '../../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
 import { navContext } from '../../../context/navContext'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 export default function UpdateDetails() {
-  
+  const {planid}=useParams();
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -34,11 +35,11 @@ export default function UpdateDetails() {
       const response = await axios.post(
         `${Endpoint}admin/put/A_updatePlans.php`,
         {
-          id: 4,
+          id:planid,
           title: plan,
           amount: price,
           description: category,
-          duration:3
+          duration:durationname
           // You can include additional data here as needed
         }
       );
@@ -170,7 +171,6 @@ export default function UpdateDetails() {
                 <div>
                   <label>Category Access</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
                     type="type"
