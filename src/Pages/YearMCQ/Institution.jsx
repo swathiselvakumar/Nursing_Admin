@@ -1,31 +1,25 @@
-import React, { useEffect, useState } from "react";
-import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import institution from "../../assets/images/vadakk.png";
 import { Typography } from "@mui/material";
-import Delete from "../../assets/icons/delete.jpeg";
-import "./CardStyle.css";
 import { NavLink, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { PATH } from "../../constants/routeConstants";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
-import { useContext } from "react";
 import { navContext } from "../../context/navContext";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import {PATH} from '../../constants/routeConstants'
+import "./CardStyle.css";
 
 export default function YearInstitution() {
   const BreadcrumbItems = [
@@ -37,12 +31,10 @@ export default function YearInstitution() {
   const [month, setMonth] = useState("");
   const [openFirstDialog, setOpenFirstDialog] = useState(false);
   const [openSecondDialog, setOpenSecondDialog] = useState(false);
-   const[paper,setPaper]=useState([]);
-  const [open, setOpen] = useState(false);
-  const {Endpoint}=useContext(navContext);
-const email=localStorage.getItem("userMail");
-
-  const { sno} = useParams();
+  const [paper, setPaper] = useState([]);
+  const { Endpoint } = useContext(navContext);
+  const email = localStorage.getItem("userMail");
+  const { sno } = useParams();
 
   const handleChange = (event) => {
     setYear(event.target.value);
@@ -107,7 +99,7 @@ const email=localStorage.getItem("userMail");
     if (Data.questions.length > 0) {
       SendApi();
     }
-    response()
+    response();
   }, [Data.questions]);
 
   const SendApi = async () => {
@@ -118,53 +110,64 @@ const email=localStorage.getItem("userMail");
       );
       setMonth("");
       setYear("");
-     
+
       window.location.href = `/yearinstitution/${sno}`;
     } catch (error) {
       console.error("Error posting questions:", error);
     }
   };
 
- const response =async()=>
- {
-  try 
-  {
-    const res = await axios.post(
-      `${Endpoint}admin/get/A_ViewPmcqPaper.php`,
-      {
-        adminId:email,
+  const response = async () => {
+    try {
+      const res = await axios.post(`${Endpoint}admin/get/A_ViewPmcqPaper.php`, {
+        adminId: email,
         id: sno,
-      }
-      
-    );
-     setPaper(res.data);
-  }
-  catch(error)
-  {
-      console.error("Error adding new item:", error);
-  }
- }
- const CardDelete = async (sno) => {
-  // setclick(true);
-  try {
-    const res = await axios.delete(
-      `${Endpoint}admin/delete/A_deletePMCQPaper.php`,
-      {
-        data: {
-          adminId:email,
-          paperId: sno,
-        },
-      }
-    );
-    response();
-  } catch (error) {
-    console.error("Error fetching course data:", error);
-  }
-};
+      });
 
-useEffect(() => {
-  response();
-}, []);
+      setPaper(res.data);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+    }
+  };
+
+  const CardDelete = async (sno) => {
+    try {
+      const res = await axios.delete(
+        `${Endpoint}admin/delete/A_deletePMCQPaper.php`,
+        {
+          data: {
+            adminId: email,
+            paperId: sno,
+          },
+        }
+      );
+      response();
+    } catch (error) {
+      console.error("Error deleting paper:", error);
+    }
+  };
+
+  useEffect(() => {
+    response();
+  }, []);
+
+  const handleDownloadTemplate = () => {
+    // Create a new workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Define headers and data
+    const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+    const data = [headers]; // Start with headers row
+    
+    // Create worksheet
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Template");
+    
+    // Generate an XLSX file and initiate download
+    XLSX.writeFile(wb, "template.xlsx");
+  };
 
   return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
@@ -175,7 +178,7 @@ useEffect(() => {
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
             <div>
-              <img src={institution} height="40px" />
+              <img src={institution} height="40px" alt="Institution Logo" />
             </div>
             &nbsp;&nbsp;
             <div>
@@ -185,38 +188,53 @@ useEffect(() => {
             </div>
           </Col>
         </Row>
-      </Container> 
+      </Container>
       <div className="TotalBox">
-        
-            <Container fluid className="MainBox">
-              <Row >
-                {Array.isArray(paper) && paper.map((item, index) => {
-                  return (
-                    <Col  xs={12} sm={12} md={6} lg={4} xl={4}  key={item.sno}  style={{padding:'10px'}}>
-                    <div className="box">
-                      <NavLink
-                        to={`/uploadtest/${item.institution_id}/${item.sno}`}
-                        style={{ textDecoration: "none" }}
+        <Container fluid className="MainBox">
+          <Row>
+            {Array.isArray(paper) &&
+              paper.map((item) => (
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  xl={4}
+                  key={item.sno}
+                  style={{ padding: "10px" }}
+                >
+                  <div className="box">
+                    <NavLink
+                      to={`/uploadtest/${item.institution_id}/${item.sno}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <button
+                        style={{
+                          backgroundColor: "white",
+                          border: "none",
+                          paddingTop: "5px",
+                        }}
                       >
-                        <button
-                          style={{
-                            backgroundColor: "white",
-                            border: "none",
-                            paddingTop: "5px",
-                          }}
-                        >
-                          {item.year} {item.month}  Paper
-                        </button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                      </NavLink>
-                      <button onClick={() => CardDelete(item.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"20px"}}><DeleteIcon/></button>
-                    </div>
-                  </Col>
-                  )
-                })}
-              </Row>
-            </Container>
-          
+                        {item.year} {item.month} Paper
+                      </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    </NavLink>
+                    <button
+                      onClick={() => CardDelete(item.sno)}
+                      className="delete"
+                      style={{
+                        border: "none",
+                        backgroundColor: "white",
+                        height: "20px",
+                      }}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </div>
+                </Col>
+              ))}
+          </Row>
+        </Container>
         <div className="BtnBox">
           <button className="Btn" onClick={handleOpenFirstDialog}>
             Upload Questions
@@ -224,11 +242,8 @@ useEffect(() => {
         </div>
       </div>
       <Dialog
-        // onClose={handleCloseFirstDialog}
         open={openFirstDialog}
         aria-labelledby="customized-dialog-title"
-        // open={open}
-        style={{}}
       >
         <DialogTitle
           sx={{ m: 0, p: 2 }}
@@ -279,22 +294,11 @@ useEffect(() => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={2010}>2010</MenuItem>
-                <MenuItem value={2011}>2011</MenuItem>
-                <MenuItem value={2012}>2012</MenuItem>
-                <MenuItem value={2013}>2013</MenuItem>
-                <MenuItem value={2014}>2014</MenuItem>
-                <MenuItem value={2016}>2016</MenuItem>
-                <MenuItem value={2017}>2017</MenuItem>
-                <MenuItem value={2018}>2018</MenuItem>
-                <MenuItem value={2019}>2019</MenuItem>
-                <MenuItem value={2020}>2020</MenuItem>
-                <MenuItem value={2021}>2021</MenuItem>
-                <MenuItem value={2022}>2022</MenuItem>
-                <MenuItem value={2023}>2023</MenuItem>
-                <MenuItem value={2024}>2024</MenuItem>
-                <MenuItem value={2025}>2025</MenuItem>
-                <MenuItem value={2026}>2026</MenuItem>
+                {[...Array(17).keys()].map((i) => (
+                  <MenuItem key={2010 + i} value={2010 + i}>
+                    {2010 + i}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl
@@ -312,18 +316,24 @@ useEffect(() => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="January">January</MenuItem>
-                <MenuItem value="February">February</MenuItem>
-                <MenuItem value="March">March</MenuItem>
-                <MenuItem value="April">April</MenuItem>
-                <MenuItem value="May">May</MenuItem>
-                <MenuItem value="June">June</MenuItem>
-                <MenuItem value="July">July</MenuItem>
-                <MenuItem value="August">August</MenuItem>
-                <MenuItem value="September">September</MenuItem>
-                <MenuItem value="Octobe">October</MenuItem>
-                <MenuItem value="November">November</MenuItem>
-                <MenuItem value="December">December</MenuItem>
+                {[
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ].map((m) => (
+                  <MenuItem key={m} value={m}>
+                    {m}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>
@@ -334,23 +344,14 @@ useEffect(() => {
               marginTop: "20px",
             }}
           >
-            <button
-              className="Submit"
-              autoFocus
-              onClick={handleOpenSecondDialog}
-            >
+            <button className="Submit" autoFocus onClick={handleOpenSecondDialog}>
               Submit
             </button>
           </div>
         </DialogContent>
       </Dialog>
 
-      <Dialog
-        // onClose={handleCloseSecondDialog}
-        open={openSecondDialog}
-        aria-labelledby="customized-dialog-title"
-        // open={openBtn}
-      >
+      <Dialog open={openSecondDialog} aria-labelledby="customized-dialog-title">
         <IconButton
           aria-label="close"
           onClick={handleCloseSecondDialog}
@@ -367,16 +368,16 @@ useEffect(() => {
           dividers
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <button className="Submit1">Download Template</button>
-          
+          <button className="Submit1" onClick={handleDownloadTemplate}>
+            Download Template
+          </button>
           <label
             htmlFor="fileInput"
-            style={{ textAlign: "center", alignContent: "center",}}
+            style={{ textAlign: "center", alignContent: "center" }}
             className="Submit1"
           >
             Upload Questions
           </label>
-          {/* This hidden input is used to select the file */}
           <input
             type="file"
             id="fileInput"
@@ -384,11 +385,7 @@ useEffect(() => {
             style={{
               display: "none",
             }}
-            // className="submit1"
           />
-          {/* <button className="Submit1">Download Template</button> */}
-
-          {/* </NavLink> */}
         </DialogContent>
       </Dialog>
     </div>

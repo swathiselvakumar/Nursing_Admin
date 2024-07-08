@@ -128,6 +128,23 @@ const [Data, setData] = useState(() => {
   // const handleCloseBtn = () => {
   //   setOpenBtn(false);
   // };
+  const handleDownloadTemplate = () => {
+    // Create a new workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Define headers and data
+    const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+    const data = [headers]; // Start with headers row
+    
+    // Create worksheet
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Template");
+    
+    // Generate an XLSX file and initiate download
+    XLSX.writeFile(wb, "template.xlsx");
+  };
   return (
     <div style={{ backgroundColor: "white", height: "90vh" }}>
       <div style={{ padding: "25px" }}>
@@ -229,7 +246,7 @@ const [Data, setData] = useState(() => {
             alignItems: "center",
           }}
         >
-          <button className="Submit1">Download Template</button>
+          <button className="Submit1" onClick={handleDownloadTemplate}>Download Template</button>
 
           <label
             htmlFor="fileInput"

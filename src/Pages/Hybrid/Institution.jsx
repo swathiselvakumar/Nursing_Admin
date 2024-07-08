@@ -125,31 +125,6 @@ export default function DailyInstitution() {
     </div>
     
 
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={openBtn}
-      >
-        
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers style={{display:"flex",justifyContent:"space-between"}}>
-          <button className='Submit1'>Download Template</button>
-          <NavLink to="/testpage">
-          <button className='Submit1'>Upload Questions</button>
-          </NavLink>
-        </DialogContent>
-      </Dialog>
     </div>
     
   )

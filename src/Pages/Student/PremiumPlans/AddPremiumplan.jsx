@@ -8,14 +8,15 @@ import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
+import { useNavigate } from 'react-router-dom'
 export default function AddPremiumplan() {
-
-  const [plan, setPlan] = useState();
-  const [price, setPrice] = useState(1999);
-  const [durationname, setDurationname] = useState();
-  const { setPlan: setPlanName } = useContext(navContext);
-  const { setPrice: setPriceName } = useContext(navContext);
-  const { setDuration: setDurationName } = useContext(navContext);
+  const Navigate=useNavigate();
+  const {plan, setPlan} = useContext(navContext);
+  const {price, setPrice} = useContext(navContext);
+  const {durationname, setDurationname} = useContext(navContext);
+  // const { plan,setPlan: setPlanName } = useContext(navContext);
+  // const { price,setPrice: setPriceName } = useContext(navContext);
+  // const { durationname,setDuration: setDurationName } = useContext(navContext);
   const {Endpoint}=useContext(navContext);
 
    
@@ -29,18 +30,18 @@ export default function AddPremiumplan() {
       ];
       const handlechange = (event) => {
         setPlan(event.target.value);
-        setPlanName(event.target.value)
+        // setPlanName(event.target.value)
         
       };
 
       const handleChangeprice = (event) => {
         setPrice(event.target.value);
-        setPriceName(event.target.value)
+        // setPriceName(event.target.value)
       };
 
       const handleChangeduration = (event) => {
         setDurationname(event.target.value);
-        setDurationName(event.target.name)
+        // setDurationName(event.target.name);
       };
 
 // console.log(duration);
@@ -51,26 +52,28 @@ export default function AddPremiumplan() {
         const planDetails = { plan, price, durationname };
         console.log("Plan Details:", planDetails);
         setSuccessDialogOpen(true);
-          try {
-         const response = await axios.post(
-           `${Endpoint}admin/post/A_InsertPlans.php`,
-           {
+        Navigate('/premiumplandetails');
+
+    //       try {
+    //      const response = await axios.post(
+    //        `${Endpoint}admin/post/A_InsertPlans.php`,
+    //        {
              
-             name: setPlanName,
-             instruction: setPriceName,
-             desc: setDurationName,
+    //          name:plan,
+    //          instruction:price,
+    //          desc:durationname,
              
-           }
-         );
-      console.log("New item added:", response.data);
-       setPlan("");
-       setPrice("");
-       setDuration(""); 
+    //        }
+    //      );
+    //   console.log("New item added:", response.data);
+    //    setPlan("");
+    //    setPrice("");
+    //    setDurationname(""); 
       
 
-    } catch (error) {
-      console.error("Error adding new item:", error);
-    }
+    // } catch (error) {
+    //   console.error("Error adding new item:", error);
+    // }
       };
 
       const handleSuccessDialogClose = () => {
@@ -191,7 +194,6 @@ export default function AddPremiumplan() {
                 <div>
                   <label>Plan No</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
                     type="text"
@@ -212,7 +214,6 @@ export default function AddPremiumplan() {
                 <div>
                   <label>Plan Duration</label>
                 </div>
-                {/* <div><img src={AlertIcon}/></div> */}
                 <div>
                   <input
                     type="number"
@@ -254,11 +255,11 @@ export default function AddPremiumplan() {
                   width: "530px",
                 }}
               >
-                <NavLink to="/premiumplandetails">
+                {/* <NavLink to="/premiumplandetails"> */}
                   <button style={btn1} onClick={handleNextClick}>
                     NEXT
                   </button>
-                </NavLink>
+                {/* </NavLink> */}
               </div>
             </div>
             <div>

@@ -102,7 +102,7 @@ export default function MicroInstitution() {
               data.map((d)=>(
                 
                 <Col className="Col1">
-              <div className="box">
+              <div className="box mb-3">
                 <NavLink to={`/microupload/${d.sno}`} style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -120,7 +120,7 @@ export default function MicroInstitution() {
               to={`/microtestquestions/${d.sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
-              <div style={{ display: "flex", marginLeft: 160,marginTop:"20px" }}>
+              <div style={{ display: "flex", marginLeft: 160,marginTop:"10px" }}>
                 View Questions
               </div>
             </NavLink>
@@ -131,40 +131,10 @@ export default function MicroInstitution() {
           </Row>
         </Container>
 
-        {/* <div className='BtnBox'>
-      <NavLink to={`/microtestquestions`}>
-      <button className='Btn'>View Questions</button>
-      </NavLink>
-    </div> */}
+       
       </div>
       
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={openBtn}
-      >
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent
-          dividers
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <button className="Submit1">Download Template</button>
-          <NavLink to="/testpage">
-            <button className="Submit1">Upload Questions</button>
-          </NavLink>
-        </DialogContent>
-      </Dialog>
+      
     </div>
   );
 }

@@ -18,24 +18,16 @@ function NavContextProvider({ children }) {
   const [stage, setStage] = useState(); 
   const [mcq, setMcq] = useState();
  const [plan, setPlan] = useState();
- const [price, setPrice] = useState(1999);
+ const [price, setPrice] = useState('');
  const [email,setemail]=useState("");
  const [index, setindex] = useState();
  const [mcqname,setMcqname]=useState();
  const [Endpoint,setEndpoint]=useState("https://vebbox.in/Nursing/controllers/api/");
  const [category, setcategory] = useState("");
  const [mcqid, setMcqid] = useState('');
-
-
-
-  //  const [durationname, setDurationname] = useState();
+   const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
-  //  const [quetionpaperhistory, setQuestionpaperhistory] = useState([
-  //    {
-  //      paperId: "",
-  //      questionId: "",
-  //    },
-  //  ]);
+  
 
 
   const updateNavText = (data) => {
@@ -83,7 +75,8 @@ function NavContextProvider({ children }) {
         category,
         setcategory,
         mcqid,
-        setMcqid
+        setMcqid,
+        durationname, setDurationname
       }}
     >
       {children}

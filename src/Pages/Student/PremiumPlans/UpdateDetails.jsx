@@ -21,9 +21,9 @@ export default function UpdateDetails() {
       
       // const [pricename, setPricename] = useState(1999);
       const [category, setCategory] = useState();
-      const { plan, setPlan } = useContext(navContext);
-      const { price, setPrice } = useContext(navContext);
-      const {durationname, setDurationname } = useContext(navContext);
+      const { plan} = useContext(navContext);
+      const { price} = useContext(navContext);
+      const {durationname } = useContext(navContext);
       const {Endpoint}=useContext(navContext);
   const handleChangecategory = (event) => {
     setCategory(event.target.value);

@@ -115,13 +115,17 @@ export default function PremiumPlans() {
                     <div className="innerContent">
                       <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
                     </div>
-                    <div style={{ padding: "10px" }}>
-                      <Typography style={{ paddingTop: "15px", paddingBottom: "15px" }}>{plan.description}</Typography>
-                      <Typography style={{ fontSize: "26px", paddingBottom: "10px" }}>${plan.amount}</Typography>
+                    
+                    <div style={{ padding: "5px" }}>
+                      <Typography style={{ fontSize: "26px", paddingBottom: "10px", paddingTop:"20px" }}>${plan.amount}</Typography>
+                      <Typography style={{ fontSize: "15px", paddingBottom: "10px"}}>{plan.duration} Months</Typography>
+                      <ul style={{ paddingBottom: "10px" }}>
+                        {plan.description.split(',').map((desc, idx) => (
+                          <li key={idx}>{desc.trim()}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <NavLink to="/plandetails">
-                      <Button>View</Button>
-                    </NavLink>
+                   
                   </div>
                 </Col>
               ))}

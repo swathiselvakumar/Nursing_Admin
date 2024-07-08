@@ -8,8 +8,9 @@ import Tick from '../../../assets/icons/tick1.png'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { navContext } from '../../../context/navContext';
-
+import { useNavigate } from 'react-router-dom'
 export default function PremiumPlanDetails() {
+  const Navigate=useNavigate();
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
@@ -18,22 +19,22 @@ export default function PremiumPlanDetails() {
 
       ];
 //  const [durationname, setDurationname] = useState();
- const [pricename, setPricename] = useState(1999);
+//  const [pricename, setPricename] = useState(1999);
  const [category, setCategory] = useState();
-  const { plan, setPlan } = useContext(navContext);
-  const { price, setPrice } = useContext(navContext);
-   const { durationname, setDurationname } = useContext(navContext);
+  const { plan } = useContext(navContext);
+  const { price } = useContext(navContext);
+   const { durationname} = useContext(navContext);
    const {Endpoint}=useContext(navContext);
 
 
-const handleChangeduration = (event) => {
-  setDurationname(event.target.value);
-};
+// const handleChangeduration = (event) => {
+//   setDurationname(event.target.value);
+// };
 
-      const handleChangeprice = (event) => {
-        setPricename(event.target.value);
-        // set
-      };
+      // const handleChangeprice = (event) => {
+      //   setPricename(event.target.value);
+      //   // set
+      // };
 
       const handleChangecategory = (event) => {
         setCategory(event.target.value);
@@ -47,11 +48,12 @@ const handleChangeduration = (event) => {
            {
              title: plan,
              amount: price,
-             duration: 2,
+             duration:  durationname,
              description: category,
             
            }
          );
+         Navigate('/premiumplans');
       console.log("New item added:", response.data);
      
 
@@ -203,11 +205,11 @@ const handleChangeduration = (event) => {
                   width: "530px",
                 }}
               >
-                <NavLink to="/premiumplans">
+                {/* <NavLink to="/premiumplans"> */}
                   <button style={btn1} onClick={handleNextClick}>
                     SUBMIT
                   </button>
-                </NavLink>
+                {/* </NavLink> */}
               </div>
             </div>
             <div>

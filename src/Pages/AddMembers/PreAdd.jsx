@@ -6,9 +6,7 @@ import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useContext } from "react";
@@ -21,14 +19,14 @@ function PreAdd() {
     { label: "Add Members", path: PATH.PREADD },
   ];
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
   const [plans, setPlans] = useState([]);
-  const emailId=localStorage.getItem("userMail");
-  const [boxopen, setBoxOpen] = React.useState(false);
-  const {Endpoint}=useContext(navContext);
+  const emailId = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     fetchPlans();
@@ -39,7 +37,7 @@ function PreAdd() {
       const response = await axios.post(
         `${Endpoint}admin/get/A_ViewPlans.php`,
         {
-          adminId:emailId
+          adminId: emailId
         }
       );
       setPlans(response.data);
@@ -47,72 +45,101 @@ function PreAdd() {
       console.error("Error:", error);
     }
   };
-const Btn = {
-  padding: "10px 20px",
-  backgroundColor: "rgb(240, 160, 75)",
-  border: "none",
-  borderRadius: "5px",
-  marginTop: "20px",
-  color: "white",
-  fontWeight: "550",
-  marginBottom: "10px",
-  width: "500px",
-};
-const Btn1 = {
-  padding: "10px 20px",
-  backgroundColor: "green",
-  border: "none",
-  borderRadius: "5px",
-  marginTop: "20px",
-  color: "white",
-  fontWeight: "550",
-  marginBottom: "10px",
-  width: "100px",
-};
+
+  const validateForm = () => {
+    let errors = {};
+    let formIsValid = true;
+
+    if (!name) {
+      formIsValid = false;
+      errors["name"] = "Please enter your name.";
+    }
+
+    if (!email) {
+      formIsValid = false;
+      errors["email"] = "Please enter your email address.";
+    }
+
+    if (!selectedPlan) {
+      formIsValid = false;
+      errors["selectedPlan"] = "Please select a plan.";
+    }
+
+    setFormErrors(errors);
+    return formIsValid;
+  };
+
+  const Btn = {
+    padding: "10px 20px",
+    backgroundColor: "rgb(240, 160, 75)",
+    border: "none",
+    borderRadius: "5px",
+    marginTop: "20px",
+    color: "white",
+    fontWeight: "550",
+    marginBottom: "10px",
+    width: "500px",
+  };
+
+  const Btn1 = {
+    padding: "10px 20px",
+    backgroundColor: "green",
+    border: "none",
+    borderRadius: "5px",
+    marginTop: "20px",
+    color: "white",
+    fontWeight: "550",
+    marginBottom: "10px",
+    width: "100px",
+  };
+
   const handleClickOpen = async () => {
-    setOpen(true);
-    try {
-      const userData = {
-        username: name,
-        email: email,
-        current_plan_id: selectedPlan,
-      };
-
-      const response = await axios.post(
-        `${Endpoint}admin/post/A_InsertStudentPre.php`,
-        userData
-      );
-
-      console.log("Success:", response.data);
-
+    if (validateForm()) {
       setOpen(true);
-      setEmail("");
-      setName("");
-      // setPlans("");
-    } catch (error) {
-      console.error("Error:", error);
+      try {
+        const userData = {
+          username: name,
+          email: email,
+          current_plan_id: selectedPlan,
+        };
+
+        const response = await axios.post(
+          `${Endpoint}admin/post/A_InsertStudentPre.php`,
+          userData
+        );
+
+        console.log("Success:", response.data);
+
+        setOpen(true);
+        setEmail("");
+        setName("");
+        setSelectedPlan("");
+        setFormErrors({});
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
   const handlename = (event) => {
     setName(event.target.value);
+    setFormErrors({ ...formErrors, name: "" });
   };
 
   const handleemail = (event) => {
     setEmail(event.target.value);
+    setFormErrors({ ...formErrors, email: "" });
+  };
+
+  const handlePlanChange = (event) => {
+    setSelectedPlan(event.target.value);
+    setFormErrors({ ...formErrors, selectedPlan: "" });
   };
 
   const handleClose = () => {
     setOpen(false);
   };
- const chunkedPlans = plans.reduce((acc, curr, index) => {
-   const chunkIndex = Math.floor(index / 4);
-   if (!acc[chunkIndex]) {
-     acc[chunkIndex] = [];
-   }
-   acc[chunkIndex].push(curr);
-   return acc;
- }, []);
+
   return (
     <AlertBoxStyle>
       <div style={{ padding: "25px" }}>
@@ -124,6 +151,9 @@ const Btn1 = {
       </Typography>
       <div className="TotalBox">
         <div className="alt-box">
+          {formErrors["name"] && (
+            <div style={{ color: "red", marginBottom: "10px" }}>{formErrors["name"]}</div>
+          )}
           <div>
             <label htmlFor="name">Name </label>
             <br />
@@ -134,6 +164,9 @@ const Btn1 = {
               onChange={handlename}
             />
           </div>
+          {formErrors["email"] && (
+            <div style={{ color: "red", marginBottom: "10px" }}>{formErrors["email"]}</div>
+          )}
           <div>
             <label htmlFor="email">Email </label>
             <br />
@@ -144,9 +177,12 @@ const Btn1 = {
               onChange={handleemail}
             />
           </div>
+          {formErrors["selectedPlan"] && (
+            <div style={{ color: "red", marginBottom: "10px" }}>{formErrors["selectedPlan"]}</div>
+          )}
           <div className="radioBtn">
             <span>
-              {plans.map((plan, index) => (
+              {plans.map((plan) => (
                 <React.Fragment key={plan.plan_id}>
                   <input
                     type="radio"
@@ -155,21 +191,15 @@ const Btn1 = {
                     value={plan.title}
                     onChange={(e) => setSelectedPlan(e.target.value)}
                   />
-                  {/* {"                                                      "} */}
                   &nbsp;<label htmlFor={plan.plan_id}>{plan.title}</label>
-                  {/* <br/> */}
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
-                  {(index + 1) % 4 === 0 && <br />}
-                  {/* {"  "} */}
-                  {/* Add line break after every 4th radio button */}
+                  <br />
                 </React.Fragment>
               ))}
             </span>
           </div>
-            <button onClick={handleClickOpen} style={Btn}>
-              Submit
-            </button>
+          <button onClick={handleClickOpen} style={Btn}>
+            Submit
+          </button>
         </div>
       </div>
       <Dialog
@@ -204,9 +234,7 @@ const Btn1 = {
           <Typography style={{ paddingBottom: "20px" }}>
             Successfully Completed
           </Typography>
-          {/* <NavLink to="/standard"> */}
-            <button style={Btn1} onClick={handleClose}>Done</button>
-          {/* </NavLink> */}
+          <button style={Btn1} onClick={handleClose}>Done</button>
         </DialogContent>
       </Dialog>
     </AlertBoxStyle>

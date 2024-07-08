@@ -1,36 +1,33 @@
 import React, { useState } from "react";
-import { AlertBoxStyle } from "./style";
-// import BasicSelect from "./Dropdown";
 import { Typography } from "@mui/material";
-import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
-import { Container,Row,Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import {PATH} from '../../constants/routeConstants'
-import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
-// import getLocalStorage from '../../utils/helperFunc'
-import { NavLink } from "react-router-dom";
+import { PATH } from '../../constants/routeConstants';
+import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import axios from "axios";
 import { useContext } from "react";
 import { navContext } from "../../context/navContext";
+import { AlertBoxStyle } from "./style";
+
 function StAdd() {
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-   
     { label: "Standard", path: PATH.STANDARD },
-    {label:"Add Members",path:PATH.STADD}
+    { label: "Add Members", path: PATH.STADD }
   ];
-  const [open, setOpen] = React.useState(false);
-  const [name,setName]=useState('');
-  const[email,setEmail]=useState('');
-  const {Endpoint}=useContext(navContext);
-  const handleClickOpen = async() => {
-    setOpen(true);
-     try {
+  
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const { Endpoint } = useContext(navContext);
+
+  const handleClickOpen = async () => {
+    try {
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertStudentSt.php`,
         {
@@ -40,38 +37,39 @@ function StAdd() {
       );
 
       console.log("Success:", response.data);
-      setOpen(true);
-      setEmail("");
+      
+      // Clear input fields
       setName("");
+      setEmail("");
+
+      // Open dialog box
+      setOpen(true);
     } catch (error) {
       console.error("Error:", error);
       // Handle error here if needed
     }
-    
   };
 
-
-  
   const handleClose = () => {
     setOpen(false);
   };
-  const handlechange =(event)=>
-  {
-     setName(event.target.value)
-  }
+
+  const handlechange = (event) => {
+    setName(event.target.value);
+  };
+
   const handlechanged = (event) => {
     setEmail(event.target.value);
   };
 
-  
+  const Btn = {
+    border: "none",
+    height: "40px",
+    width: "80px",
+    backgroundColor: "#1b4242",
+    color: "white"
+  };
 
-  const Btn={
-    border:"none",
-    height:"40px",
-    width:"80px",
-    backgroundColor:"#1b4242",
-    color:"white"
-  }
   return (
     <AlertBoxStyle>
       <div style={{ padding: "25px" }}>
@@ -111,6 +109,7 @@ function StAdd() {
           </Col>
         </Row>
       </Container>
+      
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -143,9 +142,7 @@ function StAdd() {
           <Typography style={{ paddingBottom: "20px" }}>
             Successfully Completed
           </Typography>
-          {/* <NavLink to="/standard"> */}
-            <button style={Btn}  onClick={handleClose}>Done</button>
-          {/* </NavLink> */}
+          <button style={Btn} onClick={handleClose}>Done</button>
         </DialogContent>
       </Dialog>
     </AlertBoxStyle>
