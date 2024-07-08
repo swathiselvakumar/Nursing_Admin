@@ -39,6 +39,7 @@ export default function PremiumPlanDetails() {
       const handleChangecategory = (event) => {
         setCategory(event.target.value);
       };
+      
       const handleNextClick = async() => {
         const planDetails = { plan,category, price, durationname };
         console.log("Plan Details:", planDetails);
