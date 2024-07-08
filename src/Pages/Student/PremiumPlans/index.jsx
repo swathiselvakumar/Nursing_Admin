@@ -119,7 +119,7 @@ export default function PremiumPlans() {
                     <div style={{ padding: "5px" }}>
                       <Typography style={{ fontSize: "26px", paddingBottom: "10px", paddingTop:"20px" }}>${plan.amount}</Typography>
                       <Typography style={{ fontSize: "15px", paddingBottom: "10px"}}>{plan.duration} Months</Typography>
-                      <ul style={{ paddingBottom: "10px" }}>
+                      <ul style={{ paddingBottom: "10px",textAlign:"left" }}>
                         {plan.description.split(',').map((desc, idx) => (
                           <li key={idx}>{desc.trim()}</li>
                         ))}

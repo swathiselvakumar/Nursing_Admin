@@ -9,7 +9,9 @@ import { NavLink } from 'react-router-dom'
 import { navContext } from '../../../context/navContext'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 export default function UpdateDetails() {
+  const Navigate=useNavigate();
   const {planid}=useParams();
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
@@ -19,18 +21,25 @@ export default function UpdateDetails() {
 
       ];
       
-      // const [pricename, setPricename] = useState(1999);
-      const [category, setCategory] = useState();
+      const [categories, setCategories] = useState(['']);
       const { plan} = useContext(navContext);
       const { price} = useContext(navContext);
       const {durationname } = useContext(navContext);
       const {Endpoint}=useContext(navContext);
-  const handleChangecategory = (event) => {
-    setCategory(event.target.value);
-  };
+      const handleCategoryInputChange = (index, event) => {
+        const newCategories = [...categories];
+        newCategories[index] = event.target.value;
+        setCategories(newCategories);
+      };
+    
+      const handleAddCategory = () => {
+        setCategories([...categories, '']);
+      };
   const handleNextClick = async () => {
-    const planDetails = { category, price, durationname };
-    console.log("Plan Details:", planDetails);
+    const concatenatedCategories = categories.join(', '); // Join categories into a single string
+
+    const planDetails = { plan, category: concatenatedCategories, price, durationname };
+    console.log('Plan Details:', planDetails);
     try {
       const response = await axios.post(
         `${Endpoint}admin/put/A_updatePlans.php`,
@@ -38,11 +47,12 @@ export default function UpdateDetails() {
           id:planid,
           title: plan,
           amount: price,
-          description: category,
+          description: concatenatedCategories,
           duration:durationname
           // You can include additional data here as needed
         }
       );
+      Navigate('/premiumplans');
       console.log("New item added:", response.data);
       
     } catch (error) {
@@ -159,28 +169,43 @@ export default function UpdateDetails() {
             </div>
 
             <div style={MainText}>
-              
               <div
                 style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "380px",
+                  marginTop: '15px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '380px',
                 }}
               >
                 <div>
-                  <label>Category Access</label>
+                  <label>Add Category </label>
                 </div>
-                <div>
-                  <input
-                    type="type"
-                    placeholder="Add Category"
-                    style={TextB}
-                    value={category}
-                    onChange={handleChangecategory}
-                  />
-                </div>
+                <br />
+                <Typography onClick={handleAddCategory} style={{ cursor: 'pointer' }}>
+                  +Add
+                </Typography>
               </div>
+              {categories.map((cat, index) => (
+                <div
+                  key={index}
+                  style={{
+                    marginTop: '15px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '380px',
+                  }}
+                >
+                  <div style={{ marginLeft: '103px' }}>
+                    <input
+                      type="text"
+                      placeholder="Add Category"
+                      style={TextB}
+                      value={cat}
+                      onChange={(e) => handleCategoryInputChange(index, e)}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
             <div>
               <div
@@ -191,11 +216,11 @@ export default function UpdateDetails() {
                   width: "530px",
                 }}
               >
-                <NavLink to="/premiumplans">
+                {/* <NavLink to="/premiumplans"> */}
                   <button style={btn1} onClick={handleNextClick}>
                     SUBMIT
                   </button>
-                </NavLink>
+                {/* </NavLink> */}
               </div>
             </div>
             <div>
