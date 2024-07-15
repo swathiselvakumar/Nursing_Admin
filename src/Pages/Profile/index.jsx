@@ -173,117 +173,129 @@ export default function Profile({ onClose, studentid }) {
           </Button>
 
           <Row style={{ justifyContent: "space-evenly" }}>
-            {profileData.map((d) => (
-              <div key={d.id}>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ justifyContent: "space-evenly" }}>
-                  <Typography variant="h4" style={{ padding: 10 }}>
-                    <img src={Icon} height="65px" alt="Profile Icon" />&nbsp;&nbsp;{d.username}
-                  </Typography>
-                </Col>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw" }}>
-                  <div>
-                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                      Email ID
+            {Array.isArray(profileData) && profileData.length > 0 ? (
+              profileData.map((d) => (
+                <div key={d.id} style={{ width: "100%", marginBottom: 20 }}>
+                  <Col xs={12} style={{ textAlign: "center", marginBottom: 10 }}>
+                    <Typography variant="h4" style={{ padding: 10 }}>
+                      <img src={Icon} height="65px" alt="Profile Icon" />&nbsp;&nbsp;{d.username}
                     </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                      Phone Number
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                      Joining Date
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                      Score
-                    </Typography>
-                  </div>
-                </Col>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw" }}>
-                  <div>
-                    <Typography style={{ marginTop: 5 }}>
-                      {d.email}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{ textAlign: "center", marginRight: 150, marginTop: 5 }}>
-                      {d.mobileno}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{ marginRight: 140, marginTop: 5 }}>
-                      {d.date_of_enrollment}
-                    </Typography>
-                  </div>
-                  <div>
-                    {scoreData ? (
-                      <Typography style={{ marginRight: 20, marginTop: 5 }}>
-                        {scoreData.correct_count}
+                  </Col>
+                  <Col xs={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw", margin: "0 auto" }}>
+                    <div>
+                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                        Email ID
                       </Typography>
-                    ) : (
-                      <Typography>No data available</Typography>
-                    )}
-                  </div>
-                </Col>
-                <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
-                <Typography style={{ fontSize: "16px", fontWeight: 600, paddingLeft: 24, display: "flex" }}>
-                  Scores
-                </Typography>
-              </div>
-            ))}
+                    </div>
+                    <div>
+                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                        Phone Number
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                        Joining Date
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
+                        Score
+                      </Typography>
+                    </div>
+                  </Col>
+                  <Col xs={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw", margin: "0 auto" }}>
+                    <div>
+                      <Typography style={{ marginTop: 5 }}>
+                        {d.email}
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography style={{ textAlign: "center", marginRight: 150, marginTop: 5 }}>
+                        {d.mobileno}
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography style={{ marginRight: 140, marginTop: 5 }}>
+                        {d.date_of_enrollment}
+                      </Typography>
+                    </div>
+                    <div>
+                      {scoreData ? (
+                        <Typography style={{ marginRight: 20, marginTop: 5 }}>
+                          {scoreData.correct_count}
+                        </Typography>
+                      ) : (
+                        <Typography>No data available</Typography>
+                      )}
+                    </div>
+                  </Col>
+                  <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
+                  <Typography style={{ fontSize: "16px", fontWeight: 600, paddingLeft: 24, display: "flex" }}>
+                    Scores
+                  </Typography>
+                </div>
+              ))
+            ) : (
+              <Typography>No profile data available</Typography>
+            )}
           </Row>
         </Container>
         <Container fluid>
           <Row style={{ overflow: "hidden" }}>
             <div style={Div}>
-              {subjectData.map((e) => {
-                const percentage = ((e.correct_count / e.total_count) * 100).toFixed(2);
-                return (
-                  <Col key={e.id}>
-                    <div style={CardDesign}>
-                      <Typography style={{ paddingTop: "10px", fontWeight: 600 }}>
-                        {e.test_name}
-                      </Typography>
-                      <hr />
-                      <Typography style={{ fontSize: "12px" }}>
-                        {e.correct_count}/{e.total_count}
-                      </Typography>
-                      <div style={{ marginTop: "10px" }}>
-                        <CircleBar range={percentage} />
+              {Array.isArray(subjectData) && subjectData.length > 0 ? (
+                subjectData.map((e) => {
+                  const percentage = ((e.correct_count / e.total_count) * 100).toFixed(2);
+                  return (
+                    <Col key={e.id}>
+                      <div style={CardDesign}>
+                        <Typography style={{ paddingTop: "10px", fontWeight: 600 }}>
+                          {e.test_name}
+                        </Typography>
+                        <hr />
+                        <Typography style={{ fontSize: "12px" }}>
+                          {e.correct_count}/{e.total_count}
+                        </Typography>
+                        <div style={{ marginTop: "10px" }}>
+                          <CircleBar range={percentage} />
+                        </div>
                       </div>
-                    </div>
-                  </Col>
-                );
-              })}
+                    </Col>
+                  );
+                })
+              ) : (
+                <Typography>No subject data available</Typography>
+              )}
             </div>
           </Row>
         </Container>
         <Container fluid>
           <div style={Div1}>
-            {nonnursingData.map((r) => {
-              const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
-              return (
-                <Col xs={12} sm={12} md={4} lg={4} xl={4} style={{ flexDirection: "row" }} key={r.id}>
-                  <div style={CardDesign1}>
-                    <Typography style={{ fontWeight: 600 }}>
-                      {r.test_name}
-                    </Typography>
-                    <hr style={{ borderLeft: "1px solid black", height: "100px" }} />
-                    <div style={{ flexDirection: "column" }}>
-                      <Typography style={{ fontSize: "12px" }}>
-                        {r.correct_count}/{r.total_count}
+            {Array.isArray(nonnursingData) && nonnursingData.length > 0 ? (
+              nonnursingData.map((r) => {
+                const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
+                return (
+                  <Col xs={12} sm={12} md={4} lg={4} xl={4} style={{ marginBottom: '20px' }} key={r.id}>
+                    <div style={CardDesign1}>
+                      <Typography style={{ fontWeight: 600 }}>
+                        {r.test_name}
                       </Typography>
-                      <div style={{ marginTop: "10px" }}>
-                        <CircleBar range={percentage} />
+                      <hr style={{ borderLeft: "1px solid black", height: "100px", margin: '10px 0' }} />
+                      <div style={{ textAlign: 'center' }}>
+                        <Typography style={{ fontSize: '12px' }}>
+                          {r.correct_count}/{r.total_count}
+                        </Typography>
+                        <div style={{ marginTop: '10px' }}>
+                          <CircleBar range={percentage} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Col>
-              );
-            })}
+                  </Col>
+                );
+              })
+            ) : (
+              <Typography>No non-nursing data available</Typography>
+            )}
           </div>
         </Container>
       </div>
