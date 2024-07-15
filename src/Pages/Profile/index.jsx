@@ -65,7 +65,7 @@ export default function Profile({ onClose, studentid }) {
 
       setScoreData(response.data);
       console.log("Student ID:", studentid);
-      console.log("Score Data:",scoreData );
+      console.log("Score Data:", scoreData);
     } catch (error) {
       console.error("Error fetching score data:", error);
     }
