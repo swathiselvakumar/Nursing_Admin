@@ -31,7 +31,7 @@ export default function Standard() {
   const {Endpoint}=useContext(navContext);
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, update]);
+  }, [currentPage, update]); 
 
   const handleChange1 = (event, value) => {
     setCurrentPage(value);

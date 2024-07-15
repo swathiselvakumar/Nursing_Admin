@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { YEARMCQStyle } from "../YearMCQ/style";
 import { Button, Typography } from "@mui/material";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 export default function UpdateCourse() {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function UpdateCourse() {
   const [update, setUpdate] = useState({});
   const email = localStorage.getItem("userMail");
   const { sno } = useParams();
+  const { Endpoint } = useContext(navContext);
 
   useEffect(() => {
     updateView();
@@ -34,7 +36,7 @@ export default function UpdateCourse() {
   const updateView = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
+        `${Endpoint}admin/get/A_ViewCourseContent.php`,
         {
           adminId: email,
           id: sno,
@@ -54,7 +56,7 @@ export default function UpdateCourse() {
     setOpen(true);
     try {
       await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateCourse.php",
+        `${Endpoint}admin/put/A_updateCourse.php`,
         {
           adminId: email,
           name,

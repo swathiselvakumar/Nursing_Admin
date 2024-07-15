@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
@@ -8,16 +8,18 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import { Grid, Typography } from "@mui/material";
 import axios from "axios";
+import { navContext } from "../../context/navContext";
 
 export default function Card() {
   const [cards, setCards] = useState([]);
   const email = localStorage.getItem("userMail");
+  const { Endpoint } = useContext(navContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCount.php",
+          `${Endpoint}admin/get/A_ViewCount.php`,
           {
             adminId: email,
           }

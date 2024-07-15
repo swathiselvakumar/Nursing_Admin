@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { YEARMCQStyle } from "../YearMCQ/style";
 import { Button, Typography } from "@mui/material";
 import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
@@ -12,6 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { navContext } from "../../context/navContext";
 
 export default function ADDACHIEVEMENT() {
   const [achievementDescription, setAchievementDescription] = useState("");
@@ -19,6 +20,7 @@ export default function ADDACHIEVEMENT() {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const email=localStorage.getItem("userMail");
   const Navigate=useNavigate();
+  const { Endpoint } = useContext(navContext);
 
 
   const handleChange = (e) => {
@@ -38,7 +40,7 @@ export default function ADDACHIEVEMENT() {
 
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertAchievement.php",
+        `${Endpoint}admin/post/A_InsertAchievement.php`,
         {
           adminId:email,
           content: achievementDescription

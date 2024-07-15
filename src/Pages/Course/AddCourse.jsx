@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { YEARMCQStyle } from '../YearMCQ/style'
 import { Button, Typography } from '@mui/material'
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs'
@@ -12,12 +12,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from 'react-router-dom'
 import  axios  from 'axios'
+import { navContext } from '../../context/navContext'
 export default function AddCourse() {
     const [open, setOpen] = React.useState(false);
     const [name, setName] = useState();
     const [description, setDescription] = useState();
     const [about, setAbout] = useState();
-  
+  const { Endpoint } = useContext(navContext);
+
     const handlechangename = (event) => {
       setName(event.target.value);
     };
@@ -45,7 +47,7 @@ export default function AddCourse() {
 
     try {
          const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertCourse.php",
+        `${Endpoint}admin/post/A_InsertCourse.php`,
         {
           adminId: "nandinivebbox@gmail.com",
           name: name,

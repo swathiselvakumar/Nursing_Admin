@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,8 +10,10 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import DropDown from "./DropDown";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
+import { navContext } from "../../../context/navContext";
 
 export default function TestTable() {
+  const { Endpoint } = useContext(navContext);
 
   const [rows, setRows] = React.useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +34,7 @@ export default function TestTable() {
   const table = async (page) => {
     try {
       const response = await axios.post(
-        `https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStudentreport.php?page=${page}`,
+        `${Endpoint}admin/get/A_ViewStudentreport.php?page=${page}`,
          {
            adminId:email,
          }
@@ -68,7 +70,7 @@ export default function TestTable() {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/_Nursing_final/controllers/api/admin/get/A_StudentReportPagination.php`, {
+        `${Endpoint}admin/get/A_StudentReportPagination.php`, {
           adminId: email
         }
       );

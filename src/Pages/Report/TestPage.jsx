@@ -13,6 +13,7 @@ function TestPage() {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
   const [answer, setAnswer] = useState("");
+  const { Endpoint } = useContext(navContext);
 
   useEffect(() => {
     // Call the click function when the component mounts
@@ -22,7 +23,7 @@ function TestPage() {
   const click = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqQuestion.php",
+        `${Endpoint}admin/post/A_InsertPmcqQuestion.php`,
         {
           adminId:email,
           institutionId: "2",
@@ -58,7 +59,7 @@ function TestPage() {
 
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+        `${Endpoint}admin/get/A_ViewPmcqQuestions.php`,
         {
           adminId: email,
           institutionId: "2",

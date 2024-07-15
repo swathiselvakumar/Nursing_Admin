@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getLocalStorage } from '../../utils/helperFunc';
 import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
@@ -16,6 +16,7 @@ import  Axios  from 'axios';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { navContext } from '../../context/navContext';
 
 export default function Achievement() {
   const [courseData,setCourseData]=useState([]);
@@ -23,10 +24,12 @@ export default function Achievement() {
 
   const languageName = getLocalStorage("languageName");
   const Navigate = useNavigate();
+  const { Endpoint } = useContext(navContext);
+
   const getCourses = async () => {
     try {
       const res = await Axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewAchievement.php",
+        `${Endpoint}admin/get/A_ViewAchievement.php`,
         {
           adminId:email,
         }
@@ -51,7 +54,7 @@ export default function Achievement() {
     try {
       
       const res = await Axios.delete(
-        "https://vebbox.in/Nursing/controllers/api/admin/delete/A_deleteAchievements.php",
+        `${Endpoint}admin/delete/A_deleteAchievements.php`,
         {
           data: {
             achievementId: sno,
