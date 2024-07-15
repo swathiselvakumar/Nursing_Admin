@@ -12,7 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Typography, Button } from "@mui/material";
 import Rong from "../../assets/icons/rong.jpg";
 import { styled } from "@mui/material/styles";
@@ -24,33 +24,36 @@ import DialogActions from "@mui/material/DialogActions";
 import { navContext } from "../../context/navContext";
 
 
-export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
+export default function StdTb({ tableData, updateStudentId, setUpdate, update }) {
   const [open, setOpen] = useState(false);
-  const { index, setindex } = useState();
+  const [studentid, setstudentid] = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
-  const {Endpoint}=useContext(navContext);
-// console.log(tableData);
+  const { Endpoint } = useContext(navContext);
+
 
   const handleCloseDialog = () => {
     setOpen(false);
   };
-  const handleClickOpens = () => {
+  const handleClickOpens = (e, row) => {
     setModal(true);
+    setstudentid(row.email);
+
   };
   const handleClosed = () => {
     setModal(false);
   };
 
-  const handleClickOpen = (e,row,index) => {
+  const handleClickOpen = (e, row, index) => {
     e.stopPropagation();
     setOpen(true);
     updateStudentId(row.sno);
     setmodified(tableData[index]);
+    console.log(row.email);
   }
-  
+
 
   const style = {
     position: "absolute",
@@ -59,9 +62,8 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
     p: 4,
     width: "90%",
   };
- 
 
-  const handleCloseDialogBlk=()=>{
+  const handleCloseDialogBlk = () => {
     setTrue(!True)
     blocklist();
     setOpen(false);
@@ -82,7 +84,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   return (
     <>
       <TableStdStyle>
@@ -114,13 +116,13 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData?.map((row,index) => (
-                  
+                {tableData?.map((row, index) => (
+
                   <TableRow
                     className="tb-row"
                     key={row.sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    onClick={handleClickOpens}
+                    onClick={(e) => handleClickOpens(e, row)}
                   >
                     <TableCell component="th" scope="row">
                       {row.sno}
@@ -128,7 +130,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
                     <TableCell align="left">{row.sname}</TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
-                    <TableCell align="center" onClick={(e)=>handleClickOpen(e,row,index)}>
+                    <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
                       <img src={Block} height="20px" />
                     </TableCell>
                   </TableRow>
@@ -160,7 +162,7 @@ export default function StdTb({ tableData, updateStudentId,setUpdate,update }) {
         style={{ height: "10%" }}
       >
         <Box sx={style}>
-          <Profile onClose={handleClosed} />
+          <Profile onClose={handleClosed} studentid={studentid} />
         </Box>
       </Modal>
     </>

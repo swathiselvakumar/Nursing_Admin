@@ -119,7 +119,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
                     className="tb-row"
                     key={row.username} // Assuming 'username' can act as a unique key
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    // onClick={handleClickOpens}
+                    onClick={handleClickOpens}
                   >
                     <TableCell component="th" scope="row">
                       {index + 1}
