@@ -22,21 +22,21 @@ import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
 
 
-export default function PremiumTb({ tableData, updateStudentId,setUpdate,update }) {
+export default function PremiumTb({ tableData, updateStudentId, setUpdate, update }) {
   const [open, setOpen] = useState(false);
   const { index, setindex } = useState();
   const [modified, setmodified] = useState();
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
-  const {Endpoint}=useContext(navContext);
-  const [studentid,setstudentid]=useState();
-// console.log(tableData);
+  const { Endpoint } = useContext(navContext);
+  const [studentid, setstudentid] = useState();
+  // console.log(tableData);
 
   const handleCloseDialog = () => {
     setOpen(false);
   };
-  const handleClickOpens = (e,row) => {
+  const handleClickOpens = (e, row) => {
     setModal(true);
     setstudentid(row.email);
   };
@@ -44,13 +44,13 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
     setModal(false);
   };
 
-  const handleClickOpen = (e,row,index) => {
+  const handleClickOpen = (e, row, index) => {
     e.stopPropagation();
     setOpen(true);
     updateStudentId(row.sno);
     setmodified(tableData[index]);
   }
-  
+
 
   const style = {
     position: "absolute",
@@ -59,8 +59,8 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
     p: 4,
     width: "90%",
   };
- 
-  const handleCloseDialogBlk=()=>{
+
+  const handleCloseDialogBlk = () => {
     setTrue(!True)
     blocklist();
     setOpen(false);
@@ -81,7 +81,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
       console.error("Error fetching data:", error);
     }
   };
-  
+
   return (
     <>
       <TableStdStyle >
@@ -124,7 +124,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
                     className="tb-row"
                     key={row.username} // Assuming 'username' can act as a unique key
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    onClick={(e)=>handleClickOpens(e,row)}
+                    onClick={(e) => handleClickOpens(e, row)}
                   >
                     <TableCell component="th" scope="row">
                       {index + 1}
@@ -166,7 +166,7 @@ export default function PremiumTb({ tableData, updateStudentId,setUpdate,update 
         style={{ height: "10%" }}
       >
         <Box sx={style}>
-          <Profile onClose={handleClosed} studentid={studentid}/>
+          <Profile onClose={handleClosed} studentid={studentid} />
         </Box>
       </Modal>
     </>
