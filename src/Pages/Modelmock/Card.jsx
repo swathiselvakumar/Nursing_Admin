@@ -115,8 +115,9 @@ export default function ModelMockCard() {
     <div>
       <Container fluid>
         <Row style={{ marginTop: "20px", justifyContent: "center" }}>
-          {data.length === 0 ? (
+          {data.map((d, index) => (
             <Col
+              key={index}
               xs={12}
               sm={12}
               md={6}
@@ -128,52 +129,46 @@ export default function ModelMockCard() {
                 marginBottom: "20px",
               }}
             >
-              <div className="Div" onClick={handleClickOpen}>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={Plus} height="70px" alt="Add Institution" />
-                </div>
-                <div style={{ paddingTop: "10px", textAlign: "center" }}>
-                  <Typography style={{ fontWeight: 600 }}>Add Institution</Typography>
-                </div>
+              <div className="Div">
+                <button
+                  onClick={() => CardDelete(d.sno)}
+                  className="del"
+                  style={{ border: "none", backgroundColor: "white" }}
+                >
+                  <DeleteIcon />
+                </button>
+                <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img src={d.img} height="70px" alt="model" />
+                  </div>
+                  <div style={{ paddingTop: "10px", textAlign: "center" }}>
+                    <Typography style={{ fontWeight: 600 }}>{d.name}</Typography>
+                  </div>
+                </NavLink>
               </div>
             </Col>
-          ) : (
-            data.map((d, index) => (
-              <Col
-                key={index}
-                xs={12}
-                sm={12}
-                md={6}
-                lg={3}
-                xl={3}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                }}
-              >
-                <div className="Div">
-                  <button
-                    onClick={() => CardDelete(d.sno)}
-                    className="del"
-                    style={{ border: "none", backgroundColor: "white" }}
-                  >
-                    <DeleteIcon />
-                  </button>
-                  <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <img src={d.img} height="70px" alt="model" />
-                    </div>
-                    <div style={{ paddingTop: "10px", textAlign: "center" }}>
-                      <Typography style={{ fontWeight: 600 }}>
-                        {d.name}
-                      </Typography>
-                    </div>
-                  </NavLink>
-                </div>
-              </Col>
-            ))
-          )}
+          ))}
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={3}
+            xl={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <div className="Div" onClick={handleClickOpen}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img src={Plus} height="70px" alt="Add Institution" />
+              </div>
+              <div style={{ paddingTop: "10px", textAlign: "center" }}>
+                <Typography style={{ fontWeight: 600 }}>Add Institution</Typography>
+              </div>
+            </div>
+          </Col>
         </Row>
       </Container>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
