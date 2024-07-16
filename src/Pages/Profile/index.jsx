@@ -34,7 +34,7 @@ export default function Profile({ onClose, studentid }) {
   const subject = async () => {
     try {
       const response = await axios.post(
-        `${Endpoint}User/get/U_ScoreProfile_SW.php`,
+       ` ${Endpoint}User/get/U_ScoreProfile_SW.php`,
         { userId: studentid }
       );
       setSubjectData(response.data);

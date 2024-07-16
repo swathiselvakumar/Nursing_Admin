@@ -1,61 +1,59 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, IconButton, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import React, { useEffect, useState, useContext } from 'react';
 import { PremiumPlansStyle } from './style';
 import { styled } from '@mui/material/styles';
 import { Container, Row, Col } from 'react-bootstrap';
 import UpdateIcon from '@mui/icons-material/Update';
-import { NavLink } from 'react-router-dom';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Crown from '../../../assets/images/Crown.png';
 import Plus from '../../../assets/icons/plus b.png';
-import { PATH } from '../../../constants/routeConstants';
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { PATH } from '../../../constants/routeConstants';
 import axios from 'axios';
 import { navContext } from '../../../context/navContext';
-import Rong from '../../../assets/icons/rong.jpg'
+import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export default function PremiumPlans() {
-  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
-      width: "400px"
-    },
-    '& .MuiDialogActions-root': {
-      padding: theme.spacing(2),
-    },
-  }));
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
   const [open, setOpen] = useState(false);
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedPlan, setSelectedPlan] = useState(null); // Track the selected plan for view
-
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
 
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        const response = await axios.post(
-          `${Endpoint}admin/get/A_ViewPlans.php`,
-          {
-            adminId: email
-          }
-        );
-        setPlans(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+  const handleDelete = async (planId) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/delete/A_deletePlans.php`,
+        { planId: planId }
+      );
+      // Assuming you may want to refetch plans after deletion
+      fetchPlans(); // Refetch plans after deletion
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
 
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewPlans.php`,
+        { adminId: email }
+      );
+      setPlans(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchPlans();
-  }, []);
+  }, [Endpoint, email]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -73,45 +71,14 @@ export default function PremiumPlans() {
     setOpen(false);
   };
 
-  const handleViewPlan = (plan) => {
-    setSelectedPlan(plan);
-  };
-
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Premium Plans", path: PATH.PREMIUMPLANS },
   ];
 
-  const UpdateBtn = {
-    backgroundColor: "#e4a45a",
-    width: "130px",
-    textTransform: "capitalize",
-    boxShadow: "rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
-  };
-
-  const DeleteBtn = {
-    width: "130px",
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    backgroundColor: "white",
-    color: "black",
-    boxShadow: "rgba(0, 0, 0.15, 0.15) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 3px -3px"
-  };
-
-  const Btn = {
-    backgroundColor: "white",
-    color: "black",
-    border: "1px solid black",
-    width: "100px",
-    marginTop: "20px"
-  };
-
-  const Btn1 = {
-    backgroundColor: "red",
-    color: "white",
-    marginLeft: "10px",
-    width: "100px",
-    marginTop: "20px"
+  const Update = (planId) => {
+    // Navigate to '/updateplan/:planId'
+    navigate(`/updateplan/${planId}`);
   };
 
   return (
@@ -120,61 +87,51 @@ export default function PremiumPlans() {
         <div style={{ padding: "20px" }}>
           <CustomBreadCrumbs items={BreadcrumbItems} />
         </div>
-        <div >
-          <Container fluid >
+        <div>
+          <Container fluid>
             <Row>
               <Col xs={12} sm={12} md={5} lg={6} xl={6} className='MainCol1'>
                 <div className='title'>
-                  <Typography sx={{ fontWeight: 600, fontSize: "18px" }}>Premium Plans &nbsp;<img src={Crown} height="20px" /></Typography>
+                  <Typography sx={{ fontWeight: 600, fontSize: "18px" }}>Premium Plans &nbsp;<img src={Crown} height="20px" alt="Crown" /></Typography>
                 </div>
               </Col>
             </Row>
           </Container>
         </div>
-        <div style={{ padding: "20px", }}>
+        <div style={{ padding: "20px" }}>
           <Container className='mainContainer'>
             <Row style={{ display: "flex", justifyContent: "space-around" }}>
               {plans.map((plan, index) => (
-                <Col key={index} xs={12} sm={12} md={6} lg={3} xl={3}>
-                <div className="item" style={{ width: "260px" }}>
-                <div className='updateBtn' style={{width:"250px"}}>
-                {/* <NavLink to={`/updateplan`}>
-                      <UpdateIcon style={{display:"flex",justifyContent:"end"}}/>
-                    </NavLink> */}
-                </div>
-                  <div className="innerContent">
-                    <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
+                <Col key={plan.id} xs={12} sm={12} md={6} lg={3} xl={3}>
+                  <div className="item" style={{ width: "230px" }}>
+                    <div className="icons">
+                      <IconButton aria-label="edit" size="small">
+                        <UpdateIcon onClick={() => Update(plan.id)} />
+                      </IconButton>
+                      <IconButton aria-label="delete" size="small">
+                        <DeleteOutlineIcon onClick={() => handleDelete(plan.id)} />
+                      </IconButton>
+                    </div>
+                    <div className="innerContent">
+                      <Typography style={{ fontWeight: "bold" }}>{plan.title}</Typography>
+                    </div>
+                    
+                    <div style={{ padding: "5px" }}>
+                      <Typography style={{ fontSize: "26px", paddingBottom: "10px", paddingTop:"20px" }}>${plan.amount}</Typography>
+                      <Typography style={{ fontSize: "15px", paddingBottom: "10px"}}>{plan.duration} Months</Typography>
+                      <ul style={{ paddingBottom: "10px",textAlign:"left" }}>
+                        {plan.description.split(',').map((desc, idx) => (
+                          <li key={idx}>{desc.trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                   
                   </div>
-                  <div style={{ paddingTop: "30px" }}>
-                    <Typography style={{ fontSize: "26px", paddingBottom: "10px" }}>${plan.amount}</Typography>
-                  </div>
-                  {/* View button now triggers handleViewPlan with the current plan */}
-                  <Button onClick={() => handleViewPlan(plan)} style={{marginBottom:"10px"}}>View</Button>
-                  {/* Conditional rendering of plan details */}
-                  {selectedPlan === plan && (
-  <Typography style={{ fontSize: "20px" }}>
-  <ul style={{ listStyleType: "none" }}>
-    {plan.description.split(',').map((word, index) => (
-      word.trim() && (
-        <li key={index} style={{ display: 'flex',  lineHeight: '1.5' }}>
-          <span style={{ marginRight: '5px', color: 'green' }}>&#10003;</span>
-          {word.trim()}
-        </li>
-      )
-    ))}
-  </ul>
-  <Button>Buy Now</Button>
-</Typography>
-)}
-
-                </div>
-              </Col>
-              
-              
+                </Col>
               ))}
               <Col xs={12} sm={12} md={6} lg={3} xl={3}>
                 <NavLink to="/addpremiumplan">
-                  <div className='Div' style={{height:"150px"}}>
+                  <div className='Div'>
                     <div>
                       <img src={Plus} height="70px" alt="Add icon" />
                     </div>
@@ -188,36 +145,28 @@ export default function PremiumPlans() {
           </Container>
         </div>
       </div>
-     
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
 
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent sx={{ textAlign: "center" }}>
-          <img src={Rong} height="25px" style={{ marginTop: "-30px" }} /><br />
-          Are You sure ?<br />
-          you want to delete this Plan?<br />
-          <Button onClick={handleClose} style={Btn}>Cancel</Button>
-          <Button onClick={handleClose} style={Btn1}>Delete</Button>
-        </DialogContent>
-
-      </BootstrapDialog>
+      <style jsx>{`
+        .item {
+          position: relative;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          transition: box-shadow 0.3s ease;
+        }
+        .item:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .icons {
+          position: absolute;
+          display: none;
+          width: 100%;
+          justify-content: space-between;
+        }
+        .item:hover .icons {
+          display: flex;
+        }
+      `}</style>
     </PremiumPlansStyle>
-  )
+  );
 }
