@@ -211,7 +211,7 @@ export default function AddMCQ() {
             <div style={{width:"120%",display:"flex",justifyContent:"center"}}>
               <div
                 style={{
-                  marginTop: "30px",
+                  marginTop: "10px",
                   display: "flex",
                   justifyContent: "center",
                   width: "530px",

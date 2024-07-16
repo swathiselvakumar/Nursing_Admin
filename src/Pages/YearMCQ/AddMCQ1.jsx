@@ -287,11 +287,12 @@ export default function AddMCQ1() {
           </IconButton>
           <DialogContent
             dividers
-            style={{ display: "flex", justifyContent: "space-between" }}
+            // style={{ display: "flex", justifyContent: "center" }}
             onClick={handleClose}
           >
+            <Typography >Institution Created Successfully</Typography>
            <NavLink to="/yearmcq">
-           <button className="Submit1">ok</button>
+           <button className="Submit1">submit</button>
            </NavLink>
           </DialogContent>
         </Dialog>

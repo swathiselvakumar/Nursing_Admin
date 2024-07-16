@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StandardStyle } from "./style";
 import { Container, Row, Col } from "react-bootstrap";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -28,7 +28,8 @@ export default function Standard() {
   const [stdId, setStdId] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [update, setUpdate] = useState(false);
-  const {Endpoint}=useContext(navContext);
+  const { Endpoint } = useContext(navContext);
+
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage, update]);
@@ -50,13 +51,18 @@ export default function Standard() {
   }
 
   const handleChange = async (event) => {
-    setSearch(event.target.value);
+    const value = event.target.value;
+    setSearch(value);
+    if (value === "") {
+      fetchData(currentPage);
+      return;
+    }
     try {
       const response = await axios.post(
-      `${Endpoint}admin/get/A_filterSearchStd.php`,
+        `${Endpoint}admin/get/A_filterSearchStd.php`,
         {
           adminId: email,
-          searchData: event.target.value,
+          searchData: value,
           accountType: "standard",
           status: "1"
         }
@@ -83,12 +89,12 @@ export default function Standard() {
       setLoaded(true);
       const itemsPerPageFirstPage = 50;
       const itemsPerPageOtherPages = 10;
-      
-      let sno; 
+
+      let sno;
       if (currentPage === 1) {
-          sno = 1;
+        sno = 1;
       } else {
-          sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
+        sno = itemsPerPageFirstPage + (currentPage - 2) * itemsPerPageOtherPages + 1;
       }
 
       const newData = response.data.map((item, i) =>
@@ -111,7 +117,6 @@ export default function Standard() {
 
       setLoaded(true);
 
-      // const { totalPages } = response.data;
       setTotalPages(response.data || []);
       console.log(totalPages);
     } catch (error) {
@@ -196,7 +201,6 @@ export default function Standard() {
             </div>
           </div> : <p>Loading</p>
       }
-
     </StandardStyle>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Typography } from "@mui/material";
 import { Container, Row, Col } from "react-bootstrap";
 import Dialog from '@mui/material/Dialog';
@@ -10,7 +10,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import axios from "axios";
-import { useContext } from "react";
 import { navContext } from "../../context/navContext";
 import { AlertBoxStyle } from "./style";
 
@@ -20,13 +19,41 @@ function StAdd() {
     { label: "Standard", path: PATH.STANDARD },
     { label: "Add Members", path: PATH.STADD }
   ];
-  
+
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const { Endpoint } = useContext(navContext);
 
+  const validateInputs = () => {
+    let isValid = true;
+    if (!name.trim()) {
+      setNameError('Name is required');
+      isValid = false;
+    } else {
+      setNameError('');
+    }
+
+    if (!email.trim()) {
+      setEmailError('Email is required');
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError('Email is invalid');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    return isValid;
+  };
+
   const handleClickOpen = async () => {
+    if (!validateInputs()) {
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertStudentSt.php`,
@@ -37,7 +64,7 @@ function StAdd() {
       );
 
       console.log("Success:", response.data);
-      
+
       // Clear input fields
       setName("");
       setEmail("");
@@ -54,11 +81,11 @@ function StAdd() {
     setOpen(false);
   };
 
-  const handlechange = (event) => {
+  const handleChangeName = (event) => {
     setName(event.target.value);
   };
 
-  const handlechanged = (event) => {
+  const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
 
@@ -89,8 +116,9 @@ function StAdd() {
                     type="text"
                     className="textB"
                     value={name}
-                    onChange={handlechange}
+                    onChange={handleChangeName}
                   />
+                  {nameError && <Typography style={{ color: 'red' }}>{nameError}</Typography>}
                 </div>
                 <div>
                   <label htmlFor="email">Email </label>
@@ -99,8 +127,9 @@ function StAdd() {
                     type="email"
                     className="textB"
                     value={email}
-                    onChange={handlechanged}
+                    onChange={handleChangeEmail}
                   />
+                  {emailError && <Typography style={{ color: 'red' }}>{emailError}</Typography>}
                 </div>
 
                 <button onClick={handleClickOpen}>Submit</button>
@@ -109,7 +138,7 @@ function StAdd() {
           </Col>
         </Row>
       </Container>
-      
+
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

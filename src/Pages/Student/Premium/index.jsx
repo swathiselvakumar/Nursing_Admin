@@ -53,13 +53,19 @@ export default function Standard() {
   }
 
   const handleChange = async (event) => {
-    setSearch(event.target.value);
+    const value = event.target.value;
+    setSearch(value);
+    if (value === "") {
+      fetchData(currentPage);
+      return;
+    }
+    // setSearch(event.target.value);
     try {
       const response = await axios.post(
       `${Endpoint}admin/get/A_filterSearchStd.php`,
         {
           adminId: email,
-          searchData: event.target.value,
+          searchData:value,
           accountType: "premium",
           status: "1"
         }

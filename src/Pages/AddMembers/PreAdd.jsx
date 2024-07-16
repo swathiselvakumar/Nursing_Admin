@@ -180,8 +180,8 @@ function PreAdd() {
           {formErrors["selectedPlan"] && (
             <div style={{ color: "red", marginBottom: "10px" }}>{formErrors["selectedPlan"]}</div>
           )}
-          <div className="radioBtn">
-            <span>
+          <div className="radioBtn" >
+            <span style={{display:"flex",justifyContent:"space-evenly",width:"300px"}}>
               {plans.map((plan) => (
                 <React.Fragment key={plan.plan_id}>
                   <input
@@ -191,7 +191,7 @@ function PreAdd() {
                     value={plan.title}
                     onChange={(e) => setSelectedPlan(e.target.value)}
                   />
-                  &nbsp;<label htmlFor={plan.plan_id}>{plan.title}</label>
+                  <label htmlFor={plan.plan_id}>{plan.title}</label>
                   <br />
                 </React.Fragment>
               ))}

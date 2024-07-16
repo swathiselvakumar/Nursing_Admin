@@ -11,7 +11,7 @@ import RestorePageIcon from "@mui/icons-material/RestorePage";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
-import * as XLSX from "xlsx"
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -29,57 +29,35 @@ function Notification() {
   const [description, setDescription] = useState("");
   const [attachment, setAttachment] = useState(null);
   const {Endpoint}=useContext(navContext);
-  const {file,setFile} = useContext(navContext);
   const email = localStorage.getItem("userMail");
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            try {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  const handleFileChange = (event) => {
+    setAttachment(event.target.files[0]);
+  };
 
-                // Convert worksheet to JSON
-                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-                // Extracting the notification content from the corresponding column
-                const contents = jsonData.slice(1).map((row) => ({
-                    sno: row[0],
-                    notification: row[1],
-                }));
-
-                // Log the contents to verify
-                console.log('Contents to send:', contents);
-
-                // Send only the contents data to the backend
-                const response = await axios.post(
-                    `${Endpoint}admin/post/A_InsertDailyNotification.php`,
-                    contents
-                );
-                console.log('Response:', response.data);
-            } catch (error) {
-                console.error('Error processing file:', error);
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    } else {
-        console.warn('No file uploaded.');
-    }
-};
-
-  
   const handleSend = async () => {
     try {
+      // const formData = new FormData();
+      // formData.append("title", headline);
+      // formData.append("description", description);
+      // // formData.append("attachment", attachment);
+
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //     admin_id:email
+      //   },
+      // };
+
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertNotification.php`,
-        {
-          admin_id: email,
-          title: headline,
-          content: description,
-        }
+          {
+            admin_id:email,
+            title:headline,
+            content:description
+          }
+
       );
+
       console.log("Response:", response.data);
       // Optionally, reset form fields after successful submission
       setHeadline("");
@@ -89,8 +67,7 @@ function Notification() {
       console.error("Error sending notification:", error);
     }
   };
-  
-  
+
   const BreadcrumbItems = [
     { label: "Settings", path: PATH.SETTINGS },
     { label: "Notification", path: PATH.NOTIFICATION },
@@ -212,81 +189,12 @@ function Notification() {
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
-                <div >
-                </div>
+                
                 <div className="btnbox">
-                  <button className="submit-btn" onClick={handleSend} style={{marginBottom:"20px"}}>
+                  <button className="submit-btn" onClick={handleSend}>
                     Send&nbsp;&nbsp;
                     <SendIcon style={{ fontSize: "20px" }} />
                   </button>
-                </div>
-                <div style={{display:"flex",justifyContent:"space-around",marginBottom:"30px"}}>
-                <div >
-                  <label htmlFor="description" className="pass-lab" >
-                    Daily Notification :{" "}
-                  </label>
-                  <br/>
-                  <input
-                      type="file"
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                      accept=".xlsx,.xls"
-                  />
-                  <label htmlFor="file">
-                    <Button
-                      component="label"
-                      role={undefined}
-                      variant="contained"
-                      tabIndex={-1}
-                      startIcon={<CloudUploadIcon />}
-                      style={{
-                        height: "50px",
-                        width: "340px",
-                        marginTop: "5px",
-                        backgroundColor: "white",
-                        color: "black",
-                        border: "1px dashed black",
-                        boxShadow: "none",
-                      }}
-                    >
-                      Upload file
-                      <VisuallyHiddenInput type="file"  onChange={handleFileChange} />
-                    </Button>
-                  </label>
-                </div>
-                <div >
-                  <label htmlFor="description" className="pass-lab" >
-                    Subject Wise Notification :{" "}
-                  </label>
-                  <br/>
-                  <input
-                      type="file"
-                      style={{ display: "none" }}
-                      // onChange={handleFileChange}
-                      accept=".xlsx,.xls"
-                  />
-                  <label htmlFor="file">
-                    <Button
-                      component="label"
-                      role={undefined}
-                      variant="contained"
-                      tabIndex={-1}
-                      startIcon={<CloudUploadIcon />}
-                      style={{
-                        height: "50px",
-                        width: "340px",
-                        marginTop: "5px",
-                        backgroundColor: "white",
-                        color: "black",
-                        border: "1px dashed black",
-                        boxShadow: "none",
-                      }}
-                    >
-                      Upload file
-                      <VisuallyHiddenInput type="file"   />
-                    </Button>
-                  </label>
-                </div>
                 </div>
               </div>
             </div>
@@ -298,3 +206,4 @@ function Notification() {
 }
 
 export default Notification;
+
