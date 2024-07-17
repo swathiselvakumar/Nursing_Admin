@@ -96,6 +96,7 @@ function PreAdd() {
   const handleClickOpen = async () => {
     if (validateForm()) {
       setOpen(true);
+      // console.log("..............",selectedPlan);
       try {
         const userData = {
           username: name,
@@ -183,15 +184,15 @@ function PreAdd() {
           <div className="radioBtn" >
             <span style={{display:"flex",justifyContent:"space-evenly",width:"300px"}}>
               {plans.map((plan) => (
-                <React.Fragment key={plan.plan_id}>
+                <React.Fragment key={plan.id}>
                   <input
                     type="radio"
-                    id={plan.plan_id}
+                    id={plan.id}
                     name="plans"
-                    value={plan.title}
-                    onChange={(e) => setSelectedPlan(e.target.value)}
+                    value={plan.id}
+                    onChange={handlePlanChange}
                   />
-                  <label htmlFor={plan.plan_id}>{plan.title}</label>
+                  <label htmlFor={plan.id}>{plan.title}</label>
                   <br />
                 </React.Fragment>
               ))}

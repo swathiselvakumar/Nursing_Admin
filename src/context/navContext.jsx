@@ -28,7 +28,7 @@ function NavContextProvider({ children }) {
  const [file, setFile] = useState(null);
 
 
-  //  const [durationname, setDurationname] = useState();
+   const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
   //  const [quetionpaperhistory, setQuestionpaperhistory] = useState([
   //    {
@@ -85,7 +85,8 @@ function NavContextProvider({ children }) {
         mcqid,
         setMcqid,
         file,
-        setFile
+        setFile,
+        durationname, setDurationname
       }}
     >
       {children}

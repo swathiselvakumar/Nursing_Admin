@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
-
+import { useContext } from "react";
+import { navContext } from "../../../context/navContext";
 
 function TableNav() {
   const email=localStorage.getItem("userMail");
   const [row,setRows]=useState([]);
+  const {Endpoint}=useContext(navContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewStdCount.php",
+          `${Endpoint}admin/get/A_ViewStdCount.php`,
           {
             adminId:email,
           }

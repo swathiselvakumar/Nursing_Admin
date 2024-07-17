@@ -36,6 +36,11 @@ export default function UpdateDetails() {
         setCategories([...categories, '']);
       };
   const handleNextClick = async () => {
+    const isValid = categories.every(cat => cat.trim() !== ''); // Ensure none of the categories are empty
+    if (!isValid) {
+      alert('Please fill all category fields.');
+      return;
+    }
     const concatenatedCategories = categories.join(', '); // Join categories into a single string
 
     const planDetails = { plan, category: concatenatedCategories, price, durationname };

@@ -27,7 +27,7 @@ export const PATH = {
   NONINSTITUTION: "/noninstitution/:sno",
   MODELINSTITUTION: "/modelinstitution/:sno",
   COURSE: "/course",
-  UPDATEPLAN: "/updateplan/:sno",
+  UPDATEPLAN: "/updateplan/:planid",
   UPDATEDETAILS: "/updatedetails/:planid",
   ADDPREMIUMPLAN: "/addpremiumplan",
   PREMIUMPLANDETAILS: "/premiumplandetails",

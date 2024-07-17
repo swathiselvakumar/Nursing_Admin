@@ -7,7 +7,7 @@ import { navContext } from "../../context/navContext";
 import axios from "axios";
 
 function TestPage() {
-  const { year, setYear, month, setMonth } = useContext(navContext);
+  const { year, setYear, month, setMonth,Endpoint } = useContext(navContext);
   const email=localStorage.getItem("userMail");
 
   const [question, setQuestion] = useState("");
@@ -22,7 +22,7 @@ function TestPage() {
   const click = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/post/A_InsertPmcqQuestion.php",
+        `${Endpoint}admin/post/A_InsertPmcqQuestion.php`,
         {
           adminId:email,
           institutionId: "2",
