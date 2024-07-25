@@ -104,7 +104,7 @@ export default function NonNursingCard() {
       );
       const data = res.data;
       const newData = data.map((item) => ({
-        img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
+        img: `https://vebbox.in/Nursing_Check/controllers/api/admin/upload/${item.img}`,
         name: item.category_name,
         path: `/noninstitution/${item.sno}`,
         sno: item.sno,

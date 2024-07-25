@@ -125,7 +125,7 @@ const {Endpoint}=useContext(navContext);
                 padding: "20px",
                 borderRadius: "15px",
                 overflow: "auto",
-                // height: "665px",
+                height: "500px",
               }}
             >
               {Array.isArray(questionsNo) && questionsNo.length > 0 ? (

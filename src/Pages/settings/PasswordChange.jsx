@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { SettingStyle } from "./Style";
 import { navContext } from "../../context/navContext";
+import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 function PasswordChange() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -103,66 +104,58 @@ const email=localStorage.getItem("userMail");
           </div>
         </div>
       </div>
-      <div className="wrap">
-        <div className="full-wrap">
+      <Container fluid className="wrap">
+      <Row className="full-wrap">
+        <Col md={12}>
           <div className="inside-wrapper">
-            <div style={{ padding: "20px" }}>
+            <div className="mb-4" style={{ padding: "20px" }}>
               <CustomBreadCrumbs items={BreadcrumbItems} />
             </div>
-            <div className="profile-card">
-              <div className="profile">
-                <img src={myImage} alt="Profile" />
-                <h5 className="email">{email}</h5>
-              </div>
-              <div className="form">
-                <div>
-                  <label htmlFor="oldPassword" className="pass-lab">
-                    Old Password:
-                  </label>
-                  <br />
-                  <input
-                    type="password"
-                    id="oldPassword"
-                    name="oldPassword"
-                    className="Old-Password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
+            <Row className="profile-card">
+              <Col md={4} className="d-flex justify-content-center align-items-center">
+                <div className="profile text-center">
+                  <Image src={myImage} alt="Profile" roundedCircle fluid />
+                  <h5 className="email mt-3">{email}</h5>
                 </div>
-                <div style={{ marginTop: "20px" }}>
-                  <label htmlFor="newPassword" className="pass-lab">
-                    New Password:
-                  </label>
-                  <br />
-                  <input
-                    type="password"
-                    id="newPassword"
-                    name="newPassword"
-                    className="Old-Password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 300,
-                      paddingTop: "10px",
-                    }}
-                  >
-                    Minimum 6 characters
-                  </p>
-                </div>
-                <button className="submit-btn" onClick={handlePasswordChange}>
-                  Change
-                </button>
-                {error && (
-                  <p style={{ color: "red", marginTop: "10px" }}>{error}</p>
-                )}
-              </div>
-            </div>
+              </Col>
+              <Col md={8} style={{display:"flex",justifyContent:"center"}}>
+                <Form className="form">
+                  <Form.Group controlId="oldPassword">
+                    <Form.Label>Old Password:</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="oldPassword"
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                      placeholder="Enter your old password"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="newPassword" className="mt-3">
+                    <Form.Label>New Password:</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="newPassword"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Enter your new password"
+                    />
+                    <Form.Text className="text-muted">
+                      Minimum 6 characters
+                    </Form.Text>
+                  </Form.Group>
+                  <Button className="submit-btn mt-4" onClick={handlePasswordChange} variant="primary">
+                    Change
+                  </Button>
+                  {error && (
+                    <p style={{ color: "red", marginTop: "10px" }}>{error}</p>
+                  )}
+                </Form>
+              </Col>
+            </Row>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
+    </Container>
     </SettingStyle>
   );
 }

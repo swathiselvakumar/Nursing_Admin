@@ -33,7 +33,7 @@ export const PATH = {
   PREMIUMPLANDETAILS: "/premiumplandetails",
   PASSWORDCHANGE: "/passwordchange",
   NOTIFICATION: "/notification",
-  VIEWCOURSE: "/viewcourse",
+  VIEWCOURSE: "/viewcourse/:sno",
   ADDCOURSE: "/addcourse",
   DAILYINSTITUTION: "/dailyinstitution",
   ADDQUESTION: "/addquestion",

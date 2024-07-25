@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import BreadcrumbsComp from '../../components/Common/BreadCrumbs';
 import { Container, Row, Col } from 'react-bootstrap';
 import institution from '../../assets/images/vadakk.png';
@@ -9,25 +9,27 @@ import { PATH } from '../../constants/routeConstants';
 import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import Medical from '../../assets/icons/medical.png';
 import Axios from 'axios';
-
+import { navContext } from '../../context/navContext';
+import { useParams } from 'react-router-dom';
 export default function ViewCourse() {
   const [courseData, setCourseData] = useState(null);
+  const { sno } = useParams();
 const email=localStorage.getItem("userMail");
-
+const { Endpoint } = useContext(navContext);
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "Course", path: PATH.COURSE },
     { label: "View Course", path: PATH.VIEWCOURSE },
   ];
-   const id = 1;
+   
 
   const ViewCourse = async () => {
     try {
       const res = await Axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
+        `${Endpoint}admin/get/A_ViewCourseContent.php`,
         {
           adminId:email,
-          id: id,
+          id: sno,
         }
       );
       const obj = res.data.map((item) => ({

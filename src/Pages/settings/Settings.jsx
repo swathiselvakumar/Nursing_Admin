@@ -6,7 +6,7 @@ import { PATH } from "../../constants/routeConstants";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
-
+import {Container,Row,Col, Form,Button, Image} from 'react-bootstrap'
 function Settings() {
   const [mobileNo, setMobileNo] = useState("");
   const [address, setAddress] = useState("");
@@ -123,59 +123,57 @@ function Settings() {
           </div>
         </div>
 
-        <div className="wrap">
-          <div className="full-wrap">
-            <div className="inside-wrapper">
-              <div style={{ padding: "20px" }}>
-                <CustomBreadCrumbs items={BreadcrumbItems} />
-              </div>
-              <div className="profile-card">
-                <div className="profile">
-                  <img src={myImage} alt="Profile" />
-                  <h5 className="email">{email}</h5>
+        <Container fluid className="wrap">
+      <Row className="full-wrap">
+        <Col md={12}>
+          <div className="inside-wrapper">
+            <div className="mb-4 ms-3 mt-3">
+              <CustomBreadCrumbs items={BreadcrumbItems} />
+            </div>
+            <Row className="profile-card">
+              <Col md={4} className="d-flex justify-content-center align-items-center">
+                <div className="profile text-center">
+                  <Image src={myImage} alt="Profile" roundedCircle fluid />
+                  <h5 className="email mt-3">{email}</h5>
                   <NavLink to="/passwordchange">
                     <p style={{ color: "#e4a45a", textDecoration: "none" }}>
                       Password Change
                     </p>
                   </NavLink>
                 </div>
-                <div className="form">
-                  <div>
-                    <label htmlFor="mobileNo" className="pass-lab">
-                      Mobile No :
-                    </label>
-                    <br />
-                    <br />
-                    <input
+              </Col>
+              <Col md={8} style={{display:"flex",justifyContent:"center"}}>
+                <Form className="form">
+                  <Form.Group controlId="mobileNo">
+                    <Form.Label>Mobile No :</Form.Label>
+                    <Form.Control
                       type="text"
-                      id="mobileNo"
                       name="mobileNo"
-                      className="Old-Password"
                       value={mobileNo}
                       onChange={handleMobileNoChange}
+                      placeholder="Enter your mobile number"
                     />
-                  </div>
-                  <div style={{ marginTop: "20px" }}>
-                    <label htmlFor="address" className="pass-lab">
-                      Address :{" "}
-                    </label>
-                    <br />
-                    <textarea
+                  </Form.Group>
+                  <Form.Group controlId="address" className="mt-3">
+                    <Form.Label>Address :</Form.Label>
+                    <Form.Control
+                      as="textarea"
                       rows={3}
-                      cols={28}
-                      className="Old-Password"
                       value={address}
                       onChange={handleAddressChange}
-                    ></textarea>
-                  </div>
-                  <button className="submit-btn" onClick={submitchange}>
+                      placeholder="Enter your address"
+                    />
+                  </Form.Group>
+                  <Button className="submit-btn mt-4" onClick={submitchange} variant="primary">
                     Submit
-                  </button>
-                </div>
-              </div>
-            </div>
+                  </Button>
+                </Form>
+              </Col>
+            </Row>
           </div>
-        </div>
+        </Col>
+      </Row>
+    </Container>
       </SettingStyle>
     </>
   );

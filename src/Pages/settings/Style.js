@@ -46,6 +46,7 @@ export const SettingStyle = styled("div")(() => ({
     border: "none",
     marginTop: "20px",
     color: "white",
+    
   },
   ".Old-Password": {
     border: "none",
