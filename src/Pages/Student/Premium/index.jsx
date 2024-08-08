@@ -20,7 +20,7 @@ export default function Standard() {
 
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "Standard List", path: PATH.STANDARD },
+    { label: "Premium List", path: PATH.STANDARD },
   ];
   const email = localStorage.getItem("userMail");
   const [open, setOpen] = useState(false);
@@ -182,7 +182,7 @@ export default function Standard() {
                 <Col xs={12} sm={12} md={12} lg={12} xl={12} className="MainCol">
                   <div className="title">
                     <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-                      Standard List{" "}
+                      Premium List{" "}
                     </Typography>
                   </div>
                   <div className="search">
