@@ -11,18 +11,8 @@ import RestorePageIcon from "@mui/icons-material/RestorePage";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import axios from "axios";
 import { navContext } from "../../context/navContext";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 
 function Notification() {
   const [headline, setHeadline] = useState("");
@@ -34,19 +24,48 @@ function Notification() {
     setAttachment(event.target.files[0]);
   };
 
+const createTest= async ()=>{
+  try {
+    const response = await axios.post(
+      `${Endpoint}admin/post/A_InsertDailyTest.php`);
+
+    console.log("Response:", response.data);
+   
+  } catch (error) {
+    console.error("Error sending notification:", error);
+  }
+}
+const DailyNotification= async ()=>{
+  try {
+    const response = await axios.get(
+      `${Endpoint}User/get/U_DailyNotification.php`);
+
+    console.log("Response:", response.data);
+   
+  } catch (error) {
+    console.error("Error sending notification:", error);
+  }
+}
+const SubNotification= async ()=>{
+  try {
+    const response = await axios.get(
+      `${Endpoint}User/get/U_SubNotification.php`);
+
+    console.log("Response:", response.data);
+   
+  } catch (error) {
+    console.error("Error sending notification:", error);
+  }
+}
+
+const NotificationBtn=()=>{
+  createTest();
+  DailyNotification();
+  SubNotification();
+}
   const handleSend = async () => {
     try {
-      // const formData = new FormData();
-      // formData.append("title", headline);
-      // formData.append("description", description);
-      // // formData.append("attachment", attachment);
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //     admin_id:email
-      //   },
-      // };
+     
 
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertNotification.php`,
@@ -145,6 +164,12 @@ function Notification() {
             >
               <CustomBreadCrumbs items={BreadcrumbItems} />
               <div>
+              
+                  <button className="notify" onClick={NotificationBtn}>
+                    <PostAddIcon style={{ fontSize: "20px" }} />
+                    &nbsp;Create Test
+                  </button>&nbsp;&nbsp;&nbsp;
+                
                 <NavLink to="/updateads">
                   <button className="notify">
                     <AdsClickIcon style={{ fontSize: "19px" }} />
@@ -190,7 +215,7 @@ function Notification() {
                   ></textarea>
                 </div>
                 
-                <div className="btnbox">
+                <div className="btnbox" style={{marginBottom:"20px"}}>
                   <button className="submit-btn" onClick={handleSend}>
                     Send&nbsp;&nbsp;
                     <SendIcon style={{ fontSize: "20px" }} />

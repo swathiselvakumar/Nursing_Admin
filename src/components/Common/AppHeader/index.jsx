@@ -54,7 +54,7 @@ export default function AppHeader() {
             <Grid item >
               <Stack direction="row" display="flex" alignItems="center">
                 {/* <SearchBox width={265} /> */}
-                <Tooltip title="Profile">
+                {/* <Tooltip title="Profile">
                   <IconButton color="inherit">
                     <Avatar
                       alt="profile"
@@ -62,7 +62,7 @@ export default function AppHeader() {
                       sx={{ width: 30, height: 30 }}
                     />
                   </IconButton>
-                </Tooltip>
+                </Tooltip> */}
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
