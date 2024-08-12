@@ -22,7 +22,7 @@ function NavContextProvider({ children }) {
  const [email,setemail]=useState("");
  const [index, setindex] = useState();
  const [mcqname,setMcqname]=useState();
- const [Endpoint,setEndpoint]=useState("https://vebbox.in/Nursing_Check/controllers/api/");
+ const [Endpoint,setEndpoint]=useState("https://vebbox.in/Nursing/controllers/api/");
  const [category, setcategory] = useState("");
  const [mcqid, setMcqid] = useState('');
  const [file, setFile] = useState(null);
@@ -30,12 +30,7 @@ function NavContextProvider({ children }) {
 
    const [durationname, setDurationname] = useState();
    const [durationtime, setDurationtime] = useState();
-  //  const [quetionpaperhistory, setQuestionpaperhistory] = useState([
-  //    {
-  //      paperId: "",
-  //      questionId: "",
-  //    },
-  //  ]);
+  
 
 
   const updateNavText = (data) => {

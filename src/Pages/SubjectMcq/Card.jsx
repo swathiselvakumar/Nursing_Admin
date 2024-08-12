@@ -100,7 +100,7 @@ export default function YearCard() {
       );
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: `https://vebbox.in/Nursing_Check/controllers/api/admin/upload/${item.img}`,
+          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.subject_name,
           path: `/subinstitution/${item.sno}`,
           sno: item.sno

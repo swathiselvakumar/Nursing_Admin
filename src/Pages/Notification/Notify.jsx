@@ -62,6 +62,7 @@ const NotificationBtn=()=>{
   createTest();
   DailyNotification();
   SubNotification();
+  alert("Test and Notifications created sucsessfully...");
 }
   const handleSend = async () => {
     try {
