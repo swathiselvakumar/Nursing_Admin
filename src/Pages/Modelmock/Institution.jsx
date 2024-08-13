@@ -14,6 +14,7 @@ import CustomBreadCrumbs from '../../components/Common/CustomBreadcrumbs';
 import { PATH } from '../../constants/routeConstants';
 import Model from '../../assets/images/model.png';
 import '../YearMCQ/CardStyle.css';
+import { useLocation } from "react-router-dom";
 
 export default function ModelInstitution() {
   const BreadcrumbItems = [
@@ -29,7 +30,8 @@ export default function ModelInstitution() {
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
   const { sno } = useParams();
-
+  const location = useLocation();
+  const institutionName = location.state?.institutionName;
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -122,7 +124,7 @@ export default function ModelInstitution() {
             <img src={Model} height="40px" alt="Model" />
             &nbsp;&nbsp;
             <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-              Institution 1
+            {institutionName ? institutionName  : "Institution Not Found"}
             </Typography>
           </Col>
         </Row>

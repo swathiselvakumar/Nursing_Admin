@@ -59,13 +59,13 @@ export default function Mocktable({ datas,currentPage }) {
             </TableHead>
             <TableBody>
               {datas.length > 0 ? (
-                datas.map((row) => (
+                datas.map((row,i) => (
                   <TableRow
                     key={sno}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {sno}
+                      {i+1}
                     </TableCell>
                     <TableCell align="left">{row.student_name}</TableCell>
                     <TableCell align="left">{row.total_count}</TableCell>

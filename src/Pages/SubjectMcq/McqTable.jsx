@@ -60,12 +60,12 @@ export default function McqTable({ datas,currentPage }) {
             </TableHead>
             <TableBody>
             {dataArray.length > 0 ? (
-              dataArray.map((row) => (
+              dataArray.map((row,i) => (
                 <TableRow
                   key={sno}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="left">{sno}</TableCell>
+                  <TableCell align="left">{i+1}</TableCell>
                   <TableCell component="th" scope="row">
                     {row.student_name}
                   </TableCell>

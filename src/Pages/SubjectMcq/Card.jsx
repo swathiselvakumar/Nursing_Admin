@@ -14,6 +14,7 @@ import { navContext } from "../../context/navContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 export default function YearCard() {
 
   const {file,setFile} = useContext(navContext);
@@ -42,7 +43,16 @@ export default function YearCard() {
   const { Endpoint } = useContext(navContext);
   const [obj, setObj] = useState([]);
   const email = localStorage.getItem("userMail");
-
+  const navigate=useNavigate();
+  const handleCardClick = (d) => {
+    if (d.name !== "Add Subject") {
+      navigate(d.path, { state: { subjectName: d.name } });
+     
+      
+    } else {
+      navigate(d.path);
+    }
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -175,8 +185,8 @@ export default function YearCard() {
                     </button>
                   )
                 }
-                <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
-                  <div style={{ textAlign: "center" }}>
+                
+                  <div style={{ textAlign: "center" }} onClick={() => handleCardClick(d)}>
                     <img src={d.img} alt="subject" height="70px" />
                   </div>
                   <div style={{ paddingTop: "10px" }}>
@@ -184,7 +194,7 @@ export default function YearCard() {
                       {d.name}
                     </Typography>
                   </div>
-                </NavLink>
+              
               </div>
             </Col>
           ))}

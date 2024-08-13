@@ -1,26 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Institution from "../../assets/images/vadakk.png";
 import { Typography } from "@mui/material";
-import Plus from "../../assets/icons/plus b.png";
-import { NavLink } from "react-router-dom";
-import "./CardStyle.css";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Rong from "../../assets/icons/rong.jpg";
-import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
-
+import Plus from "../../assets/icons/plus b.png";
 export default function YearCard() {
-  const [open, setOpen] = useState(false);
   const [name, setName] = useState([]);
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
+  const navigate = useNavigate(); // Use useNavigate hook from React Router
 
   const getCourses = async () => {
     try {
@@ -30,7 +20,6 @@ export default function YearCard() {
           adminId: email,
         }
       );
-      console.log(res.data);
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
           img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
@@ -86,28 +75,12 @@ export default function YearCard() {
     getCourses();
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const Btn = {
-    backgroundColor: "white",
-    color: "black",
-    border: "1px solid black",
-    width: "100px",
-    marginTop: "20px",
-  };
-  
-  const Btn1 = {
-    backgroundColor: "red",
-    color: "white",
-    marginLeft: "10px",
-    width: "100px",
-    marginTop: "20px",
+  const handleCardClick = (d) => {
+    if (d.name !== "Add institution") {
+      navigate(d.path, { state: { institutionName: d.name } });
+    } else {
+      navigate(d.path);
+    }
   };
 
   return (
@@ -138,9 +111,9 @@ export default function YearCard() {
                     <DeleteIcon />
                   </button>
                 )}
-                <NavLink
-                  to={d.path}
-                  style={{ color: "black", textDecoration: "none" }}
+                <div
+                  onClick={() => handleCardClick(d)}
+                  style={{ color: "black", textDecoration: "none", cursor: "pointer" }}
                 >
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <img src={d.img} alt="institution" height="70px" />
@@ -148,50 +121,12 @@ export default function YearCard() {
                   <div style={{ paddingTop: "10px", textAlign: "center" }}>
                     <Typography style={{ fontWeight: 600 }}>{d.name}</Typography>
                   </div>
-                </NavLink>
+                </div>
               </div>
             </Col>
           ))}
         </Row>
       </Container>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent sx={{ textAlign: "center" }}>
-          <img
-            src={Rong}
-            alt="student"
-            height="25px"
-            style={{ marginTop: "-30px" }}
-          />
-          <br />
-          Are you sure?<br />
-          You want to delete this institution?
-          <br />
-          <Button onClick={handleClose} style={Btn}>
-            Cancel
-          </Button>
-          <Button onClick={handleClose} style={Btn1}>
-            Delete
-          </Button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

@@ -10,34 +10,30 @@ import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
-
+import { useLocation } from "react-router-dom";
 
 export default function SubInstitution() {
   
   const [lastId, setlastId] = useState(null)
   const email=localStorage.getItem("userMail");
   const {Endpoint}=useContext(navContext);
-  // const [idstate]
+  const location = useLocation();
+const subjectName = location.state?.subjectName;
+  
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
     { label: "SubjectMCQ", path: PATH.SUBJECTMCQ },
     { label: "Institution", path: PATH.SUBINSTITUTION },
   ];
    const {sno}=useParams();   
-  //  const {questionpaperhistory,setQuestionpaperhistory}=useContext(navContext)
+  
   const [mcqs, setMcqs] = useState([]);
 
   const [indexid, setindexid] = useState();
-// console.log(questionpaperhistory);
-
-// useEffect(()=>{
-//   const length=indexid.length-1;
-//   console.log(mcqs[length]);
-// },[])
 
 
   const Send = async () => {
-    // console.log("jsj");
+   
     try {
       const response = await axios.post(
         `${Endpoint}admin/get/A_ViewSubWisePaper.php`,
@@ -48,9 +44,9 @@ export default function SubInstitution() {
       );
       setMcqs(response.data); 
       setindexid(response.data)
-      // console.log(response.data);
+      
       const lstId = await renderBoxes1(response.data);
-      // console.log(lstId);
+      
       setlastId(lstId);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -64,7 +60,7 @@ export default function SubInstitution() {
       const rowItems = [];
       for (let j = i; j < Math.min(i + 3, mc.length); j++) {
         const mcq = mc[j];
-        const id = `${j}`; // Concatenate sno with index for unique ID
+        const id = `${j}`; 
         
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
@@ -76,7 +72,7 @@ export default function SubInstitution() {
                     border: "none",
                     paddingTop: "5px",
                   }}
-                  // onClick={()=>console.log(`/mcqtablepage/${mcq.sno}/${sno}`)}
+                 
                 >
                   {mcq.paper_name}
                 </button>
@@ -100,23 +96,22 @@ export default function SubInstitution() {
           </Col>
         );
       }
-      // setlastId(rowItems.length+1);
+     
       rows.push(
         <Row key={i} style={{ marginTop: "20px" }}>
           {rowItems}
         </Row>
       );
-      // console.log(rowItems);
+      
       rowItemLength += rowItems.length
     }
-    // console.log(rows);
-    // setlastId(rows.length+1)
+    
 
     return rowItemLength+1;
   };
 
   const CardDelete = async (sno) => {
-    // setclick(true);
+  
     try {
       const res = await axios.delete(
         `${Endpoint}admin/delete/A_deleteSubWisePaper.php`,
@@ -137,6 +132,7 @@ export default function SubInstitution() {
     Send();
   }, []);
 
+  console.log(subjectName);
   
 
   const renderBoxes = () => {
@@ -145,8 +141,8 @@ export default function SubInstitution() {
       const rowItems = [];
       for (let j = i; j < Math.min(i + 3, mcqs.length); j++) {
         const mcq = mcqs[j];
-        const id = `${j+1}`; // Concatenate sno with index for unique ID
-      //  console.log(id); 
+        const id = `${j+1}`; 
+     
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
@@ -176,14 +172,14 @@ export default function SubInstitution() {
           </Col>
         );
       }
-      // setlastId(rowItems.length+1);
+    
       rows.push(
         <Row key={i} style={{ marginTop: "20px" }}>
           {rowItems}
         </Row>
       );
     }
-    // setlastId(rows.length+1)
+   
 
     return rows;
   };
@@ -202,7 +198,7 @@ export default function SubInstitution() {
             &nbsp;&nbsp;
             <div>
               <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-                Subject Name
+              {subjectName ? subjectName : "Subject Not Found"}
               </Typography>
             </div>
           </Col>

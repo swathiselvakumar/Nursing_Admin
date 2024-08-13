@@ -61,9 +61,18 @@ const { Endpoint } = useContext(navContext);
             </div>
             &nbsp;&nbsp;
             <div>
-              <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-                Course Name
-              </Typography>
+            {
+  courseData && courseData.length > 0 ? (
+    courseData.map((d) => (
+      <Typography key={d.course_name} style={{ fontWeight: 700, paddingTop: "10px" }}>
+        {d.name}
+      </Typography>
+    ))
+  ) : (
+    <Typography>No courses available.</Typography>
+  )
+}
+
             </div>
           </Col>
         </Row>
@@ -97,7 +106,7 @@ const { Endpoint } = useContext(navContext);
                           <Typography
                             style={{
                               fontSize: "16px",
-                              fontWeight: 400,
+                              fontWeight: 600,
                               paddingBottom: "10px",
                             }}
                           >

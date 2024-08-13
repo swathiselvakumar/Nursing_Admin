@@ -3,15 +3,11 @@ import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
 import { Container, Row, Col } from "react-bootstrap";
 import institution from "../../assets/images/vadakk.png";
 import { Typography } from "@mui/material";
-import Delete from "../../assets/icons/delete.jpeg";
 import "./CardStyle.css";
 import { NavLink, useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import InputLabel from "@mui/material/InputLabel";
@@ -26,7 +22,7 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TextField from '@mui/material/TextField';
-
+import { useLocation } from "react-router-dom";
 
 export default function YearInstitution() {
   const BreadcrumbItems = [
@@ -42,7 +38,9 @@ export default function YearInstitution() {
   const [open, setOpen] = useState(false);
   const {Endpoint}=useContext(navContext);
 const email=localStorage.getItem("userMail");
-
+const location = useLocation();
+const institutionName = location.state?.institutionName;
+  
   const { sno} = useParams();
 
   const handleChange = (event) => {
@@ -180,9 +178,11 @@ useEffect(() => {
             </div>
             &nbsp;&nbsp;
             <div>
-              <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-                Institution 1
-              </Typography>
+            <Typography  style={{ fontWeight: 700, paddingTop: "10px" }}>
+            {institutionName ? institutionName : "Institution Not Found"}
+      </Typography>
+           
+
             </div>
           </Col>
         </Row>

@@ -138,13 +138,13 @@ export default function TestTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row,i) => (
                 <TableRow
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.id}
+                    {i+1}
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
 

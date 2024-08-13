@@ -17,6 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 const categoryImages = {
   Aptitude,
   Reasoning,
@@ -54,7 +55,7 @@ export default function NonNursingCard() {
   const [datas, setDatas] = useState([]);
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
-
+  const navigate=useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -137,6 +138,16 @@ export default function NonNursingCard() {
     }
   };
 
+  const handleCardClick = (d) => {
+    if (d.name !== "Add Category") {
+      navigate(d.path, { state: { categoryName: d.name } });
+     
+      
+    } else {
+      navigate(d.path);
+    }
+  };
+
   const CardDelete = async (sno) => {
     try {
       await axios.delete(
@@ -200,8 +211,9 @@ export default function NonNursingCard() {
                     </div>
                   </div>
                 ) : (
-                  <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
-                    <div style={{ textAlign: "center" }}>
+                  // <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
+                    <div>
+                      <div style={{ textAlign: "center" }} onClick={() => handleCardClick(d)}>
                       <img src={d.img} height="70px" alt={d.name} />
                     </div>
                     <div style={{ paddingTop: "10px" }}>
@@ -209,7 +221,8 @@ export default function NonNursingCard() {
                         {d.name}
                       </Typography>
                     </div>
-                  </NavLink>
+                    </div>
+                  // </NavLink>
                 )}
               </div>
             </Col>

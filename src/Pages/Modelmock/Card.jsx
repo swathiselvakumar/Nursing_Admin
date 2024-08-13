@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 export default function ModelMockCard() {
 
   const {file,setFile} = useContext(navContext);
@@ -45,7 +46,7 @@ export default function ModelMockCard() {
   const [data, setData] = useState([]);
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
-
+  const navigate=useNavigate();
  
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,6 +66,15 @@ export default function ModelMockCard() {
 
   const handleChangeinstruction = (event) => {
     setInstruction(event.target.value);
+  };
+  const handleCardClick = (d) => {
+    if (d.name !== "Add Institution") {
+      navigate(d.path, { state: { institutionName: d.name } });
+     
+      
+    } else {
+      navigate(d.path);
+    }
   };
 
   const handleAddInstitution = async () => {
@@ -193,14 +203,16 @@ export default function ModelMockCard() {
                 >
                   <DeleteIcon />
                 </button>
-                <NavLink to={d.path} style={{ color: "black", textDecoration: "none" }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+               
+                  <div>
+                  <div style={{ display: "flex", justifyContent: "center" }} onClick={() => handleCardClick(d)}>
                     <img src={d.img} height="70px" alt="model" />
                   </div>
                   <div style={{ paddingTop: "10px", textAlign: "center" }}>
                     <Typography style={{ fontWeight: 600 }}>{d.name}</Typography>
                   </div>
-                </NavLink>
+                  </div>
+              
               </div>
             </Col>
           ))}

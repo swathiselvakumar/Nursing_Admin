@@ -9,7 +9,7 @@ import { PATH } from "../../constants/routeConstants";
 import Aptitude from "../../assets/images/Aptitude.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navContext } from "../../context/navContext";
-
+import { useLocation } from "react-router-dom";
 
 export default function NonInstitution() {
   const [mcqs, setMcqs] = useState([]);
@@ -17,6 +17,8 @@ const email=localStorage.getItem("userMail");
 const [lastId, setlastId] = useState(null);
 const {Endpoint}=useContext(navContext);
 const {sno}=useParams();
+const location = useLocation();
+const categoryName = location.state?.categoryName;
   const Send = async () => {
     try {
       const response = await axios.post(
@@ -174,7 +176,7 @@ const {sno}=useParams();
             &nbsp;&nbsp;  
             <div>
               <Typography style={{ fontWeight: 700, paddingTop: "10px" }}>
-                Aptitude
+              {categoryName ? categoryName : "Institution Not Found"}
               </Typography>
             </div>
           </Col>
