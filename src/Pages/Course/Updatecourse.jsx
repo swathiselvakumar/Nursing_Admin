@@ -34,7 +34,7 @@ export default function UpdateCourse() {
   const updateView = async () => {
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
+        "https://nursingupdate.in/Nursing/controllers/api/admin/get/A_ViewCourseContent.php",
         {
           adminId: email,
           id: sno,
@@ -54,7 +54,7 @@ export default function UpdateCourse() {
     setOpen(true);
     try {
       await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/put/A_updateCourse.php",
+        "https://nursingupdate.in/Nursing/controllers/api/admin/put/A_updateCourse.php",
         {
           adminId: email,
           name,

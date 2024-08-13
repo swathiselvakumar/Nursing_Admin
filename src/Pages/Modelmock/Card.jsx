@@ -109,7 +109,7 @@ export default function ModelMockCard() {
         setData([]);
       } else {
         const fetchedData = res.data.map((item) => ({
-          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
+          img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.institution_name,
           path: `/modelinstitution/${item.sno}`,
           sno: item.sno,

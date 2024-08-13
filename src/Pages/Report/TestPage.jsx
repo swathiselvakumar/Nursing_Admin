@@ -58,7 +58,7 @@ function TestPage() {
 
     try {
       const response = await axios.post(
-        "https://vebbox.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
+        "https://nursingupdate.in/Nursing/controllers/api/admin/get/A_ViewPmcqQuestions.php",
         {
           adminId: email,
           institutionId: "2",

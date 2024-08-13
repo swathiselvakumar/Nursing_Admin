@@ -28,7 +28,7 @@ export default function Course() {
       });
       if (res.data.length > 0) { 
         const obj = res.data.map((item) => ({
-          img: `https://vebbox.in/Nursing/controllers/api/admin/upload/${item.img}`,
+          img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.course_name,
           path: `/viewcourse/${item.sno}`,
           sno: item.sno,
