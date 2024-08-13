@@ -101,7 +101,7 @@ export default function PremiumPlans() {
         <div style={{ padding: "20px" }}>
           <Container className='mainContainer'>
             <Row style={{ display: "flex", justifyContent: "space-around" }}>
-              {plans.map((plan, index) => (
+              {Array.isArray(plans) && plans.map((plan, index) => (
                 <Col key={plan.id} xs={12} sm={12} md={6} lg={3} xl={3}>
                   <div className="item" style={{ width: "230px" }}>
                     <div className="icons">

@@ -59,25 +59,30 @@ export default function Card() {
 
   return (
     <div style={{ maxWidth: '80vw', display: 'flex', overflow: 'auto' }}>
-      {cards.map((data, index) => (
-        <div style={containerStyle} key={index}>
-          <div style={Box}>
-            <div style={Box1}>
-              <div>
-                {icons[index % icons.length]}
+      {Array.isArray(cards) && cards.length > 0 ? (
+        cards.map((data, index) => (
+          <div style={containerStyle} key={index}>
+            <div style={Box}>
+              <div style={Box1}>
+                <div>
+                  {icons[index % icons.length]}
+                </div>
+                <div>
+                  <Typography style={{ fontSize: "30px", color: "#e4a45a" }}>
+                    {data.numbercard}
+                  </Typography>
+                </div>
               </div>
-              <div>
-                <Typography style={{ fontSize: "30px", color: "#e4a45a" }}>
-                  {data.numbercard}
-                </Typography>
+              <div style={{ textAlign: "center", paddingBottom: "20px" }}>
+                <Typography>{data.text}</Typography>
               </div>
-            </div>
-            <div style={{ textAlign: "center", paddingBottom: "20px" }}>
-              <Typography>{data.text}</Typography>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No data available</p> // Fallback message or component
+      )}
+
     </div>
   );
 }

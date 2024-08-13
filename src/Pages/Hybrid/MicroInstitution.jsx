@@ -99,7 +99,7 @@ export default function MicroInstitution() {
         <Container className="MainBox">
           <Row>
             {
-              data.map((d)=>(
+              Array.isArray(data) && data.map((d, index) => (
                 
                 <Col className="Col1">
               <div className="box" style={{marginTop:"20px"}}>

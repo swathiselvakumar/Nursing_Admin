@@ -57,6 +57,28 @@ const SubNotification= async ()=>{
     console.error("Error sending notification:", error);
   }
 }
+  const insertmini = async () => {
+    try {
+      const response = await axios.get(
+        `${Endpoint}admin/post/A_InsertMiniTest.php`);
+
+      console.log("Response:", response.data);
+
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
+  }
+  const insertmicro = async () => {
+    try {
+      const response = await axios.get(
+        `${Endpoint}admin/post/A_InsertMicroTest.php`);
+
+      console.log("Response:", response.data);
+
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
+  }
 
 const NotificationBtn=()=>{
   createTest();
@@ -64,6 +86,11 @@ const NotificationBtn=()=>{
   SubNotification();
   alert("Test and Notifications created sucsessfully...");
 }
+  const NotificationBtns = () => {
+   insertmicro();
+   insertmini();
+    alert("Mini and Micro test created sucsessfully...");
+  }
   const handleSend = async () => {
     try {
      
@@ -181,9 +208,14 @@ const NotificationBtn=()=>{
                 <NavLink to="/history">
                   <button className="notify">
                     <RestorePageIcon style={{ fontSize: "19px" }} />
-                    &nbsp;Notification History
+                    &nbsp;Notification 
                   </button>
                 </NavLink>
+                &nbsp;&nbsp;&nbsp;
+                <button className="notifys" onClick={NotificationBtns}>
+                  <RestorePageIcon style={{ fontSize: "19px" }} />
+                  &nbsp;Micro and Mini
+                </button>
               </div>
             </div>
             <div>

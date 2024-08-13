@@ -95,8 +95,7 @@ export default function DailyInstitution() {
     <div className='TotalBox'>
     <Container  className='MainBox'>
       <Row>
-        {
-          data.map((d)=>(
+            {Array.isArray(data) && data.map((d, index) =>(
             <Col className='Col1'>
         <div className='box' style={{marginBottom:"20px"}}>
           

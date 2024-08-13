@@ -74,29 +74,36 @@ console.log(email);
               </TableRow>
             </TableHead>
             <TableBody>
-              {testData.map((test, index) => (
-                <TableRow
-                  key={index}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                    marginTop: "10px",
-                    borderSpacing: "0px 8px",
-                    borderCollapse: "separate",
-                  }}
-                >
-                  <TableCell
-                    style={{ backgroundColor: "white", fontSize: "12px" }}
+              {Array.isArray(testData) && testData.length > 0 ? (
+                testData.map((test, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                      marginTop: "10px",
+                      borderSpacing: "0px 8px",
+                      borderCollapse: "separate",
+                    }}
                   >
-                    {test.test_name}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    style={{ backgroundColor: "white", fontSize: "12px" }}
-                  >
-                    {test.test_date}
-                  </TableCell>
+                    <TableCell
+                      style={{ backgroundColor: "white", fontSize: "12px" }}
+                    >
+                      {test.test_name}
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ backgroundColor: "white", fontSize: "12px" }}
+                    >
+                      {test.test_date}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={2}>No test data available</TableCell>
                 </TableRow>
-              ))}
+              )}
+
             </TableBody>
           </Table>
         </TableContainer>

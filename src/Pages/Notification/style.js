@@ -57,12 +57,21 @@ export const NotificationStyle = styled("div")(() => ({
   },
   ".notify": {
     fontWeight: "500",
-    width:"170px",
+    width:"150px",
     border:"none",
     boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
     backgroundColor:"white",
     borderRadius:"5px",
     height:"40px"
+  },
+  ".notifys": {
+    fontWeight: "500",
+    width: "170px",
+    border: "none",
+    boxShadow: "0px 0px   3px  rgba(0, 0, 0, 0.1)",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    height: "40px"
   },
   ".btnbox": {
     width:"340px",

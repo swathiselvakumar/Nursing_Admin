@@ -101,7 +101,8 @@ export default function MiniInstitution() {
                 <Typography>No data found</Typography>
               </Col>
             ) : (
-              data.map((d) => (
+                Array.isArray(data) && data.map((d, index) => (
+             
                 <Col className="Col1" key={d.sno}>
                   <div className="box" style={{marginTop:"20px"}}>
                     <NavLink
