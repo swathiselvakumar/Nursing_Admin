@@ -117,10 +117,38 @@ const institutionName = location.state?.institutionName;
       );
       setMonth("");
       setYear("");
+     if(response.data.message){
+       console.log(response.data.message);
+     }else{
+      console.log(response.error);
+      
+     }
      
       window.location.href = `/yearinstitution/${sno}`;
-    } catch (error) {
-      console.error("Error posting questions:", error);
+    }catch (error) {
+      let errorMessage = "An unexpected error occurred.";
+  
+      if (error.response && error.response.data) {
+        // Parse the JSON error data if it's a string
+        try {
+          const errorData = typeof error.response.data === 'string'
+            ? JSON.parse(error.response.data)
+            : error.response.data;
+  
+          if (typeof errorData === 'object' && errorData.error) {
+            errorMessage = errorData.error; // Extract the 'error' field from the JSON
+          } else {
+            errorMessage = JSON.stringify(errorData); // Fallback if the 'error' field is not present
+          }
+        } catch (parseError) {
+          // Handle JSON parsing errors
+          errorMessage = "Failed to parse error response.";
+        }
+      } else {
+        errorMessage = error.message;
+      }
+  
+      alert("Error posting questions: " + errorMessage);
     }
   };
 
