@@ -32,6 +32,24 @@ export default function AddNonNursing() {
 const email=localStorage.getItem("userMail");
 const {Endpoint}=useContext(navContext);
 const {sno,lastId}=useParams();
+
+const handleDownloadTemplate = () => {
+  // Create a new workbook
+  const wb = XLSX.utils.book_new();
+  
+  // Define headers and data
+  const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+  const data = [headers]; // Start with headers row
+  
+  // Create worksheet
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  
+  // Add the worksheet to the workbook
+  XLSX.utils.book_append_sheet(wb, ws, "Template");
+  
+  // Generate an XLSX file and initiate download
+  XLSX.writeFile(wb, "template.xlsx");
+};
   const modelchange=(event)=>
   {
     setMcq(event.target.value)
@@ -65,6 +83,10 @@ const {sno,lastId}=useParams();
   const handleClickOpenBtn = () => {
     setOpenBtn(true);
   };
+
+  const handleClickcloseBtn=()=>{
+    setOpenBtn(false);
+  }
  
   
   const [Data, setData] = useState(() => {
@@ -197,7 +219,7 @@ const {sno,lastId}=useParams();
       >
         <IconButton
           aria-label="close"
-         
+          onClick={handleClickcloseBtn}
           sx={{
             position: "absolute",
             right: 8,
@@ -215,7 +237,7 @@ const {sno,lastId}=useParams();
             alignItems: "center",
           }}
         >
-          <button className="Submit1">Download Template</button>
+          <button className="Submit1" onClick={handleDownloadTemplate}>Download Template</button>
 
           <label
             htmlFor="fileInput"
