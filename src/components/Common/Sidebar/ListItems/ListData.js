@@ -83,6 +83,10 @@ export const SubListData1 = [
     title: "Hybrid Test",
     path: PATH.HYBRID,
   },
+  {
+    title: "Aiims Prelims",
+    path: PATH.AIIMSPRELIMS,
+  },
 ];
 
 export const BottomListData = [

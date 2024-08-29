@@ -70,5 +70,16 @@ export const PATH = {
   HYBRIDVIEWTEST:"/hybridviewtest/:sno",
   MINITESTQUESTIONS:"/minitestquestions/:sno",
   MICROTESTQUESTIONS:"/microtestquestions/:sno",
-  UPLOADQUESTION:"/uploadquestion/:sno/:id"
+  UPLOADQUESTION:"/uploadquestion/:sno/:id",
+  AIIMSPRELIMS:"/aiims",
+  PRELIMSCARD:"/prelimscard",
+  PRELIMSINSTITUTION:"/prelimsinstitution/:sno",
+  ADDPRELIMS:"/addprelims/:sno/:lastId",
+  PRELIMSTABLE:"/prelimstablepage/:id/:sno",
+  PRELIMSQUESTION:"/prelimsquestion/:id/:sno",
+  MAINSCARD:"/mainscard",
+  MAINSINSTITUTION:"/mainsinstitution/:sno",
+  ADDMAINS:"/addmains/:sno/:lastId",
+  MAINSTABLE:"/mainstablepage/:id/:sno",
+  MAINSQUESTION:"/mainsquestion/:id/:sno"
 };

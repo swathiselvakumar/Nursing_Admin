@@ -72,6 +72,17 @@ import HybridViewTest from "../Pages/Hybrid/ViewTest";
 import MiniTestQuestions from "../Pages/Hybrid/MiniTestQuestions";
 import MicroTestQuestions from "../Pages/Hybrid/MicroTestQuestions";
 import UploadQuestion from "../Pages/Modelmock/UploadQuestion";
+import Aiims from "../Pages/Aiims";
+import PrelimsCard from "../Pages/Aiims/Prelims/Card";
+import PrelimsInstitution from "../Pages/Aiims/Prelims/institution";
+import AddPrelims from "../Pages/Aiims/Prelims/addPrelims";
+import PrelimsTablePage from "../Pages/Aiims/Prelims/McqTablePage";
+import PrelimsQuestions from "../Pages/Aiims/Prelims/Viewquetions";
+import MainsQuestions from "../Pages/Aiims/Mains/Viewquetions";
+import MainsCard from "../Pages/Aiims/Mains/Card";
+import AddMains from "../Pages/Aiims/Mains/addMains";
+import MainsInstitution from "../Pages/Aiims/Mains/institution";
+import MainsTablePage from "../Pages/Aiims/Mains/McqTablePage";
 export const routeConfig = [
   {
     key: "dashboard",
@@ -503,6 +514,73 @@ export const routeConfig = [
     title: "uploadquestion",
     Component: UploadQuestion,
     route: PATH.UPLOADQUESTION,
+  },
+  {
+    key: "aiims",
+    title: "aiims",
+    Component: Aiims,
+    route: PATH.AIIMSPRELIMS,
+  },
+  {
+    key: "prelimscard",
+    title: "prelimscard",
+    Component: PrelimsCard,
+    route: PATH.PRELIMSCARD,
+  },
+  {
+    key: "prelimsinstitution",
+    title: "prelimsinstitution",
+    Component:PrelimsInstitution,
+    route: PATH.PRELIMSINSTITUTION,
+  },
+  {
+    key: "addprelims",
+    title: "addprelims",
+    Component:AddPrelims,
+    route: PATH.ADDPRELIMS,
+  },
+  {
+    key: "prelimstablepage",
+    title: "prelimstablepage",
+    Component:PrelimsTablePage,
+    route: PATH.PRELIMSTABLE,
+  },
+  {
+    key: "prelimsquestion",
+    title: "prelimsquestion",
+    Component:PrelimsQuestions,
+    route: PATH.PRELIMSQUESTION,
+  },
+  // mains
+  {
+    key: "mainscard",
+    title: "mainscard",
+    Component: MainsCard,
+    route: PATH.MAINSCARD,
+  },
+  {
+    key: "mainsinstitution",
+    title: "mainsinstitution",
+    Component:MainsInstitution,
+    route: PATH.MAINSINSTITUTION,
+  },
+  {
+    key: "addmains",
+    title: "addmains",
+    Component:AddMains,
+    route: PATH.ADDMAINS,
+  },
+  {
+    key: "mainstablepage",
+    title: "mainstablepage",
+    Component:MainsTablePage,
+    route: PATH.MAINSTABLE,
+  },
+  {
+    key: "mainsquestion",
+    title: "mainsquestion",
+    Component:MainsQuestions,
+    route: PATH.MAINSQUESTION,
   },
 ];
 

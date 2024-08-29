@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Book from "../../assets/images/book.png";
+import Book from "../../../assets/images/book.png";
 import { Typography } from "@mui/material";
-import Delete from "../../assets/icons/delete.jpeg";
+import Delete from "../../../assets/icons/delete.jpeg";
 import { NavLink, useParams } from "react-router-dom";
-import { PATH } from "../../constants/routeConstants";
-import CustomBreadCrumbs from "../../components/Common/CustomBreadcrumbs";
+import { PATH } from "../../../constants/routeConstants";
+import CustomBreadCrumbs from "../../../components/Common/CustomBreadcrumbs";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { navContext } from "../../context/navContext";
+import { navContext } from "../../../context/navContext";
 import { useLocation } from "react-router-dom";
 
-export default function SubInstitution() {
+export default function MainsInstitution() {
   const [lastId, setlastId] = useState(null);
   const email=localStorage.getItem("userMail");
   const {Endpoint}=useContext(navContext);
@@ -20,8 +20,8 @@ const subjectName = location.state?.subjectName;
   
   const BreadcrumbItems = [
     { label: "Dashboard", path: PATH.DASHBOARD },
-    { label: "SubjectMCQ", path: PATH.SUBJECTMCQ },
-    { label: "Institution", path: PATH.SUBINSTITUTION },
+    { label: "Mains ", path: PATH.MAINSCARD},
+    { label: "Institution", path: PATH.MAINSINSTITUTION },
   ];
    const {sno}=useParams();   
   
@@ -34,7 +34,7 @@ const subjectName = location.state?.subjectName;
    
     try {
       const response = await axios.post(
-        `${Endpoint}admin/get/A_ViewSubWisePaper.php`,
+        `http://localhost/Nursing/controllers/api/admin/get/A_ViewMainsPaper.php`,
         {
           adminId:email,
           id: sno,
@@ -63,7 +63,7 @@ const subjectName = location.state?.subjectName;
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqtablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mainstablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -84,7 +84,7 @@ const subjectName = location.state?.subjectName;
               </NavLink>
             </div>
             <NavLink 
-              to={`/viewquestionssub/${mcq.sno}/${sno}`}
+              to={`/mainsquestion/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -112,7 +112,7 @@ const subjectName = location.state?.subjectName;
   
     try {
       const res = await axios.delete(
-        `${Endpoint}admin/delete/A_deleteSubWisePaper.php`,
+        `http://localhost/Nursing/controllers/api/admin/delete/A_deleteMainsPaper.php`,
         {
           data: {
             adminId:email,
@@ -130,7 +130,7 @@ const subjectName = location.state?.subjectName;
     Send();
   }, []);
 
-  console.log(subjectName);
+  
   
 
   const renderBoxes = () => {
@@ -144,7 +144,7 @@ const subjectName = location.state?.subjectName;
         rowItems.push(
           <Col xs={12} sm={12} md={6} lg={4} xl={4} key={mcq.sno} id={id} className="MainBox">
             <div className="box">
-              <NavLink to={`/mcqtablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
+              <NavLink to={`/mainstablepage/${mcq.sno}/${sno}`} style={{ textDecoration: "none" }}>
                 <button
                   style={{
                     backgroundColor: "white",
@@ -160,7 +160,7 @@ const subjectName = location.state?.subjectName;
               <button onClick={() => CardDelete(mcq.sno)} className="delete" style={{border:"none",backgroundColor:"white",height:"10px"}}><DeleteIcon/></button>
             </div>
             <NavLink
-              to={`/viewquestionssub/${mcq.sno}/${sno}`}
+              to={`/mainsquestion/${mcq.sno}/${sno}`}
               style={{ textDecoration: "none", marginLeft: "20px" }}
             >
               <div style={{ display: "flex", marginLeft: 160 }}>
@@ -204,7 +204,7 @@ const subjectName = location.state?.subjectName;
       </Container>
       <div className="TotalBox">{renderBoxes()}</div>
       <div className="BtnBox">
-        <NavLink to={`/addsub/${sno}/${lastId}`}>
+        <NavLink to={`/addmains/${sno}/${lastId}`}>
           <button className="Btn">Upload Questions</button>
         </NavLink>
       </div>
