@@ -118,7 +118,7 @@ export default function PrelimsCard() {
       );
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
+          img: `https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${item.img}`,
           name: item.prelims_name,
           path: `/prelimsinstitution/${item.sno}`,
           sno: item.sno

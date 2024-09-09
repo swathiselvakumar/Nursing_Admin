@@ -118,7 +118,7 @@ export default function MainsCard() {
       );
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
+          img: `https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${item.img}`,
           name: item.mains_name,
           path: `/mainsinstitution/${item.sno}`,
           sno: item.sno
