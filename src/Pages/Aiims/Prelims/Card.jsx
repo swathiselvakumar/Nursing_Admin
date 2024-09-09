@@ -82,7 +82,7 @@ export default function PrelimsCard() {
     formData.append('desc', description);
     try {
       const response = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/post/A_InsertPrelims.php`,
+        `${Endpoint}admin/post/A_InsertPrelims.php`,
         formData,
         {
           headers: {
@@ -111,14 +111,14 @@ export default function PrelimsCard() {
   const getCourses = async () => {
     try {
       const res = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_ViewPrelims.php`,
+        `${Endpoint}admin/get/A_ViewPrelims.php`,
         {
           adminId: email,
         }
       );
       if (res.data.length > 0) {
         const obj = res.data.map((item) => ({
-          img: `http://localhost/Nursing/controllers/api/admin/upload/${item.img}`,
+          img: `https://nursingupdate.in/Nursing/controllers/api/admin/upload/${item.img}`,
           name: item.prelims_name,
           path: `/prelimsinstitution/${item.sno}`,
           sno: item.sno
@@ -149,7 +149,7 @@ export default function PrelimsCard() {
   const CardDelete = async (sno) => {
     try {
       await axios.delete(
-        `http://localhost/Nursing/controllers/api/admin/delete/A_deletePrelims.php`,
+        `${Endpoint}admin/delete/A_deletePrelims.php`,
         {
           data: {
             adminId: email,

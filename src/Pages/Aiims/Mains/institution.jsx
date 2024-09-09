@@ -34,7 +34,7 @@ const subjectName = location.state?.subjectName;
    
     try {
       const response = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_ViewMainsPaper.php`,
+        `${Endpoint}admin/get/A_ViewMainsPaper.php`,
         {
           adminId:email,
           id: sno,
@@ -112,7 +112,7 @@ const subjectName = location.state?.subjectName;
   
     try {
       const res = await axios.delete(
-        `http://localhost/Nursing/controllers/api/admin/delete/A_deleteMainsPaper.php`,
+        `${Endpoint}admin/delete/A_deleteMainsPaper.php`,
         {
           data: {
             adminId:email,

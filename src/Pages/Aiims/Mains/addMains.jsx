@@ -119,7 +119,7 @@ const [Data, setData] = useState(() => {
   const SendApi = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/post/A_InsertMainsQuestion.php`,
+        `${Endpoint}admin/post/A_InsertMainsQuestion.php`,
         Data
       ); 
       

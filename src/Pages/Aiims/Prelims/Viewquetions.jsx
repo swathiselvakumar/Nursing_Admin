@@ -24,7 +24,7 @@ const {Endpoint}=useContext(navContext);
   const fetchQuestions = async (questionId) => {
     try {
       const res = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_ViewPrelimsQuestions.php`,
+        `${Endpoint}admin/get/A_ViewPrelimsQuestions.php`,
         {
           adminId: email,
           prelimsId: sno,
@@ -52,7 +52,7 @@ const {Endpoint}=useContext(navContext);
   const fetchQuestionSno = async () => {
     try {
       const res = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_ViewPrelimsQuestionCount.php`,
+        `${Endpoint}admin/get/A_ViewPrelimsQuestionCount.php`,
         {
           adminId: email,
           prelimsId: sno,

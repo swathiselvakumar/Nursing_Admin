@@ -93,7 +93,7 @@ const handleChange1 = (event, value) => {
   const fetchTestDetails = async (page) => {
     try {
       const res = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_Mains_testDetails.php?page=${page}`,
+        `${Endpoint}admin/get/A_Mains_testDetails.php?page=${page}`,
         {
           adminId:email,
           mainsId:sno,
@@ -109,7 +109,7 @@ const handleChange1 = (event, value) => {
   const pagination = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/Nursing/controllers/api/admin/get/A_MainsTestDetailsPagination.php`, {
+        `${Endpoint}admin/get/A_MainsTestDetailsPagination.php`, {
           adminId: email
         }
       );
