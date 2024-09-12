@@ -10,7 +10,7 @@ export default function Aiims() {
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         
-        { label: "Aiims Prelims", path: PATH.AIIMSPRELIMS },
+        { label: "Aiims", path: PATH.AIIMSPRELIMS },
       ];
   return (
     <div>

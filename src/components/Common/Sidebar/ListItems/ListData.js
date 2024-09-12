@@ -84,7 +84,7 @@ export const SubListData1 = [
     path: PATH.HYBRID,
   },
   {
-    title: "Aiims Prelims",
+    title: "Aiims",
     path: PATH.AIIMSPRELIMS,
   },
 ];
