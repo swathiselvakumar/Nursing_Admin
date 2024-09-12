@@ -22,7 +22,7 @@ export default function Profile({ onClose, studentid }) {
   const profile = async () => {
     try {
       const response = await axios.post(
-        `${Endpoint}User/get/U_ViewProfile.php`,
+        `${Endpoint}admin/get/A_ViewStudentProfile.php`,
         { email: studentid }
       );
       setProfileData(response.data);
@@ -34,7 +34,7 @@ export default function Profile({ onClose, studentid }) {
   const subject = async () => {
     try {
       const response = await axios.post(
-       ` ${Endpoint}User/get/U_ScoreProfile_SW.php`,
+       ` ${Endpoint}admin/get/A_StudentScoreProfile_SW.php`,
         { userId: studentid }
       );
       setSubjectData(response.data);
@@ -46,7 +46,7 @@ export default function Profile({ onClose, studentid }) {
   const nonnursing = async () => {
     try {
       const response = await axios.post(
-        `${Endpoint}User/get/U_ScoreProfile_NN.php`,
+        `${Endpoint}admin/get/A_StudentScoreProfile_NN.php`,
         { userId: studentid }
       );
       setNonnursingData(response.data);
@@ -91,12 +91,12 @@ export default function Profile({ onClose, studentid }) {
     height: "20vh",
   };
   const CardDesign = {
-    width: "160px",
+    width: "200px",
     borderRadius: "10px",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     textAlign: "center",
     marginLeft: "26px",
-    height: "140px",
+    height: "180px",
     margin: 10,
   };
   const CardDesign1 = {
@@ -108,7 +108,7 @@ export default function Profile({ onClose, studentid }) {
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    padding: "40px",
+    padding: "20px",
     height: "140px",
   };
   const Div = {
@@ -245,16 +245,16 @@ export default function Profile({ onClose, studentid }) {
             <div style={Div}>
               {Array.isArray(subjectData) && subjectData.length > 0 ? (
                 subjectData.map((e) => {
-                  const percentage = ((e.correct_count / e.total_count) * 100).toFixed(2);
+                  const percentage = ((e.total_correct_count / e.total_answers_count) * 100).toFixed(2);
                   return (
                     <Col key={e.id}>
                       <div style={CardDesign}>
-                        <Typography style={{ paddingTop: "10px", fontWeight: 600 }}>
-                          {e.test_name}
+                        <Typography style={{ padding: "10px", fontWeight: 600 }}>
+                          {e.subject_name}
                         </Typography>
                         <hr />
                         <Typography style={{ fontSize: "12px" }}>
-                          {e.correct_count}/{e.total_count}
+                        {e.total_correct_count}/{e.total_answers_count}
                         </Typography>
                         <div style={{ marginTop: "10px" }}>
                           <CircleBar range={percentage} />
@@ -273,17 +273,17 @@ export default function Profile({ onClose, studentid }) {
           <div style={Div1}>
             {Array.isArray(nonnursingData) && nonnursingData.length > 0 ? (
               nonnursingData.map((r) => {
-                const percentage = ((r.correct_count / r.total_count) * 100).toFixed(2);
+                const percentage = ((r.total_correct_count / r.total_answers_count) * 100).toFixed(2);
                 return (
                   <Col xs={12} sm={12} md={4} lg={4} xl={4} style={{ marginBottom: '20px' }} key={r.id}>
                     <div style={CardDesign1}>
                       <Typography style={{ fontWeight: 600 }}>
-                        {r.test_name}
+                        {r.subject_name}
                       </Typography>
                       <hr style={{ borderLeft: "1px solid black", height: "100px", margin: '10px 0' }} />
                       <div style={{ textAlign: 'center' }}>
                         <Typography style={{ fontSize: '12px' }}>
-                          {r.correct_count}/{r.total_count}
+                          {r.total_correct_count}/{r.total_answers_count}
                         </Typography>
                         <div style={{ marginTop: '10px' }}>
                           <CircleBar range={percentage} />

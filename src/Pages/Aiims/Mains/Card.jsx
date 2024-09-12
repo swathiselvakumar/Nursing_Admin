@@ -224,7 +224,7 @@ export default function MainsCard() {
             backgroundColor: "#f6f6f6",
           }}
         >
-          Add Prelims
+          Add Mains
           <IconButton
             aria-label="close"
             onClick={handleClose}
@@ -243,7 +243,7 @@ export default function MainsCard() {
           style={{ padding: "20px", backgroundColor: "#f6f6f6" }}
         >
           <div style={{ margin: "20px" }}>
-            <Typography>Prelims Name :</Typography>
+            <Typography>Mains Name :</Typography>
             <input
               type="text"
               className="textbox"
@@ -251,7 +251,7 @@ export default function MainsCard() {
               value={name}
               onChange={handleChange}
             />
-            <Typography>Prelims Description :</Typography>
+            <Typography>Mains Description :</Typography>
             <textarea
               rows={4}
               cols={40}
@@ -305,7 +305,7 @@ export default function MainsCard() {
                     </Button>
                   </label>
                 </div>
-            <button autoFocus onClick={handleAddSubject} className="subjectBtn">
+            <button  autoFocus onClick={handleAddSubject} className="subjectBtn">
               Submit
             </button>
           </div>
