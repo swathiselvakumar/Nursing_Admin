@@ -15,7 +15,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import { SidebarStyleWrapper } from "./style";
 import { TopListData } from "./ListItems/ListData";
 import MenuListItem from "./ListItems";
-
+import '@fontsource/dm-sans'
 // icons
 import AndroidOutlinedIcon from "@mui/icons-material/AndroidOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -81,7 +81,7 @@ export default function SideNavigationbar() {
 
   return (
     <SidebarStyleWrapper>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex"}}>
         <Drawer variant="permanent" open={open} className="drawer">
           <DrawerHeader>
             <List>
@@ -104,7 +104,7 @@ export default function SideNavigationbar() {
                    
                   </ListItemIcon>
                   <ListItemText
-                    primary={<Typography>Company Name</Typography>}
+                    primary={<Typography style={{fontFamily:"Roboto, sans-serif"}} >Company Name</Typography>}
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -152,7 +152,7 @@ export default function SideNavigationbar() {
                     sx={{
                       color:
                         data.path === locatePath
-                          ? theme.font.primary
+                          ? "#F0A04B"
                           : theme.font.white,
                     }}
                     fontSize="medium"
