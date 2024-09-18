@@ -150,9 +150,7 @@ export default function UploadTest() {
           questions[selectedQuestionIndex].answer
         )}
       </p>
-    {/* <p>
-      Correct Answer: {questions[selectedQuestionIndex].answer}
-    </p> */}
+    
   </div>
 ) : (
   <p>No question selected</p>
