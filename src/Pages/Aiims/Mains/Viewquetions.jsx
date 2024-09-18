@@ -73,7 +73,7 @@ const {Endpoint}=useContext(navContext);
     { label: "Institution", path: PATH.MAINSINSTITUTION},
     { label: "View Questions", path: PATH.MAINSQUESTION },
   ];
-
+  const isImageUrl = (value) => value && value.startsWith('../upload/');
   return (
     <div>
       <div style={{ padding: "25px" }}>
@@ -101,20 +101,59 @@ const {Endpoint}=useContext(navContext);
               </Typography>
               <hr />
               {questions[selectedQuestionIndex] ? (
-                <div>
-                  <p>{questions[selectedQuestionIndex].questions}</p>
-                  <ol type="a">
-                    {[1, 2, 3, 4].map((option) => (
-                      <li key={option}>
-                        {questions[selectedQuestionIndex][`option${option}`]}
-                      </li>
-                    ))}
-                  </ol>
-                  <p>Correct Answer: {questions[selectedQuestionIndex].answer}</p>
-                </div>
-              ) : (
-                <p>No question selected</p>
-              )}
+  <div>
+    <p>{questions[selectedQuestionIndex].questions}</p>
+    
+    {/* Check if image exists before rendering the img tag */}
+    {questions[selectedQuestionIndex].image ? (
+      
+      <img
+        src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${questions[selectedQuestionIndex].image}`}
+        alt="Question related"
+        style={{ maxWidth: '300px' }}
+      />
+      
+    ) : (
+      null
+    )} 
+    
+    {[1, 2, 3, 4].map((option) => {
+        const optionValue = questions[selectedQuestionIndex][`option${option}`];
+        const isImageUrl = optionValue && optionValue.startsWith('../upload/');
+
+        return (
+          <li key={option} style={{margin:"10px",fontWeight:"normal"}}>
+            {isImageUrl ? (
+              <img
+                src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${optionValue}`}
+                alt={`Option ${option}`}
+                style={{ maxWidth: '80px' }} // Adjust the size as needed
+              />
+            ) : (
+              optionValue
+            )}
+          </li>
+        );
+      })}
+       <p style={{fontWeight:"normal"}}>
+        <strong>Correct Answer:</strong>{' '}
+        {isImageUrl (questions[selectedQuestionIndex].answer) ? (
+          <img
+            src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${questions[selectedQuestionIndex].answer}`}
+            alt="Correct Answer"
+            style={{ maxWidth: '80px',margin:"10px" }} // Adjust the size as needed
+          />
+        ) : (
+          questions[selectedQuestionIndex].answer
+        )}
+      </p>
+    {/* <p> 
+      Correct Answer: {questions[selectedQuestionIndex].answer}
+    </p> */}
+  </div>
+) : (
+  <p>No question selected</p>
+)}
             </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} xl={6}>

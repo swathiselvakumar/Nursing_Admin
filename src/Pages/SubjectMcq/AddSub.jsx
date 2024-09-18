@@ -31,7 +31,7 @@ export default function AddSub() {
     const wb = XLSX.utils.book_new();
     
     // Define headers and data
-    const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+    const headers = ["questionText","image", "option1", "option2", "option3", "option4", "answer"];
     const data = [headers]; // Start with headers row
     
     // Create worksheet
@@ -118,7 +118,7 @@ const [Data, setData] = useState(() => {
 });
  
   const SendApi = async () => {
-    try {
+    try { 
       const response = await axios.post(
         `${Endpoint}admin/post/A_InsertSubWiseQuestion.php`,
         Data
@@ -155,18 +155,9 @@ const [Data, setData] = useState(() => {
     if (Data.questions.length > 0) {
       SendApi();
     }
-    // Send();
-    // response();
+   
   }, [Data.questions]);
-  // const inputs =(event)=>
-  // {
-  //   setInput(event.target.value)
-  //   setNavInput(event.target.value);
-
-  // }
-  // const handleCloseBtn = () => {
-  //   setOpenBtn(false);
-  // };
+  
   return (
     <div style={{ backgroundColor: "white", height: "90vh" }}>
       <div style={{ padding: "25px" }}>

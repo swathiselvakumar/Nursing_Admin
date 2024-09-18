@@ -43,7 +43,7 @@ const handleDownloadTemplate = () => {
   const wb = XLSX.utils.book_new();
   
   // Define headers and data
-  const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+  const headers = ["questionText","image", "option1", "option2", "option3", "option4", "answer"];
   const data = [headers]; // Start with headers row
   
   // Create worksheet

@@ -22,7 +22,6 @@ import StAdd from "../Pages/AddMembers/StAdd";
 import RecentStudentTable from "../Pages/Dashboard/RecentStudents";
 import YearInstitution from "../Pages/YearMCQ/Institution";
 import SubInstitution from "../Pages/SubjectMcq/Institution";
-// import AddSub from "../Pages/SubjectMcq/AddSub";
 import NonInstitution from "../Pages/Non_Nursing/Institution";
 import ModelInstitution from "../Pages/Modelmock/Institution";
 import Course from "../Pages/Course";
@@ -47,7 +46,6 @@ import Achievement from "../Pages/Achievement";
 import Update from "../Pages/Achievement/Update";
 import ADDACHIEVEMENT from "../Pages/Achievement/AddAchievement";
 import Updatecourse from "../Pages/Course/Updatecourse";
-// import Addsubmcq1 from "../Pages/SubjectMcq/Addsubmcq1";
 import NotificationHistory from "../Pages/Notification/NotificationHistory";
 import UpdateAds from "../Pages/Notification/UpdateAds";
 import AddSub from "../Pages/SubjectMcq/AddSub";
@@ -83,13 +81,13 @@ import MainsCard from "../Pages/Aiims/Mains/Card";
 import AddMains from "../Pages/Aiims/Mains/addMains";
 import MainsInstitution from "../Pages/Aiims/Mains/institution";
 import MainsTablePage from "../Pages/Aiims/Mains/McqTablePage";
+import Image from "../Pages/YearMCQ/Image";
 export const routeConfig = [
   {
     key: "dashboard",
     title: "Dashboard",
     Component: DashboardPage,
     route: PATH.DASHBOARD,
-    // isPublic:false,
   },
   {
     key: "report",
@@ -581,6 +579,12 @@ export const routeConfig = [
     title: "mainsquestion",
     Component:MainsQuestions,
     route: PATH.MAINSQUESTION,
+  },
+  {
+    key: "image",
+    title: "image",
+    Component:Image,
+    route: PATH.IMAGE,
   },
 ];
 

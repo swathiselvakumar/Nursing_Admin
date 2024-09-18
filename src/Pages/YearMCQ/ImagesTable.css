@@ -1,0 +1,35 @@
+/* ImageTable.css */
+.table-con {
+    overflow: auto; /* Make the table scrollable horizontally on small screens */
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .tt {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  } */
+  
+  /* img {
+    max-width: 100%;
+    height: auto;
+  } */
+  
+  @media screen and (max-width: 600px) {
+    .th {
+      font-size: 14px;
+      padding: 6px;
+    }
+  }
+  

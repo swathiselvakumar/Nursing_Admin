@@ -81,5 +81,6 @@ export const PATH = {
   MAINSINSTITUTION:"/mainsinstitution/:sno",
   ADDMAINS:"/addmains/:sno/:lastId",
   MAINSTABLE:"/mainstablepage/:id/:sno",
-  MAINSQUESTION:"/mainsquestion/:id/:sno"
+  MAINSQUESTION:"/mainsquestion/:id/:sno",
+  IMAGE:"/image"
 };

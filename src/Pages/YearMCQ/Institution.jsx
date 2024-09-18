@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BreadcrumbsComp from "../../components/Common/BreadCrumbs";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import institution from "../../assets/images/vadakk.png";
 import { Typography } from "@mui/material";
 import "./CardStyle.css";
@@ -23,6 +22,8 @@ import * as XLSX from "xlsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TextField from '@mui/material/TextField';
 import { useLocation } from "react-router-dom";
+import ImageIcon from '@mui/icons-material/Image';
+import { useNavigate } from "react-router-dom";
 
 export default function YearInstitution() {
   const BreadcrumbItems = [
@@ -37,10 +38,11 @@ export default function YearInstitution() {
    const[paper,setPaper]=useState([]);
   const [open, setOpen] = useState(false);
   const {Endpoint}=useContext(navContext);
+  const [files,setFiles]=useState([]);
 const email=localStorage.getItem("userMail");
 const location = useLocation();
 const institutionName = location.state?.institutionName;
-  
+const Navigate=useNavigate();
   const { sno} = useParams();
 
   const handleDownloadTemplate = () => {
@@ -48,7 +50,7 @@ const institutionName = location.state?.institutionName;
     const wb = XLSX.utils.book_new();
     
     // Define headers and data
-    const headers = ["questionText", "option1", "option2", "option3", "option4", "answer"];
+    const headers = ["questionText","image", "option1", "option2", "option3", "option4", "answer"];
     const data = [headers]; // Start with headers row
     
     // Create worksheet
@@ -85,6 +87,26 @@ const institutionName = location.state?.institutionName;
   const handleOpenFirstDialog = () => {
     setOpenFirstDialog(true);
   };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  
+
+  const handleClose = () =>{
+  setOpen(false)
+    
+  }
+
+  const handleFileChange = (event) => {
+    setFiles(event.target.files);
+    console.log(files);
+  };
+
+  const handleImage =() =>{
+    Navigate('/image');
+  }
+
 
   const [Data, setData] = useState(() => {
     const storedData = localStorage.getItem("selectedFileData");
@@ -211,6 +233,33 @@ useEffect(() => {
   response();
 }, []);
 
+const image = async () => {
+  const formData = new FormData();
+  formData.append("adminId", email);
+
+  // Append each file to FormData
+  Array.from(files).forEach((file) => {
+    formData.append("files[]", file);
+  });
+
+  try {
+    const res = await axios.post(
+      `${Endpoint}admin/post/A_InsertImages.php`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setOpen(false);
+    console.log("Images uploaded successfully:", res.data);
+  } catch (error) {
+    console.error("Error uploading images:", error);
+  }
+};
+
+
   return (
     <div style={{ backgroundColor: "white", padding: "10px" }}>
       <div style={{ padding: "25px" }}>
@@ -220,7 +269,7 @@ useEffect(() => {
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} xl={12} className="title1">
             <div>
-              <img src={institution} height="40px" />
+              {/* <img src={institution}  /> */}
             </div>
             &nbsp;&nbsp;
             <div>
@@ -230,6 +279,7 @@ useEffect(() => {
            
 
             </div>
+            
           </Col>
         </Row>
       </Container> 
@@ -264,18 +314,22 @@ useEffect(() => {
               </Row>
             </Container>
           
-        <div className="BtnBox">
+        <div className="BtnBox" style={{display:"flex",justifyContent:"space-around"}}>
           <button className="Btn" onClick={handleOpenFirstDialog}>
             Upload Questions
           </button>
+          <button className="Btn" onClick={handleOpen}>
+            Upload Images
+          </button>
+          <button className="Btn" onClick={handleImage}>
+            <ImageIcon/>&nbsp; Image url
+          </button>
+
         </div>
       </div>
       <Dialog
-        // onClose={handleCloseFirstDialog}
         open={openFirstDialog}
         aria-labelledby="customized-dialog-title"
-        // open={open}
-        style={{}}
       >
         <DialogTitle
           sx={{ m: 0, p: 2 }}
@@ -403,7 +457,6 @@ useEffect(() => {
           >
             Upload Questions
           </label>
-          {/* This hidden input is used to select the file */}
           <input
             type="file"
             id="fileInput"
@@ -411,13 +464,56 @@ useEffect(() => {
             style={{
               display: "none",
             }}
-            // className="submit1"
           />
-          {/* <button className="Submit1">Download Template</button> */}
-
-          {/* </NavLink> */}
+        
         </DialogContent>
       </Dialog>
+      <Dialog
+      open={open}
+      keepMounted
+      onClose={handleClose}
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle>Upload Images</DialogTitle>
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <DialogContent>
+        <label htmlFor="file-upload">Upload Images</label>
+        <TextField
+          id="file-upload"
+          type="file"
+          inputProps={{ multiple: true }}
+          onChange={handleFileChange}
+          fullWidth
+          variant="outlined"
+        />
+      </DialogContent>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          style={{
+            width: "200px",
+            margin: "10px",
+            backgroundColor: "green",
+            border: "none",
+            color: "white",
+          }}
+          onClick={image}
+        >
+          Submit
+        </Button>
+      </div>
+    </Dialog>
+
     </div>
   );
 }

@@ -119,7 +119,7 @@ const [Data, setData] = useState(() => {
   const SendApi = async () => {
     try {
       const response = await axios.post(
-        `${Endpoint}admin/post/A_InsertMainsQuestion.php`,
+        `${Endpoint}admin/post/A_InsertMainsQuestion.php`, 
         Data
       ); 
       
@@ -157,15 +157,7 @@ const [Data, setData] = useState(() => {
     // Send();
     // response();
   }, [Data.questions]);
-  // const inputs =(event)=>
-  // {
-  //   setInput(event.target.value)
-  //   setNavInput(event.target.value);
-
-  // }
-  // const handleCloseBtn = () => {
-  //   setOpenBtn(false);
-  // };
+ 
   return (
     <div style={{ backgroundColor: "white", height: "90vh" }}>
       <div style={{ padding: "25px" }}>
