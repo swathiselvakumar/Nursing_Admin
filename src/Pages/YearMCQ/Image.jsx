@@ -1,44 +1,77 @@
-import React from 'react';
-import './ImagesTable.css'
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useContext } from "react";
-import { navContext } from "../../context/navContext";
-import { useEffect,useState } from 'react';
+import { navContext } from '../../context/navContext';
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import './ImagesTable.css';
+
 export default function ImageTable({ data }) {
-    const {Endpoint}=useContext(navContext);
-    const email=localStorage.getItem("userMail");
-    const [datas,setDatas]=useState([]);
-    useEffect(() => {
-       imageUrl();
-      }, []);
-    const imageUrl = async () => {
-        try {
-          const res = await axios.post(
-            `${Endpoint}admin/get/A_ViewImages.php`,
-            {
-                adminId:email,
-            }
-          );
-          setDatas(res.data);
-        } catch (error) {
-          console.error("Error fetching course data:", error);
-        }
-      };
+  const { Endpoint } = useContext(navContext);
+  const email = localStorage.getItem('userMail');
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    imageUrl();
+  }, []);
+
+  const imageUrl = async () => {
+    try {
+      const res = await axios.post(`${Endpoint}admin/get/A_ViewImages.php`, {
+        adminId: email,
+      });
+      setDatas(res.data);
+    } catch (error) {
+      console.error('Error fetching course data:', error);
+    }
+  };
+
+  const DeleteimageUrl = async (id) => {
+    try {
+      // Send `adminId` and `Id` as query parameters
+      const res = await axios.delete(`${Endpoint}admin/delete/A_deleteImageUrl.php`, {
+        data: {
+          adminId:email,
+          Id: id,
+        }, 
+      });
+      console.log('Image deleted successfully:', res.data);
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
+  };
+  
+
+  const handleDelete = async (id) => {
+    await DeleteimageUrl(id);
+    // Optionally, refresh the list or handle UI updates
+    imageUrl(); // Refresh the image list
+  };
+  
+
   return (
     <div className="table-con">
-      <table className='tt'>
+      <table className="tt">
         <thead>
           <tr>
-            <th className='th'>Sno</th>
-            <th className='th'>Image URL</th>
+            <th className="th">Sno</th>
+            <th className="th">Image URL</th>
+            <th className="th">Actions</th>
           </tr>
         </thead>
         <tbody>
           {datas.map((row, index) => (
-            <tr key={index}>
-              <td className='th'>{row.sno}</td>
+            <tr key={index} className="table-row">
+              <td className="th">{index+1}</td>
               <td className='th'>
                 {row.image}
+              </td>
+              <td className="th">
+                <IconButton
+                  onClick={() => handleDelete(row.sno)}
+                  className="delete-icon"
+                >
+                  <DeleteIcon />
+                </IconButton>
               </td>
             </tr>
           ))}
@@ -47,4 +80,3 @@ export default function ImageTable({ data }) {
     </div>
   );
 }
-
