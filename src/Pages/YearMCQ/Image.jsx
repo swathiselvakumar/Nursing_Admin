@@ -59,23 +59,32 @@ export default function ImageTable({ data }) {
           </tr>
         </thead>
         <tbody>
-          {datas.map((row, index) => (
-            <tr key={index} className="table-row">
-              <td className="th">{index+1}</td>
-              <td className='th'>
-                {row.image}
-              </td>
-              <td className="th">
-                <IconButton
-                  onClick={() => handleDelete(row.sno)}
-                  className="delete-icon"
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {datas.length > 0 ? (
+    datas.map((row, index) => (
+      <tr key={index} className="table-row">
+        <td className="th">{index + 1}</td>
+        <td className="th">
+          <img src={row.image} alt="row-image" width="50" />
+        </td>
+        <td className="th">
+          <IconButton
+            onClick={() => handleDelete(row.sno)}
+            className="delete-icon"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="3" style={{ textAlign: 'center' }}>
+        No data available
+      </td>
+    </tr>
+  )}
+</tbody>
+
       </table>
     </div>
   );

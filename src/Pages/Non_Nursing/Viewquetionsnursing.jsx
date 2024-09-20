@@ -111,7 +111,7 @@ const email=localStorage.getItem("userMail");
     {questions[selectedQuestionIndex].image ? (
       
       <img
-        src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${questions[selectedQuestionIndex].image}`}
+        src={`https://nursingupdate.in/Nursing/controllers/api/admin/upload/${questions[selectedQuestionIndex].image}`}
         alt="Question related"
         style={{ maxWidth: '300px' }}
       />
@@ -128,7 +128,7 @@ const email=localStorage.getItem("userMail");
           <li key={option} style={{margin:"10px",fontWeight:"normal"}}>
             {isImageUrl ? (
               <img
-                src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${optionValue}`}
+                src={`https://nursingupdate.in/Nursing/controllers/api/admin/upload/${optionValue}`}
                 alt={`Option ${option}`}
                 style={{ maxWidth: '80px' }} // Adjust the size as needed
               />
@@ -142,7 +142,7 @@ const email=localStorage.getItem("userMail");
         <strong>Correct Answer:</strong>{' '}
         {isImageUrl (questions[selectedQuestionIndex].answer) ? (
           <img
-            src={`https://nursingupdate.in/NursingDemo/controllers/api/admin/upload/${questions[selectedQuestionIndex].answer}`}
+            src={`https://nursingupdate.in/Nursing/controllers/api/admin/upload/${questions[selectedQuestionIndex].answer}`}
             alt="Correct Answer"
             style={{ maxWidth: '80px',margin:"10px" }} // Adjust the size as needed
           />
