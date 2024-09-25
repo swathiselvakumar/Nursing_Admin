@@ -69,6 +69,7 @@ function UpdateAds() {
       }
 
       const responseData = await response.json();
+      alert("Advertisement uploaded successfully!");
       console.log("Advertisement uploaded successfully!", responseData);
     } catch (error) {
       console.error("Error occurred while uploading advertisement:", error);
