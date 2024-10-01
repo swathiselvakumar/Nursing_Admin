@@ -17,6 +17,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/routeConstants";
 import CustomBreadCrumbs from '../../../components/Common/CustomBreadcrumbs';
+import UpdateIcon from '@mui/icons-material/Update';
 export default function MainsCard() {
 
   const {file,setFile} = useContext(navContext);
@@ -50,6 +51,10 @@ export default function MainsCard() {
   const [instruction, setInstruction] = useState("");
   const { Endpoint } = useContext(navContext);
   const [obj, setObj] = useState([]);
+  const [updateopen,setUpdateopen]=useState();
+  const [update,setUpdate]=useState();
+  const [viewdata,setViewData]=useState([])
+  const [sno,setSno]=useState();
   const email = localStorage.getItem("userMail");
   const navigate=useNavigate();
   const handleCardClick = (d) => {
@@ -67,6 +72,52 @@ export default function MainsCard() {
 
   const handleClose = () => {
     setOpen(false);
+    setUpdateopen(false);
+  };
+
+  const CardUpdate = (id) => {
+    setUpdateopen(true);
+    updateView(id);
+    setSno(id);
+  };
+
+  const updateView = async (sno) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewMainsById.php`,
+        {
+          adminId: email,
+          id: sno,
+        }
+      );
+      const Datas=response.data[0];
+      setViewData(Datas);
+      setName(Datas.mains_name);
+      setDescription(Datas.mains_desc);
+      setInstruction(Datas.mains_instruction);
+    
+    } catch (error) {
+      console.error("Error fetching achievement data:", error);
+    }
+  };
+
+  const handleClick = async () => {
+    try {
+      await axios.post(
+        `${Endpoint}admin/put/A_updateMains.php`,
+        {
+          admin_id: email,
+          id:sno,
+          name:name,
+          desc:description,
+          instruction:instruction
+        }
+      );
+      setUpdateopen(false);
+      getCourses();
+    } catch (error) {
+      console.error("Error updating course:", error);
+    }
   };
 
   const handleAddSubject = async () => {
@@ -194,9 +245,18 @@ export default function MainsCard() {
               <div className="Div d-flex flex-column p-3 service-div shadow w-100 h-100" onClick={d.onClick}>
                 {
                   d.name !== "Add Mains" && (
-                    <button onClick={() => CardDelete(d.sno)} className="del" style={{ border: "none", backgroundColor: "white" }}>
+                   <div>
+                    <button
+                    onClick={() => CardUpdate(d.sno)}
+                    className="up"
+                    style={{ border: "none", backgroundColor: "white" }}
+                  >
+                    <UpdateIcon />
+                  </button>
+                     <button onClick={() => CardDelete(d.sno)} className="del" style={{ border: "none", backgroundColor: "white" }}>
                       <DeleteIcon />
                     </button>
+                    </div>
                   )
                 }
                 
@@ -306,6 +366,72 @@ export default function MainsCard() {
                   </label>
                 </div>
             <button  autoFocus onClick={handleAddSubject} className="subjectBtn">
+              Submit
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog onClose={handleClose} open={updateopen}>
+        <DialogTitle
+          sx={{
+            m: 0,
+            p: 2,
+            width: "420px",
+            textAlign: "center",
+            backgroundColor: "#f6f6f6",
+          }}
+        >
+          Update Mains
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          dividers
+          style={{ padding: "20px", backgroundColor: "#f6f6f6" }}
+        >
+          <div style={{ margin: "20px" }}>
+            <Typography>Mains Name :</Typography>
+            <input
+              type="text"
+              className="textbox"
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+            <Typography>Mains Description :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Description"
+              className="textarea"
+              name="description"
+              value={description}
+              onChange={handleChange}
+            />
+            <Typography>Instruction :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Instruction"
+              className="textarea"
+              name="instruction"
+              value={instruction}
+              onChange={handleChange}
+            />
+            <br />
+            
+            <button  autoFocus onClick={handleClick} className="subjectBtn">
               Submit
             </button>
           </div>

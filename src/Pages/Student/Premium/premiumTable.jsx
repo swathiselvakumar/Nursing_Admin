@@ -20,7 +20,7 @@ import Profile from "../../Profile";
 import BlockIcon from "../../../assets/icons/block.png";
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
-
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 export default function PremiumTb({ tableData, updateStudentId, setUpdate, update }) {
   const [open, setOpen] = useState(false);
@@ -31,10 +31,12 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
   const [studentid, setstudentid] = useState();
+  const [planopen, setPlanOpen] = useState(false);
   // console.log(tableData);
 
   const handleCloseDialog = () => {
     setOpen(false);
+    setPlanOpen(false);
   };
   const handleClickOpens = (e, row) => {
     setModal(true);
@@ -51,6 +53,13 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
     setmodified(tableData[index]);
   }
 
+  const handleClick = (e, row, index) => {
+    e.stopPropagation();
+    setPlanOpen(true);
+    updateStudentId(row.sno);
+    setmodified(tableData[index]);
+    console.log(row.email);
+  }
 
   const style = {
     position: "absolute",
@@ -66,6 +75,27 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
     setOpen(false);
   }
 
+  const handleClosePlan = () => {
+    setTrue(!True)
+    PlanChange();
+    setPlanOpen(false);
+  }
+
+  const PlanChange = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/put/A_updateStandardToPremium.php`,
+        {
+          adminId: email,
+          id: modified.email,
+          plan: "standard",
+        }
+      );
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   const blocklist = async () => {
     try {
       const response = await axios.post(
@@ -116,6 +146,9 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
                   <TableCell className="head" align="center">
                     Action
                   </TableCell>
+                  <TableCell className="head" align="center">
+                    Plan
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -137,6 +170,9 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
                     <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
                       <img src={BlockIcon} height="20px" />
                     </TableCell>
+                    <TableCell align="center" onClick={(e) => handleClick(e, row, index)}>
+                      <WorkspacePremiumIcon/>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -156,6 +192,22 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
           <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleCloseDialogBlk} color="error">
             Block
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        onClose={handleCloseDialog}
+        open={planopen}
+        aria-labelledby="customized-dialog-title"
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          Are you sure to change standard plan?
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleClosePlan} color="error">
+            Yes
           </Button>
         </DialogActions>
       </Dialog>

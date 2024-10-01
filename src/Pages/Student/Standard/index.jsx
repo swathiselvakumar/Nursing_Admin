@@ -101,7 +101,7 @@ export default function Standard() {
         createData(sno++, item.username, item.email, item.date_of_enrollment)
       );
 
-      setTableData(newData);
+      setTableData(newData); 
     } catch (error) {
       console.error("Error fetching data:", error);
     }

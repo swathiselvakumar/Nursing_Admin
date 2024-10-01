@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import Icon from '../../assets/images/Group 2391.png'
 import axios from "axios";
 import { navContext } from "../../context/navContext";
+import { Table} from "react-bootstrap";
 
 export default function Profile({ onClose, studentid }) {
   const [profileData, setProfileData] = useState([]);
@@ -143,102 +144,59 @@ export default function Profile({ onClose, studentid }) {
   return (
     <Style>
       <div>
-        <Dialog onClose={handleClose} open={open}>
-          <DialogTitle
-            style={{ width: "450px", height: "100px", textAlign: "center" }}
-          >
-            <Button onClick={handleClose} style={{ width: 1 }}>
-              <img
-                src={close}
-                height="10px"
-                style={{ display: "flex", marginLeft: 230 }}
-              />
-            </Button>
-            <hr style={{ width: "100%" }} />
-            <Typography>Are you sure want to logout ?</Typography>
-          </DialogTitle>
-          <DialogTitle>
-            <NavLink to="/">
-              <Button onClick={handleClose} fullWidth style={Btn}>
-                yes
-              </Button>
-            </NavLink>
-          </DialogTitle>
-        </Dialog>
+       
         <Container fluid style={MainContainer}>
-          <Button onClick={onClose}>
-            <CloseOutlinedIcon
-              sx={{ color: "black", position: "relative", left: "70vw", bottom: 30 }}
-            />
-          </Button>
+          
 
-          <Row style={{ justifyContent: "space-evenly" }}>
-            {Array.isArray(profileData) && profileData.length > 0 ? (
-              profileData.map((d) => (
-                <div key={d.id} style={{ width: "100%", marginBottom: 20 }}>
-                  <Col xs={12} style={{ textAlign: "center", marginBottom: 10 }}>
-                    <Typography variant="h4" style={{ padding: 10 }}>
-                      <img src={Icon} height="65px" alt="Profile Icon" />&nbsp;&nbsp;{d.username}
-                    </Typography>
-                  </Col>
-                  <Col xs={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw", margin: "0 auto" }}>
-                    <div>
-                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                        Email ID
-                      </Typography>
-                    </div>
-                    <div>
-                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                        Phone Number
-                      </Typography>
-                    </div>
-                    <div>
-                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                        Joining Date
-                      </Typography>
-                    </div>
-                    <div>
-                      <Typography style={{ marginTop: 10, fontWeight: 600 }}>
-                        Score
-                      </Typography>
-                    </div>
-                  </Col>
-                  <Col xs={12} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "80vw", margin: "0 auto" }}>
-                    <div>
-                      <Typography style={{ marginTop: 5 }}>
-                        {d.email}
-                      </Typography>
-                    </div>
-                    <div>
-                      <Typography style={{ textAlign: "center", marginRight: 150, marginTop: 5 }}>
-                        {d.mobileno}
-                      </Typography>
-                    </div>
-                    <div>
-                      <Typography style={{ marginRight: 140, marginTop: 5 }}>
-                        {d.date_of_enrollment}
-                      </Typography>
-                    </div>
-                    <div>
-                      {scoreData ? (
-                        <Typography style={{ marginRight: 20, marginTop: 5 }}>
-                          {scoreData.correct_count}
-                        </Typography>
-                      ) : (
-                        <Typography>No data available</Typography>
-                      )}
-                    </div>
-                  </Col>
-                  <hr style={{ width: "100%", color: "#ccc", margin: 5 }} />
-                  <Typography style={{ fontSize: "16px", fontWeight: 600, paddingLeft: 24, display: "flex" }}>
-                    Scores
-                  </Typography>
-                </div>
-              ))
-            ) : (
-              <Typography>No profile data available</Typography>
-            )}
-          </Row>
+          <Row>
+      <Col xs={12} className="text-center mb-3">
+        <Typography variant="h4" style={{ padding: 10 }}>
+          <img src={Icon} height="65px" alt="Profile Icon" />
+          &nbsp;&nbsp;Profile Details
+        </Typography>
+        <div style={{display:"flex",justifyContent:"flex-end",width:"10ovw",marginTop:"-30px"}}>
+          <button onClick={onClose} style={{border:"none",backgroundColor:"white"}}>
+            <CloseOutlinedIcon
+              sx={{ color: "black" }}
+            />
+          </button>
+        </div>
+      </Col>
+      
+
+      {Array.isArray(profileData) && profileData.length > 0 ? (
+        <Table striped bordered hover responsive="lg">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email ID</th>
+              <th>Phone Number</th>
+              <th>Joining Date</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {profileData.map((d) => (
+              <tr key={d.id}>
+                <td>{d.username}</td>
+                <td>{d.email}</td>
+                <td>{d.mobileno}</td>
+                <td>{d.date_of_enrollment}</td>
+                <td>
+                  {scoreData ? (
+                    <Typography>{scoreData.correct_count}</Typography>
+                  ) : (
+                    "No data available"
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <Typography>No profile data available</Typography>
+      )}
+    </Row>
         </Container>
         <Container fluid>
           <Row style={{ overflow: "hidden" }}>

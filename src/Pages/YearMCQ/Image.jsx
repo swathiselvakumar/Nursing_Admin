@@ -64,7 +64,7 @@ export default function ImageTable({ data }) {
       <tr key={index} className="table-row">
         <td className="th">{index + 1}</td>
         <td className="th">
-          <img src={row.image} alt="row-image" width="50" />
+          {row.image}
         </td>
         <td className="th">
           <IconButton

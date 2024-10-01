@@ -16,6 +16,7 @@ import { navContext } from "../../context/navContext";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import UpdateIcon from '@mui/icons-material/Update';
 export default function ModelMockCard() {
 
   const {file,setFile} = useContext(navContext);
@@ -44,6 +45,10 @@ export default function ModelMockCard() {
   const [description, setDescription] = useState("");
   const [instruction, setInstruction] = useState("");
   const [data, setData] = useState([]);
+  const [updateopen,setUpdateopen]=useState();
+  const [update,setUpdate]=useState();
+  const [viewdata,setViewData]=useState([])
+  const [sno,setSno]=useState();
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
   const navigate=useNavigate();
@@ -54,8 +59,14 @@ export default function ModelMockCard() {
 
   const handleClose = () => {
     setOpen(false);
+    setUpdateopen(false);
   };
 
+  const CardUpdate = (id) => {
+    setUpdateopen(true);
+    updateView(id);
+    setSno(id);
+  };
   const handlechangename = (event) => {
     setName(event.target.value);
   };
@@ -74,6 +85,46 @@ export default function ModelMockCard() {
       
     } else {
       navigate(d.path);
+    }
+  };
+
+
+  const updateView = async (sno) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewModelMockId.php`,
+        {
+          adminId: email,
+          id: sno,
+        }
+      );
+      const Datas=response.data[0];
+      setViewData(Datas);
+      setName(Datas.institution_name);
+      setDescription(Datas.institution_desc);
+      setInstruction(Datas.institution_instruction);
+    
+    } catch (error) {
+      console.error("Error fetching achievement data:", error);
+    }
+  };
+
+  const handleClick = async () => {
+    try {
+      await axios.post(
+        `${Endpoint}admin/put/A_updateModelMock.php`,
+        {
+          admin_id: email,
+          id:sno,
+          name:name,
+          desc:description,
+          instruction:instruction
+        }
+      );
+      setUpdateopen(false);
+      fetchData();
+    } catch (error) {
+      console.error("Error updating course:", error);
     }
   };
 
@@ -196,13 +247,22 @@ export default function ModelMockCard() {
               }}
             >
               <div className="Div">
-                <button
+               <div>
+               <button
+                    onClick={() => CardUpdate(d.sno)}
+                    className="up"
+                    style={{ border: "none", backgroundColor: "white" }}
+                  >
+                    <UpdateIcon />
+                  </button>
+               <button
                   onClick={() => CardDelete(d.sno)}
                   className="del"
                   style={{ border: "none", backgroundColor: "white" }}
                 >
                   <DeleteIcon />
                 </button>
+               </div>
                
                   <div>
                   <div style={{ display: "flex", justifyContent: "center" }} onClick={() => handleCardClick(d)}>
@@ -300,6 +360,62 @@ export default function ModelMockCard() {
                   </label>
                 </div>
             <button autoFocus onClick={handleAddInstitution} className="subjectBtn">
+              Submit
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={updateopen}>
+        <DialogTitle
+          sx={{
+            m: 0,
+            p: 2,
+            width: "420px",
+            textAlign: "center",
+            backgroundColor: "#f6f6f6",
+          }}
+          id="customized-dialog-title"
+        >
+          Update Institution
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers style={{ padding: "20px", backgroundColor: "#f6f6f6" }}>
+          <div style={{ margin: "20px" }}>
+            <Typography>Institution Name :</Typography>
+            <input type="text" className="textbox" onChange={handlechangename} value={name} />
+            <Typography>Institution Description :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Description"
+              className="textarea"
+              onChange={handlechangedescription}
+              value={description}
+            />
+            <Typography>Instruction :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Instruction"
+              className="textarea"
+              onChange={handleChangeinstruction}
+              value={instruction}
+            />
+            <br />
+            
+            <button autoFocus onClick={handleClick} className="subjectBtn">
               Submit
             </button>
           </div>

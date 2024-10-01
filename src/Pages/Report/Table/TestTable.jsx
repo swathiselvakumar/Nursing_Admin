@@ -7,9 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
+import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import { navContext } from "../../../context/navContext";
-import Profile from "../../Profile/index";
+import Profile from "../../Profile/index"; // Import Profile component
 
 export default function TestTable() {
   const { Endpoint } = useContext(navContext);
@@ -17,8 +18,8 @@ export default function TestTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loaded, setLoaded] = useState(false);
-  const [selectedEmail, setSelectedEmail] = useState(null); // State to track selected email
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false); // State for dialog
+  const [selectedStudentId, setSelectedStudentId] = useState(null); // Selected student email for profile
   const email = localStorage.getItem("userMail");
 
   useEffect(() => {
@@ -57,7 +58,6 @@ export default function TestTable() {
       }));
 
       setRows(newData);
-      console.log("Updated rows:", newData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -81,9 +81,14 @@ export default function TestTable() {
     pagination();
   }, []);
 
-  const handleRowClick = (email) => {
-    setSelectedEmail(email); // Set the clicked email to show the profile
-    setIsProfileOpen(true); 
+  const handleRowClick = (studentEmail) => {
+    setSelectedStudentId(studentEmail);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedStudentId(null);
   };
 
   const Tbhead = {
@@ -92,82 +97,58 @@ export default function TestTable() {
 
   return (
     <>
-      {selectedEmail ? (
-        <Profile email={selectedEmail} /> // Conditionally render the Profile component with the selected email
-      ) : (
-        <>
-          <div
-            style={{
-              padding: "10px",
-              backgroundColor: "#f1f1f1",
-              borderRadius: "10px",
-            }}
-          >
-            <div
-              className="table-head"
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                paddingBottom: "10px",
-              }}
-            >
-              <div className="d1" style={{ flex: "1" }}>
-                <h5>Students Reports</h5>
-              </div>
-            </div>
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow style={{ backgroundColor: "#E1EEDE" }}>
-                    <TableCell style={Tbhead}>Sno</TableCell>
-                    <TableCell style={Tbhead} align="left">
-                      Sname
-                    </TableCell>
-                    <TableCell style={Tbhead} align="left">
-                      Email Id
-                    </TableCell>
-                    <TableCell style={Tbhead} align="left">
-                      Date
-                    </TableCell>
-                    <TableCell style={Tbhead} align="left">
-                      Score
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                      onClick={() => handleRowClick(isProfileOpen,row.email)} // Add onClick to handle row click
-                      style={{ cursor: "pointer" }} // Optional: Change cursor to indicate it's clickable
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.id}
-                      </TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                      <TableCell align="left">{row.date}</TableCell>
-                      <TableCell align="left">{row.score}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+      <div style={{ padding: "10px", backgroundColor: "#f1f1f1", borderRadius: "10px" }}>
+        <div className="table-head" style={{ display: "flex", justifyContent: "flex-start", paddingBottom: "10px" }}>
+          <div className="d1" style={{ flex: "1" }}>
+            <h5>Students Reports</h5>
           </div>
-          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
-            {loaded && (
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={handleChangePage}
-                shape="rounded"
-                style={{ backgroundColor: "#e1eede" }}
-              />
-            )}
-          </div>
-        </>
-      )}
+        </div>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow style={{ backgroundColor: "#E1EEDE" }}>
+                <TableCell style={Tbhead}>Sno</TableCell>
+                <TableCell style={Tbhead} align="left">Sname</TableCell>
+                <TableCell style={Tbhead} align="left">Email Id</TableCell>
+                <TableCell style={Tbhead} align="left">Date</TableCell>
+                <TableCell style={Tbhead} align="left">Score</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  onClick={() => handleRowClick(row.email)} // Handle row click
+                  style={{ cursor: "pointer" }} // Change cursor to pointer
+                >
+                  <TableCell component="th" scope="row">{row.id}</TableCell>
+                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.email}</TableCell>
+                  <TableCell align="left">{row.date}</TableCell>
+                  <TableCell align="left">{row.score}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+        {loaded && (
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handleChangePage}
+            shape="rounded"
+            style={{ backgroundColor: "#e1eede" }}
+          />
+        )}
+      </div>
+
+      {/* Dialog to show profile */}
+      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
+        <Profile onClose={handleCloseDialog} studentid={selectedStudentId} />
+      </Dialog>
     </>
   );
 }

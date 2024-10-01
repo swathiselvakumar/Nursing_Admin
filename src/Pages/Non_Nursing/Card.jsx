@@ -8,7 +8,7 @@ import { Typography,Button } from "@mui/material";
 import Plus from "../../assets/icons/plus b.png";
 import { NavLink } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
+import DialogTitle from "@mui/material/DialogTitle"; 
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -18,6 +18,7 @@ import { navContext } from "../../context/navContext";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import UpdateIcon from '@mui/icons-material/Update';
 const categoryImages = {
   Aptitude,
   Reasoning,
@@ -55,6 +56,10 @@ export default function NonNursingCard() {
   const [datas, setDatas] = useState([]);
   const email = localStorage.getItem("userMail");
   const { Endpoint } = useContext(navContext);
+  const [updateopen,setUpdateopen]=useState();
+  const [update,setUpdate]=useState();
+  const [data,setData]=useState([])
+  const [sno,setSno]=useState();
   const navigate=useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,6 +67,7 @@ export default function NonNursingCard() {
 
   const handleClose = () => {
     setOpen(false);
+    setUpdateopen(false);
   };
 
   const handleAddCategory = async () => {
@@ -93,6 +99,12 @@ export default function NonNursingCard() {
     } catch (error) {
       console.error("Error adding new item:", error);
     }
+  };
+
+  const CardUpdate = (id) => {
+    setUpdateopen(true);
+    updateView(id);
+    setSno(id);
   };
 
   const getCourses = async () => {
@@ -135,6 +147,45 @@ export default function NonNursingCard() {
           onClick: handleClickOpen,
         },
       ]);
+    }
+  };
+
+  const updateView = async (sno) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewNonNursingId.php`,
+        {
+          adminId: email,
+          id: sno,
+        }
+      );
+      const Datas=response.data[0];
+      setData(Datas);
+      setName(Datas.category_name);
+      setDescription(Datas.category_desc);
+      setInstruction(Datas.category_instruction);
+    
+    } catch (error) {
+      console.error("Error fetching achievement data:", error);
+    }
+  };
+
+  const handleClick = async () => {
+    try {
+      await axios.post(
+        `${Endpoint}admin/put/A_updateNonNursing.php`,
+        {
+          admin_id: email,
+          id:sno,
+          name:name,
+          desc:description,
+          instruction:instruction
+        }
+      );
+      setUpdateopen(false);
+      getCourses();
+    } catch (error) {
+      console.error("Error updating course:", error);
     }
   };
 
@@ -193,13 +244,22 @@ export default function NonNursingCard() {
                 onClick={d.onClick}
               >
                 {d.name !== "Add Category" && (
-                  <button
+                  <div>
+                    <button
+                    onClick={() => CardUpdate(d.sno)}
+                    className="up"
+                    style={{ border: "none", backgroundColor: "white" }}
+                  >
+                    <UpdateIcon />
+                  </button>
+                    <button
                     onClick={() => CardDelete(d.sno)}
                     className="del"
                     style={{ border: "none", backgroundColor: "white" }}
                   >
                     <DeleteIcon />
                   </button>
+                  </div>
                 )}
                 {d.name === "Add Category" ? (
                   <div style={{ textAlign: "center" }}>
@@ -319,6 +379,69 @@ export default function NonNursingCard() {
                   </label>
                 </div>
             <button autoFocus onClick={handleAddCategory} className="subjectBtn">
+              Submit
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog onClose={handleClose} open={updateopen}>
+        <DialogTitle
+          sx={{
+            m: 0,
+            p: 2,
+            width: "420px",
+            textAlign: "center",
+            backgroundColor: "#f6f6f6",
+          }}
+        >
+          Update Category
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          dividers
+          style={{ padding: "20px", backgroundColor: "#f6f6f6" }}
+        >
+          <div style={{ margin: "20px" }}>
+            <Typography>Category Name :</Typography>
+            <input
+              type="text"
+              className="textbox"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Typography>Category Description :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Description"
+              className="textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <Typography>Instruction :</Typography>
+            <textarea
+              rows={4}
+              cols={40}
+              placeholder="Add Instruction"
+              className="textarea"
+              value={instruction}
+              onChange={(e) => setInstruction(e.target.value)}
+            />
+            <br />
+            
+            <button autoFocus onClick={handleClick} className="subjectBtn">
               Submit
             </button>
           </div>

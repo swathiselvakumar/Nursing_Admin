@@ -13,9 +13,10 @@
       padding:20px;
       position: relative;
   }
-  .Div:hover .del{
-    display: block;
-  }
+  .Div:hover .del,
+.Div:hover .up {
+  display: block;
+}
   .Div:hover{
       background-color:#fefbe9;
   }
@@ -25,6 +26,14 @@
   position: absolute;
   right:0;
   top:0
+  }
+  .up {
+    padding: 10px;
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #e4a45a;
   }
   .title1{
     display:flex;
