@@ -150,6 +150,7 @@ export default function UploadTest() {
           questions[selectedQuestionIndex].answer
         )}
       </p>
+      {/* <p style={{fontWeight:"normal"}}><strong>Explanation:</strong>{' '}{questions[selectedQuestionIndex].explanation}</p> */}
     
   </div>
 ) : (

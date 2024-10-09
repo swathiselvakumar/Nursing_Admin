@@ -65,6 +65,8 @@ const email=localStorage.getItem("userMail");
   
       console.log(res.data);
       setMcqid(res.data);
+      // console.log(mcqid);
+      
       setOpen(true);
     } catch (error) {
       console.error("Error fetching:", error);

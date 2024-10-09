@@ -1,3 +1,4 @@
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,9 +10,6 @@ import { TableStdStyle } from "./style";
 import Dialog from "@mui/material/Dialog";
 import Modal from "@mui/material/Modal";
 import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState, useContext } from "react";
 import { Typography, Button } from "@mui/material";
 import Rong from "../../assets/icons/rong.jpg";
@@ -31,8 +29,11 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
   const [True, setTrue] = useState();
   const [modal, setModal] = useState(false);
   const email = localStorage.getItem("userMail");
+  const [plan,setPlan]=useState([]);
   const { Endpoint } = useContext(navContext);
   const [planopen, setPlanOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
+ 
 
 
   const handleCloseDialog = () => {
@@ -57,6 +58,7 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
   }
 
   const handleClick = (e, row, index) => {
+    fetchPlans();
     e.stopPropagation();
     setPlanOpen(true);
     updateStudentId(row.sno);
@@ -80,10 +82,17 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
   }
 
   const handleClosePlan = () => {
-    setTrue(!True)
-    PlanChange();
-    setPlanOpen(false);
-  }
+    setTrue(!True);
+    PlanChange();  
+    setPlanOpen(false);  
+    window.location.reload(); 
+};
+
+
+  const handlePlanChange = (event) => {
+    setSelectedPlan(event.target.value);
+    
+  };
 
   const PlanChange = async () => {
     try {
@@ -93,11 +102,26 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
           adminId: email,
           id: modified.email,
           plan: "premium",
+          category:selectedPlan
         }
       );
       setUpdate(!update);
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/get/A_ViewPlans.php`,
+        {
+          adminId: email
+        }
+      );
+      setPlan(response.data);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
   
@@ -196,20 +220,39 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
       </Dialog>
 
       <Dialog
-        onClose={handleCloseDialog}
-        open={planopen}
-        aria-labelledby="customized-dialog-title"
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Are you sure to change premium plan?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleClosePlan} color="error">
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+  onClose={handleCloseDialog}
+  open={planopen}
+  aria-labelledby="customized-dialog-title"
+>
+  <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+    Are you sure to change premium plan?
+  </DialogTitle>
+  
+  {/* Displaying plans as radio buttons */}
+  <span style={{ display: "flex", justifyContent: "center", width: "300px" }}>
+    {plan.map((singlePlan) => (
+      <React.Fragment key={singlePlan.id}>
+        <input
+          type="radio"
+          id={singlePlan.id}
+          name="plan"
+          value={singlePlan.title}
+          // checked={selectedPlan === singlePlan.id}  // Check if this plan is selected
+          onChange={handlePlanChange}  // Function to handle change
+        />&nbsp;
+        <label htmlFor={singlePlan.id}>{singlePlan.title}</label>&nbsp;
+      </React.Fragment>
+    ))}
+  </span>
+
+  <DialogActions>
+    <Button onClick={handleCloseDialog}>Cancel</Button>
+    <Button onClick={handleClosePlan} color="error">
+      Yes
+    </Button>
+  </DialogActions>
+</Dialog>
+
       <Modal
         open={modal}
         aria-labelledby="modal-modal-title"

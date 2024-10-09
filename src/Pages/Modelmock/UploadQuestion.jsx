@@ -6,12 +6,6 @@ import { PATH } from '../../constants/routeConstants'
 import AlertIcon from '../../assets/icons/alert.png'
 import Tick from '../../assets/icons/tick1.png'
 import { NavLink, useParams } from 'react-router-dom'
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios'
 import * as XLSX from "xlsx";
 import FormControl from "@mui/material/FormControl";
@@ -43,7 +37,7 @@ const handleDownloadTemplate = () => {
   const wb = XLSX.utils.book_new();
   
   // Define headers and data
-  const headers = ["questionText","image", "option1", "option2", "option3", "option4", "answer"];
+  const headers = ["questionText","image", "option1", "option2", "option3", "option4", "answer","explanation"];
   const data = [headers]; // Start with headers row
   
   // Create worksheet
@@ -96,6 +90,8 @@ const handleDownloadTemplate = () => {
         `${Endpoint}admin/post/A_InsertModelMockQuestion.php`,
         Data
       );
+      console.log(mcqid);
+      
       Navigate(`/modelinstitution/${sno}`);
     } catch (error) {
       let errorMessage = "An unexpected error occurred.";
@@ -123,12 +119,7 @@ const handleDownloadTemplate = () => {
       alert("Error posting questions: " + errorMessage);
     }
   };
-
    
-     
-       
-
-       
     const BreadcrumbItems = [
         { label: "Dashboard", path: PATH.DASHBOARD },
         

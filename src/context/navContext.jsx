@@ -22,7 +22,7 @@ function NavContextProvider({ children }) {
  const [email,setemail]=useState("");
  const [index, setindex] = useState();
  const [mcqname,setMcqname]=useState();
- const [Endpoint,setEndpoint]=useState("https://nursingupdate.in/Nursing/controllers/api/");
+ const [Endpoint,setEndpoint]=useState("https://nursingupdate.in/NursingDemo/controllers/api/");
  const [category, setcategory] = useState("");
  const [mcqid, setMcqid] = useState('');
  const [file, setFile] = useState(null);
