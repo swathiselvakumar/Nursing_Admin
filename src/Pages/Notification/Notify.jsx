@@ -38,7 +38,7 @@ const createTest= async ()=>{
 const DailyNotification= async ()=>{
   try {
     const response = await axios.get(
-      `${Endpoint}User/get/U_DailyNotification.php`);
+      `${Endpoint}User/get/U_Daily_Notification.php`);
 
     console.log("Response:", response.data);
    
