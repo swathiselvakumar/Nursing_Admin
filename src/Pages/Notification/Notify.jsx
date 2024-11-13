@@ -24,73 +24,73 @@ function Notification() {
     setAttachment(event.target.files[0]);
   };
 
-const createTest= async ()=>{
-  try {
-    const response = await axios.post(
-      `${Endpoint}admin/post/A_InsertDailyTest.php`);
+// const createTest= async ()=>{
+//   try {
+//     const response = await axios.post(
+//       `${Endpoint}admin/post/A_InsertDailyTest.php`);
 
-    console.log("Response:", response.data);
+//     console.log("Response:", response.data);
    
-  } catch (error) {
-    console.error("Error sending notification:", error);
-  }
-}
-const DailyNotification= async ()=>{
-  try {
-    const response = await axios.get(
-      `${Endpoint}User/get/U_Daily_Notification.php`);
+//   } catch (error) {
+//     console.error("Error sending notification:", error);
+//   }
+// }
+// const DailyNotification= async ()=>{
+//   try {
+//     const response = await axios.get(
+//       `${Endpoint}User/get/U_Daily_Notification.php`);
 
-    console.log("Response:", response.data);
+//     console.log("Response:", response.data);
    
-  } catch (error) {
-    console.error("Error sending notification:", error);
-  }
-}
-const SubNotification= async ()=>{
-  try {
-    const response = await axios.get(
-      `${Endpoint}User/get/U_SubNotification.php`);
+//   } catch (error) {
+//     console.error("Error sending notification:", error);
+//   }
+// }
+// const SubNotification= async ()=>{
+//   try {
+//     const response = await axios.get(
+//       `${Endpoint}User/get/U_SubNotification.php`);
 
-    console.log("Response:", response.data);
+//     console.log("Response:", response.data);
    
-  } catch (error) {
-    console.error("Error sending notification:", error);
-  }
-}
-  const insertmini = async () => {
-    try {
-      const response = await axios.get(
-        `${Endpoint}admin/post/A_InsertMiniTest.php`);
+//   } catch (error) {
+//     console.error("Error sending notification:", error);
+//   }
+// }
+//   const insertmini = async () => {
+//     try {
+//       const response = await axios.get(
+//         `${Endpoint}admin/post/A_InsertMiniTest.php`);
 
-      console.log("Response:", response.data);
+//       console.log("Response:", response.data);
 
-    } catch (error) {
-      console.error("Error sending notification:", error);
-    }
-  }
-  const insertmicro = async () => {
-    try {
-      const response = await axios.get(
-        `${Endpoint}admin/post/A_InsertMicroTest.php`);
+//     } catch (error) {
+//       console.error("Error sending notification:", error);
+//     }
+//   }
+//   const insertmicro = async () => {
+//     try {
+//       const response = await axios.get(
+//         `${Endpoint}admin/post/A_InsertMicroTest.php`);
 
-      console.log("Response:", response.data);
+//       console.log("Response:", response.data);
 
-    } catch (error) {
-      console.error("Error sending notification:", error);
-    }
-  }
+//     } catch (error) {
+//       console.error("Error sending notification:", error);
+//     }
+//   }
 
-const NotificationBtn=()=>{
-  createTest();
-  DailyNotification();
-  SubNotification();
-  alert("Test and Notifications created sucsessfully...");
-}
-  const NotificationBtns = () => {
-   insertmicro();
-   insertmini();
-    alert("Mini and Micro test created sucsessfully...");
-  }
+// const NotificationBtn=()=>{
+//   createTest();
+//   DailyNotification();
+//   SubNotification();
+//   alert("Test and Notifications created sucsessfully...");
+// }
+//   const NotificationBtns = () => {
+//    insertmicro();
+//    insertmini();
+//     alert("Mini and Micro test created sucsessfully...");
+//   }
   const handleSend = async () => {
     try {
      
@@ -193,10 +193,7 @@ const NotificationBtn=()=>{
               <CustomBreadCrumbs items={BreadcrumbItems} />
               <div>
               
-                  <button className="notify" onClick={NotificationBtn}>
-                    <PostAddIcon style={{ fontSize: "20px" }} />
-                    &nbsp;Create Test
-                  </button>&nbsp;&nbsp;&nbsp;
+                 
                 
                 <NavLink to="/updateads">
                   <button className="notify">
@@ -212,10 +209,7 @@ const NotificationBtn=()=>{
                   </button>
                 </NavLink>
                 &nbsp;&nbsp;&nbsp;
-                <button className="notifys" onClick={NotificationBtns}>
-                  <RestorePageIcon style={{ fontSize: "19px" }} />
-                  &nbsp;Micro and Mini
-                </button>
+               
               </div>
             </div>
             <div>
