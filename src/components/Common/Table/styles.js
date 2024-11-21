@@ -13,9 +13,9 @@ export const CommonTableStyles = styled("div")(({ theme, tableHeight }) => ({
     justifyContent: "center",
   },
   ".MuiTable-root": {
-    borderSpacing: "0px 8px",
-    borderCollapse: "separate",
-    padding: "2px",
+    borderSpacing: "0px 0px",
+    // borderCollapse: "separate",
+    // padding: "2px",
   },
   ".table-header": {
     backgroundColor: theme.background.whitePrimary,

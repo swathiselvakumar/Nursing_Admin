@@ -15,14 +15,14 @@ import MuiDrawer from "@mui/material/Drawer";
 import { SidebarStyleWrapper } from "./style";
 import { TopListData } from "./ListItems/ListData";
 import MenuListItem from "./ListItems";
-
+import '@fontsource/dm-sans'
 // icons
-import AndroidOutlinedIcon from "@mui/icons-material/AndroidOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AppHeader from "../AppHeader";
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
 import BottomMenuListItem from "./ListItems/BottomList";
+import Logo from '../../../assets/icons/Artboard 2.png'
  
 const drawerWidth = 220;
 
@@ -82,7 +82,11 @@ export default function SideNavigationbar() {
   return (
     <SidebarStyleWrapper>
       <Box sx={{ display: "flex" }}>
-        <Drawer variant="permanent" open={open} className="drawer">
+        <Drawer
+          variant="permanent"
+          open={open}
+          className="drawer"
+        >
           <DrawerHeader>
             <List>
               <ListItem disablePadding sx={{ display: "block" }}>
@@ -101,10 +105,13 @@ export default function SideNavigationbar() {
                       justifyContent: "center",
                     }}
                   >
-                   
                   </ListItemIcon>
                   <ListItemText
-                    primary={<Typography>Company Name</Typography>}
+                    primary={
+                      <Typography style={{ fontFamily: "Roboto, sans-serif" }}>
+                        Nursing Update
+                      </Typography>
+                    }
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -151,9 +158,7 @@ export default function SideNavigationbar() {
                   <data.icon
                     sx={{
                       color:
-                        data.path === locatePath
-                          ? theme.font.primary
-                          : theme.font.white,
+                        data.path === locatePath ? "#F0A04B" : theme.font.white,
                     }}
                     fontSize="medium"
                   />

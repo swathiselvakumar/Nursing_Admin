@@ -31,13 +31,11 @@ export default function BottomMenuListItem({ open }) {
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
               px: 2.5,
-              backgroundColor:
-                data.path === locatePath ? theme.background.lightwhite : null,
-              color: data.path === locatePath ? theme.font.primary : null,
+              
+              color: data.path === locatePath ? "#F0A04B" : null,
               "&:hover": {
-                backgroundColor:
-                  data.path === locatePath ? theme.background.lightwhite : null,
-                color: data.path === locatePath ? theme.font.primary : null,
+               
+                color: data.path === locatePath ? "#F0A04B" : null,
               },
             }}
             onClick={() => {
@@ -56,7 +54,7 @@ export default function BottomMenuListItem({ open }) {
                 sx={{
                   color:
                     data.path === locatePath
-                      ? theme.font.primary
+                      ? "#F0A04B"
                       : theme.font.white,
                 }}
               />
@@ -70,6 +68,7 @@ export default function BottomMenuListItem({ open }) {
                     alignItems: "center",
                     fontWeight: "normal",
                     fontSize: 16,
+                    fontFamily:"Roboto, sans-serif"
                   }}
                 >
                   {data.title}

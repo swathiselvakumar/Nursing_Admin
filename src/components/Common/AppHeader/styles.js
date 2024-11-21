@@ -26,7 +26,7 @@ export const CustomAppHeader = styled("div")(({ theme }) => ({
     textDecoration: "none",
   },
   ".app-container": {
-    backgroundColor: "#183A1D",
+    backgroundColor: "#1B4242",
     position: "sticky",
     // top:"20px",
     display: "flex",
@@ -41,7 +41,7 @@ export const CustomAppHeader = styled("div")(({ theme }) => ({
     },
   },
   ".MuiAppBar-root": {
-    backgroundColor:"#183A1D",
+    backgroundColor:"#1B4242",
     boxShadow: "none",
     // borderBottomLeftRadius: "15px",
     // borderBottomRightRadius: "15px",

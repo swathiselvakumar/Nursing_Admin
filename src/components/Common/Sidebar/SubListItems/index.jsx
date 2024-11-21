@@ -32,13 +32,9 @@ export default function SubListItems({
         <ListItemButton
           sx={{
             pl: 4,
-            backgroundColor:
-              path === locatePath ? theme.background.lightwhite : null,
-            color: path === locatePath ? theme.font.primary : null,
+            color: path === locatePath ? "#F0A04B" : null,
             "&:hover": {
-              backgroundColor:
-                path === locatePath ? theme.background.lightwhite : null,
-              color: path === locatePath ? theme.font.primary : null,
+              color: path === locatePath ? "#F0A04B" : null,
             },
           }}
           onClick={() => {
@@ -52,7 +48,7 @@ export default function SubListItems({
           )}
           <ListItemText
             primary={
-              <Typography variant="body2" sx={{ fontSize: 14 }}>
+              <Typography variant="body2" sx={{ fontSize: 14,fontFamily:"Roboto, sans-serif" }}>
                 {title}
               </Typography>
             }

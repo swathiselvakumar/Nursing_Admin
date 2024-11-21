@@ -16,5 +16,5 @@ export const TopListData = [
 
 export const BottomListData = [
   { title: "Settings", icon: SettingsOutlinedIcon },
-  { title: "Logout", icon: ExitToAppOutlinedIcon, path: "/" },
+  { title: "Logout", icon: ExitToAppOutlinedIcon },
 ];

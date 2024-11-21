@@ -10,12 +10,12 @@ export default function SearchBox({ width }) {
       <Paper component="form" className="searchBox-paper">
         
         <InputBase
-          sx={{ ml: 1, flex: 1 }}
+          sx={{ ml: 1, flex: 1 , fontFamily: "Roboto, sans-serif"}}
           placeholder="Search"
           inputProps={{ "aria-label": "search google maps" }}
         />
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search" className="iconbtn">
-          <SearchIcon style={{color:"black"}}/>
+          <SearchIcon style={{color:"white"}}/>
         </IconButton>
       </Paper>
     </SearchBoxContainer>

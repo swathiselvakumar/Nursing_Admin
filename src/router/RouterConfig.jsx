@@ -10,7 +10,11 @@ export default function RouterConfig() {
         const { route: path, Component: Comp } = route;
         return route?.isPublic ? (
           <Route path={path} element={<Comp />} />
-        ) : (
+        ) :
+        (route.type==1)?(
+          <Route path={path} element={<Comp />} />
+        ):
+        (
           <Route key={path} element={<SideNavigationbar />}>
             <Route path={path} element={<Comp />} />
           </Route>
