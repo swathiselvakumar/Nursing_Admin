@@ -21,7 +21,7 @@ import axios from "axios";
 import DialogActions from "@mui/material/DialogActions";
 import { navContext } from "../../context/navContext";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 export default function StdTb({ tableData, updateStudentId, setUpdate, update }) {
   const [open, setOpen] = useState(false);
   const [studentid, setstudentid] = useState();
@@ -87,11 +87,28 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
     setPlanOpen(false);  
     window.location.reload(); 
 };
-
+const handleDelete = (e, row) => {
+  deleteStudent(row.email);
+  console.log(row.email);
+}
 
   const handlePlanChange = (event) => {
     setSelectedPlan(event.target.value);
     
+  };
+
+  const deleteStudent = async (email) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/delete/A_deleteUser.php`,
+        {
+          id:email,
+        }
+      );
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const PlanChange = async () => {
@@ -173,6 +190,9 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
                   <TableCell className="head" align="center">
                     Plan
                   </TableCell>
+                  <TableCell className="head" align="center">
+                    Delete
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -191,10 +211,13 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.memberSince}</TableCell>
                     <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
-                      <img src={Block} height="20px" />
+                      <img src={Block} height="20px" style={{cursor:"pointer"}} />
                     </TableCell>
                     <TableCell align="center" onClick={(e) => handleClick(e, row, index)}>
-                      <WorkspacePremiumIcon/>
+                      <WorkspacePremiumIcon style={{cursor:"pointer"}}/>
+                    </TableCell>
+                    <TableCell align="center" onClick={(e) => handleDelete(e, row, index)}>
+                      <Button><DeleteOutlineIcon style={{cursor:"pointer"}}/></Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -218,6 +241,8 @@ export default function StdTb({ tableData, updateStudentId, setUpdate, update })
           </Button>
         </DialogActions>
       </Dialog>
+
+      
 
       <Dialog
   onClose={handleCloseDialog}

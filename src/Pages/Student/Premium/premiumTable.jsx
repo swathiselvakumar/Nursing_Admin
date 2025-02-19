@@ -21,7 +21,7 @@ import BlockIcon from "../../../assets/icons/block.png";
 import { useContext } from "react";
 import { navContext } from "../../../context/navContext";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 export default function PremiumTb({ tableData, updateStudentId, setUpdate, update }) {
   const [open, setOpen] = useState(false);
   const { index, setindex } = useState();
@@ -74,6 +74,24 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
     blocklist();
     setOpen(false);
   }
+  const handleDelete = (e, row) => {
+    deleteStudent(row.email);
+    console.log(row.email);
+  }
+
+  const deleteStudent = async (email) => {
+    try {
+      const response = await axios.post(
+        `${Endpoint}admin/delete/A_deleteUser.php`,
+        {
+          id:email,
+        }
+      );
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleClosePlan = () => {
     setTrue(!True)
@@ -139,7 +157,7 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
                   </TableCell>
                   <TableCell className="head" align="left">
                     Expiry Date
-                  </TableCell>
+                  </TableCell> 
                   <TableCell className="head" align="left">
                     Current Plan
                   </TableCell>
@@ -148,6 +166,9 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
                   </TableCell>
                   <TableCell className="head" align="center">
                     Plan
+                  </TableCell>
+                  <TableCell className="head" align="center">
+                    Delete
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -168,10 +189,13 @@ export default function PremiumTb({ tableData, updateStudentId, setUpdate, updat
                     <TableCell align="left">{row.expireddate}</TableCell>
                     <TableCell align="left">{row.current_plan_id}</TableCell>
                     <TableCell align="center" onClick={(e) => handleClickOpen(e, row, index)}>
-                      <img src={BlockIcon} height="20px" />
+                      <img src={BlockIcon} height="20px" style={{cursor:"pointer"}}/>
                     </TableCell>
                     <TableCell align="center" onClick={(e) => handleClick(e, row, index)}>
-                      <WorkspacePremiumIcon/>
+                      <WorkspacePremiumIcon style={{cursor:"pointer"}}/>
+                    </TableCell>
+                    <TableCell align="center" onClick={(e) => handleDelete(e, row)}>
+                     <Button> <DeleteOutlineIcon style={{cursor:"pointer"}}/></Button>
                     </TableCell>
                   </TableRow>
                 ))}
