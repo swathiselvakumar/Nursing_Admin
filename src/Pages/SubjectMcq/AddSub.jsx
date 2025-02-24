@@ -89,7 +89,7 @@ setNavInput(event.target.value)
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const excelData = XLSX.utils.sheet_to_json(sheet);
-
+     
       setData({
         ...Data,
         subjectId: sno,
@@ -103,7 +103,6 @@ setNavInput(event.target.value)
     reader.readAsArrayBuffer(file);
   }
 
-  
 const [Data, setData] = useState(() => {
   const storedData = localStorage.getItem("selectedFileData");
   return {
